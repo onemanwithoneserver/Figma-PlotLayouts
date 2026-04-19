@@ -1,159 +1,264 @@
 import React, { useState } from 'react';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
+import LinearProgress from '@mui/material/LinearProgress';
+import Dialog from '@mui/material/Dialog';
+import IconButton from '@mui/material/IconButton';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import CloseIcon from '@mui/icons-material/Close';
+import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
+import RoadOutlinedIcon from '@mui/icons-material/StraightOutlined';
+import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
+import ParkOutlinedIcon from '@mui/icons-material/ParkOutlined';
+import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
+import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
-type LayoutProps = {
-  onTowerSelect?: (towerId: string) => void;
-};
-
-const statusConfig = {
-  primary: { 
-    bg: 'bg-[#F85B01]/10 border border-[#F85B01]/20', 
-    dot: 'bg-[#F85B01]', 
-    label: 'text-[#D04C00]' 
+const layoutImages = [
+  {
+    src: 'https://images.unsplash.com/photo-1563207153-f403bf289096?w=800&h=500&fit=crop',
+    label: 'Master Layout Plan',
   },
-  neutral: { 
-    bg: 'bg-[#E5DFD4]/30 border border-[#E5DFD4]/60', 
-    dot: 'bg-[#8A7D74]', 
-    label: 'text-[#6B5E57]' 
+  {
+    src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=500&fit=crop',
+    label: 'Phase 1 Plot Grid',
   },
-};
-
-const towerData = [
-  { id: 'shlok', name: 'Shlok', config: '2, 3 & 4 BHK', status: 'Ready to Move', statusType: 'primary', initial: 'S' },
-  { id: 'ayush', name: 'Ayush', config: '2 & 3 BHK', status: 'Under Construction', statusType: 'primary', initial: 'A' },
-  { id: 'ananta', name: 'Ananta', config: '3 BHK', status: 'Launching Soon', statusType: 'primary', initial: 'A' },
-  { id: 'advait', name: 'Advait', config: 'TBD', status: 'Future Phase', statusType: 'neutral', initial: 'A' },
-  { id: 'vihaan', name: 'Vihaan', config: 'TBD', status: 'Future Phase', statusType: 'neutral', initial: 'V' },
-  { id: 'ishan', name: 'Ishan', config: 'TBD', status: 'Future Phase', statusType: 'neutral', initial: 'I' },
-  { id: 'aarav', name: 'Aarav', config: 'TBD', status: 'Future Phase', statusType: 'neutral', initial: 'A' },
-  { id: 'kavya', name: 'Kavya', config: 'TBD', status: 'Future Phase', statusType: 'neutral', initial: 'K' },
+  {
+    src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop',
+    label: 'Internal Road Network',
+  },
 ];
 
-const galleryImages = [
-  "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&w=1200&q=80"
+const plotSizes = [
+  { size: '100 Sq.Yd', available: 48, total: 80, facing: 'North / East', pricePerSqYd: 18000, tag: 'popular' },
+  { size: '150 Sq.Yd', available: 22, total: 60, facing: 'East / West',  pricePerSqYd: 17500, tag: null },
+  { size: '200 Sq.Yd', available: 9,  total: 40, facing: 'North Facing', pricePerSqYd: 16800, tag: 'last-few' },
+  { size: '240 Sq.Yd', available: 0,  total: 20, facing: 'Corner Plots', pricePerSqYd: 16000, tag: 'sold-out' },
 ];
 
-const Layout = ({ onTowerSelect }: LayoutProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const infoBadges = [
+  { icon: <RoadOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Roads', value: '30ft / 20ft' },
+  { icon: <ExploreOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Facing', value: 'N & E' },
+  { icon: <ParkOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Open Space', value: '15%' },
+  { icon: <MeetingRoomOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Clubhouse', value: '2400 Sq.Ft' },
+  { icon: <BoltOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Utilities', value: 'Underground' },
+  { icon: <HomeOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Zoning', value: 'Residential' },
+];
 
-  const handleNextImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
-  };
+const TagChip: React.FC<{ tag: string | null }> = ({ tag }) => {
+  if (!tag) return null;
+  const config = {
+    popular:  { label: '?? Popular',   bg: '#E8F5E9', color: '#1F7A63' },
+    'last-few': { label: '? Last few', bg: '#FFF8E1', color: '#F57C00' },
+    'sold-out': { label: '? Sold Out', bg: '#FFEBEE', color: '#C62828' },
+  }[tag];
+  if (!config) return null;
+  return (
+    <span
+      className="text-[0.625rem] font-700 px-1.5 py-0.5 rounded-[3px]"
+      style={{ backgroundColor: config.bg, color: config.color, fontWeight: 700 }}
+    >
+      {config.label}
+    </span>
+  );
+};
 
-  const handlePrevImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
-  };
+const AvailBar: React.FC<{ available: number; total: number }> = ({ available, total }) => {
+  const pct = total === 0 ? 0 : Math.round((available / total) * 100);
+  const color = available === 0 ? '#BDBDBD' : pct <= 25 ? '#EF5350' : pct <= 60 ? '#FFA726' : '#1F7A63';
+  return (
+    <div className="flex items-center gap-2">
+      <LinearProgress
+        variant="determinate"
+        value={pct}
+        sx={{
+          flex: 1,
+          height: 5,
+          borderRadius: 4,
+          backgroundColor: '#E0E0E0',
+          '& .MuiLinearProgress-bar': { backgroundColor: color },
+        }}
+      />
+      <Typography sx={{ fontSize: '0.6875rem', color: '#666666', whiteSpace: 'nowrap', minWidth: 44, textAlign: 'right' }}>
+        {available === 0 ? 'Sold Out' : `${available}/${total}`}
+      </Typography>
+    </div>
+  );
+};
+
+const Layout: React.FC = () => {
+  const [imgIdx, setImgIdx] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const prev = () => setImgIdx((i) => (i - 1 + layoutImages.length) % layoutImages.length);
+  const next = () => setImgIdx((i) => (i + 1) % layoutImages.length);
 
   return (
-    <div className="w-full bg-[#F9F7F2] outfit pb-2">
-      <div className="w-full max-w-2xl mx-auto">
-        
-        {/* Header Section - Max Round 7px */}
-        <div 
-          className="relative w-full h-[160px] overflow-hidden group bg-[#322822] md:rounded-b-[7px] border-b border-[#E5DFD4]/80 cursor-pointer"
-          onClick={() => setIsModalOpen(true)}
-        >
-          <img
-            src={galleryImages[0]}
-            alt="Project Master Plan"
-            className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 opacity-85"
-          />
-          
+    <>
+      {/* Image Viewer */}
+      <div className="relative w-full bg-[#F5F5F5]" style={{ aspectRatio: '4/3' }}>
+        <img
+          src={layoutImages[imgIdx].src}
+          alt={layoutImages[imgIdx].label}
+          className="w-full h-full object-cover"
+        />
 
-          <div className="absolute bottom-4 right-4 bg-black/40 p-2 rounded-[7px] text-white/90 backdrop-blur-sm group-hover:bg-black/60 transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <polyline points="9 21 3 21 3 15"></polyline>
-              <line x1="21" y1="3" x2="14" y2="10"></line>
-              <line x1="3" y1="21" x2="10" y2="14"></line>
-            </svg>
+        {/* Prev / Next */}
+        {layoutImages.length > 1 && (
+          <>
+            <IconButton
+              onClick={prev}
+              size="small"
+              sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: '#FFFFFF' } }}
+            >
+              <NavigateBeforeIcon sx={{ fontSize: 18, color: '#1A1A1A' }} />
+            </IconButton>
+            <IconButton
+              onClick={next}
+              size="small"
+              sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: '#FFFFFF' } }}
+            >
+              <NavigateNextIcon sx={{ fontSize: 18, color: '#1A1A1A' }} />
+            </IconButton>
+          </>
+        )}
+
+        {/* Image label + fullscreen */}
+        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-3 py-2 bg-[rgba(0,0,0,0.45)]">
+          <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: '#FFFFFF' }}>
+            {layoutImages[imgIdx].label}
+          </Typography>
+          <div className="flex items-center gap-2">
+            <span className="text-white/70 text-[0.625rem]">
+              {imgIdx + 1} / {layoutImages.length}
+            </span>
+            <IconButton
+              onClick={() => setLightboxOpen(true)}
+              size="small"
+              sx={{ color: 'rgba(255,255,255,0.85)', p: 0.25 }}
+            >
+              <ZoomOutMapIcon sx={{ fontSize: 16 }} />
+            </IconButton>
           </div>
-        </div>
-
-        {/* List Section */}
-        <div className="flex flex-col gap-2 pt-2">
-          {towerData.map((tower) => {
-            const cfg = statusConfig[tower.statusType as keyof typeof statusConfig];
-            const isFuture = tower.statusType === 'neutral';
-            
-            return (
-              <div
-                key={tower.id}
-                className={`group flex items-center gap-3 rounded-[7px] pl-2 pr-2 py-1.5 transition-all duration-300 bg-white border border-[#E5DFD4]/50 hover:border-[#322822]/15 hover:shadow-md ${isFuture ? 'opacity-70' : 'opacity-100'} cursor-pointer`}
-                onClick={() => onTowerSelect?.(tower.id)}
-              >
-                {/* Initial Box - Returned to Orange for active, Original dark for future */}
-                <div className={`w-10 h-10 rounded-[7px] flex-shrink-0 flex items-center justify-center text-[14px] font-bold text-white transition-colors duration-300 ${isFuture ? 'bg-[#322822]/80' : 'bg-[#E65100]'}`}>
-                  {tower.initial}
-                </div>
-
-                <div className="flex-1 min-w-0 flex items-center justify-between gap-2">
-                  <div className="flex-1 flex flex-col justify-center">
-                    <p className="text-[16px] font-bold text-[#322822] leading-tight ">
-                      {tower.name}
-                    </p>
-                    <p className="text-[11px] text-[#322822]/70 font-bold  mt-[2px]">
-                      {isFuture ? `CONFIG TBD` : tower.config}
-                    </p>
-                  </div>
-                  
-                  <div className="flex-shrink-0">
-                    <span className={`flex items-center gap-1.5 px-2 py-1 rounded-[5px] text-[12px] font-bold   ${cfg.bg} ${cfg.label}`}>
-                      <span className={`w-1 h-1 rounded-full ${cfg.dot}`} />
-                      {tower.status}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
         </div>
       </div>
 
-      {/* Fullscreen Modal */}
-      {isModalOpen && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm"
-          onClick={() => setIsModalOpen(false)}
+      {/* Thumbnail strip */}
+      <div className="flex gap-1.5 px-3 py-2 border-b border-[#E0E0E0]">
+        {layoutImages.map((img, i) => (
+          <button
+            key={i}
+            onClick={() => setImgIdx(i)}
+            className="flex-1 rounded-[3px] overflow-hidden border-2 transition-all"
+            style={{ borderColor: i === imgIdx ? '#1F7A63' : '#E0E0E0' }}
+          >
+            <img src={img.src} alt={img.label} className="w-full h-9 object-cover" />
+          </button>
+        ))}
+      </div>
+
+      {/* Site quick facts */}
+      <div className="grid grid-cols-3 gap-1.5 px-3 py-3 border-b border-[#E0E0E0]">
+        {infoBadges.map((b) => (
+          <div
+            key={b.label}
+            className="flex flex-col items-center gap-1 py-2 px-1 rounded-[4px] bg-[#F5F5F5] border border-[#E0E0E0]"
+          >
+            <span className="text-[#1F7A63]">{b.icon}</span>
+            <Typography sx={{ fontSize: '0.5625rem', fontWeight: 600, color: '#666666', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              {b.label}
+            </Typography>
+            <Typography sx={{ fontSize: '0.6875rem', fontWeight: 700, color: '#1A1A1A', textAlign: 'center', lineHeight: 1.2 }}>
+              {b.value}
+            </Typography>
+          </div>
+        ))}
+      </div>
+
+      {/* Plot availability */}
+      <div className="px-3 py-3">
+        <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A', mb: 1.5 }}>
+          Plot Availability
+        </Typography>
+        <div className="flex flex-col gap-2.5">
+          {plotSizes.map((plot) => (
+            <div key={plot.size} className="rounded-[4px] border border-[#E0E0E0] bg-white overflow-hidden">
+              <div className="px-3 py-2.5">
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2">
+                    <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>
+                      {plot.size}
+                    </Typography>
+                    <TagChip tag={plot.tag} />
+                  </div>
+                  <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: '#1F7A63' }}>
+                    ?{plot.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
+                  </Typography>
+                </div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <Typography sx={{ fontSize: '0.6875rem', color: '#666666' }}>
+                    Facing: {plot.facing}
+                  </Typography>
+                </div>
+                <AvailBar available={plot.available} total={plot.total} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{
+            mt: 2,
+            backgroundColor: '#1F7A63',
+            borderRadius: '4px',
+            fontWeight: 700,
+            fontSize: '0.875rem',
+            py: 1.25,
+            '&:hover': { backgroundColor: '#145a47' },
+          }}
         >
-          <button 
-            className="absolute top-6 right-6 text-white/70 text-3xl hover:text-white transition-colors z-50"
-            onClick={() => setIsModalOpen(false)}
-          >
-            &times;
-          </button>
+          Check Plot Availability
+        </Button>
+      </div>
 
-          <button 
-            className="absolute left-4 md:left-8 text-white/50 text-5xl hover:text-white transition-colors z-50 p-2"
-            onClick={handlePrevImage}
-          >
-            &#8249;
-          </button>
-
-          <img 
-            src={galleryImages[currentImageIndex]} 
-            alt={`Property view ${currentImageIndex + 1}`}
-            className="max-w-full max-h-[80vh] object-contain rounded-[7px] shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+      {/* Lightbox */}
+      <Dialog
+        open={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{ sx: { bgcolor: '#000000', m: 1 } }}
+      >
+        <div className="relative">
+          <img
+            src={layoutImages[imgIdx].src}
+            alt={layoutImages[imgIdx].label}
+            className="w-full"
           />
-
-          <button 
-            className="absolute right-4 md:right-8 text-white/50 text-5xl hover:text-white transition-colors z-50 p-2"
-            onClick={handleNextImage}
+          <IconButton
+            onClick={() => setLightboxOpen(false)}
+            sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(0,0,0,0.6)', color: '#FFFFFF', '&:hover': { bgcolor: 'rgba(0,0,0,0.8)' } }}
+            size="small"
           >
-            &#8250;
-          </button>
-
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/50 text-[10px] font-bold tracking-[0.3em] ">
-            {currentImageIndex + 1} / {galleryImages.length}
+            <CloseIcon sx={{ fontSize: 18 }} />
+          </IconButton>
+          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-3">
+            <IconButton onClick={prev} sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF' }} size="small">
+              <NavigateBeforeIcon />
+            </IconButton>
+            <IconButton onClick={next} sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF' }} size="small">
+              <NavigateNextIcon />
+            </IconButton>
           </div>
         </div>
-      )}
-    </div>
+      </Dialog>
+    </>
   );
 };
 

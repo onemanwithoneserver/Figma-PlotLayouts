@@ -1,69 +1,52 @@
 ﻿import React from 'react';
-import { motion } from 'framer-motion';
+import Typography from '@mui/material/Typography';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 interface HighlightItem {
   title: string;
   description: string;
 }
 
+const highlightsData: HighlightItem[] = [
+  { title: 'HMDA Approved Layout', description: 'Fully approved by HMDA with Final LP received — safe, legal investment.' },
+  { title: '30ft & 20ft BT Roads', description: 'Wide internal roads with black-top finish for smooth vehicle access.' },
+  { title: 'Underground Utilities', description: 'Electricity, water, and sewage lines laid underground — clutter-free streets.' },
+  { title: '15% Open Green Spaces', description: 'Parks, walking paths, and open zones covering 15% of total layout area.' },
+  { title: 'Bank Loan Available', description: 'Pre-approved loans from SBI, HDFC, and Axis Bank for easy financing.' },
+  { title: 'Low Density — Only 312 Plots', description: 'Spacious layout with just 312 plots on 12 acres — exclusive community.' },
+];
+
 const Highlights: React.FC = () => {
-  const highlightsData: HighlightItem[] = [
-    { title: 'Prime Location', description: 'Strategically located with excellent connectivity.' },
-    { title: 'Premium Builder', description: 'Developed by Gully Properties, known for quality.' },
-    { title: 'Clubhouse', description: 'Expansive 1200 sq.ft clubhouse with premium facilities.' },
-    { title: 'RCC Frame', description: 'Superior quality construction ensuring durability.' },
-    { title: 'Easy Finance', description: 'Attractive home loan options from leading banks.' },
-  ];
-
-  const containerAnim = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.07 } }
-  };
-
-  const itemAnim = {
-    hidden: { opacity: 0, y: 14 },
-    show: { opacity: 1, y: 0, transition: { type: 'spring' as const, stiffness: 300, damping: 24 } }
-  };
-
   return (
-    <section className="p-4 relative">
-      <motion.div
-        variants={containerAnim}
-        initial="hidden"
-        animate="show"
-        className="flex flex-col gap-y-2.5"
-      >
-        {highlightsData.map((highlight, index) => (
-          <motion.article
-            variants={itemAnim}
-            key={index}
-            className="group flex items-stretch w-full rounded-[7px] bg-white border border-[#E5DFD4] hover:-translate-y-[1px] transition-all duration-300 overflow-hidden"
-          >
-            {/* Number column - Flat soft beige */}
-            <div className="w-[52px] shrink-0 flex items-center justify-center bg-[#F4EFE6] relative">
-              {/* Solid vertical accent */}
-              <div className="absolute inset-y-0 left-0 w-[3px] bg-[#F85B01]" />
-              {/* Semibold number */}
-              <span className="text-[20px] font-semibold text-[#F85B01] leading-none relative z-10">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-            </div>
+    <div className="p-4 flex flex-col gap-2">
+      {highlightsData.map((item, i) => (
+        <div
+          key={i}
+          className="flex items-stretch rounded-[4px] border border-[#E0E0E0] bg-white overflow-hidden"
+        >
+          {/* Left accent bar + number */}
+          <div className="w-11 flex-shrink-0 flex items-center justify-center bg-[#F5F5F5] border-r border-[#E0E0E0] relative">
+            <div className="absolute inset-y-0 left-0 w-[3px] bg-[#1F7A63]" />
+            <Typography sx={{ fontSize: '1rem', fontWeight: 700, color: '#1F7A63' }}>
+              {String(i + 1).padStart(2, '0')}
+            </Typography>
+          </div>
 
-            {/* Content column */}
-            <div className="flex-1 px-4 py-3 flex flex-col justify-center">
-              {/* Brand dominant title, semibold */}
-              <h3 className="text-[13px] font-semibold text-[#322822] leading-tight mb-0.5 group-hover:text-[#F85B01] transition-colors duration-300">
-                {highlight.title}
-              </h3>
-              {/* Warmer, grounded description */}
-              <p className="text-[11.5px] text-[#6B5E57] font-medium leading-relaxed">
-                {highlight.description}
-              </p>
+          {/* Content */}
+          <div className="flex-1 px-3 py-2.5 flex flex-col justify-center gap-0.5">
+            <div className="flex items-center gap-1.5">
+              <CheckCircleOutlineIcon sx={{ fontSize: 14, color: '#1F7A63', flexShrink: 0 }} />
+              <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>
+                {item.title}
+              </Typography>
             </div>
-          </motion.article>
-        ))}
-      </motion.div>
-    </section>
+            <Typography sx={{ fontSize: '0.75rem', color: '#666666', lineHeight: 1.4, pl: '22px' }}>
+              {item.description}
+            </Typography>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 

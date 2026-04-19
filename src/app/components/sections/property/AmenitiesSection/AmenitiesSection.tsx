@@ -1,164 +1,104 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import SellerQueries from './SellerQueries';
+import Typography from '@mui/material/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Divider from '@mui/material/Divider';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-import AmenityTabNav from './AmenityTabNav';
-
-
-interface FeedbackOption {
-  emoji: string;
-  text: string;
-}
-
-interface AmenityData {
+interface AmenityTab {
   id: string;
-  tabLabel: string;
-  imageUrl?: string;
-  features: string[];
-  feedbackQuestion: string;
-  feedbackOptions: FeedbackOption[];
+  label: string;
+  items: string[];
 }
 
-const AMENITIES_DATA: AmenityData[] = [
+const AMENITY_TABS: AmenityTab[] = [
   {
-    id: 'highlights',
-    tabLabel: 'Highlights',
-    features: [
-      'Grand clubhouse with double-height entrance lobby',
-      'Vehicle-free podium with landscaped open spaces',
-      'Dedicated zones for kids, elders & wellness activities',
-      'Smart access-controlled common areas',
-      'Indoor & outdoor amenities thoughtfully planned'
+    id: 'infrastructure',
+    label: 'Infrastructure',
+    items: [
+      'Grand Entrance Arch with Security Cabin',
+      '30ft & 20ft Wide BT Roads',
+      'Underground Electrical Lines',
+      'Underground Water Supply Lines',
+      'Underground Drainage / Sewage',
+      'Street Lights on All Roads',
     ],
-    feedbackQuestion: 'How do these amenities feel to you?',
-    feedbackOptions: [
-      { emoji: '😍', text: 'Impressive' },
-      { emoji: '🏆', text: 'Premium feel' },
-      { emoji: '👀', text: 'Want details' }
-    ]
   },
   {
-    id: 'kids',
-    tabLabel: 'Kids',
-    imageUrl: 'https://courtyardthanewest.in/public/admin/images/Courtyard-Amenities-Kids-Play-Area-22022025133053.jpg',
-    features: [
-      "Children's play area",
-      'Indoor games room',
-      'Kids swimming pool',
-      'Skating / cycling track',
-      'Activity & hobby room'
+    id: 'green',
+    label: 'Green Spaces',
+    items: [
+      '15% Open Green Area',
+      'Central Park (1 Acre)',
+      'Avenue Trees Along Roads',
+      "Children's Play Area",
+      'Walking / Jogging Track',
+      'Landscaped Gardens',
     ],
-    feedbackQuestion: 'How does this work for families?',
-    feedbackOptions: [
-      { emoji: '👨‍👩‍👧', text: 'Family friendly' },
-      { emoji: '🎉', text: 'Kids will love it' }
-    ]
   },
   {
-    id: 'elders',
-    tabLabel: 'Elders',
-    imageUrl: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80',
-    features: [
-      'Senior citizen seating zones',
-      'Reflexology & walking path',
-      'Meditation area',
-      'Low-impact fitness equipment',
-      'Reading / community room'
+    id: 'clubhouse',
+    label: 'Clubhouse',
+    items: [
+      '2,400 Sq.Ft Clubhouse',
+      'Indoor Games Room',
+      'Community Hall',
+      'Outdoor Seating Lounge',
+      'Gym & Fitness Zone',
+      'Multi-Purpose Courts',
     ],
-    feedbackQuestion: 'Your thoughts on senior-friendly features?',
-    feedbackOptions: [
-      { emoji: '💖', text: 'Thoughtful' },
-      { emoji: '🧘', text: 'Calm spaces' },
-      { emoji: '👍', text: 'Love it' }
-    ]
   },
   {
-    id: 'wellness',
-    tabLabel: 'Health & Wellness',
-    imageUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80',
-    features: [
-      'Fully equipped gym',
-      'Yoga & meditation hall',
-      'Jogging track',
-      'Spa / wellness room'
+    id: 'security',
+    label: 'Security',
+    items: [
+      '6ft RCC Compound Wall',
+      'CCTV Surveillance at Entry/Exit',
+      '24ÃƒÆ’Ã¢â‚¬â€7 Security Guard',
+      'Access-Controlled Main Gate',
+      'Visitor Management System',
     ],
-    feedbackQuestion: 'Does this support a healthy lifestyle?',
-    feedbackOptions: [
-      { emoji: '💪', text: 'Fitness focused' },
-      { emoji: '🧘‍♀️', text: 'Wellness living' }
-    ]
-  }
+  },
 ];
 
-const Icons = {
-  Check: ({ size = 10, strokeWidth = 3 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-  )
-};
-
 const AmenitiesSection: React.FC = () => {
-
-  const [activeTab, setActiveTab] = useState<string>('highlights');
-
-  const activeData = AMENITIES_DATA.find(tab => tab.id === activeTab) || AMENITIES_DATA[0];
-
-  const handleTabChange = (id: string) => {
-    setActiveTab(id);
-  };
+  const [activeTab, setActiveTab] = useState(0);
+  const current = AMENITY_TABS[activeTab];
 
   return (
-    <div className="font-['Outfit',_sans-serif] pb-2 max-w-md mx-auto bg-[#FDFCF9]">
-      {/* ── Tab Navigation ── */}
-      <AmenityTabNav
-        activeTab={activeTab}
-        setActiveTab={handleTabChange}
-        amenitiesData={AMENITIES_DATA.map(({ id, tabLabel }) => ({ id, tabLabel }))}
-      />
+    <div>
+      <Tabs
+        value={activeTab}
+        onChange={(_, v) => setActiveTab(v)}
+        variant="scrollable"
+        scrollButtons={false}
+        sx={{ px: 2, minHeight: 40, borderBottom: '1px solid #E0E0E0' }}
+      >
+        {AMENITY_TABS.map((t, i) => (
+          <Tab
+            key={t.id}
+            label={t.label}
+            sx={{
+              minHeight: 40,
+              fontSize: '0.8125rem',
+              fontWeight: 600,
+              color: activeTab === i ? '#1F7A63' : '#666666',
+              px: 1.5,
+              minWidth: 'auto',
+            }}
+          />
+        ))}
+      </Tabs>
 
-      <div>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            {/* ── Feature Image & List Card ── */}
-            <div className="bg-white px-4 py-1 ">
-              {activeData.imageUrl && (
-                <div className="mb-4 rounded-[7px] py-1 overflow-hidden aspect-video border border-[#F4F1EA]">
-                  <img 
-                    src={activeData.imageUrl} 
-                    alt={activeData.tabLabel} 
-                    className="w-full h-full object-cover" 
-                  />
-                </div>
-              )}
-
-              <div className="space-y-3 py-1.5">
-                {activeData.features.map((feature, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="mt-1 flex-shrink-0 w-4 h-4 rounded-full bg-[#E76F26] flex items-center justify-center text-white">
-                      <Icons.Check size={9} strokeWidth={4} />
-                    </div>
-                    <span className="text-[14px] text-[#322822] font-medium leading-tight">
-                      {feature}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* ── Seller Queries ── */}
-              <div className="mt-2 -ml-4">
-                <SellerQueries />
-
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+      <div className="px-4 py-3 flex flex-col gap-2">
+        {current.items.map((item) => (
+          <div key={item} className="flex items-start gap-2.5">
+            <CheckCircleOutlineIcon sx={{ fontSize: 16, color: '#1F7A63', mt: 0.25, flexShrink: 0 }} />
+            <Typography sx={{ fontSize: '0.8125rem', fontWeight: 500, color: '#1A1A1A', lineHeight: 1.4 }}>
+              {item}
+            </Typography>
+          </div>
+        ))}
       </div>
     </div>
   );

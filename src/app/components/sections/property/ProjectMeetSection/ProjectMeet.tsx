@@ -1,103 +1,206 @@
 import React, { useState } from 'react';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Divider from '@mui/material/Divider';
+import Chip from '@mui/material/Chip';
+import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import NightlightOutlinedIcon from '@mui/icons-material/NightlightOutlined';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-const dates = [
-  { day: '11', label: 'Today', isToday: true },
-  { day: '12', label: 'Thu' },
-  { day: '13', label: 'Fri' },
-  { day: '14', label: 'Sat' },
-  { day: '15', label: 'Sun' },
-  { day: '16', label: 'Mon' },
-  { day: '17', label: 'Tue' },
+const DAYS = [
+  { date: '19', day: 'Sun', isToday: true },
+  { date: '20', day: 'Mon' },
+  { date: '21', day: 'Tue' },
+  { date: '22', day: 'Wed' },
+  { date: '23', day: 'Thu' },
+  { date: '24', day: 'Fri' },
+  { date: '25', day: 'Sat' },
 ];
 
-const sessions = [
-  { key: 'morning', label: 'Morning', count: 11, icon: '🌤️' },
-  { key: 'afternoon', label: 'Afternoon', count: 12, icon: '☀️' },
-  { key: 'evening', label: 'Evening', count: 8, icon: '🌙' },
-];
-
-const timeSlots: Record<string, string[]> = {
-  morning: [
-    '07:00 AM', '07:30 AM', '08:00 AM', '08:30 AM',
-    '09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM',
-    '11:00 AM', '11:30 AM', '12:00 PM',
-  ],
-  afternoon: ['12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM'],
-  evening: ['06:30 PM', '07:00 PM', '07:30 PM'],
+const SESSIONS: Record<string, { label: string; icon: React.ReactNode; slots: string[] }> = {
+  morning: {
+    label: 'Morning',
+    icon: <WbSunnyOutlinedIcon sx={{ fontSize: 16 }} />,
+    slots: ['07:00 AM', '07:30 AM', '08:00 AM', '08:30 AM', '09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM'],
+  },
+  afternoon: {
+    label: 'Afternoon',
+    icon: <LightModeOutlinedIcon sx={{ fontSize: 16 }} />,
+    slots: ['12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM'],
+  },
+  evening: {
+    label: 'Evening',
+    icon: <NightlightOutlinedIcon sx={{ fontSize: 16 }} />,
+    slots: ['05:00 PM', '05:30 PM', '06:00 PM', '06:30 PM'],
+  },
 };
 
 const ProjectMeetSection: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState('12');
+  const [selectedDate, setSelectedDate] = useState('19');
   const [selectedSession, setSelectedSession] = useState('morning');
-  const [selectedSlot, setSelectedSlot] = useState('07:00 AM');
+  const [selectedSlot, setSelectedSlot] = useState('09:00 AM');
+  const [confirmed, setConfirmed] = useState(false);
+
+  if (confirmed) {
+    return (
+      <div className="px-4 py-8 flex flex-col items-center gap-3 text-center">
+        <div className="w-12 h-12 rounded-full bg-[#E8F5E9] flex items-center justify-center">
+          <CheckCircleOutlineIcon sx={{ fontSize: 28, color: '#1F7A63' }} />
+        </div>
+        <Typography sx={{ fontSize: '0.9375rem', fontWeight: 700, color: '#1A1A1A' }}>
+          Visit Confirmed!
+        </Typography>
+        <Typography sx={{ fontSize: '0.8125rem', color: '#666666' }}>
+          Apr {selectedDate}, 2026 Ãƒâ€šÃ‚Â· {selectedSlot}
+        </Typography>
+        <Typography sx={{ fontSize: '0.75rem', color: '#9E9E9E', maxWidth: 240 }}>
+          Our team will contact you to confirm the site visit details.
+        </Typography>
+        <Button
+          size="small"
+          variant="outlined"
+          onClick={() => setConfirmed(false)}
+          sx={{ borderColor: '#1F7A63', color: '#1F7A63', borderRadius: '4px', mt: 0.5 }}
+        >
+          Reschedule
+        </Button>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white font-sans text-[#333]">
-      <h2 className="text-lg font-bold mb-4">Pick a Date</h2>
-
-      {/* Date Picker Row */}
-      <div className="flex items-stretch gap-2 mb-6 overflow-x-auto pb-2 no-scrollbar">
-        {/* Month Sidebar */}
-        <div className="flex items-center justify-center px-2 py-2 bg-gray-50 border border-gray-100 rounded-xl">
-          <span className="text-[10px] font-bold rotate-180 [writing-mode:vertical-lr] text-gray-500">MAR</span>
+    <div className="px-4 py-3 flex flex-col gap-4">
+      {/* Date picker */}
+      <div>
+        <div className="flex items-center gap-1.5 mb-2">
+          <EventOutlinedIcon sx={{ fontSize: 16, color: '#1F7A63' }} />
+          <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>
+            Select Date  <span className="text-[#9E9E9E] font-normal">Ãƒâ€šÃ‚Â· April 2026</span>
+          </Typography>
         </div>
-
-        {dates.map((date) => (
-          <button
-            key={date.day}
-            onClick={() => setSelectedDate(date.day)}
-            className={`flex flex-col items-center justify-center min-w-[65px] py-3 rounded-2xl border transition-all
-              ${selectedDate === date.day 
-                ? 'bg-[#E6F2F0] border-[#4D9686] text-[#4D9686]' 
-                : 'bg-white border-gray-100 text-gray-400'}`}
-          >
-            <span className={`text-lg font-bold ${selectedDate === date.day ? 'text-[#333]' : 'text-gray-300'}`}>
-              {date.day}
-            </span>
-            <span className="text-xs font-medium">{date.label}</span>
-          </button>
-        ))}
+        <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+          {DAYS.map((d) => (
+            <button
+              key={d.date}
+              onClick={() => setSelectedDate(d.date)}
+              className="flex flex-col items-center min-w-[52px] py-2.5 rounded-[4px] border transition-all"
+              style={{
+                borderColor: selectedDate === d.date ? '#1F7A63' : '#E0E0E0',
+                backgroundColor: selectedDate === d.date ? '#E8F5E9' : '#FFFFFF',
+              }}
+            >
+              <Typography sx={{ fontSize: '1rem', fontWeight: 700, color: selectedDate === d.date ? '#1F7A63' : '#1A1A1A' }}>
+                {d.date}
+              </Typography>
+              <Typography sx={{ fontSize: '0.6875rem', fontWeight: 500, color: d.isToday ? '#1F7A63' : '#666666' }}>
+                {d.isToday ? 'Today' : d.day}
+              </Typography>
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Session Filter Pills */}
-      <div className="flex bg-gray-50 p-1.5 rounded-2xl gap-1 mb-6">
-        {sessions.map((session) => (
-          <button
-            key={session.key}
-            onClick={() => setSelectedSession(session.key)}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all
-              ${selectedSession === session.key 
-                ? 'bg-white text-[#4D9686] shadow-sm' 
-                : 'text-gray-500 hover:text-gray-700'}`}
-          >
-            <span className="text-base">{session.icon}</span>
-            {session.label} <span className="text-gray-400 font-normal">({session.count})</span>
-          </button>
-        ))}
+      <Divider />
+
+      {/* Session filter */}
+      <div>
+        <div className="flex items-center gap-1.5 mb-2">
+          <AccessTimeOutlinedIcon sx={{ fontSize: 16, color: '#1F7A63' }} />
+          <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>
+            Preferred Time
+          </Typography>
+        </div>
+        <ToggleButtonGroup
+          value={selectedSession}
+          exclusive
+          onChange={(_, v) => v && setSelectedSession(v)}
+          fullWidth
+          sx={{ gap: 1 }}
+        >
+          {Object.entries(SESSIONS).map(([key, s]) => (
+            <ToggleButton
+              key={key}
+              value={key}
+              sx={{
+                flex: 1,
+                borderRadius: '4px !important',
+                border: '1px solid #E0E0E0 !important',
+                py: 1,
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                color: selectedSession === key ? '#1F7A63' : '#666666',
+                backgroundColor: selectedSession === key ? '#E8F5E9' : '#FFFFFF',
+                '&.Mui-selected': {
+                  backgroundColor: '#E8F5E9',
+                  color: '#1F7A63',
+                  borderColor: '#1F7A63 !important',
+                },
+                '&.Mui-selected:hover': { backgroundColor: '#D7EDDF' },
+                gap: 0.5,
+              }}
+            >
+              {s.icon}
+              {s.label}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
       </div>
 
-      {/* Time Slot Grid */}
-      <div className="grid grid-cols-4 gap-3 mb-8">
-        {timeSlots[selectedSession].map((slot) => (
+      {/* Time slots */}
+      <div className="grid grid-cols-4 gap-1.5">
+        {SESSIONS[selectedSession].slots.map((slot) => (
           <button
             key={slot}
             onClick={() => setSelectedSlot(slot)}
-            className={`py-3 px-1 rounded-xl border text-[13px] font-bold transition-all
-              ${selectedSlot === slot 
-                ? 'border-[#4D9686] bg-white text-[#333] ring-1 ring-[#4D9686]' 
-                : 'border-gray-100 text-[#333] hover:border-gray-200'}`}
+            className="py-2 px-1 rounded-[4px] border text-center transition-all"
+            style={{
+              borderColor: selectedSlot === slot ? '#1F7A63' : '#E0E0E0',
+              backgroundColor: selectedSlot === slot ? '#E8F5E9' : '#FFFFFF',
+            }}
           >
-            {slot}
+            <Typography sx={{ fontSize: '0.6875rem', fontWeight: 700, color: selectedSlot === slot ? '#1F7A63' : '#1A1A1A' }}>
+              {slot}
+            </Typography>
           </button>
         ))}
       </div>
 
-      {/* Confirm Button */}
-      <button
-        className="w-full py-4 rounded-xl bg-[#4D9686] text-white font-bold text-base shadow-lg shadow-[#4d968633] active:scale-[0.98] transition-transform"
+      {/* Summary chip */}
+      <div className="flex items-center gap-1.5">
+        <Chip
+          icon={<EventOutlinedIcon sx={{ fontSize: 13 }} />}
+          label={`Apr ${selectedDate}, 2026`}
+          size="small"
+          sx={{ backgroundColor: '#E8F5E9', color: '#1F7A63', fontWeight: 600, fontSize: '0.6875rem', borderRadius: '4px' }}
+        />
+        <Chip
+          icon={<AccessTimeOutlinedIcon sx={{ fontSize: 13 }} />}
+          label={selectedSlot}
+          size="small"
+          sx={{ backgroundColor: '#E8F5E9', color: '#1F7A63', fontWeight: 600, fontSize: '0.6875rem', borderRadius: '4px' }}
+        />
+      </div>
+
+      <Button
+        variant="contained"
+        fullWidth
+        onClick={() => setConfirmed(true)}
+        sx={{
+          backgroundColor: '#1F7A63',
+          borderRadius: '4px',
+          fontWeight: 700,
+          fontSize: '0.9375rem',
+          py: 1.5,
+          '&:hover': { backgroundColor: '#145a47' },
+        }}
       >
-        Confirm Booking
-      </button>
+        Confirm Site Visit
+      </Button>
     </div>
   );
 };

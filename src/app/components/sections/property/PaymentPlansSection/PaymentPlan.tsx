@@ -1,134 +1,187 @@
-﻿import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import Typography from '@mui/material/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Divider from '@mui/material/Divider';
+import Chip from '@mui/material/Chip';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import CurrencyRupeeOutlinedIcon from '@mui/icons-material/CurrencyRupeeOutlined';
+import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 
-import BankingPartners from './BankingPartners';
-import Cost from './Cost';
-import Offers from './Offers';
-import PaymentSchedule from './PaymentSchedule';
-import Sellers from './Sellers';
+// ---- Tab content ----
 
-const TABS = [
-  { id: 'offers', label: 'Offers' },
-  { id: 'cost', label: 'Cost' },
-  { id: 'sellers', label: 'Sellers' },
-  { id: 'banking', label: 'Banking' },
-  { id: 'schedule', label: 'Schedule' },
+const PriceTab = () => (
+  <div className="flex flex-col gap-3">
+    {[
+      { size: '100 Sq.Yd', pricePerSqYd: 18000, totalCost: 1800000 },
+      { size: '150 Sq.Yd', pricePerSqYd: 17500, totalCost: 2625000 },
+      { size: '200 Sq.Yd', pricePerSqYd: 16800, totalCost: 3360000 },
+      { size: '240 Sq.Yd', pricePerSqYd: 16000, totalCost: 3840000 },
+    ].map((row) => (
+      <div key={row.size} className="flex items-center justify-between px-3 py-2.5 rounded-[4px] bg-[#F5F5F5] border border-[#E0E0E0]">
+        <div>
+          <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>
+            {row.size} Plot
+          </Typography>
+          <Typography sx={{ fontSize: '0.6875rem', color: '#666666' }}>
+            ?{row.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
+          </Typography>
+        </div>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 800, color: '#1F7A63' }}>
+          ?{(row.totalCost / 100000).toFixed(1)}L
+        </Typography>
+      </div>
+    ))}
+    <Typography sx={{ fontSize: '0.6875rem', color: '#9E9E9E', mt: 0.5 }}>
+      * GST, registration charges, and development charges extra
+    </Typography>
+  </div>
+);
+
+const CostTab = () => (
+  <div className="flex flex-col gap-2">
+    {[
+      { label: 'Plot Cost (100 Sq.Yd example)', value: '?18,00,000' },
+      { label: 'GST (5%)', value: '?90,000' },
+      { label: 'Registration Charges (1%)', value: '?18,000' },
+      { label: 'Development Charges', value: '?1,50,000' },
+      { label: 'Documentation / Legal', value: '?15,000' },
+    ].map((row, i, arr) => (
+      <div key={row.label}>
+        <div className="flex items-center justify-between py-2">
+          <Typography sx={{ fontSize: '0.8125rem', color: '#1A1A1A', fontWeight: i === arr.length - 1 ? 700 : 500 }}>
+            {row.label}
+          </Typography>
+          <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: i === arr.length - 1 ? '#1F7A63' : '#1A1A1A' }}>
+            {row.value}
+          </Typography>
+        </div>
+        {i < arr.length - 1 && <Divider />}
+      </div>
+    ))}
+    <div className="flex items-center justify-between px-3 py-2.5 rounded-[4px] bg-[#E8F5E9] border border-[#1F7A63] mt-1">
+      <Typography sx={{ fontSize: '0.875rem', fontWeight: 700, color: '#1F7A63' }}>Total (approx.)</Typography>
+      <Typography sx={{ fontSize: '0.9375rem', fontWeight: 800, color: '#1F7A63' }}>?20,73,000</Typography>
+    </div>
+  </div>
+);
+
+const BookingTab = () => (
+  <div className="flex flex-col gap-2.5">
+    {[
+      { label: 'Booking Amount', value: '?1,00,000', note: 'Refundable upon cancellation' },
+      { label: 'Within 30 Days', value: '25% of Plot Cost', note: 'After booking confirmation' },
+      { label: 'On Agreement', value: '50% of Plot Cost', note: 'Sale agreement execution' },
+      { label: 'On Registration', value: 'Balance Amount', note: 'At time of plot registration' },
+    ].map((row) => (
+      <div key={row.label} className="px-3 py-2.5 rounded-[4px] bg-[#F5F5F5] border border-[#E0E0E0]">
+        <div className="flex items-center justify-between">
+          <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>{row.label}</Typography>
+          <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1F7A63' }}>{row.value}</Typography>
+        </div>
+        <Typography sx={{ fontSize: '0.6875rem', color: '#9E9E9E', mt: 0.25 }}>{row.note}</Typography>
+      </div>
+    ))}
+  </div>
+);
+
+const InstallmentsTab = () => (
+  <div className="flex flex-col gap-2">
+    <div className="px-3 py-2.5 rounded-[4px] bg-[#E8F5E9] border border-[#1F7A63]">
+      <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1F7A63' }}>
+        EMI Starting at ?14,500/month
+      </Typography>
+      <Typography sx={{ fontSize: '0.6875rem', color: '#666666', mt: 0.25 }}>
+        For 100 Sq.Yd plot Ã‚Â· 10 year tenure Ã‚Â· 8.5% interest (SBI)
+      </Typography>
+    </div>
+    {[
+      { bank: 'SBI Home Loans', rate: '8.50%', emi: '?14,500/mo', tenure: '10 yrs' },
+      { bank: 'HDFC Bank', rate: '8.75%', emi: '?14,800/mo', tenure: '10 yrs' },
+      { bank: 'Axis Bank', rate: '9.00%', emi: '?15,000/mo', tenure: '10 yrs' },
+    ].map((b) => (
+      <div key={b.bank} className="flex items-center gap-3 px-3 py-2.5 rounded-[4px] border border-[#E0E0E0] bg-white">
+        <AccountBalanceOutlinedIcon sx={{ fontSize: 20, color: '#1F7A63', flexShrink: 0 }} />
+        <div className="flex-1">
+          <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>{b.bank}</Typography>
+          <Typography sx={{ fontSize: '0.6875rem', color: '#666666' }}>@{b.rate} Ã‚Â· {b.tenure}</Typography>
+        </div>
+        <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1F7A63' }}>{b.emi}</Typography>
+      </div>
+    ))}
+  </div>
+);
+
+const OffersTab = () => (
+  <div className="flex flex-col gap-3">
+    {[
+      { title: 'Early Booking Discount', desc: '2% off on total plot cost for bookings before May 31, 2026', tag: 'Limited' },
+      { title: 'Referral Bonus', desc: 'Earn ?25,000 for every successful referral Ã¢â‚¬â€ paid after registration', tag: null },
+      { title: 'Zero Development Charge', desc: 'Development charge waived for first 30 plot bookings', tag: 'Limited' },
+    ].map((offer) => (
+      <div key={offer.title} className="px-3 py-3 rounded-[4px] border border-[#E0E0E0] bg-white">
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-1.5">
+            <LocalOfferOutlinedIcon sx={{ fontSize: 15, color: '#1F7A63' }} />
+            <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>{offer.title}</Typography>
+          </div>
+          {offer.tag && (
+            <Chip label={offer.tag} size="small" sx={{ height: 20, fontSize: '0.625rem', backgroundColor: '#FFF3E0', color: '#E65100', borderRadius: '3px', fontWeight: 700 }} />
+          )}
+        </div>
+        <Typography sx={{ fontSize: '0.75rem', color: '#666666', lineHeight: 1.4 }}>
+          {offer.desc}
+        </Typography>
+      </div>
+    ))}
+  </div>
+);
+
+const PAYMENT_TABS = [
+  { label: 'Price/Sq.Yd', icon: <CurrencyRupeeOutlinedIcon sx={{ fontSize: 16 }} />, content: <PriceTab /> },
+  { label: 'Cost',        icon: <CalendarMonthOutlinedIcon sx={{ fontSize: 16 }} />, content: <CostTab /> },
+  { label: 'Booking',     icon: <BookmarkBorderOutlinedIcon sx={{ fontSize: 16 }} />, content: <BookingTab /> },
+  { label: 'EMI',         icon: <AccountBalanceOutlinedIcon sx={{ fontSize: 16 }} />, content: <InstallmentsTab /> },
+  { label: 'Offers',      icon: <LocalOfferOutlinedIcon sx={{ fontSize: 16 }} />, content: <OffersTab /> },
 ];
 
 const PaymentPlan: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('cost');
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  const updateScrollButtons = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 2);
-    setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 2);
-  };
-
-  useEffect(() => {
-    const node = scrollRef.current;
-    if (!node) return;
-
-    updateScrollButtons();
-    node.addEventListener('scroll', updateScrollButtons);
-    window.addEventListener('resize', updateScrollButtons);
-
-    return () => {
-      node.removeEventListener('scroll', updateScrollButtons);
-      window.removeEventListener('resize', updateScrollButtons);
-    };
-  }, []);
-
-  const handleTabClick = (id: string, e: React.MouseEvent<HTMLButtonElement>) => {
-    setActiveTab(id);
-    e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    requestAnimationFrame(updateScrollButtons);
-  };
-
-  const scrollTabs = (direction: 'left' | 'right') => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: direction === 'left' ? -140 : 140, behavior: 'smooth' });
-  };
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'cost':
-        return <Cost />;
-      case 'offers':
-        return <Offers />;
-      case 'sellers':
-        return <Sellers />;
-      case 'banking':
-        return <BankingPartners />;
-      case 'schedule':
-        return <PaymentSchedule />;
-      default:
-        return <Cost />;
-    }
-  };
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="font-['Outfit',_sans-serif] bg-white">
-      <div className="relative">
-        {canScrollLeft && (
-          <button
-            type="button"
-            onClick={() => scrollTabs('left')}
-            aria-label="Scroll tabs left"
-            className="absolute left-1 top-1/2 -translate-y-1/2 z-10 h-7 w-7 rounded-[4px] bg-[#F3EEE6] text-[#322822] flex items-center justify-center"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="m15 18-6-6 6-6" />
-            </svg>
-          </button>
-        )}
-
-        <div
-          ref={scrollRef}
-          className="flex overflow-x-auto scrollbar-hide gap-2 px-2 pt-2 pb-1.5 bg-white"
-          role="tablist"
-          aria-label="Payment section navigation"
-        >
-          {TABS.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`panel-${tab.id}`}
-                onClick={(e) => handleTabClick(tab.id, e)}
-                className="flex-shrink-0 flex items-center justify-center px-4 py-2 text-[12px] leading-none font-semibold rounded-[4px] transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#E76F26]/25"
-                style={isActive ? { background: '#E76F26', color: '#FFFFFF' } : { background: '#F3EEE6', color: '#322822' }}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {canScrollRight && (
-          <button
-            type="button"
-            onClick={() => scrollTabs('right')}
-            aria-label="Scroll tabs right"
-            className="absolute right-1 top-1/2 -translate-y-1/2 z-10 h-7 w-7 rounded-[4px] bg-[#F3EEE6] text-[#322822] flex items-center justify-center"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="m9 18 6-6-6-6" />
-            </svg>
-          </button>
-        )}
-      </div>
-
-      <div
-        id={`panel-${activeTab}`}
-        role="tabpanel"
-        className={`bg-white overflow-hidden transition-all duration-300${['cost', 'schedule'].includes(activeTab) ? ' min-h-[320px]' : ''}`}
+    <div>
+      <Tabs
+        value={activeTab}
+        onChange={(_, v) => setActiveTab(v)}
+        variant="scrollable"
+        scrollButtons={false}
+        sx={{ px: 2, minHeight: 40, borderBottom: '1px solid #E0E0E0' }}
       >
-        {renderContent()}
+        {PAYMENT_TABS.map((t, i) => (
+          <Tab
+            key={t.label}
+            label={t.label}
+            icon={React.cloneElement(t.icon as React.ReactElement, {
+              sx: { fontSize: 14, color: activeTab === i ? '#1F7A63' : '#666666' },
+            })}
+            iconPosition="start"
+            sx={{
+              minHeight: 40,
+              fontSize: '0.8125rem',
+              fontWeight: 600,
+              color: activeTab === i ? '#1F7A63' : '#666666',
+              px: 1.5,
+              minWidth: 'auto',
+              gap: 0.5,
+            }}
+          />
+        ))}
+      </Tabs>
+
+      <div className="px-4 py-3">
+        {PAYMENT_TABS[activeTab].content}
       </div>
     </div>
   );

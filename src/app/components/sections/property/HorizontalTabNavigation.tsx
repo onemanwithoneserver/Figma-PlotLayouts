@@ -1,226 +1,190 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 interface TabItem {
   id: string;
   label: string;
-  sectionId: string;
 }
 
 const TABS: TabItem[] = [
-  { id: 'overview-highlights', label: 'Overview & Highlights', sectionId: 'overview-highlights' },
-  { id: 'project-timeline',    label: 'Project Timeline',     sectionId: 'project-timeline'    },
-  { id: 'layout-towers',       label: 'Layout & Towers',      sectionId: 'layout-towers'       },
-  { id: 'configurations',      label: 'Configurations',       sectionId: 'configurations'      },
-  { id: 'distance-commute',    label: 'Distance / Commute',   sectionId: 'distance-commute'    },
-  { id: 'amenities',           label: 'Amenities',            sectionId: 'amenities'           },
-  { id: 'specifications',      label: 'Specifications',       sectionId: 'specifications'      },
-  { id: 'payment-plans',       label: 'Payment Plans',        sectionId: 'payment-plans'       },
-  { id: 'project-files',       label: 'Project Files',        sectionId: 'project-files'       },
-  { id: 'exit-summary',        label: 'Exit Summary',         sectionId: 'exit-summary'        },
-  { id: 'project-meet',        label: 'Project Meet',         sectionId: 'project-meet'        },
+  { id: 'overview',      label: 'Overview'    },
+  { id: 'project-status', label: 'Status'     },
+  { id: 'layout',        label: 'Layout'      },
+  { id: 'ask-seller',    label: 'Ask Seller'  },
+  { id: 'location',      label: 'Location'    },
+  { id: 'amenities',     label: 'Amenities'   },
+  { id: 'payment',       label: 'Pricing'     },
+  { id: 'gallery',       label: 'Gallery'     },
+  { id: 'project-meet',  label: 'Site Visit'  },
 ];
 
-const OBSERVED_SECTIONS = [
-  'overview-highlights',
-  'project-timeline',
-  'layout-towers',
-  'configurations',
-  'distance-commute',
-  'amenities',
-  'specifications',
-  'payment-plans',
-  'project-files',
-  'exit-summary',
-  'project-meet',
-] as const;
-
 const HorizontalTabNavigation: React.FC = () => {
-  const navRef             = useRef<HTMLElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const tabRefs            = useRef<Record<string, HTMLButtonElement | null>>({});
-  const clickScrollingRef  = useRef(false);
-  const unlockTimerRef     = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollRef        = useRef<HTMLDivElement>(null);
+  const tabRefs          = useRef<Record<string, HTMLButtonElement | null>>({});
+  const clickScrolling   = useRef(false);
+  const unlockTimer      = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [activeTab,       setActiveTab]      = useState<string>(TABS[0].id);
-  const [showLeftArrow,   setShowLeftArrow]  = useState(false);
-  const [showRightArrow,  setShowRightArrow] = useState(false);
-  const [isBarVisible,    setIsBarVisible]   = useState(false);
+  const [activeTab, setActiveTab] = useState(TABS[0].id);
+  const [visible,   setVisible]   = useState(false);
+  const [showLeft,  setShowLeft]  = useState(false);
+  const [showRight, setShowRight] = useState(false);
 
   const syncArrows = useCallback(() => {
-    const el = scrollContainerRef.current;
+    const el = scrollRef.current;
     if (!el) return;
-    const { scrollLeft, scrollWidth, clientWidth } = el;
-    setShowLeftArrow(scrollLeft > 4);
-    setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 4);
+    setShowLeft(el.scrollLeft > 4);
+    setShowRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
   }, []);
 
-  const centerTab = useCallback((tabId: string) => {
-    const btn       = tabRefs.current[tabId];
-    const container = scrollContainerRef.current;
-    if (!btn || !container) return;
-
-    const target = btn.offsetLeft - container.offsetWidth / 2 + btn.offsetWidth / 2;
-    container.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+  const manualScroll = useCallback((dir: 'left' | 'right') => {
+    scrollRef.current?.scrollBy({ left: dir === 'left' ? -160 : 160, behavior: 'smooth' });
   }, []);
 
+  // Show/hide bar when hero scrolls out of view
   useEffect(() => {
-    centerTab(activeTab);
-  }, [activeTab, centerTab]);
-
-  useEffect(() => {
-    const updateBarVisibility = () => {
-      const nextSection = document.getElementById('project-timeline');
-      if (!nextSection) {
-        setIsBarVisible(false);
-        return;
-      }
-
-      const navHeight = navRef.current?.getBoundingClientRect().height ?? 56;
-      const revealAtY = nextSection.getBoundingClientRect().top + window.scrollY - navHeight - 8;
-      setIsBarVisible(window.scrollY >= revealAtY);
-    };
-
-    updateBarVisibility();
-    window.addEventListener('scroll', updateBarVisibility, { passive: true });
-    window.addEventListener('resize', updateBarVisibility);
-
-    return () => {
-      window.removeEventListener('scroll', updateBarVisibility);
-      window.removeEventListener('resize', updateBarVisibility);
-    };
+    const onScroll = () => setVisible(window.scrollY > 180);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Sync arrow visibility on mount and resize
   useEffect(() => {
     syncArrows();
     window.addEventListener('resize', syncArrows);
+    return () => window.removeEventListener('resize', syncArrows);
+  }, [syncArrows]);
 
+  // Center the active tab button
+  const centerTab = useCallback((id: string) => {
+    const btn       = tabRefs.current[id];
+    const container = scrollRef.current;
+    if (!btn || !container) return;
+    const target = btn.offsetLeft - container.clientWidth / 2 + btn.offsetWidth / 2;
+    container.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => { centerTab(activeTab); }, [activeTab, centerTab]);
+
+  // Highlight active tab as sections enter viewport
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (clickScrollingRef.current) return;
-        const intersecting = entries
+        if (clickScrolling.current) return;
+        const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-
-        if (intersecting.length > 0) {
-          const sectionId = intersecting[0].target.id;
-          setActiveTab(sectionId);
-        }
+        if (visible.length > 0) setActiveTab(visible[0].target.id);
       },
-      { rootMargin: '-56px 0px -55% 0px', threshold: 0 }
+      { rootMargin: '-56px 0px -50% 0px', threshold: 0 }
     );
-
-    OBSERVED_SECTIONS.forEach((id) => {
+    TABS.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
+    return () => observer.disconnect();
+  }, []);
 
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('resize', syncArrows);
-    };
-  }, [syncArrows]);
-
-  const handleTabClick = useCallback((tab: TabItem) => {
-    const section = document.getElementById(tab.sectionId);
-    if (!section) return;
-
+  const handleClick = useCallback((tab: TabItem) => {
+    const el = document.getElementById(tab.id);
+    if (!el) return;
     setActiveTab(tab.id);
-    clickScrollingRef.current = true;
-    if (unlockTimerRef.current) clearTimeout(unlockTimerRef.current);
-
-    const navHeight = navRef.current?.getBoundingClientRect().height ?? 56;
-    const targetY = section.getBoundingClientRect().top + window.scrollY - navHeight - 8;
-
-    window.scrollTo({ top: targetY, behavior: 'smooth' });
-
-    const unlock = () => { clickScrollingRef.current = false; };
+    clickScrolling.current = true;
+    if (unlockTimer.current) clearTimeout(unlockTimer.current);
+    const offset = 56;
+    const y = el.getBoundingClientRect().top + window.scrollY - offset - 8;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+    const unlock = () => { clickScrolling.current = false; };
     if ('onscrollend' in window) {
       window.addEventListener('scrollend', unlock, { once: true });
     } else {
-      unlockTimerRef.current = setTimeout(unlock, 1200);
+      unlockTimer.current = setTimeout(unlock, 1200);
     }
   }, []);
 
-  const manualScroll = useCallback((direction: 'left' | 'right') => {
-    scrollContainerRef.current?.scrollBy({
-      left: direction === 'left' ? -200 : 200,
-      behavior: 'smooth',
-    });
-  }, []);
-
   return (
-    <nav
-      ref={navRef}
-      aria-label="Property sections"
-      className={`w-full bg-[#F9F7F2] font-['Outfit'] overflow-hidden transition-all duration-300 ${
-        isBarVisible
-          ? 'max-h-20 opacity-100 translate-y-0 pointer-events-auto border-b border-[#E5DFD4]'
-          : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none border-b border-transparent'
+    <div
+      className={`sticky top-0 z-40 bg-white transition-all duration-300 ${
+        visible ? 'opacity-100 translate-y-0 h-auto' : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
       }`}
+      style={{ borderBottom: '1px solid #E0E0E0' }}
     >
-      <div className="max-w-[1200px] mx-auto flex items-center">
-        <div className="w-8 flex-shrink-0 flex justify-center">
-          {showLeftArrow && (
-            <button
-              onClick={() => manualScroll('left')}
-              aria-label="Scroll tabs left"
-              title="Scroll tabs left"
-              className="flex items-center justify-center outline-none"
-            >
-              <ChevronLeft 
-                className="w-6 h-6 text-[#6B5E57] hover:text-[#F85B01] hover:scale-105 transition-all duration-300" 
-                strokeWidth={2.5} 
-              />
-            </button>
-          )}
-        </div>
+      <div className="flex items-center">
+        {/* Left arrow */}
+        <button
+          onClick={() => manualScroll('left')}
+          aria-label="Scroll left"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-full outline-none"
+          style={{
+            opacity: showLeft ? 1 : 0,
+            pointerEvents: showLeft ? 'auto' : 'none',
+            transition: 'opacity 0.2s',
+            borderRight: '1px solid #E0E0E0',
+          }}
+        >
+          <ChevronLeftIcon sx={{ fontSize: 20, color: '#757575' }} />
+        </button>
 
+        {/* Scrollable tab strip */}
         <div
-          ref={scrollContainerRef}
+          ref={scrollRef}
           onScroll={syncArrows}
-          className="flex-1 flex items-center gap-2 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex-1 flex items-center overflow-x-auto"
+          style={{ scrollbarWidth: 'none' }}
         >
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
-            
-            // Hide the active tab from the scrollable list
-            if (isActive) return null;
-
             return (
               <button
                 key={tab.id}
                 ref={(el) => { tabRefs.current[tab.id] = el; }}
-                onClick={() => handleTabClick(tab)}
-                className="group flex flex-col items-center justify-center flex-shrink-0 px-4 py-1 gap-1.5 transition-all duration-300 outline-none"
+                onClick={() => handleClick(tab)}
+                className="flex-shrink-0 px-4 py-3 flex flex-col items-center gap-0.5 outline-none"
               >
-                <span className="text-[15px] font-medium text-[#6B5E57] whitespace-nowrap group-hover:text-[#322822] transition-colors duration-300">
+                <span
+                  style={{
+                    fontSize: '0.8125rem',
+                    fontWeight: isActive ? 700 : 400,
+                    color: isActive ? '#1F7A63' : '#757575',
+                    whiteSpace: 'nowrap',
+                    transition: 'color 0.2s',
+                  }}
+                >
                   {tab.label}
                 </span>
-                <div className="h-[2px] w-full bg-[#E5DFD4] group-hover:bg-[#F85B01] transition-colors duration-300" />
+                <div
+                  style={{
+                    height: 2,
+                    width: '100%',
+                    borderRadius: 1,
+                    backgroundColor: isActive ? '#1F7A63' : 'transparent',
+                    transition: 'background-color 0.2s',
+                  }}
+                />
               </button>
             );
           })}
         </div>
 
-        <div className="w-8 flex-shrink-0 flex justify-center">
-          {showRightArrow && (
-            <button
-              onClick={() => manualScroll('right')}
-              aria-label="Scroll tabs right"
-              title="Scroll tabs right"
-              className="flex items-center justify-center outline-none"
-            >
-              <ChevronRight 
-                className="w-6 h-6 text-[#6B5E57] hover:text-[#F85B01] hover:scale-105 transition-all duration-300" 
-                strokeWidth={2.5} 
-              />
-            </button>
-          )}
-        </div>
+        {/* Right arrow */}
+        <button
+          onClick={() => manualScroll('right')}
+          aria-label="Scroll right"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-full outline-none"
+          style={{
+            opacity: showRight ? 1 : 0,
+            pointerEvents: showRight ? 'auto' : 'none',
+            transition: 'opacity 0.2s',
+            borderLeft: '1px solid #E0E0E0',
+          }}
+        >
+          <ChevronRightIcon sx={{ fontSize: 20, color: '#757575' }} />
+        </button>
       </div>
-    </nav>
+    </div>
   );
 };
 
 export default HorizontalTabNavigation;
+
