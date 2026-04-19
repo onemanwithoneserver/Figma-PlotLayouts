@@ -35,7 +35,6 @@ const Highlights: React.FC = () => {
           {/* Content */}
           <div className="flex-1 px-3 py-2.5 flex flex-col justify-center gap-0.5">
             <div className="flex items-center gap-1.5">
-              <CheckCircleOutlineIcon sx={{ fontSize: 14, color: '#1F7A63', flexShrink: 0 }} />
               <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>
                 {item.title}
               </Typography>
