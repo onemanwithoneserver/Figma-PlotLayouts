@@ -2,6 +2,7 @@
   "name": "@figma/my-make-file",
   "private": true,
   "version": "0.0.1",
+  "homepage": "https://onemanwithoneserver.github.io/Figma-PlotLayouts",
   "type": "module",
   "scripts": {
     "build": "vite build",
@@ -69,7 +70,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
     "@vitejs/plugin-react": "4.7.0",
-    "gh-pages": "^6.2.0",
+    "gh-pages": "^6.3.0",
     "tailwindcss": "4.1.12",
     "typescript": "^6.0.3",
     "vite": "6.3.5",
