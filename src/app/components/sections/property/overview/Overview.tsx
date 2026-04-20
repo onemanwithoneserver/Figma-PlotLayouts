@@ -5,23 +5,23 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 // PNG icons
-import skyscrapperIcon from '../../../../../Files/popup-images/skyscrapper.png';
-import propertyIcon from '../../../../../Files/popup-images/property.png';
-import approvalsIcon from '../../../../../Files/popup-images/Approvals.png';
-import unitFacingIcon from '../../../../../Files/popup-images/UnitFacing.png';
-import blueprint1Icon from '../../../../../Files/popup-images/blueprint1.png';
-import locationIcon from '../../../../../Files/popup-images/location.png';
-import blueprintIcon from '../../../../../Files/popup-images/blueprint.png';
-import researchIcon from '../../../../../Files/popup-images/research.png';
-import overpopulationIcon from '../../../../../Files/popup-images/overpopulation.png';
-import clubhouseIcon from '../../../../../Files/popup-images/ClubhouseArea.png';
-import orr1Icon from '../../../../../Files/popup-images/orr1.png';
-import rrr1Icon from '../../../../../Files/popup-images/rrr1.png';
-import highway1Icon from '../../../../../Files/popup-images/highway1.png';
-import ocIcon from '../../../../../Files/popup-images/oc.png';
-import stackIcon from '../../../../../Files/popup-images/stack.png';
-import roadsWidthIcon from '../../../../../Files/popup-images/Roads_Width.png';
-import loan1Icon from '../../../../../Files/popup-images/loan1.png';
+import skyscrapperIcon from '../images/popup-images/skyscrapper.png';
+import propertyIcon from '../images/popup-images/property.png';
+import approvalsIcon from '../images/popup-images/Approvals.png';
+import unitFacingIcon from '../images/popup-images/UnitFacing.png';
+import blueprint1Icon from '../images/popup-images/blueprint1.png';
+import locationIcon from '../images/popup-images/location.png';
+import blueprintIcon from '../images/popup-images/blueprint.png';
+import researchIcon from '../images/popup-images/research.png';
+import overpopulationIcon from '../images/popup-images/overpopulation.png';
+import clubhouseIcon from '../images/popup-images/ClubhouseArea.png';
+import orr1Icon from '../images/popup-images/orr1.png';
+import rrr1Icon from '../images/popup-images/rrr1.png';
+import highway1Icon from '../images/popup-images/highway1.png';
+import ocIcon from '../images/popup-images/oc.png';
+import stackIcon from '../images/popup-images/stack.png';
+import roadsWidthIcon from '../images/popup-images/Roads_Width.png';
+import loan1Icon from '../images/popup-images/loan1.png';
 
 interface OverviewItem {
   icon: string;

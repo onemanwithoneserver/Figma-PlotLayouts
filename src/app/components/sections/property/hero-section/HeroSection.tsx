@@ -10,7 +10,7 @@ import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-import accountNewLogo from '../../../../Files/account_new.png';
+import accountNewLogo from '../images/account_new.png';
 
 interface StatCardProps {
   icon: React.ReactNode;

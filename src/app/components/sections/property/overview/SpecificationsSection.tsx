@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import TabNavigation from './SpecificationsTabNav'; 
-import SellerQueries from './SellerQueries';
+import SellerQueries from './SpecSellerQueries';
 
 // --- Icons ---
 const CheckIcon = () => (

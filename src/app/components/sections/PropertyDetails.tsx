@@ -2,21 +2,21 @@
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import HeroSection from './property/HeroSection';
-import VideoTourSection from './property/VideoTourSection';
-import ContentSection from './property/ContentSection';
-import Overview from './property/Overview&Highlight/Overview';
-import Highlights from './property/Overview&Highlight/Highlights';
-import ProjectTimeline from './property/ProjectTimelineSection/ProjectTimeline';
-import Layout from './property/Layout&Towers/Layout';
-import InteractiveCommute from './property/DistanceCommuteSection/InteractiveCommute';
-import AmenitiesSection from './property/AmenitiesSection/AmenitiesSection';
-import PaymentPlan from './property/PaymentPlansSection/PaymentPlan';
-import GallerySection from './property/GallerySection';
-import ProjectMeet from './property/ProjectMeetSection/ProjectMeet';
-import SellerQueries from './property/AmenitiesSection/SellerQueries';
-import FooterNav from './property/FooterNav';
-import HorizontalTabNavigation from './property/HorizontalTabNavigation';
+import HeroSection from './property/hero-section/HeroSection';
+import VideoTourSection from './property/site-video-tour/VideoTourSection';
+import ContentSection from './property/shared/ContentSection';
+import Overview from './property/overview/Overview';
+import Highlights from './property/project-highlights/Highlights';
+import ProjectTimeline from './property/project-progress/ProjectTimeline';
+import Layout from './property/layout/Layout';
+import InteractiveCommute from './property/location-highlights-distance/InteractiveCommute';
+import AmenitiesSection from './property/amenities/AmenitiesSection';
+import PaymentPlan from './property/payment-plan-offers/PaymentPlan';
+import GallerySection from './property/additional-images-videos/GallerySection';
+import ProjectMeet from './property/project-meet/ProjectMeet';
+import SellerQueries from './property/amenities/SellerQueries';
+import FooterNav from './property/shared/FooterNav';
+import HorizontalTabNavigation from './property/shared/HorizontalTabNavigation';
 
 const PropertyDetails: React.FC = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
