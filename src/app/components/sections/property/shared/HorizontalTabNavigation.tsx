@@ -17,7 +17,6 @@ const TABS: TabItem[] = [
   { id: 'amenities',      label: 'Amenities'   },
   { id: 'payment',        label: 'Pricing'     },
   { id: 'gallery',        label: 'Gallery'     },
-  { id: 'project-meet',   label: 'Site Visit'  },
 ];
 
 const HorizontalTabNavigation: React.FC = () => {

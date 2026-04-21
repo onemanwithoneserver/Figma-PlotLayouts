@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import Divider from '@mui/material/Divider';
 import HeroSection from './property/hero-section/HeroSection';
 import VideoTourSection from './property/site-video-tour/VideoTourSection';
@@ -11,7 +11,7 @@ import InteractiveCommute from './property/location-highlights-distance/Interact
 import AmenitiesSection from './property/amenities/AmenitiesSection';
 import PaymentPlan from './property/payment-plan-offers/PaymentPlan';
 import GallerySection from './property/additional-images-videos/GallerySection';
-import ProjectMeet from './property/project-meet/ProjectMeet';
+import ScheduleVisitFAB from './property/project-meet/ScheduleVisitFAB';
 import SellerQueries from './property/amenities/SellerQueries';
 import FooterNav from './property/shared/FooterNav';
 import HorizontalTabNavigation from './property/shared/HorizontalTabNavigation';
@@ -37,6 +37,13 @@ const PropertyDetails: React.FC = () => {
     );
 
     return () => observerRef.current?.disconnect();
+  }, []);
+
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 220);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
@@ -120,14 +127,28 @@ const PropertyDetails: React.FC = () => {
           <GallerySection />
         </div>
 
-        {/* SCHEDULE VISIT */}
-        <div id="project-meet" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[4px] overflow-hidden">
-          <ContentSection title="Schedule Site Visit">
-            <ProjectMeet />
-          </ContentSection>
-        </div>
-
       </div>
+
+      {/* BACK TO TOP — bottom-right, appears after scrolling down */}
+      {showBackToTop && (
+        <div className="fixed bottom-0 left-0 right-0 z-[54] flex justify-center pointer-events-none">
+          <div className="relative w-full max-w-[390px]">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              aria-label="Back to top"
+              className="absolute right-3 bottom-[72px] pointer-events-auto w-8 h-8 rounded-[4px] bg-white border border-[#D0E8E0] shadow-[0_2px_12px_rgba(31,122,99,0.22)] flex items-center justify-center hover:bg-[#F0FAF7] hover:border-[#1F7A63] transition-colors"
+            >
+              <svg className="w-4 h-4 text-[#1F7A63]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* FLOATING: Schedule Visit FAB */}
+      <ScheduleVisitFAB />
+
     </div>
   );
 };
