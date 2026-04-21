@@ -69,13 +69,20 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
   };
 
   return (
-    <div className="w-full py-0.5">
-      <div className="flex items-center">
+    <div className="w-full relative">
+      <div className="bg-white rounded-[4px] shadow-sm flex items-center">
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[4px] text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F0F0F0] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
-          style={{ opacity: canScrollLeft ? 1 : 0, pointerEvents: canScrollLeft ? 'auto' : 'none' }}
+          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50 overflow-hidden"
+          style={{
+            width: canScrollLeft ? 32 : 0,
+            height: canScrollLeft ? 32 : 0,
+            margin: canScrollLeft ? '0 4px' : 0,
+            opacity: canScrollLeft ? 1 : 0,
+            pointerEvents: canScrollLeft ? 'auto' : 'none',
+            transition: 'width 0.2s, opacity 0.2s',
+          }}
         >
           <ChevronLeftIcon sx={{ fontSize: 18 }} />
         </button>
@@ -100,8 +107,8 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => onTabChange(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] focus-visible:ring-2 focus-visible:ring-green-500/50 hover:text-[#1A1A1A]"
-                  style={{ color: isActive ? '#ffffff' : '#666666' }}
+                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] focus-visible:ring-2 focus-visible:ring-green-600/50"
+                  style={{ color: isActive ? '#ffffff' : '#525252' }}
                 >
                   {isActive && (
                     <motion.div
@@ -114,7 +121,7 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <span className={`relative z-20 text-[11px] tracking-widest whitespace-nowrap ${isActive ? 'font-bold' : 'font-semibold'}`}>
+                  <span className={`relative z-20 text-[13px] whitespace-nowrap ${isActive ? 'font-bold' : 'font-semibold'}`}>
                     {tab.label}
                   </span>
                 </button>
@@ -125,8 +132,15 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[4px] text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F0F0F0] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
-          style={{ opacity: canScrollRight ? 1 : 0, pointerEvents: canScrollRight ? 'auto' : 'none' }}
+          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50 overflow-hidden"
+          style={{
+            width: canScrollRight ? 32 : 0,
+            height: canScrollRight ? 32 : 0,
+            margin: canScrollRight ? '0 4px' : 0,
+            opacity: canScrollRight ? 1 : 0,
+            pointerEvents: canScrollRight ? 'auto' : 'none',
+            transition: 'width 0.2s, opacity 0.2s',
+          }}
         >
           <ChevronRightIcon sx={{ fontSize: 18 }} />
         </button>

@@ -76,8 +76,15 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50"
-          style={{ opacity: canScrollLeft ? 1 : 0, pointerEvents: canScrollLeft ? 'auto' : 'none' }}
+          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50 overflow-hidden"
+          style={{
+            width: canScrollLeft ? 32 : 0,
+            height: canScrollLeft ? 32 : 0,
+            margin: canScrollLeft ? '0 4px' : 0,
+            opacity: canScrollLeft ? 1 : 0,
+            pointerEvents: canScrollLeft ? 'auto' : 'none',
+            transition: 'width 0.2s, opacity 0.2s',
+          }}
         >
           <ChevronLeftIcon sx={{ fontSize: 18 }} />
         </button>
@@ -131,8 +138,15 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50"
-          style={{ opacity: canScrollRight ? 1 : 0, pointerEvents: canScrollRight ? 'auto' : 'none' }}
+          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50 overflow-hidden"
+          style={{
+            width: canScrollRight ? 32 : 0,
+            height: canScrollRight ? 32 : 0,
+            margin: canScrollRight ? '0 4px' : 0,
+            opacity: canScrollRight ? 1 : 0,
+            pointerEvents: canScrollRight ? 'auto' : 'none',
+            transition: 'width 0.2s, opacity 0.2s',
+          }}
         >
           <ChevronRightIcon sx={{ fontSize: 18 }} />
         </button>
