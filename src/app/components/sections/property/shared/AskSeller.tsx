@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from "react";
 
 interface AskSellerProps {
   initialQuestions?: string[];
+  className?: string;
 }
 
 const DEFAULT_QUESTIONS = [
@@ -9,7 +10,7 @@ const DEFAULT_QUESTIONS = [
   "Are there any pending legal approvals?",
 ];
 
-export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS }: AskSellerProps) {
+export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, className = '' }: AskSellerProps) {
   const [questions, setQuestions] = useState(initialQuestions);
   const [selected, setSelected] = useState<string[]>(initialQuestions);
   const [showMore, setShowMore] = useState(false);
@@ -48,7 +49,7 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS }: AskS
   };
 
   return (
-    <div className="w-full px-4 py-3 space-y-3 font-['Outfit',_sans-serif] bg-white border-t border-[var(--border-subtle)]">
+    <div className={`w-full px-4 pt-3 pb-3 space-y-3 font-['Outfit',_sans-serif] bg-white border-t border-[var(--border-subtle)] ${className}`}>
       <div className="flex items-center justify-between gap-1">
         <h3 className="text-[14px] font-bold text-[#1A1A1A] leading-tight">Ask Seller</h3>
         {!isAdding && (

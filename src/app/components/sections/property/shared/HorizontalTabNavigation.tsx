@@ -111,7 +111,7 @@ const HorizontalTabNavigation: React.FC = () => {
               aria-selected={false}
               className="compact-touch flex-shrink-0 px-5 py-3 outline-none hover:bg-neutral-50 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/40 rounded-[var(--radius-sm)]"
             >
-              <span className="text-[0.8125rem] font-medium text-[var(--text-muted)] whitespace-nowrap">
+              <span className="text-[0.8125rem] font-medium text-[var(--text-muted)] whitespace-nowrap underline">
                 {tab.label}
               </span>
             </button>

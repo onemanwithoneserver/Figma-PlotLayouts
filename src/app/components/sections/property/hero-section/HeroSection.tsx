@@ -46,7 +46,7 @@ export const PremiumPropertyCard: React.FC<HeroCardData> = ({
   loanAvailable,
 }) => {
   return (
-    <div className="font-outfit bg-white rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300 max-w-[390px] mx-auto group cursor-pointer">
+    <div className="font-outfit bg-white rounded-[2px] border border-[var(--border-subtle)] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300 max-w-[390px] mx-auto group cursor-pointer">
       <div className="relative h-[240px] overflow-hidden bg-black">
         <img
           src={imageSrc}

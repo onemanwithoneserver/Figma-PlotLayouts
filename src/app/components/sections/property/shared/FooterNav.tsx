@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import Snackbar from '@mui/material/Snackbar';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
@@ -32,82 +33,105 @@ const FooterNav: React.FC = () => {
     <>
       {/* Sticky bottom bar — subtle glass, compact, non-intrusive */}
       <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
-        <div
+        <motion.div
+          initial={{ y: 18, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="w-full max-w-[390px] glass-sticky pointer-events-auto"
           role="toolbar"
           aria-label="Property actions"
         >
-          <div className="flex items-center justify-between px-2 py-1.5">
+          <div className="flex items-end justify-between px-1.5 py-1">
 
             {/* Save */}
-            <button
+            <motion.button
               onClick={handleSave}
-              className="flex flex-col items-center gap-0.5 w-14 py-1"
+              whileHover={{ y: -1.5, scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ duration: 0.18 }}
+              className="flex flex-col items-center gap-0.5 w-12 py-0.5"
               aria-label={saved ? 'Remove from saved' : 'Save property'}
               aria-pressed={saved}
             >
               {saved
-                ? <BookmarkOutlinedIcon sx={{ fontSize: 22, color: 'var(--accent-primary)' }} />
-                : <BookmarkBorderOutlinedIcon sx={{ fontSize: 22, color: '#757575' }} />
+                ? <BookmarkOutlinedIcon sx={{ fontSize: 20, color: 'var(--accent-primary)' }} />
+                : <BookmarkBorderOutlinedIcon sx={{ fontSize: 20, color: '#757575' }} />
               }
-              <span className={`text-[0.6875rem] ${saved ? 'text-[var(--accent-primary)] font-bold' : 'text-[#757575]'}`}>
+              <span className={`text-[0.625rem] leading-none ${saved ? 'text-[var(--accent-primary)] font-bold' : 'text-[#757575]'}`}>
                 Save
               </span>
-            </button>
+            </motion.button>
 
             {/* Hide */}
-            <button
+            <motion.button
               onClick={handleHide}
-              className="flex flex-col items-center gap-0.5 w-14 py-1"
+              whileHover={{ y: -1.5, scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ duration: 0.18 }}
+              className="flex flex-col items-center gap-0.5 w-12 py-0.5"
               aria-label="Hide property"
             >
-              <VisibilityOffOutlinedIcon sx={{ fontSize: 22, color: '#757575' }} />
-              <span className="text-[0.6875rem] text-[#757575]">
+              <VisibilityOffOutlinedIcon sx={{ fontSize: 20, color: '#757575' }} />
+              <span className="text-[0.625rem] leading-none text-[#757575]">
                 Hide
               </span>
-            </button>
+            </motion.button>
 
             {/* Contact — center CTA */}
-            <div className="flex flex-col items-center -mt-4">
+            <motion.div
+              initial={{ scale: 0.92, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col items-center -mt-3"
+            >
               <a href="tel:+919999999999" className="flex flex-col items-center" aria-label="Call seller">
-                <div
-                  className="w-12 h-12 rounded-[var(--radius-md)] flex items-center justify-center mb-0.5 shadow-[0_2px_12px_rgba(31,122,92,0.25)]"
+                <motion.div
+                  whileHover={{ y: -2, scale: 1.05 }}
+                  whileTap={{ scale: 0.96 }}
+                  transition={{ duration: 0.18 }}
+                  className="w-10 h-10 rounded-[2px] flex items-center justify-center mb-0.5 shadow-[0_2px_12px_rgba(31,122,92,0.25)]"
                   style={{ background: 'var(--gradient-accent)' }}
                 >
-                  <PhoneOutlinedIcon sx={{ fontSize: 22, color: '#ffffff' }} />
-                </div>
-                <span className="text-[0.6875rem] text-[var(--accent-primary)] font-bold">
+                  <PhoneOutlinedIcon sx={{ fontSize: 18, color: '#ffffff' }} />
+                </motion.div>
+                <span className="text-[0.625rem] leading-none text-[var(--accent-primary)] font-bold">
                   Contact
                 </span>
               </a>
-            </div>
+            </motion.div>
 
             {/* Share */}
-            <button
+            <motion.button
               onClick={handleShare}
-              className="flex flex-col items-center gap-0.5 w-14 py-1"
+              whileHover={{ y: -1.5, scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ duration: 0.18 }}
+              className="flex flex-col items-center gap-0.5 w-12 py-0.5"
               aria-label="Share property"
             >
-              <ShareOutlinedIcon sx={{ fontSize: 22, color: '#757575' }} />
-              <span className="text-[0.6875rem] text-[#757575]">
+              <ShareOutlinedIcon sx={{ fontSize: 20, color: '#757575' }} />
+              <span className="text-[0.625rem] leading-none text-[#757575]">
                 Share
               </span>
-            </button>
+            </motion.button>
 
             {/* Close */}
-            <button
+            <motion.button
               onClick={handleClose}
-              className="flex flex-col items-center gap-0.5 w-14 py-1"
+              whileHover={{ y: -1.5, scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ duration: 0.18 }}
+              className="flex flex-col items-center gap-0.5 w-12 py-0.5"
               aria-label="Close property"
             >
-              <CloseOutlinedIcon sx={{ fontSize: 22, color: '#EF5350' }} />
-              <span className="text-[0.6875rem] text-[#EF5350]">
+              <CloseOutlinedIcon sx={{ fontSize: 20, color: '#EF5350' }} />
+              <span className="text-[0.625rem] leading-none text-[#EF5350]">
                 Close
               </span>
-            </button>
+            </motion.button>
 
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <Snackbar

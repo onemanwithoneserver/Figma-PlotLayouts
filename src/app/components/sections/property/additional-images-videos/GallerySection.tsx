@@ -32,7 +32,7 @@ const GallerySection: React.FC = () => {
 
   return (
     <>
-      <div className="font-outfit border border-[var(--border-subtle)] rounded-[var(--radius-md)] overflow-hidden bg-white max-w-full">
+      <div className="font-outfit border border-[var(--border-subtle)] rounded-[2px] overflow-hidden bg-white max-w-full">
         {/* Header with filter tabs */}
         <div className="px-3 pt-3 flex items-end justify-between border-b border-[var(--border-subtle)] gap-3">
           <h2 className="text-[1.0625rem] font-bold text-[var(--text-primary)] leading-[1.2] mb-1.5 min-w-max">
@@ -48,7 +48,6 @@ const GallerySection: React.FC = () => {
                 <button
                   key={tab.id}
                   role="tab"
-                  aria-selected={isActive}
                   onClick={() => {
                     setActiveTab(isActive ? 'all' : tab.id);
                     setLightboxIdx(null);
@@ -165,7 +164,7 @@ const GallerySection: React.FC = () => {
         )}
       </Dialog>
 
-      <AskSeller initialQuestions={galleryAskSellerQuestions} />
+      <AskSeller initialQuestions={galleryAskSellerQuestions} className="pb-28" />
     </>
   );
 };

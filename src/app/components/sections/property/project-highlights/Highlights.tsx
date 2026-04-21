@@ -3,7 +3,7 @@ import { highlightsData } from './data';
 
 const Highlights: React.FC = () => {
   return (
-    <ul className="p-4 flex flex-col gap-3 m-0 list-none" role="list">
+    <ul className="px-4 pt-4 pb-2 flex flex-col gap-3 m-0 list-none" role="list">
       {highlightsData.map((item, i) => (
         <li
           key={item.id}

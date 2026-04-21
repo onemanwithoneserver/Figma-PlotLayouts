@@ -213,24 +213,24 @@ const ScheduleVisitFAB: React.FC = () => {
                             <CloseIcon className="w-[13px] h-[13px]" />
                           </button>
                         </div>
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1.5">
                           <button
                             onClick={() => scrollDates('left')}
                             aria-label="Scroll dates left"
-                            className="compact-touch p-1 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-white hover:bg-[var(--bg-section-light)] transition-colors flex-shrink-0"
+                            className="compact-touch w-12 h-12 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-white hover:bg-[var(--bg-section-light)] transition-colors flex-shrink-0 flex items-center justify-center"
                           >
                             <ChevronLeftIcon className="w-3 h-3 text-[#555]" />
                           </button>
 
                           <div
                             ref={datesScrollRef}
-                            className="flex gap-1 overflow-x-auto flex-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                            className="flex gap-1.5 overflow-x-auto flex-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                           >
                             {DAYS.map(d => (
                               <button
                                 key={d.key}
                                 onClick={() => setSelectedDay(d.key)}
-                                className={`compact-touch flex flex-col items-center min-w-[44px] py-1.5 rounded-[var(--radius-sm)] border transition-all flex-shrink-0 ${
+                                className={`compact-touch w-12 h-12 flex flex-col items-center justify-center rounded-[var(--radius-sm)] border transition-all flex-shrink-0 ${
                                   selectedDay === d.key
                                     ? 'border-[var(--accent-primary)] bg-[var(--accent-soft)]'
                                     : 'border-[var(--border-default)] bg-white hover:border-[var(--accent-border)]'
@@ -249,7 +249,7 @@ const ScheduleVisitFAB: React.FC = () => {
                           <button
                             onClick={() => scrollDates('right')}
                             aria-label="Scroll dates right"
-                            className="compact-touch p-1 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-white hover:bg-[var(--bg-section-light)] transition-colors flex-shrink-0"
+                            className="compact-touch w-12 h-12 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-white hover:bg-[var(--bg-section-light)] transition-colors flex-shrink-0 flex items-center justify-center"
                           >
                             <ChevronRightIcon className="w-3 h-3 text-[#555]" />
                           </button>
@@ -287,8 +287,6 @@ const ScheduleVisitFAB: React.FC = () => {
                           <button
                             key={slot}
                             onClick={() => setSelectedSlot(slot)}
-                            role="radio"
-                            aria-checked={selectedSlot === slot}
                             className={`compact-touch py-1.5 px-0.5 rounded-[var(--radius-sm)] border text-center transition-all ${
                               selectedSlot === slot
                                 ? 'border-[var(--accent-primary)] bg-[var(--accent-soft)]'

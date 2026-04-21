@@ -70,7 +70,7 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
 
   return (
     <div className="w-full relative">
-      <div className="bg-white rounded-[var(--radius-md)] shadow-sm flex items-center">
+      <div className="bg-white  flex items-center">
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
@@ -113,7 +113,7 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
                   {isActive && (
                     <motion.div
                       layoutId={layoutId}
-                      className="absolute inset-0 rounded-[var(--radius-md)] -z-10"
+                      className="absolute inset-0 rounded-[2px] -z-10"
                       style={{
                         background: 'var(--gradient-accent)',
                         boxShadow: '0 0 12px rgba(31, 122, 92, 0.22)',

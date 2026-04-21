@@ -11,6 +11,12 @@ import { layoutImages, plotSizes, layoutAskSellerQuestions } from './plotData';
 const Layout: React.FC = () => {
   const [imgIdx, setImgIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const maxVisibleThumbs = 3;
+  const hasExtraImages = layoutImages.length > maxVisibleThumbs;
+  const hiddenImageCount = Math.max(layoutImages.length - (maxVisibleThumbs - 1), 0);
+  const visibleThumbs = hasExtraImages
+    ? layoutImages.slice(0, maxVisibleThumbs)
+    : layoutImages;
 
   const prev = () => setImgIdx((i) => (i - 1 + layoutImages.length) % layoutImages.length);
   const next = () => setImgIdx((i) => (i + 1) % layoutImages.length);
@@ -71,18 +77,30 @@ const Layout: React.FC = () => {
 
       {/* Thumbnail strip */}
       <div className="flex gap-1.5 px-3 py-2 border-b border-[var(--border-subtle)]">
-        {layoutImages.map((img, i) => (
+        {visibleThumbs.map((img, i) => {
+          const isOverflowThumb = hasExtraImages && i === maxVisibleThumbs - 1;
+          const isActive = isOverflowThumb ? imgIdx >= maxVisibleThumbs - 1 : i === imgIdx;
+
+          return (
           <button
             key={i}
             onClick={() => setImgIdx(i)}
-            className="flex-1 rounded-[var(--radius-sm)] overflow-hidden border-2 transition-all"
-            style={{ borderColor: i === imgIdx ? 'var(--accent-primary)' : 'var(--border-default)' }}
+            className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-[var(--radius-sm)] overflow-hidden border-2 transition-all"
+            style={{ borderColor: isActive ? 'var(--accent-primary)' : 'var(--border-default)' }}
             aria-label={img.label}
-            aria-current={i === imgIdx ? 'true' : undefined}
+            aria-current={isActive ? 'true' : undefined}
           >
-            <img src={img.src} alt={img.label} className="w-full h-9 object-cover" loading="lazy" />
+            <div className="relative w-full h-full">
+              <img src={img.src} alt={img.label} className="w-full h-full object-cover" loading="lazy" />
+              {isOverflowThumb && (
+                <span className="absolute inset-0 bg-black/45 flex items-center justify-center text-white text-[16px] font-bold">
+                  +{hiddenImageCount}
+                </span>
+              )}
+            </div>
           </button>
-        ))}
+          );
+        })}
       </div>
 
       {/* Plot availability */}

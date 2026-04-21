@@ -51,7 +51,7 @@ const PropertyDetails: React.FC = () => {
         {`
           @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
           .font-outfit { font-family: 'Outfit', sans-serif; }
-          .pd-section > div { border-radius: var(--radius-md) !important; }
+          .pd-section > div { border-radius: 2px !important; }
         `}
       </style>
 
@@ -60,69 +60,69 @@ const PropertyDetails: React.FC = () => {
       <HorizontalTabNavigation />
       <FooterNav />
 
-      <div className="flex flex-col gap-2 px-2 pt-2 pb-24">
+      <div className="flex flex-col gap-2 px-2 pt-2 pb-0">
         
         {/* VIDEO TOUR */}
-        <div className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out rounded-[var(--radius-md)] overflow-hidden">
+        <div className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out rounded-[2px] overflow-hidden">
           <VideoTourSection />
         </div>
 
         {/* OVERVIEW */}
-        <div id="overview" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[var(--radius-md)] overflow-hidden">
+        <div id="overview" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[2px] overflow-hidden">
           <ContentSection title="Overview">
             <Overview />
           </ContentSection>
         </div>
 
         {/* HIGHLIGHTS — elevated section bg */}
-        <div id="highlights" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-section-light)]">
+        <div id="highlights" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[2px] overflow-hidden bg-[var(--bg-section-light)]">
           <ContentSection title="Highlights">
             <Highlights />
           </ContentSection>
         </div>
 
         {/* PROJECT STATUS */}
-        <div id="project-status" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[var(--radius-md)] overflow-hidden">
+        <div id="project-status" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[2px] overflow-hidden">
           <ProjectTimeline />
         </div>
 
         {/* LAYOUT AVAILABILITY */}
-        <div id="layout" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[var(--radius-md)] overflow-hidden">
+        <div id="layout" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[2px] overflow-hidden">
           <ContentSection title="Layout & Plot Availability">
             <Layout />
           </ContentSection>
         </div>
 
         {/* ASK SELLER */}
-        <div id="ask-seller" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[var(--radius-md)] overflow-hidden">
+        <div id="ask-seller" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[2px] overflow-hidden">
           <ContentSection title="Ask Seller">
             <SellerQueries />
           </ContentSection>
         </div>
 
         {/* LOCATION HIGHLIGHTS */}
-        <div id="location" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[var(--radius-md)] overflow-hidden">
+        <div id="location" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[2px] overflow-hidden">
           <ContentSection title="Location & Distance">
             <InteractiveCommute />
           </ContentSection>
         </div>
 
         {/* AMENITIES — elevated section bg */}
-        <div id="amenities" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-section-muted)]">
+        <div id="amenities" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[2px] overflow-hidden bg-[var(--bg-section-muted)]">
           <ContentSection title="Amenities">
             <AmenitiesSection />
           </ContentSection>
         </div>
 
         {/* PRICING & PAYMENT */}
-        <div id="payment" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[var(--radius-md)] overflow-hidden">
+        <div id="payment" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[2px] overflow-hidden">
           <ContentSection title="Pricing & Payment Plans">
             <PaymentPlan />
           </ContentSection>
         </div>
 
         {/* GALLERY */}
-        <div id="gallery" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[var(--radius-md)] overflow-hidden">
+        <div id="gallery" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[2px] overflow-hidden">
           <GallerySection />
         </div>
 

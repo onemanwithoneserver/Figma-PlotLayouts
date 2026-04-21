@@ -8,7 +8,7 @@ const VideoTourSection: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="font-outfit border border-[var(--border-subtle)] rounded-[var(--radius-md)] overflow-hidden bg-[#1A1A1A] w-full relative group shadow-sm cursor-pointer">
+    <div className="font-outfit border border-[var(--border-subtle)] rounded-[2px] overflow-hidden bg-[#1A1A1A] w-full relative group shadow-sm cursor-pointer">
       {/* Video Thumbnail */}
       <img
         src={videoTourData.thumbnailUrl}

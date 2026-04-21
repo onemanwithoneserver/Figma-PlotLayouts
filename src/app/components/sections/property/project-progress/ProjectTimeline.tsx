@@ -78,24 +78,40 @@ const ProjectTimeline: React.FC = () => {
 
   return (
     <section className="font-['Outfit',_sans-serif] w-full bg-white border-t border-[var(--border-subtle)]">
-      {/* Progress Header — Glass accent */}
-      <div className="bg-[var(--bg-section-light)] border-b-2 border-[var(--accent-primary)] px-4 pt-5 pb-5">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-[15px] font-bold text-[var(--text-primary)] tracking-tight">Project Status</h3>
-          <span className="text-[12px] font-black text-[var(--accent-primary)]">{PROGRESS_PCT}% Complete</span>
-        </div>
+      {/* Progress Header */}
+      <div className="px-1 pt-1 pb-1 border-b border-[var(--border-subtle)] bg-gradient-to-b from-[var(--bg-section-light)] to-white">
+        <div className="rounded-[2px] border border-[var(--border-subtle)] bg-white/90 shadow-[0_6px_20px_rgba(0,0,0,0.05)] px-3.5 py-3.5">
+          <div className="flex items-start justify-between gap-2 mb-3">
+            <div>
+              <h3 className="text-[16px] font-extrabold text-[var(--text-primary)] tracking-tight leading-none">Project Status</h3>
+            </div>
+            <span className="inline-flex items-center rounded-[2px] border border-[var(--accent-border)] bg-[var(--accent-soft)] px-2.5 py-1 text-[11px] font-black text-[var(--accent-primary)] leading-none whitespace-nowrap">
+              {PROGRESS_PCT}% Complete
+            </span>
+          </div>
 
-        {/* Progress bar with gradient */}
-        <div className="h-[6px] w-full rounded-full bg-[var(--accent-soft)] overflow-hidden mb-2.5">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${PROGRESS_PCT}%` }}
-            transition={{ duration: 1.4, ease: [0.25, 1, 0.5, 1] }}
-            className="h-full rounded-full"
-            style={{ background: 'var(--gradient-accent)' }}
-          />
+          <div className="relative h-[8px] w-full rounded-full bg-[var(--accent-soft)] overflow-hidden mb-2.5">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${PROGRESS_PCT}%` }}
+              transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
+              className="h-full rounded-full"
+              style={{ background: 'var(--gradient-accent)' }}
+            />
+            <motion.span
+              initial={{ left: 0 }}
+              animate={{ left: `calc(${PROGRESS_PCT}% - 10px)` }}
+              transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
+              className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 border-white bg-[var(--accent-primary)] shadow-[0_2px_10px_rgba(31,122,92,0.35)]"
+              aria-hidden="true"
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <span className="text-[12px] font-bold text-[var(--accent-primary)]">Execution phase</span>
+            <span className="text-[11px] font-semibold text-[var(--text-muted)]">On schedule</span>
+          </div>
         </div>
-        <span className="text-[12px] font-bold text-[var(--accent-primary)]">Execution phase</span>
       </div>
 
       {/* Timeline */}
@@ -146,8 +162,6 @@ const ProjectTimeline: React.FC = () => {
               <button
                 onClick={() => setProgressOpen((v) => !v)}
                 className="compact-touch inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--radius-sm)] border border-[var(--accent-primary)] bg-white text-[var(--accent-primary)] text-[11px] font-bold hover:bg-[var(--accent-primary)] hover:text-white transition-all shadow-sm"
-                aria-expanded={progressOpen}
-                aria-controls="construction-updates"
               >
                 <svg className={`w-3 h-3 transition-transform ${progressOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
@@ -182,7 +196,6 @@ const ProjectTimeline: React.FC = () => {
                               key={item.id}
                               type="button"
                               role="tab"
-                              aria-selected={isActive}
                               onClick={() => setActiveStep(idx)}
                               className="compact-touch relative min-w-[80px] flex-1 flex flex-col items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/40 rounded-[var(--radius-sm)]"
                             >
