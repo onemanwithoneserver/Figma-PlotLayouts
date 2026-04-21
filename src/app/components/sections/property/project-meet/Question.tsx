@@ -175,7 +175,7 @@ const Question = () => {
         <div className="mt-3 flex flex-col gap-3 rounded-[5px] border border-[#E06D28]/30 bg-[#FFF8F4] p-3 shadow-sm transition-all animate-in fade-in slide-in-from-top-2">
           
           <div className="flex flex-col gap-1.5" ref={dropdownRef}>
-            <label className="text-[12px] font-bold text-[#E06D28] uppercase tracking-wide">
+            <label className="text-[12px] font-bold text-[#E06D28]  tracking-wide">
               Reason for mismatch
             </label>
             

@@ -41,7 +41,7 @@ const OverviewTile: React.FC<{ item: OverviewItem }> = ({ item }) => (
         fontSize: '0.625rem',
         fontWeight: 600,
         color: '#666666',
-        textTransform: 'uppercase',
+        textTransform: '',
         letterSpacing: '0.04em',
         lineHeight: 1.2,
         mb: 0.5,

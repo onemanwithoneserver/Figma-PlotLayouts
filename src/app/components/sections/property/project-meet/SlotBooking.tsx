@@ -50,7 +50,7 @@ const SlotBooking: React.FC = () => {
       <div className="flex items-stretch gap-2 mb-2 pb-1">
         {/* Month Sidebar */}
         <div className="flex items-center justify-center px-3 py-2 bg-gray-50 border border-gray-200 rounded-[5px]">
-          <span className="text-[11px] font-bold rotate-180 [writing-mode:vertical-lr] text-gray-500 uppercase tracking-tighter">MAR</span>
+          <span className="text-[11px] font-bold rotate-180 [writing-mode:vertical-lr] text-gray-500  tracking-tighter">MAR</span>
         </div>
 
         {dates.map((date) => (
@@ -65,7 +65,7 @@ const SlotBooking: React.FC = () => {
             <span className={`text-base font-bold leading-none mb-1 ${selectedDate === date.day ? 'text-[#3A312B]' : 'text-gray-700'}`}>
               {date.day}
             </span>
-            <span className="text-[10px] font-semibold uppercase">{date.label}</span>
+            <span className="text-[10px] font-semibold ">{date.label}</span>
           </button>
         ))}
       </div>

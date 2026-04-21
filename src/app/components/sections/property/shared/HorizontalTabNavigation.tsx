@@ -8,15 +8,15 @@ interface TabItem {
 }
 
 const TABS: TabItem[] = [
-  { id: 'overview',      label: 'Overview'    },
-  { id: 'project-status', label: 'Status'     },
-  { id: 'layout',        label: 'Layout'      },
-  { id: 'ask-seller',    label: 'Ask Seller'  },
-  { id: 'location',      label: 'Location'    },
-  { id: 'amenities',     label: 'Amenities'   },
-  { id: 'payment',       label: 'Pricing'     },
-  { id: 'gallery',       label: 'Gallery'     },
-  { id: 'project-meet',  label: 'Site Visit'  },
+  { id: 'overview',       label: 'Overview'    },
+  { id: 'project-status', label: 'Status'      },
+  { id: 'layout',         label: 'Layout'      },
+  { id: 'ask-seller',     label: 'Ask Seller'  },
+  { id: 'location',       label: 'Location'    },
+  { id: 'amenities',      label: 'Amenities'   },
+  { id: 'payment',        label: 'Pricing'     },
+  { id: 'gallery',        label: 'Gallery'     },
+  { id: 'project-meet',   label: 'Site Visit'  },
 ];
 
 const HorizontalTabNavigation: React.FC = () => {
@@ -27,7 +27,7 @@ const HorizontalTabNavigation: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState(TABS[0].id);
   const [visible,   setVisible]   = useState(false);
-  const [showLeft,  setShowLeft]  = useState(false);
+  const [showLeft,   setShowLeft]  = useState(false);
   const [showRight, setShowRight] = useState(false);
 
   const syncArrows = useCallback(() => {
@@ -41,7 +41,6 @@ const HorizontalTabNavigation: React.FC = () => {
     scrollRef.current?.scrollBy({ left: dir === 'left' ? -160 : 160, behavior: 'smooth' });
   }, []);
 
-  // Show/hide bar when hero scrolls out of view
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 180);
     onScroll();
@@ -49,33 +48,20 @@ const HorizontalTabNavigation: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Sync arrow visibility on mount and resize
   useEffect(() => {
     syncArrows();
     window.addEventListener('resize', syncArrows);
     return () => window.removeEventListener('resize', syncArrows);
-  }, [syncArrows]);
+  }, [syncArrows, activeTab]); 
 
-  // Center the active tab button
-  const centerTab = useCallback((id: string) => {
-    const btn       = tabRefs.current[id];
-    const container = scrollRef.current;
-    if (!btn || !container) return;
-    const target = btn.offsetLeft - container.clientWidth / 2 + btn.offsetWidth / 2;
-    container.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
-  }, []);
-
-  useEffect(() => { centerTab(activeTab); }, [activeTab, centerTab]);
-
-  // Highlight active tab as sections enter viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (clickScrolling.current) return;
-        const visible = entries
+        const visibleSections = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible.length > 0) setActiveTab(visible[0].target.id);
+        if (visibleSections.length > 0) setActiveTab(visibleSections[0].target.id);
       },
       { rootMargin: '-56px 0px -50% 0px', threshold: 0 }
     );
@@ -86,15 +72,17 @@ const HorizontalTabNavigation: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleClick = useCallback((tab: TabItem) => {
-    const el = document.getElementById(tab.id);
+  const handleClick = useCallback((tabId: string) => {
+    const el = document.getElementById(tabId);
     if (!el) return;
-    setActiveTab(tab.id);
+    setActiveTab(tabId);
     clickScrolling.current = true;
     if (unlockTimer.current) clearTimeout(unlockTimer.current);
+    
     const offset = 56;
     const y = el.getBoundingClientRect().top + window.scrollY - offset - 8;
     window.scrollTo({ top: y, behavior: 'smooth' });
+
     const unlock = () => { clickScrolling.current = false; };
     if ('onscrollend' in window) {
       window.addEventListener('scrollend', unlock, { once: true });
@@ -103,83 +91,57 @@ const HorizontalTabNavigation: React.FC = () => {
     }
   }, []);
 
+  const filteredTabs = TABS.filter(tab => tab.id !== activeTab);
+
   return (
     <div
-      className={`sticky top-0 z-40 bg-white transition-all duration-300 ${
-        visible ? 'opacity-100 translate-y-0 h-auto' : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
+      className={`sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200 transition-all duration-300 ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
       }`}
-      style={{ borderBottom: '1px solid #E0E0E0' }}
     >
       <div className="flex items-center">
-        {/* Left arrow */}
         <button
           onClick={() => manualScroll('left')}
-          aria-label="Scroll left"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-full outline-none"
-          style={{
-            opacity: showLeft ? 1 : 0,
-            pointerEvents: showLeft ? 'auto' : 'none',
-            transition: 'opacity 0.2s',
-            borderRight: '1px solid #E0E0E0',
-          }}
+          className="flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
+          disabled={!showLeft}
+          style={{ borderRight: '1px solid #f0f0f0', color: '#737373' }}
         >
-          <ChevronLeftIcon sx={{ fontSize: 20, color: '#757575' }} />
+          <ChevronLeftIcon sx={{ fontSize: 20 }} />
         </button>
 
-        {/* Scrollable tab strip */}
         <div
           ref={scrollRef}
           onScroll={syncArrows}
-          className="flex-1 flex items-center overflow-x-auto"
-          style={{ scrollbarWidth: 'none' }}
+          className="flex-1 flex items-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
-          {TABS.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                ref={(el) => { tabRefs.current[tab.id] = el; }}
-                onClick={() => handleClick(tab)}
-                className="flex-shrink-0 px-4 py-3 flex flex-col items-center gap-0.5 outline-none"
+          {filteredTabs.map((tab) => (
+            <button
+              key={tab.id}
+              ref={(el) => { tabRefs.current[tab.id] = el; }}
+              onClick={() => handleClick(tab.id)}
+              className="flex-shrink-0 px-5 py-3 outline-none hover:bg-neutral-50 transition-colors duration-200"
+            >
+              <span
+                style={{
+                  fontSize: '0.8125rem',
+                  fontWeight: 500,
+                  color: '#525252',
+                  whiteSpace: 'nowrap',
+                }}
               >
-                <span
-                  style={{
-                    fontSize: '0.8125rem',
-                    fontWeight: isActive ? 700 : 400,
-                    color: isActive ? '#1F7A63' : '#757575',
-                    whiteSpace: 'nowrap',
-                    transition: 'color 0.2s',
-                  }}
-                >
-                  {tab.label}
-                </span>
-                <div
-                  style={{
-                    height: 2,
-                    width: '100%',
-                    borderRadius: 1,
-                    backgroundColor: isActive ? '#1F7A63' : 'transparent',
-                    transition: 'background-color 0.2s',
-                  }}
-                />
-              </button>
-            );
-          })}
+                {tab.label}
+              </span>
+            </button>
+          ))}
         </div>
 
-        {/* Right arrow */}
         <button
           onClick={() => manualScroll('right')}
-          aria-label="Scroll right"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-full outline-none"
-          style={{
-            opacity: showRight ? 1 : 0,
-            pointerEvents: showRight ? 'auto' : 'none',
-            transition: 'opacity 0.2s',
-            borderLeft: '1px solid #E0E0E0',
-          }}
+          className="flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
+          disabled={!showRight}
+          style={{ borderLeft: '1px solid #f0f0f0', color: '#737373' }}
         >
-          <ChevronRightIcon sx={{ fontSize: 20, color: '#757575' }} />
+          <ChevronRightIcon sx={{ fontSize: 20 }} />
         </button>
       </div>
     </div>
@@ -187,4 +149,3 @@ const HorizontalTabNavigation: React.FC = () => {
 };
 
 export default HorizontalTabNavigation;
-

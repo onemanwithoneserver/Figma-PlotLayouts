@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Divider from '@mui/material/Divider';
+import SectionTabNav from '../shared/SectionTabNav';
 import DirectionsCarOutlinedIcon from '@mui/icons-material/DirectionsCarOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
@@ -61,28 +59,12 @@ export default function InteractiveCommute() {
 
   return (
     <div className="pb-2">
-      {/* Category filter chips */}
-      <div className="flex gap-1.5 px-4 py-3 overflow-x-auto no-scrollbar">
-        {TABS.map((tab) => (
-          <Chip
-            key={tab.id}
-            label={tab.label}
-            icon={tab.icon as React.ReactElement}
-            size="small"
-            onClick={() => setActiveTab(tab.id)}
-            sx={{
-              flexShrink: 0,
-              fontSize: '0.6875rem',
-              fontWeight: activeTab === tab.id ? 700 : 400,
-              bgcolor: activeTab === tab.id ? '#E8F5E9' : '#F5F5F5',
-              border: activeTab === tab.id ? '1.5px solid #1F7A63' : '1px solid #E0E0E0',
-              color: activeTab === tab.id ? '#1F7A63' : '#666666',
-              '& .MuiChip-icon': { color: activeTab === tab.id ? '#1F7A63' : '#9E9E9E' },
-              cursor: 'pointer',
-            }}
-          />
-        ))}
-      </div>
+      <SectionTabNav
+        tabs={TABS.map(({ id, label }) => ({ id, label }))}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        layoutId="location-active-pill"
+      />
 
       <Divider />
 

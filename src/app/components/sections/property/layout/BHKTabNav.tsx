@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 interface BHKTabNavProps {
   tabs: string[];
@@ -7,24 +9,17 @@ interface BHKTabNavProps {
   onTabChange: (tab: string) => void;
 }
 
-const COLORS = {
-  primary: '#332823',      // Dark brand charcoal matching L&T nav
-  container: '#E8E7E2',    // Warm off-white
-  textInactive: '#332823', 
-  white: '#FFFFFF',
-};
-
 export default function BHKTabNav({ tabs, activeTab, onTabChange }: BHKTabNavProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
-  // Check scroll position to show/hide arrows with a 2px threshold for exact hiding
   const checkScroll = () => {
     const container = scrollContainerRef.current;
     if (container) {
       const { scrollLeft, scrollWidth, clientWidth } = container;
-      setCanScrollLeft(scrollLeft > 2); 
+      setCanScrollLeft(scrollLeft > 2);
       setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 2);
     }
   };
@@ -35,115 +30,103 @@ export default function BHKTabNav({ tabs, activeTab, onTabChange }: BHKTabNavPro
     return () => window.removeEventListener('resize', checkScroll);
   }, [tabs]);
 
-  // Center the scroll on the active tab if it overflows
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (container) {
-      const activeElement = Array.from(container.querySelectorAll('button')).find(
-        (btn) => btn.textContent?.toLowerCase() === activeTab.toLowerCase()
-      );
-      
-      if (activeElement) {
-        const containerWidth = container.offsetWidth;
-        const buttonLeft = activeElement.offsetLeft;
-        const buttonWidth = activeElement.offsetWidth;
-        const scrollPosition = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
-        container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-      }
+    const activeBtn = buttonRefs.current.get(activeTab);
+    if (activeBtn && container) {
+      const targetLeft = activeBtn.offsetLeft - (container.clientWidth - activeBtn.offsetWidth) / 2;
+      container.scrollTo({
+        left: Math.max(0, Math.min(targetLeft, container.scrollWidth - container.clientWidth)),
+        behavior: 'smooth',
+      });
     }
   }, [activeTab]);
 
-  // Handle arrow clicks
   const scroll = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 200;
-      scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
+    scrollContainerRef.current?.scrollBy({
+      left: direction === 'left' ? -200 : 200,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
+    let nextIndex: number | null = null;
+    if (e.key === 'ArrowRight') { e.preventDefault(); nextIndex = (currentIndex + 1) % tabs.length; }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); nextIndex = (currentIndex - 1 + tabs.length) % tabs.length; }
+    if (nextIndex !== null) {
+      const nextTab = tabs[nextIndex];
+      onTabChange(nextTab);
+      buttonRefs.current.get(nextTab)?.focus();
     }
   };
 
   return (
-    <div className="w-fit max-w-full mb-4 mx-auto my-3 relative group">
-      
-      {/* LEFT FADE OVERLAY & ARROW */}
-      {canScrollLeft && (
-        <div 
-          className="absolute left-0 top-0.5 bottom-0.5 w-auto z-20 pointer-events-none rounded-l-[7px] flex items-center justify-start pl-1"
-          style={{
-            background: `linear-gradient(to right, ${COLORS.container} 40%, transparent)`,
-          }}
+    <div className="w-fit max-w-full mb-4 mx-auto my-3 relative">
+      <div className="bg-neutral-900/80 backdrop-blur-sm border border-white/[0.08] rounded-[8px] shadow-[0_4px_20px_rgba(0,0,0,0.18)] flex items-center">
+        {/* Left arrow */}
+        <button
+          onClick={() => scroll('left')}
+          aria-label="Scroll left"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-white/50 hover:text-white hover:bg-white/[0.08] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
+          style={{ opacity: canScrollLeft ? 1 : 0, pointerEvents: canScrollLeft ? 'auto' : 'none' }}
         >
-          <button 
-            onClick={() => scroll('left')}
-            className="pointer-events-auto p-1 rounded-full text-[#332823] hover:bg-black/10 transition-colors"
-            aria-label="Scroll left"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m15 18-6-6 6-6"/>
-            </svg>
-          </button>
-        </div>
-      )}
+          <ChevronLeftIcon sx={{ fontSize: 18 }} />
+        </button>
 
-      {/* RIGHT FADE OVERLAY & ARROW */}
-      {canScrollRight && (
-        <div 
-          className="absolute right-0 top-0.5 bottom-0.5 w-12 z-20 pointer-events-none rounded-r-[7px] flex items-center justify-end pr-1"
-          style={{
-            background: `linear-gradient(to left, ${COLORS.container} 40%, transparent)`,
-          }}
+        {/* Scrollable strip */}
+        <div
+          ref={scrollContainerRef}
+          onScroll={checkScroll}
+          role="tablist"
+          className="flex items-center py-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
         >
-          <button 
-            onClick={() => scroll('right')}
-            className="pointer-events-auto p-1 rounded-full text-[#332823] hover:bg-black/10 transition-colors"
-            aria-label="Scroll right"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m9 18 6-6-6-6"/>
-            </svg>
-          </button>
+          <div className="flex gap-1 px-1 w-max">
+            {tabs.map((tab, idx) => {
+              const isActive = activeTab === tab;
+              return (
+                <button
+                  key={tab}
+                  ref={(el) => {
+                    if (el) buttonRefs.current.set(tab, el);
+                    else buttonRefs.current.delete(tab);
+                  }}
+                  role="tab"
+                  aria-selected={isActive ? 'true' : 'false'}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={() => onTabChange(tab)}
+                  onKeyDown={(e) => handleKeyDown(e, idx)}
+                  className="relative w-auto shrink-0 min-w-max py-1.5 px-3 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[6px] focus-visible:ring-2 focus-visible:ring-green-500/50"
+                  style={{ color: isActive ? '#ffffff' : 'rgba(255,255,255,0.55)' }}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="bhk-active-pill"
+                      className="absolute inset-0 rounded-[6px] -z-10"
+                      style={{
+                        background: 'linear-gradient(135deg, #16A34A, #15803D)',
+                        boxShadow: '0 0 12px rgba(22, 163, 74, 0.28)',
+                      }}
+                      transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
+                    />
+                  )}
+                  <span className="relative z-20 text-[11px] tracking-widest font-bold whitespace-nowrap ">
+                    {tab}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
-      )}
 
-      {/* SCROLLABLE CONTAINER */}
-      <div 
-        ref={scrollContainerRef}
-        onScroll={checkScroll}
-        style={{ 
-            backgroundColor: COLORS.container, 
-            borderColor: '#E8E2D9' 
-        }}
-        className="relative w-fit max-w-full flex items-center p-1 rounded-[7px] border overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
-      >
-        <div className="flex gap-1 px-0.5 w-max">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab;
-            
-            return (
-              <button
-                key={tab}
-                onClick={() => onTabChange(tab)}
-                className="relative w-auto shrink-0 min-w-max py-1.5 px-3 transition-colors duration-300 z-10 outline-none flex items-center justify-center rounded-[7px]"
-                style={{ color: isActive ? COLORS.white : COLORS.textInactive }}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="bhk-active-pill"
-                    className="absolute inset-0 rounded-[7px] -z-10"
-                    style={{ background: COLORS.primary }}
-                    transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-                  />
-                )}
-                
-                <span className="relative z-20 text-[11px] tracking-widest font-bold whitespace-nowrap uppercase">
-                  {tab}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+        {/* Right arrow */}
+        <button
+          onClick={() => scroll('right')}
+          aria-label="Scroll right"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-white/50 hover:text-white hover:bg-white/[0.08] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
+          style={{ opacity: canScrollRight ? 1 : 0, pointerEvents: canScrollRight ? 'auto' : 'none' }}
+        >
+          <ChevronRightIcon sx={{ fontSize: 18 }} />
+        </button>
       </div>
     </div>
   );

@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
-import CurrencyRupeeOutlinedIcon from '@mui/icons-material/CurrencyRupeeOutlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import SectionTabNav from '../shared/SectionTabNav';
 
 // ---- Tab content ----
 
@@ -140,48 +136,28 @@ const OffersTab = () => (
 );
 
 const PAYMENT_TABS = [
-  { label: 'Price/Sq.Yd', icon: <CurrencyRupeeOutlinedIcon sx={{ fontSize: 16 }} />, content: <PriceTab /> },
-  { label: 'Cost',        icon: <CalendarMonthOutlinedIcon sx={{ fontSize: 16 }} />, content: <CostTab /> },
-  { label: 'Booking',     icon: <BookmarkBorderOutlinedIcon sx={{ fontSize: 16 }} />, content: <BookingTab /> },
-  { label: 'EMI',         icon: <AccountBalanceOutlinedIcon sx={{ fontSize: 16 }} />, content: <InstallmentsTab /> },
-  { label: 'Offers',      icon: <LocalOfferOutlinedIcon sx={{ fontSize: 16 }} />, content: <OffersTab /> },
+  { id: 'price',   label: 'Price/Sq.Yd', content: <PriceTab /> },
+  { id: 'cost',    label: 'Cost',        content: <CostTab /> },
+  { id: 'booking', label: 'Booking',     content: <BookingTab /> },
+  { id: 'emi',     label: 'EMI',         content: <InstallmentsTab /> },
+  { id: 'offers',  label: 'Offers',      content: <OffersTab /> },
 ];
 
 const PaymentPlan: React.FC = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(PAYMENT_TABS[0].id);
+  const current = PAYMENT_TABS.find((t) => t.id === activeTab)!;
 
   return (
     <div>
-      <Tabs
-        value={activeTab}
-        onChange={(_, v) => setActiveTab(v)}
-        variant="scrollable"
-        scrollButtons={false}
-        sx={{ px: 2, minHeight: 40, borderBottom: '1px solid #E0E0E0' }}
-      >
-        {PAYMENT_TABS.map((t, i) => (
-          <Tab
-            key={t.label}
-            label={t.label}
-            icon={React.cloneElement(t.icon as React.ReactElement, {
-              sx: { fontSize: 14, color: activeTab === i ? '#1F7A63' : '#666666' },
-            })}
-            iconPosition="start"
-            sx={{
-              minHeight: 40,
-              fontSize: '0.8125rem',
-              fontWeight: 600,
-              color: activeTab === i ? '#1F7A63' : '#666666',
-              px: 1.5,
-              minWidth: 'auto',
-              gap: 0.5,
-            }}
-          />
-        ))}
-      </Tabs>
+      <SectionTabNav
+        tabs={PAYMENT_TABS.map(({ id, label }) => ({ id, label }))}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        layoutId="payment-active-pill"
+      />
 
       <div className="px-4 py-3">
-        {PAYMENT_TABS[activeTab].content}
+        {current.content}
       </div>
     </div>
   );

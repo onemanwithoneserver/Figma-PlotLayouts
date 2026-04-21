@@ -169,7 +169,7 @@ const Layout: React.FC = () => {
             className="flex flex-col items-center gap-1 py-2 px-1 rounded-[4px] bg-[#F5F5F5] border border-[#E0E0E0]"
           >
             <span className="text-[#1F7A63]">{b.icon}</span>
-            <Typography sx={{ fontSize: '0.5625rem', fontWeight: 600, color: '#666666', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <Typography sx={{ fontSize: '0.5625rem', fontWeight: 600, color: '#666666', textTransform: '', letterSpacing: '0.04em' }}>
               {b.label}
             </Typography>
             <Typography sx={{ fontSize: '0.6875rem', fontWeight: 700, color: '#1A1A1A', textAlign: 'center', lineHeight: 1.2 }}>

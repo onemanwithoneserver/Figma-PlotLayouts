@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
-import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
+import React, { useState, useMemo } from 'react';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
-import Chip from '@mui/material/Chip';
 import CloseIcon from '@mui/icons-material/Close';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -30,122 +26,162 @@ const GALLERY_ITEMS: MediaItem[] = [
 ];
 
 const GallerySection: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'all' | 'image' | 'video'>('all');
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
 
+  const displayedItems = useMemo(() => {
+    return GALLERY_ITEMS.filter((item) => activeTab === 'all' || item.type === activeTab);
+  }, [activeTab]);
+
   const close = () => setLightboxIdx(null);
-  const prev = () => setLightboxIdx((i) => i === null ? 0 : (i - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length);
-  const next = () => setLightboxIdx((i) => i === null ? 0 : (i + 1) % GALLERY_ITEMS.length);
+  const prev = () => setLightboxIdx((i) => (i === null ? 0 : (i - 1 + displayedItems.length) % displayedItems.length));
+  const next = () => setLightboxIdx((i) => (i === null ? 0 : (i + 1) % displayedItems.length));
 
   const imgCount = GALLERY_ITEMS.filter((m) => m.type === 'image').length;
   const vidCount = GALLERY_ITEMS.filter((m) => m.type === 'video').length;
 
+  const tabs = [
+    { id: 'image', label: `Images (${imgCount})`, icon: ImageOutlinedIcon },
+    { id: 'video', label: `Videos (${vidCount})`, icon: VideocamOutlinedIcon },
+  ] as const;
+
   return (
     <>
-      <Card elevation={0}>
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 py-2.5">
-          <Typography sx={{ fontSize: '0.9375rem', fontWeight: 700, color: '#1A1A1A' }}>
-            Gallery
-          </Typography>
-          <div className="flex items-center gap-1.5">
-            <Chip
-              icon={<ImageOutlinedIcon sx={{ fontSize: 13, color: '#1F7A63 !important' }} />}
-              label={`${imgCount} Photos`}
-              size="small"
-              sx={{ backgroundColor: '#E8F5E9', color: '#1F7A63', fontWeight: 600, fontSize: '0.6875rem', borderRadius: '4px', '& .MuiChip-icon': { color: '#1F7A63' } }}
-            />
-            <Chip
-              icon={<VideocamOutlinedIcon sx={{ fontSize: 13, color: '#666666 !important' }} />}
-              label={`${vidCount} Videos`}
-              size="small"
-              sx={{ backgroundColor: '#F5F5F5', color: '#666666', fontWeight: 600, fontSize: '0.6875rem', borderRadius: '4px', '& .MuiChip-icon': { color: '#666666' } }}
-            />
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+          .font-outfit { font-family: 'Outfit', sans-serif; }
+          .hide-scrollbar::-webkit-scrollbar { display: none; }
+          .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        `}
+      </style>
+
+      <div className="font-outfit border border-[#EAEAEA] rounded-[8px] overflow-hidden bg-white max-w-full">
+        <div className="px-3 pt-3 flex items-end justify-between border-b border-[#EAEAEA] gap-3">
+          <h2 className="text-[1.0625rem] font-bold text-[#1A1A1A] leading-[1.2] mb-1.5 min-w-max">
+            Media Gallery
+          </h2>
+          
+          <div className="flex gap-4 overflow-x-auto hide-scrollbar">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id;
+              const Icon = tab.icon;
+              
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setActiveTab(isActive ? 'all' : tab.id);
+                    setLightboxIdx(null);
+                  }}
+                  className={`relative flex items-center gap-1.5 pb-2 text-[0.875rem] font-semibold transition-colors whitespace-nowrap focus:outline-none ${
+                    isActive ? 'text-[#1F7A63]' : 'text-[#666666] hover:text-[#1F7A63]'
+                  }`}
+                >
+                  <Icon sx={{ fontSize: 16 }} />
+                  {tab.label}
+                  {isActive && (
+                    <span className="absolute bottom-[-1px] left-0 right-0 h-[2.5px] bg-[#1F7A63] rounded-t-[4px]" />
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
-        <Divider />
 
-        {/* Grid */}
-        <div className="p-3">
-          <div className="grid grid-cols-2 gap-2">
-            {GALLERY_ITEMS.map((item, idx) => (
+        <div className="p-3 bg-[#FAFAFA]">
+          <div className="grid grid-cols-2 gap-2.5">
+            {displayedItems.map((item, idx) => (
               <button
                 key={item.id}
                 onClick={() => setLightboxIdx(idx)}
-                className="relative rounded-[4px] overflow-hidden group focus:outline-none"
-                style={{ aspectRatio: idx % 5 === 0 ? '1/1' : '4/3' }}
-                aria-label={`Open ${item.label}`}
+                className="relative rounded-[8px] overflow-hidden group focus:outline-none aspect-[4/3] bg-gray-200 block w-full"
               >
                 <img
                   src={item.src}
                   alt={item.alt}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-200" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-80" />
 
                 {item.type === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-9 h-9 rounded-full bg-[#1F7A63] flex items-center justify-center">
-                      <PlayCircleOutlineIcon sx={{ fontSize: 22, color: '#FFFFFF' }} />
+                    <div className="w-10 h-10 rounded-full bg-white/25 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-sm">
+                      <PlayCircleOutlineIcon sx={{ fontSize: 24, color: '#FFFFFF' }} />
                     </div>
                   </div>
                 )}
 
-                <div className="absolute bottom-1.5 left-1.5">
-                  <span className="text-[0.625rem] font-600 text-white bg-black/55 px-1.5 py-0.5 rounded-[3px]">
+                <div className="absolute bottom-2 left-2 right-2 flex items-center gap-1.5">
+                  {item.type === 'image' ? (
+                    <ImageOutlinedIcon sx={{ fontSize: 14, color: '#FFFFFF' }} />
+                  ) : (
+                    <VideocamOutlinedIcon sx={{ fontSize: 14, color: '#FFFFFF' }} />
+                  )}
+                  <span className="text-[0.75rem] font-bold text-white truncate drop-shadow-md tracking-wide">
                     {item.label}
                   </span>
                 </div>
               </button>
             ))}
+            
+            {displayedItems.length === 0 && (
+              <div className="col-span-full py-8 text-center text-[#666666] text-sm font-medium">
+                No media found.
+              </div>
+            )}
           </div>
         </div>
-      </Card>
+      </div>
 
-      {/* Lightbox */}
       <Dialog
         open={lightboxIdx !== null}
         onClose={close}
-        maxWidth="sm"
+        maxWidth="md"
         fullWidth
-        PaperProps={{ sx: { bgcolor: '#000000', m: 1, overflow: 'visible' } }}
+        PaperProps={{ sx: { bgcolor: 'transparent', boxShadow: 'none', m: 1, overflow: 'visible' } }}
       >
         {lightboxIdx !== null && (
-          <div className="relative">
+          <div className="relative flex flex-col items-center justify-center font-outfit">
             <img
-              src={GALLERY_ITEMS[lightboxIdx].src}
-              alt={GALLERY_ITEMS[lightboxIdx].alt}
-              className="w-full"
+              src={displayedItems[lightboxIdx].src}
+              alt={displayedItems[lightboxIdx].alt}
+              className="w-full max-h-[85vh] object-contain rounded-[8px]"
             />
 
-            {/* Close */}
             <IconButton
               onClick={close}
               size="small"
-              sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(0,0,0,0.6)', color: '#FFFFFF', '&:hover': { bgcolor: 'rgba(0,0,0,0.85)' } }}
+              sx={{ position: 'absolute', top: -14, right: -14, bgcolor: '#FFFFFF', color: '#000000', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', '&:hover': { bgcolor: '#F5F5F5' }, zIndex: 10 }}
             >
               <CloseIcon sx={{ fontSize: 18 }} />
             </IconButton>
 
-            {/* Prev / Next */}
-            <IconButton
-              onClick={prev}
-              size="small"
-              sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF', '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' } }}
-            >
-              <NavigateBeforeIcon />
-            </IconButton>
-            <IconButton
-              onClick={next}
-              size="small"
-              sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF', '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' } }}
-            >
-              <NavigateNextIcon />
-            </IconButton>
+            {displayedItems.length > 1 && (
+              <>
+                <IconButton
+                  onClick={prev}
+                  size="small"
+                  sx={{ position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: '#FFFFFF', color: '#000000', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', '&:hover': { bgcolor: '#F5F5F5' } }}
+                >
+                  <NavigateBeforeIcon sx={{ fontSize: 22 }} />
+                </IconButton>
+                <IconButton
+                  onClick={next}
+                  size="small"
+                  sx={{ position: 'absolute', right: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: '#FFFFFF', color: '#000000', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', '&:hover': { bgcolor: '#F5F5F5' } }}
+                >
+                  <NavigateNextIcon sx={{ fontSize: 22 }} />
+                </IconButton>
+              </>
+            )}
 
-            {/* Counter */}
-            <div className="absolute bottom-8 left-0 right-0 flex justify-center">
-              <span className="text-white/80 text-[0.6875rem] bg-black/50 px-2 py-0.5 rounded-[3px]">
-                {lightboxIdx + 1} / {GALLERY_ITEMS.length}
+            <div className="absolute -bottom-10 left-0 right-0 flex justify-between items-center px-2">
+              <span className="text-[#FFFFFF] text-[0.875rem] font-bold drop-shadow-md tracking-wide">
+                {displayedItems[lightboxIdx].label}
+              </span>
+              <span className="text-white text-[0.75rem] font-bold bg-black/60 px-2.5 py-1 rounded-[4px] backdrop-blur-md">
+                {lightboxIdx + 1} / {displayedItems.length}
               </span>
             </div>
           </div>

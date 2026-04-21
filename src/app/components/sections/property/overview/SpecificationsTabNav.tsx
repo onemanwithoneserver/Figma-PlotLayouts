@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 interface TabInfo {
   id: string;
@@ -50,90 +52,92 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
     }
   }, [activeTab]);
 
-  // Handle arrow clicks
   const scroll = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 200;
-      scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
+    scrollContainerRef.current?.scrollBy({
+      left: direction === 'left' ? -200 : 200,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
+    let nextIndex: number | null = null;
+    if (e.key === 'ArrowRight') { e.preventDefault(); nextIndex = (currentIndex + 1) % tabs.length; }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); nextIndex = (currentIndex - 1 + tabs.length) % tabs.length; }
+    if (nextIndex !== null) {
+      const nextId = tabs[nextIndex].id;
+      onTabClick(nextId);
+      buttonRefs.current.get(nextId)?.focus();
     }
   };
 
   return (
-    <div className="w-full relative group">
-      {/* LEFT ARROW */}
-      {canScrollLeft && (
-        <div className="absolute left-2 top-0.5 bottom-0.5 w-12 z-20 pointer-events-none rounded-l-[7px] flex items-center justify-start pl-1">
-          <button 
-            onClick={() => scroll('left')}
-            className="pointer-events-auto p-1.5 rounded-full text-[#322822] bg-transparent hover:bg-transparent transition-colors"
-            aria-label="Scroll left"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m15 18-6-6 6-6"/>
-            </svg>
-          </button>
-        </div>
-      )}
+    <div className="w-full relative">
+      <div className="bg-neutral-900/80 backdrop-blur-sm border border-white/[0.08] rounded-[8px] shadow-[0_4px_20px_rgba(0,0,0,0.18)] flex items-center">
+        {/* Left arrow */}
+        <button
+          onClick={() => scroll('left')}
+          aria-label="Scroll left"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-white/50 hover:text-white hover:bg-white/[0.08] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
+          style={{ opacity: canScrollLeft ? 1 : 0, pointerEvents: canScrollLeft ? 'auto' : 'none' }}
+        >
+          <ChevronLeftIcon sx={{ fontSize: 18 }} />
+        </button>
 
-      {/* SCROLLABLE CONTAINER */}
-      <div 
-        ref={scrollContainerRef}
-        onScroll={checkScroll}
-        className="relative flex items-center p-1 rounded-[2px] overflow-x-auto touch-pan-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
-      >
-        <div className="flex min-w-max flex-nowrap gap-1.5 px-0.5">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                ref={(el) => {
-                  if (el) buttonRefs.current.set(tab.id, el);
-                  else buttonRefs.current.delete(tab.id);
-                }}
-                onClick={() => onTabClick(tab.id)}
-                className={`relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] border ${
-                  isActive
-                    ? 'border-transparent bg-transparent'
-                    : 'border-transparent bg-[#F4EFE6] hover:bg-[#E5DFD4] shadow-none'
-                }`}
-                style={{ color: isActive ? '#FFFFFF' : '#322822' }}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="spec-active-pill"
-                    className="absolute inset-0 rounded-[3px] -z-10"
-                    style={{ background: 'linear-gradient(135deg, #F85B01, #C94A00)' }}
-                    transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-                  />
-                )}
-                <span className="relative z-20 text-[11px] tracking-widest font-bold whitespace-nowrap">
-                  {tab.label}
-                </span>
-              </button>
-            );
-          })}
+        {/* Scrollable strip */}
+        <div
+          ref={scrollContainerRef}
+          onScroll={checkScroll}
+          role="tablist"
+          className="flex-1 flex items-center py-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
+        >
+          <div className="flex min-w-max flex-nowrap gap-1 px-1 mx-auto">
+            {tabs.map((tab, idx) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  ref={(el) => {
+                    if (el) buttonRefs.current.set(tab.id, el);
+                    else buttonRefs.current.delete(tab.id);
+                  }}
+                  role="tab"
+                  aria-selected={isActive ? 'true' : 'false'}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={() => onTabClick(tab.id)}
+                  onKeyDown={(e) => handleKeyDown(e, idx)}
+                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[6px] focus-visible:ring-2 focus-visible:ring-green-500/50"
+                  style={{ color: isActive ? '#ffffff' : 'rgba(255,255,255,0.55)' }}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="spec-active-pill"
+                      className="absolute inset-0 rounded-[6px] -z-10"
+                      style={{
+                        background: 'linear-gradient(135deg, #16A34A, #15803D)',
+                        boxShadow: '0 0 12px rgba(22, 163, 74, 0.28)',
+                      }}
+                      transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
+                    />
+                  )}
+                  <span className="relative z-20 text-[11px] tracking-widest font-bold whitespace-nowrap ">
+                    {tab.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
+
+        {/* Right arrow */}
+        <button
+          onClick={() => scroll('right')}
+          aria-label="Scroll right"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-white/50 hover:text-white hover:bg-white/[0.08] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
+          style={{ opacity: canScrollRight ? 1 : 0, pointerEvents: canScrollRight ? 'auto' : 'none' }}
+        >
+          <ChevronRightIcon sx={{ fontSize: 18 }} />
+        </button>
       </div>
-
-      {/* RIGHT ARROW */}
-      {canScrollRight && (
-        <div className="absolute right-2 top-0.5 bottom-0.5 w-12 z-20 pointer-events-none rounded-r-[7px] flex items-center justify-end pr-1">
-          <button 
-            onClick={() => scroll('right')}
-            className="pointer-events-auto p-1.5 rounded-full text-[#322822] bg-transparent hover:bg-transparent transition-colors"
-            aria-label="Scroll right"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m9 18 6-6-6-6"/>
-            </svg>
-          </button>
-        </div>
-      )}
-
     </div>
   );
 }

@@ -1,16 +1,28 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import SquareFootOutlinedIcon from '@mui/icons-material/SquareFootOutlined';
+import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import accountNewLogo from '../images/account_new.png';
+
+export interface PropertyCardProps {
+  imageSrc: string;
+  approvalType: string;
+  price: string;
+  priceUnit: string;
+  projectName: string;
+  location: string;
+  propertyType: string;
+  developerName: string;
+  developerLogo: string;
+  isVerified: boolean;
+  totalLand: string;
+  totalPlots: string;
+  loanAvailable: boolean;
+}
 
 interface StatCardProps {
   icon: React.ReactNode;
@@ -19,127 +31,163 @@ interface StatCardProps {
 }
 
 const StatCard: React.FC<StatCardProps> = ({ icon, label, value }) => (
-  <div className="flex-1 flex flex-col items-center gap-1 py-3 px-1 rounded-[4px] bg-[#F5F5F5] border border-[#E0E0E0]">
-    <div className="text-[#1F7A63]">{icon}</div>
-    <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A', lineHeight: 1.2, textAlign: 'center' }}>
-      {value}
-    </Typography>
-    <Typography sx={{ fontSize: '0.6875rem', color: '#666666', textAlign: 'center', lineHeight: 1.2 }}>
-      {label}
-    </Typography>
+  <div className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-[6px] bg-white border border-[#EAEAEA] shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(31,122,99,0.08)] hover:border-[#1F7A63]/30 transition-all duration-300 group">
+    <div className="text-[#1F7A63] group-hover:scale-110 transition-transform duration-300">
+      {icon}
+    </div>
+    <div className="flex flex-col items-center">
+      <span className="text-[0.875rem] font-bold text-[#1A1A1A] leading-tight">
+        {value}
+      </span>
+      <span className="text-[0.6875rem] font-medium text-[#666666] leading-tight mt-0.5">
+        {label}
+      </span>
+    </div>
   </div>
 );
 
+export const PremiumPropertyCard: React.FC<PropertyCardProps> = ({
+  imageSrc,
+  approvalType,
+  price,
+  priceUnit,
+  projectName,
+  location,
+  propertyType,
+  developerName,
+  developerLogo,
+  isVerified,
+  totalLand,
+  totalPlots,
+  loanAvailable,
+}) => {
+  return (
+    <>
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+          .font-outfit { font-family: 'Outfit', sans-serif; }
+        `}
+      </style>
+
+      <div className="font-outfit bg-white rounded-[8px] border border-[#EAEAEA] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300 max-w-[390px] mx-auto group cursor-pointer">
+        <div className="relative h-[240px] overflow-hidden bg-black">
+          <img
+            src={imageSrc}
+            alt={projectName}
+            className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out"
+          />
+          
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 via-[#1A1A1A]/20 to-transparent" />
+
+          <div className="absolute top-3 right-3 z-10">
+            <div className="flex items-center gap-1 bg-[#1F7A63] text-white px-2.5 py-1 rounded-[4px] shadow-sm">
+              <CheckCircleOutlineIcon sx={{ fontSize: 14 }} />
+              <span className="text-[0.6875rem] font-bold tracking-wide ">
+                {approvalType}
+              </span>
+            </div>
+          </div>
+
+          <div className="absolute bottom-3 left-3 z-10">
+            <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-[6px] px-3 py-1.5 flex items-baseline gap-1 shadow-lg">
+              <span className="text-[1.125rem] font-extrabold text-white leading-none drop-shadow-md">
+                {price}
+              </span>
+              <span className="text-[0.6875rem] font-medium text-white/90 drop-shadow-md">
+                {priceUnit}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-4 bg-white">
+          <div className="flex items-start justify-between gap-3 mb-4">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-[1.25rem] font-extrabold text-[#1A1A1A] leading-tight mb-1 truncate">
+                {projectName}
+              </h2>
+              <div className="flex items-center gap-1 text-[#666666]">
+                <LocationOnOutlinedIcon sx={{ fontSize: 16, color: '#1F7A63' }} />
+                <span className="text-[0.75rem] font-medium truncate">
+                  {location}
+                </span>
+              </div>
+            </div>
+            
+            <button className="flex-shrink-0 bg-[#E8F5E9] hover:bg-[#1F7A63] text-[#1F7A63] hover:text-white text-[0.75rem] font-bold px-3.5 py-2 rounded-[6px] transition-all duration-300 shadow-sm hover:shadow-md border border-[#1F7A63]/20 hover:border-[#1F7A63]">
+              {propertyType}
+            </button>
+          </div>
+
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-[#E0E0E0] to-transparent mb-4" />
+
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-[6px] border border-[#EAEAEA] overflow-hidden flex-shrink-0 flex items-center justify-center bg-[#FAFAFA] p-1 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+              <img 
+                src={developerLogo} 
+                alt={developerName} 
+                className="w-full h-full object-contain" 
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/40?text=Logo';
+                }}
+              />
+            </div>
+            <div className="flex flex-col justify-center">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[0.875rem] font-bold text-[#1A1A1A]">
+                  {developerName}
+                </span>
+                {isVerified && (
+                  <VerifiedIcon sx={{ fontSize: 16, color: '#1F7A63' }} />
+                )}
+              </div>
+              <span className="text-[0.6875rem] font-medium text-[#888888] tracking-wide  mt-0.5">
+                Developer
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2">
+            <StatCard
+              icon={<LandscapeOutlinedIcon sx={{ fontSize: 24 }} />}
+              value={totalLand}
+              label="Total Land"
+            />
+            <StatCard
+              icon={<HomeWorkOutlinedIcon sx={{ fontSize: 24 }} />}
+              value={totalPlots}
+              label="Total Plots"
+            />
+            <StatCard
+              icon={<AccountBalanceOutlinedIcon sx={{ fontSize: 24 }} />}
+              value={loanAvailable ? "Loan ✓" : "No Loan"}
+              label="Bank Finance"
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
 const HeroSection: React.FC = () => {
   return (
-    <Card elevation={0} sx={{ borderRadius: '8px 8px 0 0', border: 'none' }}>
-      {/* Header Image */}
-      <div className="relative h-[240px] overflow-hidden bg-[#1A1A1A]">
-        <img
-          src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=500&fit=crop"
-          alt="Vasavi Skyla Plot Layout Aerial View"
-          className="w-full h-full object-cover"
-          style={{ opacity: 0.88 }}
-        />
-
-        {/* HMDA badge ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â top right, flat */}
-        <div className="absolute top-3 right-3 z-10">
-          <Chip
-            icon={<CheckCircleOutlineIcon sx={{ fontSize: 14, color: '#FFFFFF !important' }} />}
-            label="HMDA Approved"
-            size="small"
-            sx={{
-              backgroundColor: '#1F7A63',
-              color: '#FFFFFF',
-              fontWeight: 700,
-              fontSize: '0.6875rem',
-              height: 26,
-              borderRadius: '4px',
-              '& .MuiChip-icon': { color: '#FFFFFF' },
-            }}
-          />
-        </div>
-
-        {/* Price badge ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â bottom left, flat */}
-        <div className="absolute bottom-3 left-3 z-10">
-          <div className="bg-[#1F7A63] rounded-[4px] px-3 py-1.5 inline-flex items-baseline gap-1">
-            <Typography sx={{ fontSize: '1rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1 }}>
-              ₹18,000
-            </Typography>
-            <Typography sx={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.85)', fontWeight: 500 }}>
-              /sq.yd onwards
-            </Typography>
-          </div>
-        </div>
-      </div>
-
-      {/* Project info block */}
-      <div className="px-4 py-3">
-        {/* Name + location row */}
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <div>
-            <Typography sx={{ fontSize: '1.125rem', fontWeight: 800, color: '#1A1A1A', lineHeight: 1.2, mb: 0.5 }}>
-              Vasavi Skyla
-            </Typography>
-            <div className="flex items-center gap-1">
-              <LocationOnOutlinedIcon sx={{ fontSize: 14, color: '#1F7A63' }} />
-              <Typography sx={{ fontSize: '0.75rem', color: '#666666', fontWeight: 500 }}>
-                Chevella, Rangareddy, Telangana
-              </Typography>
-            </div>
-          </div>
-          <Chip
-            label="Open Plots"
-            size="small"
-            sx={{
-              backgroundColor: '#E8F5E9',
-              color: '#1F7A63',
-              fontWeight: 600,
-              fontSize: '0.6875rem',
-              borderRadius: '4px',
-              flexShrink: 0,
-            }}
-          />
-        </div>
-
-        <Divider sx={{ mb: 2 }} />
-
-        {/* Developer row */}
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-9 h-9 rounded-[4px] border border-[#E0E0E0] overflow-hidden flex-shrink-0 flex items-center justify-center bg-white p-0.5">
-            <img src={accountNewLogo} alt="Gully Properties" className="w-full h-full object-contain" />
-          </div>
-          <div>
-            <div className="flex items-center gap-1">
-              <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>
-                Gully Properties
-              </Typography>
-              <VerifiedIcon sx={{ fontSize: 14, color: '#1F7A63' }} />
-            </div>
-            <Typography sx={{ fontSize: '0.6875rem', color: '#666666' }}>Developer</Typography>
-          </div>
-        </div>
-
-        {/* 3 stat cards */}
-        <div className="flex gap-2">
-          <StatCard
-            icon={<SquareFootOutlinedIcon sx={{ fontSize: 22 }} />}
-            value="12 Acres"
-            label="Total Land"
-          />
-          <StatCard
-            icon={<HomeWorkOutlinedIcon sx={{ fontSize: 22 }} />}
-            value="312 Plots"
-            label="Total Plots"
-          />
-          <StatCard
-            icon={<AccountBalanceOutlinedIcon sx={{ fontSize: 22 }} />}
-            value="Loan ✔"
-            label="Bank Finance"
-          />
-        </div>
-      </div>
-    </Card>
+    <PremiumPropertyCard
+      imageSrc="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=500&fit=crop"
+      approvalType="HMDA Approved"
+      price="₹18,000"
+      priceUnit="/sq.yd onwards"
+      projectName="Vasavi plots"
+      location="Chevella, Rangareddy, Telangana"
+      propertyType="Open Plots"
+      developerName="Gully Properties"
+      developerLogo={accountNewLogo}
+      isVerified={true}
+      totalLand="12 Acres"
+      totalPlots="312 Plots"
+      loanAvailable={true}
+    />
   );
 };
 

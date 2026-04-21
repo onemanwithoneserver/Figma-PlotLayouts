@@ -15,7 +15,7 @@ export default function AddNewPlace({ title, onSave, onCancel }: AddNewPlaceProp
     <div className="flex flex-col bg-[#FDFBF8] rounded-b-[7px]">
 
       <div className="p-4 space-y-4">
-        {/* Search Input - Removed Numbering & Uppercase */}
+        {/* Search Input - Removed Numbering &  */}
         <div className="space-y-1">
           <label className="text-[12px] font-semibold text-[#312822] ml-0.5">Search location</label>
           <div className="flex items-center bg-white rounded-[7px] px-3 py-2.5 border border-[#E5DFD4] focus-within:border-[#E76F26] transition-all shadow-sm">
@@ -40,7 +40,7 @@ export default function AddNewPlace({ title, onSave, onCancel }: AddNewPlaceProp
           </div>
         </div>
 
-        {/* Name Input - Removed Numbering & Uppercase */}
+        {/* Name Input - Removed Numbering &  */}
         <div className="space-y-1">
           <label className="text-[12px] font-semibold text-[#312822] ml-0.5">Name of the Place</label>
           <div className="flex items-center bg-white rounded-[7px] px-3 py-2.5 border border-[#E5DFD4] focus-within:border-[#E76F26] transition-all shadow-sm">
