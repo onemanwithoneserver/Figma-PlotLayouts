@@ -1,69 +1,8 @@
 import React, { useState } from 'react';
-import Typography from '@mui/material/Typography';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import SectionTabNav from '../shared/SectionTabNav';
 import AskSeller from '../shared/AskSeller';
-
-interface AmenityTab {
-  id: string;
-  label: string;
-  imageUrl: string;
-  items: string[];
-}
-
-const AMENITY_TABS: AmenityTab[] = [
-  {
-    id: 'infrastructure',
-    label: 'Infrastructure',
-    imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
-    items: [
-      'Grand Entrance Arch with Security Cabin',
-      '30ft & 20ft Wide BT Roads',
-      'Underground Electrical Lines',
-      'Underground Water Supply Lines',
-      'Underground Drainage / Sewage',
-      'Street Lights on All Roads',
-    ],
-  },
-  {
-    id: 'green',
-    label: 'Green Spaces',
-    imageUrl: 'https://images.unsplash.com/photo-1584483785640-10901e16f734?auto=format&fit=crop&w=800&q=80',
-    items: [
-      '15% Open Green Area',
-      'Central Park (1 Acre)',
-      'Avenue Trees Along Roads',
-      "Children's Play Area",
-      'Walking / Jogging Track',
-      'Landscaped Gardens',
-    ],
-  },
-  {
-    id: 'clubhouse',
-    label: 'Clubhouse',
-    imageUrl: 'https://images.unsplash.com/photo-1582653291997-079a1c04e5d1?auto=format&fit=crop&w=800&q=80',
-    items: [
-      '2,400 Sq.Ft Clubhouse',
-      'Indoor Games Room',
-      'Community Hall',
-      'Outdoor Seating Lounge',
-      'Gym & Fitness Zone',
-      'Multi-Purpose Courts',
-    ],
-  },
-  {
-    id: 'security',
-    label: 'Security',
-    imageUrl: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=800&q=80',
-    items: [
-      '6ft RCC Compound Wall',
-      'CCTV Surveillance at Entry/Exit',
-      '24/7 Security Guard',
-      'Access-Controlled Main Gate',
-      'Visitor Management System',
-    ],
-  },
-];
+import { AMENITY_TABS, amenitiesAskSellerQuestions } from './data';
 
 const AmenitiesSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState(AMENITY_TABS[0].id);
@@ -78,8 +17,9 @@ const AmenitiesSection: React.FC = () => {
         layoutId="amenity-active-pill"
       />
 
-      <div className="px-4 py-4 flex flex-col gap-4">
-        <div className="w-full h-48 sm:h-64 rounded-md overflow-hidden bg-neutral-100">
+      <div className="px-3 py-3 flex flex-col gap-4">
+        {/* Category image */}
+        <div className="w-full h-48 sm:h-64 rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-section-light)] shadow-sm">
           <img
             src={current.imageUrl}
             alt={current.label}
@@ -88,27 +28,20 @@ const AmenitiesSection: React.FC = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        {/* Amenity checklist */}
+        <ul className="flex flex-col gap-2.5" role="list" aria-label={`${current.label} amenities`}>
           {current.items.map((item) => (
-            <div key={item} className="flex items-start gap-2.5">
-              <CheckCircleOutlineIcon sx={{ fontSize: 16, color: '#1F7A63', mt: 0.25, flexShrink: 0 }} />
-              <Typography sx={{ fontSize: '0.8125rem', fontWeight: 500, color: '#1A1A1A', lineHeight: 1.4 }}>
+            <li key={item} className="flex items-start gap-2.5" role="listitem">
+              <CheckCircleOutlineIcon sx={{ fontSize: 16, color: 'var(--accent-primary)', mt: '2px', flexShrink: 0 }} />
+              <span className="text-[0.8125rem] font-medium text-[var(--text-primary)] leading-[1.4]">
                 {item}
-              </Typography>
-            </div>
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
-      <AskSeller
-        initialQuestions={[
-          'Are all amenities ready and operational?',
-          'Is the clubhouse open for residents currently?',
-          'Is there a separate swimming pool for kids and adults?',
-          'Are gym and wellness facilities included in maintenance?',
-          'What are the operating hours for amenities?',
-        ]}
-      />
+      <AskSeller initialQuestions={amenitiesAskSellerQuestions} />
     </div>
   );
 };

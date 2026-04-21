@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Snackbar from '@mui/material/Snackbar';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
@@ -20,7 +18,7 @@ const FooterNav: React.FC = () => {
 
   const handleShare = () => {
     if (navigator.share) {
-      navigator.share({ title: 'Vasavi Skyla â€“ Chevella', url: window.location.href });
+      navigator.share({ title: 'Vasavi Skyla — Chevella', url: window.location.href });
     } else {
       navigator.clipboard.writeText(window.location.href);
       setSnack('Link copied!');
@@ -32,10 +30,12 @@ const FooterNav: React.FC = () => {
 
   return (
     <>
+      {/* Sticky bottom bar — subtle glass, compact, non-intrusive */}
       <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
         <div
-          className="w-full max-w-[390px] bg-white pointer-events-auto"
-          style={{ borderTop: '1px solid #E0E0E0' }}
+          className="w-full max-w-[390px] glass-sticky pointer-events-auto"
+          role="toolbar"
+          aria-label="Property actions"
         >
           <div className="flex items-center justify-between px-2 py-1.5">
 
@@ -43,39 +43,42 @@ const FooterNav: React.FC = () => {
             <button
               onClick={handleSave}
               className="flex flex-col items-center gap-0.5 w-14 py-1"
+              aria-label={saved ? 'Remove from saved' : 'Save property'}
+              aria-pressed={saved}
             >
               {saved
-                ? <BookmarkOutlinedIcon sx={{ fontSize: 22, color: '#1F7A63' }} />
+                ? <BookmarkOutlinedIcon sx={{ fontSize: 22, color: 'var(--accent-primary)' }} />
                 : <BookmarkBorderOutlinedIcon sx={{ fontSize: 22, color: '#757575' }} />
               }
-              <Typography sx={{ fontSize: '0.6875rem', color: saved ? '#1F7A63' : '#757575', fontWeight: saved ? 700 : 400 }}>
+              <span className={`text-[0.6875rem] ${saved ? 'text-[var(--accent-primary)] font-bold' : 'text-[#757575]'}`}>
                 Save
-              </Typography>
+              </span>
             </button>
 
             {/* Hide */}
             <button
               onClick={handleHide}
               className="flex flex-col items-center gap-0.5 w-14 py-1"
+              aria-label="Hide property"
             >
               <VisibilityOffOutlinedIcon sx={{ fontSize: 22, color: '#757575' }} />
-              <Typography sx={{ fontSize: '0.6875rem', color: '#757575' }}>
+              <span className="text-[0.6875rem] text-[#757575]">
                 Hide
-              </Typography>
+              </span>
             </button>
 
-            {/* Contact â€” center CTA */}
+            {/* Contact — center CTA */}
             <div className="flex flex-col items-center -mt-4">
-              <a href="tel:+919999999999" className="flex flex-col items-center">
+              <a href="tel:+919999999999" className="flex flex-col items-center" aria-label="Call seller">
                 <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center mb-0.5"
-                  style={{ backgroundColor: '#1F7A63' }}
+                  className="w-12 h-12 rounded-[var(--radius-md)] flex items-center justify-center mb-0.5 shadow-[0_2px_12px_rgba(31,122,92,0.25)]"
+                  style={{ background: 'var(--gradient-accent)' }}
                 >
                   <PhoneOutlinedIcon sx={{ fontSize: 22, color: '#ffffff' }} />
                 </div>
-                <Typography sx={{ fontSize: '0.6875rem', color: '#1F7A63', fontWeight: 700 }}>
+                <span className="text-[0.6875rem] text-[var(--accent-primary)] font-bold">
                   Contact
-                </Typography>
+                </span>
               </a>
             </div>
 
@@ -83,22 +86,24 @@ const FooterNav: React.FC = () => {
             <button
               onClick={handleShare}
               className="flex flex-col items-center gap-0.5 w-14 py-1"
+              aria-label="Share property"
             >
               <ShareOutlinedIcon sx={{ fontSize: 22, color: '#757575' }} />
-              <Typography sx={{ fontSize: '0.6875rem', color: '#757575' }}>
+              <span className="text-[0.6875rem] text-[#757575]">
                 Share
-              </Typography>
+              </span>
             </button>
 
             {/* Close */}
             <button
               onClick={handleClose}
               className="flex flex-col items-center gap-0.5 w-14 py-1"
+              aria-label="Close property"
             >
               <CloseOutlinedIcon sx={{ fontSize: 22, color: '#EF5350' }} />
-              <Typography sx={{ fontSize: '0.6875rem', color: '#EF5350' }}>
+              <span className="text-[0.6875rem] text-[#EF5350]">
                 Close
-              </Typography>
+              </span>
             </button>
 
           </div>

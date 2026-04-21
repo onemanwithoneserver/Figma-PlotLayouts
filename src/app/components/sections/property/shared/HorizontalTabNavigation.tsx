@@ -1,23 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
-interface TabItem {
-  id: string;
-  label: string;
-}
-
-const TABS: TabItem[] = [
-  { id: 'overview',       label: 'Overview'    },
-  { id: 'highlights',     label: 'Highlights'  },
-  { id: 'project-status', label: 'Status'      },
-  { id: 'layout',         label: 'Layout'      },
-  { id: 'ask-seller',     label: 'Ask Seller'  },
-  { id: 'location',       label: 'Location'    },
-  { id: 'amenities',      label: 'Amenities'   },
-  { id: 'payment',        label: 'Pricing'     },
-  { id: 'gallery',        label: 'Gallery'     },
-];
+import { SECTION_TABS } from './data';
 
 const HorizontalTabNavigation: React.FC = () => {
   const scrollRef        = useRef<HTMLDivElement>(null);
@@ -25,7 +9,7 @@ const HorizontalTabNavigation: React.FC = () => {
   const clickScrolling   = useRef(false);
   const unlockTimer      = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [activeTab, setActiveTab] = useState(TABS[0].id);
+  const [activeTab, setActiveTab] = useState(SECTION_TABS[0].id);
   const [visible,   setVisible]   = useState(false);
   const [showLeft,   setShowLeft]  = useState(false);
   const [showRight, setShowRight] = useState(false);
@@ -65,7 +49,7 @@ const HorizontalTabNavigation: React.FC = () => {
       },
       { rootMargin: '-56px 0px -50% 0px', threshold: 0 }
     );
-    TABS.forEach(({ id }) => {
+    SECTION_TABS.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -91,20 +75,22 @@ const HorizontalTabNavigation: React.FC = () => {
     }
   }, []);
 
-  const filteredTabs = TABS.filter(tab => tab.id !== activeTab);
+  const filteredTabs = SECTION_TABS.filter(tab => tab.id !== activeTab);
 
   return (
-    <div
-      className={`sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200 transition-all duration-300 ${
+    <nav
+      aria-label="Page sections"
+      className={`sticky top-0 z-40 glass-sticky transition-all duration-300 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
       }`}
     >
       <div className="flex items-center">
         <button
           onClick={() => manualScroll('left')}
-          className="flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
+          className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
           disabled={!showLeft}
-          style={{ borderRight: '1px solid #f0f0f0', color: '#737373' }}
+          style={{ borderRight: '1px solid var(--border-subtle)', color: '#737373' }}
+          aria-label="Scroll tabs left"
         >
           <ChevronLeftIcon sx={{ fontSize: 20 }} />
         </button>
@@ -113,22 +99,19 @@ const HorizontalTabNavigation: React.FC = () => {
           ref={scrollRef}
           onScroll={syncArrows}
           className="flex-1 flex items-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          role="tablist"
+          aria-label="Section navigation"
         >
           {filteredTabs.map((tab) => (
             <button
               key={tab.id}
               ref={(el) => { tabRefs.current[tab.id] = el; }}
               onClick={() => handleClick(tab.id)}
-              className="flex-shrink-0 px-5 py-3 outline-none hover:bg-neutral-50 transition-colors duration-200"
+              role="tab"
+              aria-selected={false}
+              className="compact-touch flex-shrink-0 px-5 py-3 outline-none hover:bg-neutral-50 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/40 rounded-[var(--radius-sm)]"
             >
-              <span
-                style={{
-                  fontSize: '0.8125rem',
-                  fontWeight: 500,
-                  color: '#525252',
-                  whiteSpace: 'nowrap',
-                }}
-              >
+              <span className="text-[0.8125rem] font-medium text-[var(--text-muted)] whitespace-nowrap">
                 {tab.label}
               </span>
             </button>
@@ -137,14 +120,15 @@ const HorizontalTabNavigation: React.FC = () => {
 
         <button
           onClick={() => manualScroll('right')}
-          className="flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
+          className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
           disabled={!showRight}
-          style={{ borderLeft: '1px solid #f0f0f0', color: '#737373' }}
+          style={{ borderLeft: '1px solid var(--border-subtle)', color: '#737373' }}
+          aria-label="Scroll tabs right"
         >
           <ChevronRightIcon sx={{ fontSize: 20 }} />
         </button>
       </div>
-    </div>
+    </nav>
   );
 };
 

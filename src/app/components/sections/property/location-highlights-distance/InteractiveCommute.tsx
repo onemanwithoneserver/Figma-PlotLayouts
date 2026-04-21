@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Icons, INITIAL_TABS, INITIAL_DATA, PlaceItem } from './commuteData';
-import TabNavigation from './TabNavigation';
+import SectionTabNav from '../shared/SectionTabNav';
 
 function PlaceIcon({ icon }: { icon: string }) {
   return (
@@ -39,10 +39,11 @@ export default function InteractiveCommute() {
 
   return (
     <div className="font-['Outfit',_sans-serif]">
-      <TabNavigation
-        tabs={INITIAL_TABS}
+      <SectionTabNav
+        tabs={INITIAL_TABS.map(({ id, label }) => ({ id, label }))}
         activeTab={activeTab}
-        onTabClick={setActiveTab}
+        onTabChange={setActiveTab}
+        layoutId="commute-active-pill"
       />
 
       <div className="px-3 pt-3 pb-2">

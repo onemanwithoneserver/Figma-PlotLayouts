@@ -1,85 +1,38 @@
 import React, { useState } from 'react';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
-import skyscrapperIcon from '../images/popup-images/skyscrapper.png';
-import propertyIcon from '../images/popup-images/property.png';
-import approvalsIcon from '../images/popup-images/Approvals.png';
-import unitFacingIcon from '../images/popup-images/UnitFacing.png';
-import blueprint1Icon from '../images/popup-images/blueprint1.png';
-import locationIcon from '../images/popup-images/location.png';
-import overpopulationIcon from '../images/popup-images/overpopulation.png';
-import clubhouseIcon from '../images/popup-images/ClubhouseArea.png';
-import orr1Icon from '../images/popup-images/orr1.png';
-import rrr1Icon from '../images/popup-images/rrr1.png';
-import highway1Icon from '../images/popup-images/highway1.png';
-import stackIcon from '../images/popup-images/stack.png';
-import roadsWidthIcon from '../images/popup-images/Roads_Width.png';
-import loan1Icon from '../images/popup-images/loan1.png';
-
-interface OverviewItem {
-  icon: string;
-  label: string;
-  value: string;
-}
+import { overviewData, OVERVIEW_INITIAL_COUNT } from './data';
+import type { OverviewItem } from './data';
 
 const OverviewTile: React.FC<{ item: OverviewItem }> = ({ item }) => (
-  <div className="flex flex-col items-center text-center p-2 rounded-md bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-    <div className="w-8 h-8 flex items-center justify-center bg-[#F1FAF8] rounded-full mb-1.5">
+  <div className="flex flex-col items-center text-center p-2 rounded-[var(--radius-md)] bg-white border border-[var(--border-subtle)] shadow-sm hover:shadow-[0_4px_16px_rgba(31,122,92,0.08)] hover:border-[var(--accent-border)] transition-all duration-300 transform hover:-translate-y-0.5">
+    <div className="w-8 h-8 flex items-center justify-center bg-[var(--accent-soft)] rounded-[var(--radius-md)] mb-1.5">
       <img
         src={item.icon}
-        alt={item.label}
+        alt=""
         className="w-4 h-4 object-contain"
+        aria-hidden="true"
       />
     </div>
-    <Typography
-      sx={{
-        fontSize: '0.625rem',
-        fontWeight: 600,
-        color: '#828282',
-        letterSpacing: '0.02em',
-        lineHeight: 1.2,
-        mb: 0.25,
-      }}
-    >
+    <span className="text-[0.625rem] font-semibold text-[var(--text-muted)] tracking-[0.02em] leading-[1.2] mb-0.5">
       {item.label}
-    </Typography>
-    <Typography sx={{ fontSize: '0.75rem', fontWeight: 700, color: '#1A1A1A', lineHeight: 1.2 }}>
+    </span>
+    <span className="text-[0.75rem] font-bold text-[var(--text-primary)] leading-[1.2]">
       {item.value}
-    </Typography>
+    </span>
   </div>
 );
 
 const Overview: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
-
-  const allData: OverviewItem[] = [
-    { icon: propertyIcon,       label: 'Inventory Type', value: 'Open Plots' },
-    { icon: approvalsIcon,      label: 'Approvals',      value: 'HMDA / LPA' },
-    { icon: locationIcon,       label: 'Mandal',         value: 'Chevella' },
-    { icon: locationIcon,       label: 'District',       value: 'Rangareddy' },
-    { icon: stackIcon,          label: 'Land Zoning',    value: 'Residential' },
-    { icon: blueprint1Icon,     label: 'Plot Sizes',     value: '100–240 Sq.Yd' },
-    { icon: unitFacingIcon,     label: 'Unit Facing',    value: 'North & East' },
-    { icon: overpopulationIcon, label: 'Density',        value: 'Low – 312 Plots' },
-    { icon: clubhouseIcon,      label: 'Clubhouse',      value: 'Yes – 2,400 Sq.Ft' },
-    { icon: orr1Icon,           label: 'ORR',            value: '4.5 km' },
-    { icon: rrr1Icon,           label: 'RRR',            value: '18 km' },
-    { icon: highway1Icon,       label: 'Highway',        value: 'NH-163 – 2 km' },
-    { icon: roadsWidthIcon,     label: 'Roads Width',    value: '30 ft / 20 ft' },
-    { icon: loan1Icon,          label: 'Loan Facility',  value: 'SBI, HDFC, Axis' },
-    { icon: skyscrapperIcon,    label: 'Project Type',   value: 'Residential Plots' },
-  ];
-
-  const displayed = showAll ? allData : allData.slice(0, 6);
+  const displayed = showAll ? overviewData : overviewData.slice(0, OVERVIEW_INITIAL_COUNT);
 
   return (
-    <div className="p-3 bg-gray-50 rounded-xl">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
+    <div className="p-3 bg-[var(--bg-section-light)] rounded-[var(--radius-lg)]">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3" role="list" aria-label="Property overview details">
         {displayed.map((item) => (
-          <OverviewTile key={item.label} item={item} />
+          <OverviewTile key={item.id} item={item} />
         ))}
       </div>
 
@@ -90,16 +43,18 @@ const Overview: React.FC = () => {
           onClick={() => setShowAll(!showAll)}
           endIcon={showAll ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           sx={{
-            backgroundColor: '#1F7A63',
+            background: 'var(--gradient-accent)',
             color: '#FFFFFF',
-            borderRadius: '6px',
+            borderRadius: 'var(--radius-md)',
             fontSize: '0.8125rem',
             fontWeight: 700,
             textTransform: 'none',
             px: 2,
             py: 0.5,
-            '&:hover': { backgroundColor: '#145a47' },
+            boxShadow: '0 2px 12px rgba(31,122,92,0.18)',
+            '&:hover': { background: 'var(--gradient-accent)', filter: 'brightness(0.95)' },
           }}
+          aria-expanded={showAll}
         >
           {showAll ? 'Show less' : 'See all details'}
         </Button>

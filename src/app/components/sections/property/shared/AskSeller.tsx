@@ -48,7 +48,7 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS }: AskS
   };
 
   return (
-    <div className="w-full py-3 px-3 space-y-3 font-['Outfit',_sans-serif] bg-white border-t border-[#EAEAEA]">
+    <div className="w-full px-4 py-3 space-y-3 font-['Outfit',_sans-serif] bg-white border-t border-[var(--border-subtle)]">
       <div className="flex items-center justify-between gap-1">
         <h3 className="text-[14px] font-bold text-[#1A1A1A] leading-tight">Ask Seller</h3>
         {!isAdding && (
@@ -77,9 +77,8 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS }: AskS
               className="flex items-start gap-2.5 w-full text-left group transition-opacity active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]/40 rounded-[4px]"
             >
               <div
-                className={`mt-0.5 w-4 h-4 rounded-[4px] flex items-center justify-center flex-shrink-0 shadow-sm transition-all ${
-                  checked ? "" : "bg-[#F0F0F0] border border-[#E0E0E0]"
-                }`}
+                className={`mt-0.5 w-4 h-4 rounded-[4px] flex items-center justify-center flex-shrink-0 shadow-sm transition-all ${checked ? "" : "bg-[#F0F0F0] border border-[#E0E0E0]"
+                  }`}
                 style={checked ? { background: "linear-gradient(135deg, #16A34A, #15803D)" } : {}}
               >
                 {checked && (
@@ -89,9 +88,8 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS }: AskS
                 )}
               </div>
               <span
-                className={`text-[12px] font-semibold leading-tight transition-colors ${
-                  checked ? "text-[#1A1A1A]" : "text-[#666666]"
-                } group-hover:text-[#16A34A]`}
+                className={`text-[12px] font-semibold leading-tight transition-colors ${checked ? "text-[#1A1A1A]" : "text-[#666666]"
+                  } group-hover:text-[#16A34A]`}
               >
                 {q}
               </span>
@@ -128,9 +126,8 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS }: AskS
           >
             <div className="w-4 h-4 rounded-[4px] flex items-center justify-center bg-[#F0F0F0] border border-[#E0E0E0] group-hover:border-[#16A34A] transition-colors flex-shrink-0">
               <svg
-                className={`w-2.5 h-2.5 text-[#666666] group-hover:text-[#16A34A] transition-transform ${
-                  showMore ? "" : "rotate-180"
-                }`}
+                className={`w-2.5 h-2.5 text-[#666666] group-hover:text-[#16A34A] transition-transform ${showMore ? "" : "rotate-180"
+                  }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

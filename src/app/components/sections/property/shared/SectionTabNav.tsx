@@ -70,11 +70,11 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
 
   return (
     <div className="w-full relative">
-      <div className="bg-white rounded-[4px] shadow-sm flex items-center">
+      <div className="bg-white rounded-[var(--radius-md)] shadow-sm flex items-center">
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50 overflow-hidden"
+          className="compact-touch flex-shrink-0 flex items-center justify-center rounded-[var(--radius-sm)] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/50 overflow-hidden"
           style={{
             width: canScrollLeft ? 32 : 0,
             height: canScrollLeft ? 32 : 0,
@@ -103,20 +103,20 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
                     else buttonRefs.current.delete(tab.id);
                   }}
                   role="tab"
-                  aria-selected={isActive ? 'true' : 'false'}
+                  aria-selected={isActive}
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => onTabChange(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] focus-visible:ring-2 focus-visible:ring-green-600/50"
-                  style={{ color: isActive ? '#ffffff' : '#525252' }}
+                  className="compact-touch relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[var(--radius-md)] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/50"
+                  style={{ color: isActive ? '#ffffff' : 'var(--text-muted)' }}
                 >
                   {isActive && (
                     <motion.div
                       layoutId={layoutId}
-                      className="absolute inset-0 rounded-[4px] -z-10"
+                      className="absolute inset-0 rounded-[var(--radius-md)] -z-10"
                       style={{
-                        background: 'linear-gradient(135deg, #16A34A, #15803D)',
-                        boxShadow: '0 0 12px rgba(22, 163, 74, 0.28)',
+                        background: 'var(--gradient-accent)',
+                        boxShadow: '0 0 12px rgba(31, 122, 92, 0.22)',
                       }}
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
@@ -132,7 +132,7 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
-          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50 overflow-hidden"
+          className="compact-touch flex-shrink-0 flex items-center justify-center rounded-[var(--radius-sm)] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/50 overflow-hidden"
           style={{
             width: canScrollRight ? 32 : 0,
             height: canScrollRight ? 32 : 0,

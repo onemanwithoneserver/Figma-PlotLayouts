@@ -6,30 +6,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import CloseIcon from '@mui/icons-material/Close';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import AskSeller from '../shared/AskSeller';
-
-const layoutImages = [
-  {
-    src: 'https://images.unsplash.com/photo-1563207153-f403bf289096?w=800&h=500&fit=crop',
-    label: 'Master Layout Plan',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=500&fit=crop',
-    label: 'Phase 1 Plot Grid',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop',
-    label: 'Internal Road Network',
-  },
-];
-
-const plotSizes = [
-  { size: '100 Sq.Yd', sqYd: 100, pricePerSqYd: 18000 },
-  { size: '150 Sq.Yd', sqYd: 150, pricePerSqYd: 17500 },
-  { size: '200 Sq.Yd', sqYd: 200, pricePerSqYd: 16800 },
-  { size: '240 Sq.Yd', sqYd: 240, pricePerSqYd: 16000 },
-];
-
-
+import { layoutImages, plotSizes, layoutAskSellerQuestions } from './plotData';
 
 const Layout: React.FC = () => {
   const [imgIdx, setImgIdx] = useState(0);
@@ -41,11 +18,12 @@ const Layout: React.FC = () => {
   return (
     <>
       {/* Image Viewer */}
-      <div className="relative w-full bg-[#F5F5F5]" style={{ aspectRatio: '4/3' }}>
+      <div className="relative w-full bg-[var(--bg-section-light)]" style={{ aspectRatio: '4/3' }}>
         <img
           src={layoutImages[imgIdx].src}
           alt={layoutImages[imgIdx].label}
           className="w-full h-full object-cover"
+          loading="lazy"
         />
 
         {/* Prev / Next */}
@@ -54,16 +32,18 @@ const Layout: React.FC = () => {
             <IconButton
               onClick={prev}
               size="small"
-              sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: '#FFFFFF' } }}
+              aria-label="Previous image"
+              sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: '#FFFFFF' }, borderRadius: 'var(--radius-sm)' }}
             >
-              <NavigateBeforeIcon sx={{ fontSize: 18, color: '#1A1A1A' }} />
+              <NavigateBeforeIcon sx={{ fontSize: 18, color: 'var(--text-primary)' }} />
             </IconButton>
             <IconButton
               onClick={next}
               size="small"
-              sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: '#FFFFFF' } }}
+              aria-label="Next image"
+              sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: '#FFFFFF' }, borderRadius: 'var(--radius-sm)' }}
             >
-              <NavigateNextIcon sx={{ fontSize: 18, color: '#1A1A1A' }} />
+              <NavigateNextIcon sx={{ fontSize: 18, color: 'var(--text-primary)' }} />
             </IconButton>
           </>
         )}
@@ -80,6 +60,7 @@ const Layout: React.FC = () => {
             <IconButton
               onClick={() => setLightboxOpen(true)}
               size="small"
+              aria-label="View fullscreen"
               sx={{ color: 'rgba(255,255,255,0.85)', p: 0.25 }}
             >
               <ZoomOutMapIcon sx={{ fontSize: 16 }} />
@@ -89,43 +70,46 @@ const Layout: React.FC = () => {
       </div>
 
       {/* Thumbnail strip */}
-      <div className="flex gap-1.5 px-3 py-2 border-b border-neutral-200">
+      <div className="flex gap-1.5 px-3 py-2 border-b border-[var(--border-subtle)]">
         {layoutImages.map((img, i) => (
           <button
             key={i}
             onClick={() => setImgIdx(i)}
-            className="flex-1 rounded-[3px] overflow-hidden border-2 transition-all"
-            style={{ borderColor: i === imgIdx ? '#1F7A63' : '#E0E0E0' }}
+            className="flex-1 rounded-[var(--radius-sm)] overflow-hidden border-2 transition-all"
+            style={{ borderColor: i === imgIdx ? 'var(--accent-primary)' : 'var(--border-default)' }}
+            aria-label={img.label}
+            aria-current={i === imgIdx ? 'true' : undefined}
           >
-            <img src={img.src} alt={img.label} className="w-full h-9 object-cover" />
+            <img src={img.src} alt={img.label} className="w-full h-9 object-cover" loading="lazy" />
           </button>
         ))}
       </div>
 
       {/* Plot availability */}
       <div className="px-3 py-3">
-        <p className="text-[13px] font-bold text-[#1A1A1A] mb-2">Plot Availability</p>
+        <p className="text-[13px] font-bold text-[var(--text-primary)] mb-2">Plot Availability</p>
         <div className="flex flex-col">
           {plotSizes.map((plot, i, arr) => (
             <div key={plot.size}>
               <div className="flex items-center justify-between py-2.5">
                 <div>
-                  <p className="text-[13px] font-semibold text-[#1A1A1A]">{plot.size} Plot</p>
-                  <p className="text-[11px] font-medium text-neutral-500 mt-0.5">
+                  <p className="text-[13px] font-semibold text-[var(--text-primary)]">{plot.size} Plot</p>
+                  <p className="text-[11px] font-medium text-[var(--text-muted)] mt-0.5">
                     Rs. {plot.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
                   </p>
                 </div>
-                <p className="text-[15px] font-bold text-[#1F7A63]">
+                <p className="text-[15px] font-bold text-[var(--accent-primary)]">
                   Rs. {((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
                 </p>
               </div>
-              {i < arr.length - 1 && <div className="h-px bg-neutral-200" />}
+              {i < arr.length - 1 && <div className="h-px bg-[var(--border-subtle)]" />}
             </div>
           ))}
         </div>
 
         <button
-          className="mt-3 w-full py-2.5 rounded-[4px] bg-[#1F7A63] hover:bg-[#145a47] text-white text-[14px] font-bold transition-colors"
+          className="mt-3 w-full py-2.5 rounded-[var(--radius-md)] text-white text-[14px] font-bold transition-all duration-300 hover:shadow-[0_4px_16px_rgba(31,122,92,0.25)] active:scale-[0.98]"
+          style={{ background: 'var(--gradient-accent)' }}
         >
           Check Plot Availability
         </button>
@@ -138,6 +122,7 @@ const Layout: React.FC = () => {
         maxWidth="sm"
         fullWidth
         PaperProps={{ sx: { bgcolor: '#000000', m: 1 } }}
+        aria-label="Layout image fullscreen view"
       >
         <div className="relative">
           <img
@@ -149,29 +134,22 @@ const Layout: React.FC = () => {
             onClick={() => setLightboxOpen(false)}
             sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(0,0,0,0.6)', color: '#FFFFFF', '&:hover': { bgcolor: 'rgba(0,0,0,0.8)' } }}
             size="small"
+            aria-label="Close fullscreen"
           >
             <CloseIcon sx={{ fontSize: 18 }} />
           </IconButton>
           <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-3">
-            <IconButton onClick={prev} sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF' }} size="small">
+            <IconButton onClick={prev} sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF' }} size="small" aria-label="Previous">
               <NavigateBeforeIcon />
             </IconButton>
-            <IconButton onClick={next} sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF' }} size="small">
+            <IconButton onClick={next} sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF' }} size="small" aria-label="Next">
               <NavigateNextIcon />
             </IconButton>
           </div>
         </div>
       </Dialog>
 
-      <AskSeller
-        initialQuestions={[
-          'What is the exact plot demarcation process after booking?',
-          'Is the layout HMDA / DTCP approved?',
-          'Are corner plots available at the quoted price?',
-          'What is the estimated registration timeline?',
-          'Is the road-facing plot available in 100 Sq.Yd size?',
-        ]}
-      />
+      <AskSeller initialQuestions={layoutAskSellerQuestions} />
     </>
   );
 };

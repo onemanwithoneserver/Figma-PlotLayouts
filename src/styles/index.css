@@ -2,95 +2,186 @@
 @import './tailwind.css';
 @import './theme.css';
 
-/* Custom Animations for Property Details */
+/* ──────────────────────────────────────────────────────
+   DESIGN TOKENS — Glassmorphic Real Estate UI
+   ────────────────────────────────────────────────────── */
+:root {
+  /* Base Gradient */
+  --gradient-primary: linear-gradient(135deg, #CFEA8A, #A9C46C);
+  --gradient-accent:  linear-gradient(135deg, #1F7A5C, #2E8B6E);
+
+  /* Section Backgrounds */
+  --bg-section-light:   #F4F8F2;
+  --bg-section-muted:   #EAF3E6;
+  --bg-app:             #F5F5F5;
+
+  /* Accent */
+  --accent-primary:     #1F7A5C;
+  --accent-secondary:   #2E8B6E;
+  --accent-soft:        rgba(31, 122, 92, 0.08);
+  --accent-border:      rgba(31, 122, 92, 0.18);
+
+  /* Text */
+  --text-primary:       #0B3D2E;
+  --text-secondary:     rgba(0, 0, 0, 0.65);
+  --text-muted:         #666666;
+  --text-on-accent:     #FFFFFF;
+
+  /* Glass */
+  --glass-bg:           rgba(255, 255, 255, 0.55);
+  --glass-bg-strong:    rgba(255, 255, 255, 0.72);
+  --glass-border:       rgba(255, 255, 255, 0.35);
+  --glass-shadow:       0 4px 24px rgba(31, 122, 92, 0.08);
+  --glass-blur:         12px;
+
+  /* Surfaces */
+  --surface-card:       #FFFFFF;
+  --surface-elevated:   rgba(255, 255, 255, 0.9);
+  --border-subtle:      #E8EDE6;
+  --border-default:     #E0E0E0;
+
+  /* Radius */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+
+  /* Spacing — 8px grid */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+
+  /* Transition */
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-fast:   150ms;
+  --duration-normal: 250ms;
+  --duration-slow:   400ms;
+}
+
+/* ──────────────────────────────────────────────────────
+   GLASSMORPHISM UTILITIES
+   ────────────────────────────────────────────────────── */
+
+/* Subtle glass — for highlight cards */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Stronger glass — for CTAs and important elements */
+.glass-cta {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 4px 20px rgba(31, 122, 92, 0.12);
+}
+
+/* Sticky bar glass — subtle, non-intrusive */
+.glass-sticky {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Section backgrounds */
+.bg-section-light { background-color: var(--bg-section-light); }
+.bg-section-muted { background-color: var(--bg-section-muted); }
+
+/* ──────────────────────────────────────────────────────
+   ANIMATIONS
+   ────────────────────────────────────────────────────── */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.6s var(--ease-out) forwards;
 }
 
 .animate-slide-up {
-  animation: slideUp 0.5s ease-out forwards;
+  animation: slideUp 0.5s var(--ease-out) forwards;
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.3s ease-out forwards;
+  animation: fadeInUp 0.3s var(--ease-out) forwards;
 }
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
+/* ──────────────────────────────────────────────────────
+   SCROLLBAR
+   ────────────────────────────────────────────────────── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-secondary); }
 
-/* Theme-aware scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--secondary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--green-light);
-}
-
-/* Selection styling */
+/* ──────────────────────────────────────────────────────
+   ACCESSIBILITY — Focus & Selection
+   ────────────────────────────────────────────────────── */
 ::selection {
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
 }
 
-/* Focus styles */
 :focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
 }
 
-/* Theme transition for all elements */
-*,
-*::before,
-*::after {
+/* Touch target minimum — Fitts's Law (Opt-in via utility classes to prevent global layout breakage) */
+@layer utilities {
+  .min-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Exceptions for inline/compact elements (kept for backwards compatibility) */
+  .compact-touch {
+    min-height: unset;
+    min-width: unset;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────
+   THEME TRANSITIONS — Controlled, not global
+   ────────────────────────────────────────────────────── */
+.transition-theme {
   transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-fast);
 }
