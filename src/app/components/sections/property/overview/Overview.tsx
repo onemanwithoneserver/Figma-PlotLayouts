@@ -4,21 +4,17 @@ import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-// PNG icons
 import skyscrapperIcon from '../images/popup-images/skyscrapper.png';
 import propertyIcon from '../images/popup-images/property.png';
 import approvalsIcon from '../images/popup-images/Approvals.png';
 import unitFacingIcon from '../images/popup-images/UnitFacing.png';
 import blueprint1Icon from '../images/popup-images/blueprint1.png';
 import locationIcon from '../images/popup-images/location.png';
-import blueprintIcon from '../images/popup-images/blueprint.png';
-import researchIcon from '../images/popup-images/research.png';
 import overpopulationIcon from '../images/popup-images/overpopulation.png';
 import clubhouseIcon from '../images/popup-images/ClubhouseArea.png';
 import orr1Icon from '../images/popup-images/orr1.png';
 import rrr1Icon from '../images/popup-images/rrr1.png';
 import highway1Icon from '../images/popup-images/highway1.png';
-import ocIcon from '../images/popup-images/oc.png';
 import stackIcon from '../images/popup-images/stack.png';
 import roadsWidthIcon from '../images/popup-images/Roads_Width.png';
 import loan1Icon from '../images/popup-images/loan1.png';
@@ -30,26 +26,27 @@ interface OverviewItem {
 }
 
 const OverviewTile: React.FC<{ item: OverviewItem }> = ({ item }) => (
-  <div className="flex flex-col items-center text-center py-3 px-2 rounded-[4px] bg-[#F5F5F5] border border-[#E0E0E0]">
-    <img
-      src={item.icon}
-      alt={item.label}
-      className="w-6 h-6 mb-1.5 object-contain"
-    />
+  <div className="flex flex-col items-center text-center p-2 rounded-md bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+    <div className="w-8 h-8 flex items-center justify-center bg-[#F1FAF8] rounded-full mb-1.5">
+      <img
+        src={item.icon}
+        alt={item.label}
+        className="w-4 h-4 object-contain"
+      />
+    </div>
     <Typography
       sx={{
         fontSize: '0.625rem',
         fontWeight: 600,
-        color: '#666666',
-        textTransform: '',
-        letterSpacing: '0.04em',
+        color: '#828282',
+        letterSpacing: '0.02em',
         lineHeight: 1.2,
-        mb: 0.5,
+        mb: 0.25,
       }}
     >
       {item.label}
     </Typography>
-    <Typography sx={{ fontSize: '0.75rem', fontWeight: 700, color: '#1A1A1A', lineHeight: 1.3 }}>
+    <Typography sx={{ fontSize: '0.75rem', fontWeight: 700, color: '#1A1A1A', lineHeight: 1.2 }}>
       {item.value}
     </Typography>
   </div>
@@ -65,25 +62,22 @@ const Overview: React.FC = () => {
     { icon: locationIcon,       label: 'District',       value: 'Rangareddy' },
     { icon: stackIcon,          label: 'Land Zoning',    value: 'Residential' },
     { icon: blueprint1Icon,     label: 'Plot Sizes',     value: '100–240 Sq.Yd' },
-    { icon: unitFacingIcon,     label: 'Facing',         value: 'North & East' },
+    { icon: unitFacingIcon,     label: 'Unit Facing',    value: 'North & East' },
     { icon: overpopulationIcon, label: 'Density',        value: 'Low – 312 Plots' },
     { icon: clubhouseIcon,      label: 'Clubhouse',      value: 'Yes – 2,400 Sq.Ft' },
-    { icon: orr1Icon,           label: 'ORR Distance',   value: '4.5 km' },
-    { icon: rrr1Icon,           label: 'RRR Distance',   value: '18 km' },
+    { icon: orr1Icon,           label: 'ORR',            value: '4.5 km' },
+    { icon: rrr1Icon,           label: 'RRR',            value: '18 km' },
     { icon: highway1Icon,       label: 'Highway',        value: 'NH-163 – 2 km' },
-    { icon: roadsWidthIcon,     label: 'Road Width',     value: '30 ft / 20 ft' },
+    { icon: roadsWidthIcon,     label: 'Roads Width',    value: '30 ft / 20 ft' },
     { icon: loan1Icon,          label: 'Loan Facility',  value: 'SBI, HDFC, Axis' },
     { icon: skyscrapperIcon,    label: 'Project Type',   value: 'Residential Plots' },
-    { icon: ocIcon,             label: 'LP Status',      value: 'Final LP Received' },
-    { icon: researchIcon,       label: 'RERA',           value: 'Valid till Dec 2028' },
-    { icon: blueprintIcon,      label: 'Total Area',     value: '12 Acres' },
   ];
 
   const displayed = showAll ? allData : allData.slice(0, 6);
 
   return (
-    <div className="p-4">
-      <div className="grid grid-cols-3 gap-2 mb-4">
+    <div className="p-3 bg-gray-50 rounded-xl">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
         {displayed.map((item) => (
           <OverviewTile key={item.label} item={item} />
         ))}
@@ -98,10 +92,12 @@ const Overview: React.FC = () => {
           sx={{
             backgroundColor: '#1F7A63',
             color: '#FFFFFF',
-            borderRadius: '4px',
+            borderRadius: '6px',
             fontSize: '0.8125rem',
-            fontWeight: 600,
-            px: 2.5,
+            fontWeight: 700,
+            textTransform: 'none',
+            px: 2,
+            py: 0.5,
             '&:hover': { backgroundColor: '#145a47' },
           }}
         >

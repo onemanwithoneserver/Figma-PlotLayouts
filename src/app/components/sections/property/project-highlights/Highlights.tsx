@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import Typography from '@mui/material/Typography';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 interface HighlightItem {
   title: string;
@@ -18,34 +17,32 @@ const highlightsData: HighlightItem[] = [
 
 const Highlights: React.FC = () => {
   return (
-    <div className="p-4 flex flex-col gap-2">
+    <ul className="p-4 flex flex-col gap-3 m-0 list-none">
       {highlightsData.map((item, i) => (
-        <div
-          key={i}
-          className="flex items-stretch rounded-[4px] border border-[#E0E0E0] bg-white overflow-hidden"
+        <li
+          key={item.title}
+          className="flex items-stretch rounded-md border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
         >
-          {/* Left accent bar + number */}
-          <div className="w-11 flex-shrink-0 flex items-center justify-center bg-[#F5F5F5] border-r border-[#E0E0E0] relative">
-            <div className="absolute inset-y-0 left-0 w-[3px] bg-[#1F7A63]" />
+          <div className="w-12 flex-shrink-0 flex items-center justify-center bg-gray-50 border-r border-gray-200 border-l-[3px] border-l-[#1F7A63]">
             <Typography sx={{ fontSize: '1rem', fontWeight: 700, color: '#1F7A63' }}>
               {String(i + 1).padStart(2, '0')}
             </Typography>
           </div>
 
-          {/* Content */}
-          <div className="flex-1 px-3 py-2.5 flex flex-col justify-center gap-0.5">
-            <div className="flex items-center gap-1.5">
-              <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>
+          <div className="flex-1 px-4 py-3 flex flex-col justify-center gap-1">
+            <div className="flex items-center">
+              <Typography sx={{ fontSize: '0.875rem', fontWeight: 700, color: '#1A1A1A' }}>
                 {item.title}
               </Typography>
             </div>
-            <Typography sx={{ fontSize: '0.75rem', color: '#666666', lineHeight: 1.4, pl: '22px' }}>
+            
+            <Typography sx={{ fontSize: '0.75rem', color: '#666666', lineHeight: 1.5 }}>
               {item.description}
             </Typography>
           </div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
