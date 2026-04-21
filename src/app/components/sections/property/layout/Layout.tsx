@@ -41,21 +41,12 @@ const plotSizes = [
   { size: '240 Sq.Yd', available: 0,  total: 20, facing: 'Corner Plots', pricePerSqYd: 16000, tag: 'sold-out' },
 ];
 
-const infoBadges = [
-  { icon: <RoadOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Roads', value: '30ft / 20ft' },
-  { icon: <ExploreOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Facing', value: 'N & E' },
-  { icon: <ParkOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Open Space', value: '15%' },
-  { icon: <MeetingRoomOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Clubhouse', value: '2400 Sq.Ft' },
-  { icon: <BoltOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Utilities', value: 'Underground' },
-  { icon: <HomeOutlinedIcon sx={{ fontSize: 16 }} />, label: 'Zoning', value: 'Residential' },
-];
-
 const TagChip: React.FC<{ tag: string | null }> = ({ tag }) => {
   if (!tag) return null;
   const config = {
-    popular:  { label: '?? Popular',   bg: '#E8F5E9', color: '#1F7A63' },
-    'last-few': { label: '? Last few', bg: '#FFF8E1', color: '#F57C00' },
-    'sold-out': { label: '? Sold Out', bg: '#FFEBEE', color: '#C62828' },
+    popular:  { label: 'Popular',   bg: '#E8F5E9', color: '#1F7A63' },
+    'last-few': { label: 'Last few', bg: '#FFF8E1', color: '#F57C00' },
+    'sold-out': { label: 'Sold Out', bg: '#FFEBEE', color: '#C62828' },
   }[tag];
   if (!config) return null;
   return (
@@ -90,6 +81,7 @@ const AvailBar: React.FC<{ available: number; total: number }> = ({ available, t
     </div>
   );
 };
+
 
 const Layout: React.FC = () => {
   const [imgIdx, setImgIdx] = useState(0);
@@ -159,24 +151,6 @@ const Layout: React.FC = () => {
           >
             <img src={img.src} alt={img.label} className="w-full h-9 object-cover" />
           </button>
-        ))}
-      </div>
-
-      {/* Site quick facts */}
-      <div className="grid grid-cols-3 gap-1.5 px-3 py-3 border-b border-[#E0E0E0]">
-        {infoBadges.map((b) => (
-          <div
-            key={b.label}
-            className="flex flex-col items-center gap-1 py-2 px-1 rounded-[4px] bg-[#F5F5F5] border border-[#E0E0E0]"
-          >
-            <span className="text-[#1F7A63]">{b.icon}</span>
-            <Typography sx={{ fontSize: '0.5625rem', fontWeight: 600, color: '#666666', textTransform: '', letterSpacing: '0.04em' }}>
-              {b.label}
-            </Typography>
-            <Typography sx={{ fontSize: '0.6875rem', fontWeight: 700, color: '#1A1A1A', textAlign: 'center', lineHeight: 1.2 }}>
-              {b.value}
-            </Typography>
-          </div>
         ))}
       </div>
 

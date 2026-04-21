@@ -1,114 +1,63 @@
 import React, { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import SectionTabNav from '../shared/SectionTabNav';
-import AskSeller from '../shared/AskSeller';
-import DirectionsCarOutlinedIcon from '@mui/icons-material/DirectionsCarOutlined';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import TrainOutlinedIcon from '@mui/icons-material/TrainOutlined';
-import ParkOutlinedIcon from '@mui/icons-material/ParkOutlined';
+import { Icons, INITIAL_TABS, INITIAL_DATA, PlaceItem } from './commuteData';
+import TabNavigation from './TabNavigation';
 
-interface DistanceItem {
-  name: string;
-  distance: string;
-  time: string;
-  category: string;
+function PlaceIcon({ icon }: { icon: string }) {
+  return (
+    <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-[7px] bg-[#FFF4EC] text-[#E76F26]">
+      {icon === 'school'   ? <Icons.School /> :
+       icon === 'hospital' ? <Icons.Hospital /> :
+       icon === 'tree'     ? <Icons.Tree /> :
+       icon === 'shopping' ? <Icons.ShoppingBag /> :
+       <Icons.Building />}
+    </div>
+  );
 }
 
-const ALL_DISTANCES: DistanceItem[] = [
-  { name: 'ORR Junction (Exit 12)', distance: '4.5 km', time: '8 min', category: 'highway' },
-  { name: 'NH-163 Hyderabad', distance: '2 km', time: '4 min', category: 'highway' },
-  { name: 'RRR (Shankarpally)', distance: '18 km', time: '22 min', category: 'highway' },
-  { name: 'Shankarpally Railway', distance: '6 km', time: '12 min', category: 'transit' },
-  { name: 'TSRTC Bus Stop', distance: '1.2 km', time: '3 min', category: 'transit' },
-  { name: 'Gachibowli (Proposed Metro)', distance: '24 km', time: '35 min', category: 'transit' },
-  { name: 'Oakridge International School', distance: '3.2 km', time: '7 min', category: 'school' },
-  { name: 'Chevella Govt. School', distance: '1.5 km', time: '4 min', category: 'school' },
-  { name: 'IIT Hyderabad', distance: '8 km', time: '15 min', category: 'school' },
-  { name: 'Continental Hospital', distance: '22 km', time: '28 min', category: 'hospital' },
-  { name: 'Chevella PHC', distance: '2 km', time: '5 min', category: 'hospital' },
-  { name: 'Satyabama Hospital', distance: '5 km', time: '10 min', category: 'hospital' },
-  { name: 'D-Mart Chandanagar', distance: '18 km', time: '25 min', category: 'market' },
-  { name: 'Chevella Local Market', distance: '1.8 km', time: '5 min', category: 'market' },
-  { name: 'Inorbit Mall', distance: '26 km', time: '38 min', category: 'market' },
-  { name: 'Nehru Zoological Park', distance: '35 km', time: '48 min', category: 'leisure' },
-  { name: 'KBR Park Hyderabad', distance: '28 km', time: '40 min', category: 'leisure' },
-];
-
-const TABS = [
-  { id: 'all', label: 'All', icon: <DirectionsCarOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'highway', label: 'Highway', icon: <DirectionsCarOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'transit', label: 'Transit', icon: <TrainOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'school', label: 'Schools', icon: <SchoolOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'hospital', label: 'Hospital', icon: <LocalHospitalOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'market', label: 'Shopping', icon: <ShoppingCartOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'leisure', label: 'Leisure', icon: <ParkOutlinedIcon sx={{ fontSize: 16 }} /> },
-];
-
-const MAX_DIST_KM = 40;
+function PlaceRow({ item }: { item: PlaceItem }) {
+  return (
+    <div className="flex items-center gap-3 p-3 rounded-[7px] bg-white border border-[#E5DFD4] cursor-pointer hover:border-[#E76F26]/40 transition-colors">
+      <PlaceIcon icon={item.icon} />
+      <div className="flex-1 min-w-0">
+        <p className="text-[13px] font-semibold text-[#322822] truncate">{item.name}</p>
+        <p className="text-[11px] font-medium text-[#6B5E57] mt-0.5">
+          {item.distance}
+          <span className="mx-1 text-[#D0C9C0]">&middot;</span>
+          {item.time} drive
+        </p>
+      </div>
+      <div className="flex-shrink-0 text-[#B0A89E]">
+        <Icons.ChevronRight />
+      </div>
+    </div>
+  );
+}
 
 export default function InteractiveCommute() {
-  const [activeTab, setActiveTab] = useState('all');
-
-  const filtered = activeTab === 'all'
-    ? ALL_DISTANCES
-    : ALL_DISTANCES.filter((d) => d.category === activeTab);
-
-  const parseKm = (dist: string) => parseFloat(dist.replace(' km', ''));
+  const [activeTab, setActiveTab] = useState(INITIAL_TABS[0].id);
+  const currentData = INITIAL_DATA[activeTab];
 
   return (
-    <div className="pb-2">
-      <SectionTabNav
-        tabs={TABS.map(({ id, label }) => ({ id, label }))}
+    <div className="font-['Outfit',_sans-serif]">
+      <TabNavigation
+        tabs={INITIAL_TABS}
         activeTab={activeTab}
-        onTabChange={setActiveTab}
-        layoutId="location-active-pill"
+        onTabClick={setActiveTab}
       />
 
-      <Divider />
+      <div className="px-3 pt-3 pb-2">
+        <div className="flex flex-col gap-1.5">
+          {currentData.items.map((item) => (
+            <PlaceRow key={item.id} item={item} />
+          ))}
+        </div>
 
-      {/* Distance list */}
-      <div className="flex flex-col divide-y divide-[#F0F0F0]">
-        {filtered.map((item, i) => {
-          const km = parseKm(item.distance);
-          const pct = Math.min((km / MAX_DIST_KM) * 100, 100);
-          return (
-            <div key={i} className="px-4 py-2.5 flex flex-col gap-1">
-              <div className="flex items-center justify-between">
-                <Typography sx={{ fontSize: '0.8125rem', fontWeight: 600, color: '#1A1A1A' }}>
-                  {item.name}
-                </Typography>
-                <Typography sx={{ fontSize: '0.75rem', fontWeight: 700, color: '#1F7A63', flexShrink: 0, ml: 1 }}>
-                  {item.distance}
-                </Typography>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex-1 h-1 bg-[#E0E0E0] rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-[#1F7A63]"
-                    style={{ width: `${pct}%` }}
-                  />
-                </div>
-                <Typography sx={{ fontSize: '0.6875rem', color: '#9E9E9E', flexShrink: 0 }}>
-                  {item.time} drive
-                </Typography>
-              </div>
-            </div>
-          );
-        })}
+        {currentData.title && (
+          <p className="text-[10px] font-medium text-[#6B5E57] mt-2 px-0.5">
+            * {currentData.title}
+          </p>
+        )}
       </div>
-
-      <AskSeller
-        initialQuestions={[
-          'How far is the nearest metro / railway station?',
-          'Is there a direct bus route from the project?',
-          'What is the approximate travel time to the city centre during peak hours?',
-          'Are there any upcoming road-widening projects nearby?',
-          'Is the area prone to waterlogging or flooding?',
-        ]}
-      />
     </div>
   );
 }

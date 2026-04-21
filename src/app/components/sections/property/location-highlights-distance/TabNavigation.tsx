@@ -71,12 +71,12 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
 
   return (
     <div className="w-full relative">
-      <div className="bg-neutral-900/80 backdrop-blur-sm border border-white/[0.08] rounded-[8px] shadow-[0_4px_20px_rgba(0,0,0,0.18)] flex items-center">
+      <div className="bg-white border border-[#E5DFD4] rounded-[8px] shadow-[0_2px_8px_rgba(50,40,34,0.07)] flex items-center">
         {/* Left arrow */}
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-white/50 hover:text-white hover:bg-white/[0.08] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-[#6B5E57] hover:text-[#322822] hover:bg-[#F5F0EB] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E76F26]/40"
           style={{ opacity: canScrollLeft ? 1 : 0, pointerEvents: canScrollLeft ? 'auto' : 'none' }}
         >
           <ChevronLeftIcon sx={{ fontSize: 18 }} />
@@ -104,16 +104,16 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => onTabClick(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[6px] focus-visible:ring-2 focus-visible:ring-green-500/50"
-                  style={{ color: isActive ? '#ffffff' : 'rgba(255,255,255,0.55)' }}
+                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[6px] focus-visible:ring-2 focus-visible:ring-[#E76F26]/40"
+                  style={{ color: isActive ? '#ffffff' : '#6B5E57' }}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="commute-active-pill"
                       className="absolute inset-0 rounded-[6px] -z-10"
                       style={{
-                        background: 'linear-gradient(135deg, #16A34A, #15803D)',
-                        boxShadow: '0 0 12px rgba(22, 163, 74, 0.28)',
+                        background: '#E76F26',
+                        boxShadow: '0 0 10px rgba(231, 111, 38, 0.25)',
                       }}
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
@@ -131,7 +131,7 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-white/50 hover:text-white hover:bg-white/[0.08] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-[#6B5E57] hover:text-[#322822] hover:bg-[#F5F0EB] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E76F26]/40"
           style={{ opacity: canScrollRight ? 1 : 0, pointerEvents: canScrollRight ? 'auto' : 'none' }}
         >
           <ChevronRightIcon sx={{ fontSize: 18 }} />

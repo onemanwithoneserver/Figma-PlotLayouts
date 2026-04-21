@@ -14,7 +14,7 @@ const BANKS = [
   {
     name: 'ICICI Bank',
     logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/12/ICICI_Bank_Logo.svg',
-    rate: '8.65%', processing: '₹4,999',
+    rate: '8.65%', processing: 'Rs. 4,999',
   },
   {
     name: 'Axis Bank',
