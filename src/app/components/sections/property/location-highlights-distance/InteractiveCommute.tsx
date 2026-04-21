@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import SectionTabNav from '../shared/SectionTabNav';
+import AskSeller from '../shared/AskSeller';
 import DirectionsCarOutlinedIcon from '@mui/icons-material/DirectionsCarOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
@@ -98,6 +99,16 @@ export default function InteractiveCommute() {
           );
         })}
       </div>
+
+      <AskSeller
+        initialQuestions={[
+          'How far is the nearest metro / railway station?',
+          'Is there a direct bus route from the project?',
+          'What is the approximate travel time to the city centre during peak hours?',
+          'Are there any upcoming road-widening projects nearby?',
+          'Is the area prone to waterlogging or flooding?',
+        ]}
+      />
     </div>
   );
 }

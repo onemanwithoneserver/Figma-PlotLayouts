@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import SectionTabNav from '../shared/SectionTabNav';
+import AskSeller from '../shared/AskSeller';
 
 interface AmenityTab {
   id: string;
@@ -98,6 +99,16 @@ const AmenitiesSection: React.FC = () => {
           ))}
         </div>
       </div>
+
+      <AskSeller
+        initialQuestions={[
+          'Are all amenities ready and operational?',
+          'Is the clubhouse open for residents currently?',
+          'Is there a separate swimming pool for kids and adults?',
+          'Are gym and wellness facilities included in maintenance?',
+          'What are the operating hours for amenities?',
+        ]}
+      />
     </div>
   );
 };

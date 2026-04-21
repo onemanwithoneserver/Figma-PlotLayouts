@@ -17,6 +17,7 @@ import ParkOutlinedIcon from '@mui/icons-material/ParkOutlined';
 import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import AskSeller from '../shared/AskSeller';
 
 const layoutImages = [
   {
@@ -258,6 +259,16 @@ const Layout: React.FC = () => {
           </div>
         </div>
       </Dialog>
+
+      <AskSeller
+        initialQuestions={[
+          'What is the exact plot demarcation process after booking?',
+          'Is the layout HMDA / DTCP approved?',
+          'Are corner plots available at the quoted price?',
+          'What is the estimated registration timeline?',
+          'Is the road-facing plot available in 100 Sq.Yd size?',
+        ]}
+      />
     </>
   );
 };

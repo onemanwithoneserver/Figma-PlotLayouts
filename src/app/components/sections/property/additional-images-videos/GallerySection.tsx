@@ -7,6 +7,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
+import AskSeller from '../shared/AskSeller';
 
 interface MediaItem {
   id: string;
@@ -187,6 +188,16 @@ const GallerySection: React.FC = () => {
           </div>
         )}
       </Dialog>
+
+      <AskSeller
+        initialQuestions={[
+          'Can I get a virtual or live video walkthrough of the project?',
+          'Are the gallery images recent and representative of the current state?',
+          'Are there more photos of the plot boundaries available?',
+          'Can the site visit be scheduled on a weekend?',
+          'Is drone footage of the full layout available?',
+        ]}
+      />
     </>
   );
 };
