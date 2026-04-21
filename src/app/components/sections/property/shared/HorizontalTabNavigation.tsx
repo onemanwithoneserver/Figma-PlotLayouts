@@ -9,6 +9,7 @@ interface TabItem {
 
 const TABS: TabItem[] = [
   { id: 'overview',       label: 'Overview'    },
+  { id: 'highlights',     label: 'Highlights'  },
   { id: 'project-status', label: 'Status'      },
   { id: 'layout',         label: 'Layout'      },
   { id: 'ask-seller',     label: 'Ask Seller'  },

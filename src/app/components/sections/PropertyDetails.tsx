@@ -1,7 +1,5 @@
-﻿import React, { useEffect, useRef, useState } from 'react';
-import Card from '@mui/material/Card';
+﻿import React, { useEffect, useRef } from 'react';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import HeroSection from './property/hero-section/HeroSection';
 import VideoTourSection from './property/site-video-tour/VideoTourSection';
 import ContentSection from './property/shared/ContentSection';
@@ -20,7 +18,6 @@ import HorizontalTabNavigation from './property/shared/HorizontalTabNavigation';
 
 const PropertyDetails: React.FC = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const [overviewTab, setOverviewTab] = useState<'overview' | 'highlights'>('overview');
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -64,41 +61,18 @@ const PropertyDetails: React.FC = () => {
           <VideoTourSection />
         </div>
 
-        {/* OVERVIEW & HIGHLIGHTS */}
-        <div id="overview" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[4px]">
-          <Card elevation={0} sx={{ borderRadius: '4px', border: '1px solid #EAEAEA', overflow: 'hidden' }}>
-            <div className="flex items-center border-b border-[#EAEAEA] bg-white">
-              {(['overview', 'highlights'] as const).map((tab) => {
-                const isActive = overviewTab === tab;
-                const label = tab === 'overview' ? 'Overview' : 'Highlights';
-                return (
-                  <button
-                    key={tab}
-                    onClick={() => setOverviewTab(tab)}
-                    className="flex flex-col items-center px-5 py-2.5 outline-none flex-1 hover:bg-[#FAFAFA] transition-colors"
-                  >
-                    <Typography className="font-outfit" sx={{
-                      fontSize: '0.875rem',
-                      fontWeight: isActive ? 700 : 500,
-                      color: isActive ? '#1F7A63' : '#666666',
-                      transition: 'color 0.2s',
-                    }}>
-                      {label}
-                    </Typography>
-                    <div style={{
-                      height: 2.5,
-                      width: '100%',
-                      borderRadius: '4px 4px 0 0',
-                      marginTop: 6,
-                      backgroundColor: isActive ? '#1F7A63' : 'transparent',
-                      transition: 'background-color 0.2s',
-                    }} />
-                  </button>
-                );
-              })}
-            </div>
-            {overviewTab === 'overview' ? <Overview /> : <Highlights />}
-          </Card>
+        {/* OVERVIEW */}
+        <div id="overview" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[4px] overflow-hidden">
+          <ContentSection title="Overview">
+            <Overview />
+          </ContentSection>
+        </div>
+
+        {/* HIGHLIGHTS */}
+        <div id="highlights" className="pd-section opacity-0 translate-y-4 transition-all duration-500 ease-out scroll-mt-4 rounded-[4px] overflow-hidden">
+          <ContentSection title="Highlights">
+            <Highlights />
+          </ContentSection>
         </div>
 
         {/* PROJECT STATUS */}
