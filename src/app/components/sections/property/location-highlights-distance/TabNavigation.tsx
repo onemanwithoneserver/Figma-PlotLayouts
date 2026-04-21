@@ -71,12 +71,12 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
 
   return (
     <div className="w-full relative">
-      <div className="bg-white border border-[#E5DFD4] rounded-[8px] shadow-[0_2px_8px_rgba(50,40,34,0.07)] flex items-center">
+      <div className="bg-white border border-neutral-200 rounded-[4px] shadow-sm flex items-center">
         {/* Left arrow */}
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-[#6B5E57] hover:text-[#322822] hover:bg-[#F5F0EB] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E76F26]/40"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50"
           style={{ opacity: canScrollLeft ? 1 : 0, pointerEvents: canScrollLeft ? 'auto' : 'none' }}
         >
           <ChevronLeftIcon sx={{ fontSize: 18 }} />
@@ -104,21 +104,21 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => onTabClick(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[6px] focus-visible:ring-2 focus-visible:ring-[#E76F26]/40"
-                  style={{ color: isActive ? '#ffffff' : '#6B5E57' }}
+                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] focus-visible:ring-2 focus-visible:ring-green-600/50"
+                  style={{ color: isActive ? '#ffffff' : '#525252' }}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="commute-active-pill"
-                      className="absolute inset-0 rounded-[6px] -z-10"
+                      className="absolute inset-0 rounded-[4px] -z-10"
                       style={{
-                        background: '#E76F26',
-                        boxShadow: '0 0 10px rgba(231, 111, 38, 0.25)',
+                        background: 'linear-gradient(135deg, #16A34A, #15803D)',
+                        boxShadow: '0 0 8px rgba(22, 163, 74, 0.20)',
                       }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
                     />
                   )}
-                  <span className="relative z-20 text-[11px] tracking-widest font-bold whitespace-nowrap ">
+                  <span className={`relative z-20 text-[13px] whitespace-nowrap ${isActive ? 'font-bold' : 'font-semibold'}`}>
                     {tab.label}
                   </span>
                 </button>
@@ -131,7 +131,7 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[6px] text-[#6B5E57] hover:text-[#322822] hover:bg-[#F5F0EB] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E76F26]/40"
+          className="flex-shrink-0 flex items-center justify-center w-8 h-8 mx-1 rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50"
           style={{ opacity: canScrollRight ? 1 : 0, pointerEvents: canScrollRight ? 'auto' : 'none' }}
         >
           <ChevronRightIcon sx={{ fontSize: 18 }} />
