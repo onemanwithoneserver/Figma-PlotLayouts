@@ -12,7 +12,6 @@ interface SectionTabNavProps {
   tabs: SectionTab[];
   activeTab: string;
   onTabChange: (id: string) => void;
-  /** Unique Framer Motion layoutId — use a different value per section to scope the pill animation */
   layoutId: string;
 }
 
@@ -36,7 +35,6 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
     return () => window.removeEventListener('resize', checkScroll);
   }, [tabs]);
 
-  // Keep active tab centred in the scroll container
   useEffect(() => {
     const activeBtn = buttonRefs.current.get(activeTab);
     const container = containerRef.current;
@@ -71,10 +69,8 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
   };
 
   return (
-    <div className="w-full px-3 py-2.5">
+    <div className="w-full py-0.5">
       <div className="flex items-center">
-
-        {/* Left arrow — fades out when not scrollable */}
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
@@ -83,8 +79,6 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
         >
           <ChevronLeftIcon sx={{ fontSize: 18 }} />
         </button>
-
-        {/* Scrollable tab strip — no visible scrollbar */}
         <div
           ref={containerRef}
           onScroll={checkScroll}
@@ -128,8 +122,6 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
             })}
           </div>
         </div>
-
-        {/* Right arrow — fades out when not scrollable */}
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
@@ -138,7 +130,6 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
         >
           <ChevronRightIcon sx={{ fontSize: 18 }} />
         </button>
-
       </div>
     </div>
   );
