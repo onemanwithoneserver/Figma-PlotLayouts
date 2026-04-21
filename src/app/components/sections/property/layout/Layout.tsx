@@ -1,22 +1,10 @@
 import React, { useState } from 'react';
-import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
-import Chip from '@mui/material/Chip';
-import LinearProgress from '@mui/material/LinearProgress';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import CloseIcon from '@mui/icons-material/Close';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
-import RoadOutlinedIcon from '@mui/icons-material/StraightOutlined';
-import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
-import ParkOutlinedIcon from '@mui/icons-material/ParkOutlined';
-import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
-import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import AskSeller from '../shared/AskSeller';
 
 const layoutImages = [
@@ -35,52 +23,12 @@ const layoutImages = [
 ];
 
 const plotSizes = [
-  { size: '100 Sq.Yd', available: 48, total: 80, facing: 'North / East', pricePerSqYd: 18000, tag: 'popular' },
-  { size: '150 Sq.Yd', available: 22, total: 60, facing: 'East / West',  pricePerSqYd: 17500, tag: null },
-  { size: '200 Sq.Yd', available: 9,  total: 40, facing: 'North Facing', pricePerSqYd: 16800, tag: 'last-few' },
-  { size: '240 Sq.Yd', available: 0,  total: 20, facing: 'Corner Plots', pricePerSqYd: 16000, tag: 'sold-out' },
+  { size: '100 Sq.Yd', sqYd: 100, pricePerSqYd: 18000 },
+  { size: '150 Sq.Yd', sqYd: 150, pricePerSqYd: 17500 },
+  { size: '200 Sq.Yd', sqYd: 200, pricePerSqYd: 16800 },
+  { size: '240 Sq.Yd', sqYd: 240, pricePerSqYd: 16000 },
 ];
 
-const TagChip: React.FC<{ tag: string | null }> = ({ tag }) => {
-  if (!tag) return null;
-  const config = {
-    popular:  { label: 'Popular',   bg: '#E8F5E9', color: '#1F7A63' },
-    'last-few': { label: 'Last few', bg: '#FFF8E1', color: '#F57C00' },
-    'sold-out': { label: 'Sold Out', bg: '#FFEBEE', color: '#C62828' },
-  }[tag];
-  if (!config) return null;
-  return (
-    <span
-      className="text-[0.625rem] font-700 px-1.5 py-0.5 rounded-[3px]"
-      style={{ backgroundColor: config.bg, color: config.color, fontWeight: 700 }}
-    >
-      {config.label}
-    </span>
-  );
-};
-
-const AvailBar: React.FC<{ available: number; total: number }> = ({ available, total }) => {
-  const pct = total === 0 ? 0 : Math.round((available / total) * 100);
-  const color = available === 0 ? '#BDBDBD' : pct <= 25 ? '#EF5350' : pct <= 60 ? '#FFA726' : '#1F7A63';
-  return (
-    <div className="flex items-center gap-2">
-      <LinearProgress
-        variant="determinate"
-        value={pct}
-        sx={{
-          flex: 1,
-          height: 5,
-          borderRadius: 4,
-          backgroundColor: '#E0E0E0',
-          '& .MuiLinearProgress-bar': { backgroundColor: color },
-        }}
-      />
-      <Typography sx={{ fontSize: '0.6875rem', color: '#666666', whiteSpace: 'nowrap', minWidth: 44, textAlign: 'right' }}>
-        {available === 0 ? 'Sold Out' : `${available}/${total}`}
-      </Typography>
-    </div>
-  );
-};
 
 
 const Layout: React.FC = () => {
@@ -122,11 +70,11 @@ const Layout: React.FC = () => {
 
         {/* Image label + fullscreen */}
         <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-3 py-2 bg-[rgba(0,0,0,0.45)]">
-          <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: '#FFFFFF' }}>
+          <span className="text-[12px] font-semibold text-white">
             {layoutImages[imgIdx].label}
-          </Typography>
+          </span>
           <div className="flex items-center gap-2">
-            <span className="text-white/70 text-[0.625rem]">
+            <span className="text-white/70 text-[10px]">
               {imgIdx + 1} / {layoutImages.length}
             </span>
             <IconButton
@@ -141,7 +89,7 @@ const Layout: React.FC = () => {
       </div>
 
       {/* Thumbnail strip */}
-      <div className="flex gap-1.5 px-3 py-2 border-b border-[#E0E0E0]">
+      <div className="flex gap-1.5 px-3 py-2 border-b border-neutral-200">
         {layoutImages.map((img, i) => (
           <button
             key={i}
@@ -156,50 +104,31 @@ const Layout: React.FC = () => {
 
       {/* Plot availability */}
       <div className="px-3 py-3">
-        <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A', mb: 1.5 }}>
-          Plot Availability
-        </Typography>
-        <div className="flex flex-col gap-2.5">
-          {plotSizes.map((plot) => (
-            <div key={plot.size} className="rounded-[4px] border border-[#E0E0E0] bg-white overflow-hidden">
-              <div className="px-3 py-2.5">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
-                    <Typography sx={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1A1A1A' }}>
-                      {plot.size}
-                    </Typography>
-                    <TagChip tag={plot.tag} />
-                  </div>
-                  <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, color: '#1F7A63' }}>
-                    ?{plot.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
-                  </Typography>
+        <p className="text-[13px] font-bold text-[#1A1A1A] mb-2">Plot Availability</p>
+        <div className="flex flex-col">
+          {plotSizes.map((plot, i, arr) => (
+            <div key={plot.size}>
+              <div className="flex items-center justify-between py-2.5">
+                <div>
+                  <p className="text-[13px] font-semibold text-[#1A1A1A]">{plot.size} Plot</p>
+                  <p className="text-[11px] font-medium text-neutral-500 mt-0.5">
+                    Rs. {plot.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
+                  </p>
                 </div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <Typography sx={{ fontSize: '0.6875rem', color: '#666666' }}>
-                    Facing: {plot.facing}
-                  </Typography>
-                </div>
-                <AvailBar available={plot.available} total={plot.total} />
+                <p className="text-[15px] font-bold text-[#1F7A63]">
+                  Rs. {((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
+                </p>
               </div>
+              {i < arr.length - 1 && <div className="h-px bg-neutral-200" />}
             </div>
           ))}
         </div>
 
-        <Button
-          variant="contained"
-          fullWidth
-          sx={{
-            mt: 2,
-            backgroundColor: '#1F7A63',
-            borderRadius: '4px',
-            fontWeight: 700,
-            fontSize: '0.875rem',
-            py: 1.25,
-            '&:hover': { backgroundColor: '#145a47' },
-          }}
+        <button
+          className="mt-3 w-full py-2.5 rounded-[4px] bg-[#1F7A63] hover:bg-[#145a47] text-white text-[14px] font-bold transition-colors"
         >
           Check Plot Availability
-        </Button>
+        </button>
       </div>
 
       {/* Lightbox */}
