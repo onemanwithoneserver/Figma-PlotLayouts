@@ -49,57 +49,54 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
   };
 
   return (
-    <div className={`w-full px-5 py-4 space-y-4 font-sans bg-[var(--background-color)] border-t border-[var(--border-color-subtle)] ${className}`}>
-      {/* Header Section */}
-      <div className="flex items-center justify-between gap-2">
-        <h3 className="text-sm font-semibold tracking-tight text-[var(--text-color)]">
-          Ask Seller
-        </h3>
-        
-        {/* Custom Question Button */}
+    <div className={`w-full px-4 pt-3 pb-3 space-y-3 font-['Outfit',_sans-serif] bg-[var(--background-color)] border-t border-[var(--border-color-subtle)] ${className}`}>
+
+      {/* Header Row */}
+      <div className="flex items-center justify-between gap-1">
+        <h3 className="text-[14px] font-bold text-[var(--text-color)] leading-tight">Ask Seller</h3>
+
         {!isAdding && (
           <button
             type="button"
             onClick={() => setIsAdding(true)}
-            className="group flex items-center gap-1.5 rounded-md border border-[var(--primary-color)]/20 bg-white px-2.5 py-1.5 shadow-sm transition-all hover:border-[var(--primary-color)]/50 hover:bg-[var(--primary-color)]/5 hover:shadow-md active:scale-95"
+            className="inline-flex items-center gap-1.5 rounded-[4px] border border-[var(--primary-color)]/30 bg-white px-2 py-1 shadow-sm transition-all hover:border-[var(--primary-color)] hover:shadow-[0_2px_8px_var(--primary-alpha-12)] active:scale-[0.98]"
           >
-            <span className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[var(--primary-color)]/10 text-[var(--primary-color)] group-hover:bg-[var(--primary-color)] group-hover:text-white transition-colors">
-              <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span className="flex h-[18px] w-[18px] items-center justify-center rounded-[3px] bg-[var(--primary-color)] text-white">
+              <svg className="h-2.5 w-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
               </svg>
             </span>
-            <span className="text-xs font-medium text-[var(--primary-color-hover)]">Custom Question</span>
+            <span className="text-[11px] font-bold leading-none text-[var(--primary-color-hover)]">Custom Question</span>
           </button>
         )}
       </div>
 
       {/* Questions List */}
-      <div className="space-y-3">
+      <div className="space-y-2.5">
         {visibleQuestions.map((q) => {
           const checked = selected.includes(q);
           return (
             <button
               key={q}
               onClick={() => toggleQuestion(q)}
-              className="group flex items-start gap-3 w-full text-left transition-all active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary-color)]/40 rounded-lg p-2 -mx-2 hover:bg-[var(--background-color-muted)]"
+              className="flex items-start gap-2.5 w-full text-left group transition-opacity active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary-color)]/40 rounded-[4px]"
             >
               <div
-                className={`mt-0.5 w-4 h-4 rounded-[4px] flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 ease-out ${
-                  checked 
-                    ? "bg-[var(--primary-color)] border-transparent shadow-[0_2px_8px_var(--primary-alpha-25-alt2)] scale-105" 
-                    : "bg-[var(--secondary-color)] border border-[var(--border-color)] group-hover:border-[var(--primary-color)]/50"
+                className={`mt-0.5 w-4 h-4 rounded-[4px] flex items-center justify-center flex-shrink-0 shadow-sm transition-all ${
+                  checked ? "" : "bg-[var(--secondary-color)] border border-[var(--border-color)]"
                 }`}
+                style={checked ? { background: `linear-gradient(135deg, var(--primary-color), var(--primary-color-hover))` } : {}}
               >
                 {checked && (
-                  <svg className="w-2.5 h-2.5 text-white animate-in zoom-in-50 duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3.5} d="M5 13l4 4L19 7" />
                   </svg>
                 )}
               </div>
               <span
-                className={`text-[13px] leading-tight transition-colors duration-200 ${
-                  checked ? "font-medium text-[var(--text-color)]" : "font-normal text-[var(--text-color-muted)]"
-                } group-hover:text-[var(--text-color)]`}
+                className={`text-[12px] font-semibold leading-tight transition-colors ${
+                  checked ? "text-[var(--text-color)]" : "text-[var(--text-color-muted)]"
+                } group-hover:text-[var(--primary-color)]`}
               >
                 {q}
               </span>
@@ -109,14 +106,15 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
       </div>
 
       {/* Footer Controls */}
-      <div className="space-y-3 pt-1">
-        {/* Add Custom Question Input */}
+      <div className="space-y-2.5">
+
+        {/* Custom Question Input */}
         {isAdding && (
           <form
             onSubmit={handleAddCustom}
-            className="flex items-center gap-3 w-full p-2 -mx-2 rounded-lg bg-[var(--background-color-light)] border border-[var(--border-color-subtle)] animate-in slide-in-from-top-2 fade-in duration-200 shadow-sm"
+            className="flex items-center gap-2 w-full px-2.5 py-2 animate-in fade-in duration-200"
           >
-            <div className="w-4 h-4 rounded-[4px] flex items-center justify-center bg-[var(--primary-color)] flex-shrink-0 shadow-sm">
+            <div className="w-4 h-4 rounded-[4px] flex items-center justify-center border border-[var(--primary-color)] bg-[var(--primary-color)] flex-shrink-0">
               <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
             </div>
             <input
@@ -126,33 +124,35 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
               onChange={(e) => setCustomInput(e.target.value)}
               onBlur={() => !customInput && setIsAdding(false)}
               placeholder="Type your question..."
-              className="text-[13px] font-medium text-[var(--text-color)] outline-none w-full bg-transparent placeholder:text-[var(--text-color-muted)]/60"
+              className="text-[12px] font-bold text-[var(--text-color)] outline-none border-b border-[var(--primary-color)] w-full pb-0.5 bg-transparent placeholder:text-[var(--text-color-muted)]/50"
             />
           </form>
         )}
 
-        {/* Load More Button */}
+        {/* Load More */}
         {questions.length > 2 && (
           <button
             onClick={() => setShowMore(!showMore)}
-            className="group flex items-center gap-2 w-fit py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary-color)]/40 rounded-md transition-opacity hover:opacity-80"
+            className="flex items-center gap-2.5 w-full group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary-color)]/40 rounded-[4px]"
           >
-            <span className="text-xs font-medium text-[var(--primary-color)] hover:underline decoration-[var(--primary-color)]/40 underline-offset-4 transition-all">
-              {showMore ? "Show fewer questions" : `View ${questions.length - 2} more questions`}
-            </span>
-            <div className="w-4 h-4 rounded-full flex items-center justify-center bg-[var(--primary-color)]/10 text-[var(--primary-color)] transition-transform duration-300">
+            <div className="w-4 h-4 rounded-[4px] flex items-center justify-center bg-[var(--secondary-color)] border border-[var(--border-color)] group-hover:border-[var(--primary-color)] transition-colors flex-shrink-0">
               <svg
-                className={`w-3 h-3 transition-transform duration-300 ${showMore ? "rotate-180" : ""}`}
+                className={`w-2.5 h-2.5 text-[var(--text-color-muted)] group-hover:text-[var(--primary-color)] transition-transform ${
+                  showMore ? "" : "rotate-180"
+                }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
               </svg>
             </div>
+            <span className="text-[12px] font-bold text-[var(--primary-color)] underline decoration-1 underline-offset-2">
+              {showMore ? "Show fewer" : "Load more"}
+            </span>
           </button>
         )}
       </div>
     </div>
   );
-}
+}

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import SectionTabNav from '../shared/SectionTabNav';
-import { PLOTS, DEV_CHARGES, LEGAL_CHARGES, BOOKING_STEPS, PAYMENT_TABS, fmtINR } from './data';
+import AskSeller from '../shared/AskSeller';
+import { PLOTS, DEV_CHARGES, LEGAL_CHARGES, BOOKING_STEPS, PAYMENT_TABS, fmtINR, paymentAskSellerQuestions } from './data';
 import type { Plot } from './data';
 
 const ChevronDown = ({ open }: { open: boolean }) => (
@@ -201,6 +202,7 @@ const PaymentPlan: React.FC = () => {
         {activeTab === 'cost'    && <CostTab    selected={selectedPlot} onSelect={setSelectedPlot} />}
         {activeTab === 'booking' && <BookingTab />}
       </div>
+      <AskSeller initialQuestions={paymentAskSellerQuestions} />
     </div>
   );
 };

@@ -43,3 +43,11 @@ export const PAYMENT_TABS: PaymentTab[] = [
 export function fmtINR(n: number): string {
   return 'Rs. ' + n.toLocaleString('en-IN');
 }
+
+export const paymentAskSellerQuestions: string[] = [
+  'Is any flexible payment plan available?',
+  'What is the minimum booking amount?',
+  'Are home loans available for this project?',
+  'Are there any hidden charges beyond the listed cost?',
+  'Can the payment schedule be customized?',
+];
