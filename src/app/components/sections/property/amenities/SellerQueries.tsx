@@ -24,7 +24,7 @@ const SellerQueries: React.FC = () => {
   const textFieldStyles = {
     '& .MuiOutlinedInput-root': {
       borderRadius: '8px',
-      backgroundColor: 'var(--color-bg-soft)',
+      backgroundColor: '#EEF4F0',
       alignItems: 'center',
       transition: 'border-color 0.2s, background-color 0.2s, box-shadow 0.2s',
     },
@@ -32,54 +32,54 @@ const SellerQueries: React.FC = () => {
       alignItems: 'flex-start',
     },
     '& .MuiInputBase-input': {
-      color: 'var(--color-text-primary)',
+      color: '#0B1F17',
       paddingTop: '8.5px',
       paddingBottom: '8.5px',
     },
     '& .MuiInputBase-input::placeholder': {
-      color: 'var(--color-text-muted)',
+      color: '#64786D',
       opacity: 0.8,
       fontWeight: 400,
     },
     '& .MuiInputLabel-root': {
-      color: 'var(--color-text-muted)',
+      color: '#64786D',
       fontWeight: 400,
     },
     '& .MuiOutlinedInput-root.Mui-focused': {
-      backgroundColor: 'var(--color-bg-white)',
-      boxShadow: '0 0 0 3px rgba(34,160,80,.08)'
+      backgroundColor: '#ffffff',
+      boxShadow: '0 0 0 3px rgba(21,101,58,.08)'
     },
     '& .MuiOutlinedInput-root.Mui-focused fieldset': {
-      borderColor: 'var(--color-accent)'
+      borderColor: '#15653A'
     },
     '& label.Mui-focused': {
-      color: 'var(--color-accent)'
+      color: '#15653A'
     }
   };
 
   if (submitted) {
     return (
       <div className="p-6 flex flex-col items-center gap-3 text-center font-outfit animate-scale-in">
-        <CheckCircleOutlineIcon sx={{ fontSize: 48, color: 'var(--color-accent)' }} />
-        <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: 'var(--color-text-primary)', fontFamily: "'Outfit', sans-serif" }}>
+        <CheckCircleOutlineIcon sx={{ fontSize: 48, color: '#15653A' }} />
+        <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: '#0B1F17', fontFamily: "'Outfit', sans-serif" }}>
           Request Received!
         </Typography>
-        <Typography sx={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)', fontFamily: "'Outfit', sans-serif" }}>
-          Our team will call you back on <strong className="text-[var(--color-text-primary)]">{phone}</strong> shortly.
+        <Typography sx={{ fontSize: '0.8125rem', color: '#64786D', fontFamily: "'Outfit', sans-serif" }}>
+          Our team will call you back on <strong className="text-[#0B1F17]">{phone}</strong> shortly.
         </Typography>
         <Button
           variant="outlined"
           size="small"
           sx={{
             mt: 1,
-            borderColor: 'var(--color-accent)',
-            color: 'var(--color-accent)',
+            borderColor: '#15653A',
+            color: '#15653A',
             borderRadius: '8px',
             textTransform: 'none',
             fontFamily: "'Outfit', sans-serif",
             fontWeight: 600,
             transition: 'all 0.2s',
-            '&:hover': { backgroundColor: 'var(--color-bg-soft)', borderColor: 'var(--color-accent)' }
+            '&:hover': { backgroundColor: '#EEF4F0', borderColor: '#15653A' }
           }}
           onClick={() => { setSubmitted(false); setName(''); setPhone(''); setQuestion(''); }}
         >
@@ -93,7 +93,6 @@ const SellerQueries: React.FC = () => {
     <div className="p-4 flex flex-col gap-3 font-outfit">
       <TextField
         label="Your Name"
-        placeholder="Enter your name"
         variant="outlined"
         size="small"
         fullWidth
@@ -102,7 +101,7 @@ const SellerQueries: React.FC = () => {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start" sx={{ mt: 0, display: 'flex', alignItems: 'center' }}>
-              <PersonOutlinedIcon sx={{ fontSize: 18, color: 'var(--color-accent)' }} />
+              <PersonOutlinedIcon sx={{ fontSize: 18, color: '#15653A' }} />
             </InputAdornment>
           ),
         }}
@@ -110,7 +109,6 @@ const SellerQueries: React.FC = () => {
       />
       <TextField
         label="Phone Number"
-        placeholder="Enter your phone number"
         variant="outlined"
         size="small"
         fullWidth
@@ -119,7 +117,7 @@ const SellerQueries: React.FC = () => {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start" sx={{ mt: 0, display: 'flex', alignItems: 'center' }}>
-              <PhoneOutlinedIcon sx={{ fontSize: 18, color: 'var(--color-accent)' }} />
+              <PhoneOutlinedIcon sx={{ fontSize: 18, color: '#15653A' }} />
             </InputAdornment>
           ),
         }}
@@ -127,7 +125,6 @@ const SellerQueries: React.FC = () => {
       />
       <TextField
         label="Your Question (optional)"
-        placeholder="How can we help you?"
         variant="outlined"
         size="small"
         fullWidth
@@ -138,7 +135,7 @@ const SellerQueries: React.FC = () => {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start" sx={{ alignSelf: 'flex-start', mt: 1 }}>
-              <QuestionAnswerOutlinedIcon sx={{ fontSize: 18, color: 'var(--color-accent)' }} />
+              <QuestionAnswerOutlinedIcon sx={{ fontSize: 18, color: '#15653A' }} />
             </InputAdornment>
           ),
         }}
@@ -153,15 +150,15 @@ const SellerQueries: React.FC = () => {
         disabled={!name.trim() || !phone.trim()}
         className="glass-cta hover-lift"
         sx={{
-          background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
-          color: 'var(--color-bg-white)',
+          background: 'linear-gradient(135deg, #15653A, #2F7D4E)',
+          color: '#ffffff',
           '&:hover': {
-            background: 'linear-gradient(135deg, var(--color-secondary), var(--color-highlight))',
-            boxShadow: 'var(--glass-shadow-hover)'
+            background: 'linear-gradient(135deg, #2F7D4E, #49A36B)',
+            boxShadow: '0 6px 16px rgba(21,101,58,0.18)'
           },
           '&:disabled': {
-            background: 'var(--color-bg-mid)',
-            color: 'var(--color-text-muted)',
+            background: '#C8DBCF',
+            color: '#64786D',
             borderColor: 'transparent',
             boxShadow: 'none'
           },

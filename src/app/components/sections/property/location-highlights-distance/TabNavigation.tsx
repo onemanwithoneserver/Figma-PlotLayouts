@@ -68,11 +68,11 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
 
   return (
     <div className="w-full relative font-outfit">
-      <div className="bg-[var(--color-bg-white)] border border-[var(--color-border)] rounded-[4px] shadow-sm flex items-center">
+      <div className="bg-[#ffffff] border border-[#C8DBCF] rounded-[4px] shadow-sm flex items-center">
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-soft)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50 overflow-hidden"
+          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-[#64786D] hover:text-[#0B1F17] hover:bg-[#EEF4F0] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A]/50 overflow-hidden"
           style={{
             width: canScrollLeft ? 32 : 0,
             height: canScrollLeft ? 32 : 0,
@@ -106,16 +106,16 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => onTabClick(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50"
-                  style={{ color: isActive ? 'var(--color-bg-white)' : 'var(--color-text-secondary)' }}
+                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] focus-visible:ring-2 focus-visible:ring-[#15653A]/50"
+                  style={{ color: isActive ? '#ffffff' : '#64786D' }}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="commute-active-pill"
                       className="absolute inset-0 rounded-[4px] -z-10"
                       style={{
-                        background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
-                        boxShadow: '0 0 8px var(--color-glow)',
+                        background: 'linear-gradient(135deg, #15653A, #2F7D4E)',
+                        boxShadow: '0 0 8px rgba(21,101,58,0.22)',
                       }}
                       transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
                     />
@@ -132,7 +132,7 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
-          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-soft)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50 overflow-hidden"
+          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-[#64786D] hover:text-[#0B1F17] hover:bg-[#EEF4F0] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A]/50 overflow-hidden"
           style={{
             width: canScrollRight ? 32 : 0,
             height: canScrollRight ? 32 : 0,

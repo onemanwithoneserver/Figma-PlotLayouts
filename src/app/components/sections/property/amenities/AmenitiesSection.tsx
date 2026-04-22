@@ -25,19 +25,19 @@ const AmenitiesSection: React.FC = () => {
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)]/40 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#15653A]/40 to-transparent pointer-events-none" />
         </div>
 
         <ul className="flex flex-col gap-1.5" role="list" aria-label={`${current.label} amenities`}>
           {current.items.map((item) => (
             <li
               key={item}
-              className="group flex items-center gap-2 px-2.5 py-2 bg-[var(--color-bg-soft)] border border-[var(--color-bg-mid)] rounded-lg text-[0.75rem] font-semibold text-[var(--color-text-secondary)] cursor-pointer transition-all duration-200 hover:bg-[var(--color-secondary)] hover:border-[var(--color-secondary)] hover:text-white hover:translate-x-1"
+              className="group flex items-center gap-2 px-2.5 py-2 bg-[#EEF4F0] border border-[#C8DBCF] rounded-lg text-[0.75rem] font-semibold text-[#64786D] cursor-pointer transition-all duration-200 hover:bg-[#15653A] hover:border-[#15653A] hover:text-white hover:translate-x-1"
               role="listitem"
             >
               <CheckCircleOutlineIcon
                 sx={{ fontSize: 14 }}
-                className="text-[var(--color-secondary)] group-hover:text-white transition-colors duration-200 flex-shrink-0"
+                className="text-[#15653A] group-hover:text-white transition-colors duration-200 flex-shrink-0"
               />
               <span className="leading-tight">
                 {item}

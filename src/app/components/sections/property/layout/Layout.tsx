@@ -16,15 +16,12 @@ const Layout: React.FC = () => {
   const prev = () => setImgIdx((i) => (i - 1 + layoutImages.length) % layoutImages.length);
   const next = () => setImgIdx((i) => (i + 1) % layoutImages.length);
 
-  // Generate an infinite looping array of thumbnails (Full Circle)
   const getCircularThumbs = () => {
     const total = layoutImages.length;
-    // Show 5 items at a time (or total if less than 5)
-    const visibleCount = Math.min(5, total);
+    const visibleCount = Math.min(3, total);
     const thumbs = [];
 
     for (let i = 0; i < visibleCount; i++) {
-      // Offset to keep the active item perfectly centered
       let offset = i - Math.floor(visibleCount / 2);
       let index = (imgIdx + offset + total) % total;
       thumbs.push({
@@ -40,8 +37,7 @@ const Layout: React.FC = () => {
 
   return (
     <div className="font-outfit">
-      {/* Main Image Viewer */}
-      <div className="relative w-full bg-[var(--color-bg-main)] overflow-hidden" style={{ aspectRatio: '4/3' }}>
+      <div className="relative w-full bg-[#EEF4F0] overflow-hidden" style={{ aspectRatio: '4/3' }}>
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.img
             key={imgIdx}
@@ -56,40 +52,77 @@ const Layout: React.FC = () => {
           />
         </AnimatePresence>
 
+        <div className="absolute top-3 right-3 z-20">
+          <div className="bg-black/50 backdrop-blur-md text-white text-[11px] font-bold px-2 py-1 rounded-[4px] shadow-sm">
+            {imgIdx + 1} / {layoutImages.length}
+          </div>
+        </div>
+
         {layoutImages.length > 1 && (
           <>
             <IconButton
               onClick={prev}
               size="small"
               aria-label="Previous image"
-              sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: 'var(--color-bg-white)' }, borderRadius: 'var(--radius-sm)', zIndex: 10 }}
+              sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: '#F3F4F6', color: '#0B1F17', '&:hover': { bgcolor: '#ffffff' }, borderRadius: '4px', p: 0.5, zIndex: 10, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
             >
-              <NavigateBeforeIcon sx={{ fontSize: 18, color: 'var(--color-text-primary)' }} />
+              <NavigateBeforeIcon sx={{ fontSize: 20 }} />
             </IconButton>
             <IconButton
               onClick={next}
               size="small"
               aria-label="Next image"
-              sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: 'var(--color-bg-white)' }, borderRadius: 'var(--radius-sm)', zIndex: 10 }}
+              sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: '#F3F4F6', color: '#0B1F17', '&:hover': { bgcolor: '#ffffff' }, borderRadius: '4px', p: 0.5, zIndex: 10, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
             >
-              <NavigateNextIcon sx={{ fontSize: 18, color: 'var(--color-text-primary)' }} />
+              <NavigateNextIcon sx={{ fontSize: 20 }} />
             </IconButton>
           </>
         )}
 
-        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-3 py-2 bg-gradient-to-t from-[rgba(10,26,16,0.8)] to-transparent z-10">
-          <span className="text-[12px] font-bold text-white drop-shadow-md">
-            {layoutImages[imgIdx].label}
-          </span>
-          <div className="flex items-center gap-2">
-            <span className="text-white/90 text-[11px] font-bold drop-shadow-md">
-              {imgIdx + 1} / {layoutImages.length}
-            </span>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[rgba(0,0,0,0.85)] to-transparent z-10 pointer-events-none" />
+
+        <div className="absolute bottom-3 left-0 right-0 flex items-end justify-between px-3 z-20 pointer-events-none">
+          <div className="w-8" />
+
+          <div className="pointer-events-auto flex justify-center items-center gap-1.5">
+            <AnimatePresence mode="popLayout">
+              {circularThumbs.map((thumb) => (
+                <motion.button
+                  layout
+                  key={`${thumb.originalIndex}-${thumb.isCenter ? 'center' : 'side'}`}
+                  onClick={() => setImgIdx(thumb.originalIndex)}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{
+                    opacity: thumb.isCenter ? 1 : 0.7,
+                    scale: 1,
+                    filter: thumb.isCenter ? 'brightness(1)' : 'brightness(0.8)'
+                  }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.3 }}
+                  className={`relative flex-shrink-0 rounded-[4px] overflow-hidden transition-all duration-300 focus:outline-none ${thumb.isCenter
+                      ? 'w-[48px] h-[48px] border-[2px] border-[#15653A] z-10 shadow-sm bg-white p-[2px]'
+                      : 'w-[40px] h-[40px] border border-transparent hover:opacity-100'
+                    }`}
+                  aria-label={thumb.label}
+                  aria-current={thumb.isCenter ? 'true' : undefined}
+                >
+                  <img
+                    src={thumb.src}
+                    alt={thumb.label}
+                    className="w-full h-full object-cover rounded-[2px]"
+                    loading="lazy"
+                  />
+                </motion.button>
+              ))}
+            </AnimatePresence>
+          </div>
+
+          <div className="pointer-events-auto flex items-center pb-1">
             <IconButton
               onClick={() => setLightboxOpen(true)}
               size="small"
               aria-label="View fullscreen"
-              sx={{ color: 'var(--color-bg-white)', p: 0.5, bgcolor: 'rgba(255,255,255,0.15)', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }}
+              sx={{ color: '#ffffff', p: 0.5, bgcolor: 'rgba(255,255,255,0.2)', borderRadius: '4px', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }}
             >
               <ZoomOutMapIcon sx={{ fontSize: 16 }} />
             </IconButton>
@@ -97,85 +130,42 @@ const Layout: React.FC = () => {
         </div>
       </div>
 
-      {/* Infinite Looping Thumbnail Strip */}
-      <div className="flex justify-center items-center gap-2 px-3 py-3 bg-[var(--color-bg-soft)] border-b border-[var(--color-border)] overflow-hidden">
-        <AnimatePresence mode="popLayout">
-          {circularThumbs.map((thumb) => (
-            <motion.button
-              layout
-              key={`${thumb.originalIndex}-${thumb.isCenter ? 'center' : 'side'}`}
-              onClick={() => setImgIdx(thumb.originalIndex)}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{
-                opacity: thumb.isCenter ? 1 : 0.6,
-                scale: thumb.isCenter ? 1.1 : 0.9,
-                filter: thumb.isCenter ? 'brightness(1)' : 'brightness(0.7)'
-              }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-              className={`relative flex-shrink-0 rounded-[var(--radius-sm)] overflow-hidden transition-all duration-300 focus:outline-none ${thumb.isCenter
-                  ? 'w-[72px] h-[72px] shadow-[0_4px_12px_var(--color-glow)] z-10 border-2 border-[var(--color-accent)]'
-                  : 'w-[56px] h-[56px] border border-transparent hover:opacity-90 hover:scale-95'
-                }`}
-              aria-label={thumb.label}
-              aria-current={thumb.isCenter ? 'true' : undefined}
-            >
-              <img
-                src={thumb.src}
-                alt={thumb.label}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-              {/* Highlight Overlay for Active Thumbnail */}
-              {thumb.isCenter && (
-                <motion.div
-                  layoutId="active-thumb-highlight"
-                  className="absolute inset-0 border-2 border-[var(--color-bg-white)] rounded-[var(--radius-sm)] pointer-events-none"
-                />
-              )}
-            </motion.button>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      {/* Plot Availability Section */}
-      <div className="px-3 py-4">
-        <p className="text-[13px] font-extrabold text-[var(--color-text-primary)] mb-2.5 uppercase tracking-wide">
+      <div className="px-2 py-2">
+        <p className="text-[13px] font-extrabold text-[#0B1F17] mb-2.5  tracking-wide">
           Plot Availability
         </p>
-        <div className="flex flex-col bg-[var(--color-bg-white)] border border-[var(--color-border)] rounded-[var(--radius-md)] shadow-sm">
+        <div className="flex flex-col bg-[#ffffff]  rounded-[8px] ">
           {plotSizes.map((plot, i, arr) => (
-            <div key={plot.size} className="hover:bg-[var(--color-bg-soft)] transition-colors rounded-[var(--radius-md)]">
+            <div key={plot.size} className="hover:bg-[#EEF4F0] transition-colors rounded-[8px]">
               <div className="flex items-center justify-between px-3 py-3 cursor-pointer">
                 <div>
-                  <p className="text-[13px] font-bold text-[var(--color-text-primary)]">{plot.size} Plot</p>
-                  <p className="text-[11px] font-semibold text-[var(--color-text-muted)] mt-0.5">
+                  <p className="text-[13px] font-bold text-[#0B1F17]">{plot.size} Plot</p>
+                  <p className="text-[11px] font-semibold text-[#64786D] mt-0.5">
                     Rs. {plot.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
                   </p>
                 </div>
-                <p className="text-[15px] font-extrabold text-[var(--color-accent)] drop-shadow-sm">
+                <p className="text-[15px] font-extrabold text-[#15653A] drop-shadow-sm">
                   Rs. {((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
                 </p>
               </div>
-              {i < arr.length - 1 && <div className="h-px bg-[var(--color-border)] mx-3" />}
+              {i < arr.length - 1 && <div className="h-px bg-[#C8DBCF] mx-3" />}
             </div>
           ))}
         </div>
 
         <button
-          className="mt-4 w-full py-3 rounded-[var(--radius-md)] text-white text-[14px] font-bold transition-all duration-300 hover-lift glass-cta shadow-[0_4px_16px_var(--color-glow)]"
+          className="mt-4 w-full py-3 rounded-[8px] text-white text-[14px] font-bold transition-all duration-300 hover-lift glass-cta shadow-[0_4px_16px_rgba(21,101,58,0.4)]"
         >
           Check Plot Availability
         </button>
       </div>
 
-      {/* Lightbox */}
       <Dialog
         open={lightboxOpen}
         onClose={() => setLightboxOpen(false)}
         maxWidth="sm"
         fullWidth
-        PaperProps={{ sx: { bgcolor: '#000000', m: 1, borderRadius: 'var(--radius-md)' } }}
+        PaperProps={{ sx: { bgcolor: '#000000', m: 1, borderRadius: '8px' } }}
         aria-label="Layout image fullscreen view"
       >
         <div className="relative flex items-center justify-center min-h-[50vh]">
@@ -186,20 +176,19 @@ const Layout: React.FC = () => {
           />
           <IconButton
             onClick={() => setLightboxOpen(false)}
-            sx={{ position: 'absolute', top: 12, right: 12, bgcolor: 'rgba(10,26,16,0.6)', color: 'var(--color-bg-white)', '&:hover': { bgcolor: 'rgba(10,26,16,0.8)' }, backdropFilter: 'blur(4px)' }}
+            sx={{ position: 'absolute', top: 12, right: 12, bgcolor: 'rgba(10,26,16,0.6)', color: '#ffffff', '&:hover': { bgcolor: 'rgba(10,26,16,0.8)' }, backdropFilter: 'blur(4px)' }}
             size="small"
             aria-label="Close fullscreen"
           >
             <CloseIcon sx={{ fontSize: 20 }} />
           </IconButton>
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4">
-            <IconButton onClick={prev} sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'var(--color-bg-white)', backdropFilter: 'blur(8px)', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }} aria-label="Previous">
-              <NavigateBeforeIcon fontSize="large" />
-            </IconButton>
-            <IconButton onClick={next} sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'var(--color-bg-white)', backdropFilter: 'blur(8px)', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }} aria-label="Next">
-              <NavigateNextIcon fontSize="large" />
-            </IconButton>
-          </div>
+
+          <IconButton onClick={prev} sx={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.2)', color: '#ffffff', backdropFilter: 'blur(8px)', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }} aria-label="Previous">
+            <NavigateBeforeIcon fontSize="large" />
+          </IconButton>
+          <IconButton onClick={next} sx={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.2)', color: '#ffffff', backdropFilter: 'blur(8px)', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }} aria-label="Next">
+            <NavigateNextIcon fontSize="large" />
+          </IconButton>
         </div>
       </Dialog>
 

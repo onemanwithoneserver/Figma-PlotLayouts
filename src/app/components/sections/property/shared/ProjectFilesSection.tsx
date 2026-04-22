@@ -24,22 +24,22 @@ const PdfIcon = ({ className = "" }: { className?: string }) => (
   >
     <path
       d="M17 5H32L41 14V42C41 44.209 39.209 46 37 46H17C14.791 46 13 44.209 13 42V9C13 6.791 14.791 5 17 5Z"
-      stroke="var(--color-text-primary)"
+      stroke="#0B1F17"
       strokeWidth="2.8"
       strokeLinejoin="round"
     />
     <path
       d="M32 5V11.8C32 13.015 32.985 14 34.2 14H41"
-      stroke="var(--color-text-primary)"
+      stroke="#0B1F17"
       strokeWidth="2.8"
       strokeLinejoin="round"
     />
-    <rect x="3" y="23" width="36" height="14" rx="2.8" fill="var(--color-error)" />
+    <rect x="3" y="23" width="36" height="14" rx="2.8" fill="#DC2626" />
     <text
       x="21"
       y="32.5"
       textAnchor="middle"
-      fill="var(--color-bg-white)"
+      fill="#ffffff"
       fontSize="8.8"
       fontWeight="800"
       fontFamily="'Outfit', sans-serif"
@@ -70,12 +70,12 @@ const EyeIcon = ({ className = "" }: { className?: string }) => (
 
 const ProjectFilesSection: React.FC = () => {
   return (
-    <div className="w-full rounded-[var(--radius-md)] bg-[var(--color-text-primary)] border border-[var(--color-text-secondary)] px-3 py-2 font-outfit shadow-sm">
+    <div className="w-full rounded-[8px] bg-[#0B1F17] border border-[#64786D] px-3 py-2 font-outfit shadow-sm">
       <div className="flex items-center justify-between px-1 pb-3 pt-1">
         <h2 className="text-[18px] px-2 font-bold text-white drop-shadow-sm">Project Files</h2>
         <button
           type="button"
-          className="group flex items-center gap-1 rounded-[var(--radius-sm)] border border-[rgba(255,255,255,0.2)] bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] px-2.5 py-1.5 text-[11px] font-bold text-[var(--color-bg-white)] shadow-sm transition-all duration-200 hover:brightness-110 hover:shadow-[0_4px_12px_var(--color-glow)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-text-primary)]"
+          className="group flex items-center gap-1 rounded-[4px] border border-[rgba(255,255,255,0.2)] bg-gradient-to-br from-[#15653A] to-[#2F7D4E] px-2.5 py-1.5 text-[11px] font-bold text-[#ffffff] shadow-sm transition-all duration-200 hover:brightness-110 hover:shadow-[0_4px_12px_rgba(21,101,58,0.4)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1F17]"
           title="View"
         >
           <EyeIcon className="transition-transform duration-200 group-hover:scale-110" />
@@ -88,10 +88,10 @@ const ProjectFilesSection: React.FC = () => {
             <button
               key={file.id}
               type="button"
-              className="group flex w-[64px] shrink-0 flex-col items-center justify-start gap-1.5 rounded-[var(--radius-sm)] px-1 py-1.5 bg-[rgba(255,255,255,0.9)] transition-all duration-200 hover:bg-white hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,255,255,0.15)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+              className="group flex w-[64px] shrink-0 flex-col items-center justify-start gap-1.5 rounded-[4px] px-1 py-1.5 bg-[rgba(255,255,255,0.9)] transition-all duration-200 hover:bg-white hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,255,255,0.15)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A]"
             >
               <PdfIcon className="h-11 w-11 transition-transform duration-200 group-hover:scale-105" />
-              <span className="whitespace-nowrap text-center text-[11px] font-bold leading-tight text-[var(--color-text-primary)] transition-colors duration-200 group-hover:text-[var(--color-accent)]">
+              <span className="whitespace-nowrap text-center text-[11px] font-bold leading-tight text-[#0B1F17] transition-colors duration-200 group-hover:text-[#15653A]">
                 {file.label}
               </span>
             </button>
