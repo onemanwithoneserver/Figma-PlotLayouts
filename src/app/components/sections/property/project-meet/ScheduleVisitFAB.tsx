@@ -8,9 +8,9 @@ const DAYS = (() => {
     const d = new Date(now);
     d.setDate(now.getDate() + i);
     return {
-      key:     d.toISOString().slice(0, 10),
-      date:    String(d.getDate()),
-      day:     DAY_NAMES[d.getDay()],
+      key: d.toISOString().slice(0, 10),
+      date: String(d.getDate()),
+      day: DAY_NAMES[d.getDay()],
       isToday: i === 0,
     };
   });
@@ -65,18 +65,18 @@ const ChevronRightIcon = ({ className }: { className?: string }) => (
 );
 
 const ScheduleVisitFAB: React.FC = () => {
-  const [open,            setOpen]            = useState(false);
-  const [isAtBottom,      setIsAtBottom]      = useState(false);
-  const [selectedDay,     setSelectedDay]     = useState(DAYS[0].key);
+  const [open, setOpen] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
+  const [selectedDay, setSelectedDay] = useState(DAYS[0].key);
   const [selectedSession, setSelectedSession] = useState(DEFAULT_SESSION);
-  const [selectedSlot,    setSelectedSlot]    = useState(DEFAULT_SLOT);
-  const [confirmed,       setConfirmed]       = useState(false);
+  const [selectedSlot, setSelectedSlot] = useState(DEFAULT_SLOT);
+  const [confirmed, setConfirmed] = useState(false);
 
   const datesScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
-      const nearBottom = document.documentElement.scrollHeight - window.innerHeight - window.scrollY <= 80;
+      const nearBottom = document.documentElement.scrollHeight - window.innerHeight - window.scrollY <= 120;
       setIsAtBottom(nearBottom);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -102,24 +102,23 @@ const ScheduleVisitFAB: React.FC = () => {
 
   const handleOpen = () => { setOpen(true); setConfirmed(false); };
 
-  const activeDay      = DAYS.find(d => d.key === selectedDay)!;
-  const currentSlots   = SESSIONS.find(s => s.id === selectedSession)!.slots;
+  const activeDay = DAYS.find(d => d.key === selectedDay)!;
+  const currentSlots = SESSIONS.find(s => s.id === selectedSession)!.slots;
   const activeDayLabel = activeDay.isToday ? 'Today' : activeDay.day;
 
   return (
     <>
-      {/* FAB */}
-      <div className="fixed bottom-0 left-0 right-0 z-[55] flex justify-center pointer-events-none">
+      <div className="fixed bottom-0 left-0 right-0 z-[55] flex justify-center pointer-events-none font-outfit">
         <div className="relative w-full max-w-[390px]">
           <motion.button
             layout
             whileTap={{ scale: 0.92 }}
             onClick={handleOpen}
             aria-label="Schedule Site Visit"
-            className="absolute left-3 bottom-[72px] pointer-events-auto inline-flex items-center h-9 text-white rounded-[var(--radius-sm)] shadow-[0_4px_20px_var(--primary-alpha-40)] hover:brightness-95 transition-all overflow-hidden"
-            style={{ background: 'var(--gradient-accent)' }}
+            className="absolute left-3 bottom-[82px] pointer-events-auto inline-flex items-center h-10 text-white rounded-[var(--radius-sm)] shadow-[var(--glass-shadow)] hover:brightness-110 transition-all overflow-hidden border border-[rgba(255,255,255,0.3)]"
+            style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))' }}
           >
-            <div className="w-9 h-9 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
               <CalendarIcon className="w-4 h-4 text-white" />
             </div>
             <AnimatePresence>
@@ -129,9 +128,9 @@ const ScheduleVisitFAB: React.FC = () => {
                   animate={{ width: 'auto', opacity: 1 }}
                   exit={{ width: 0, opacity: 0 }}
                   transition={{ duration: 0.22 }}
-                  className="text-[12px] font-bold leading-none whitespace-nowrap overflow-hidden pr-3"
+                  className="text-[12px] font-bold leading-none whitespace-nowrap overflow-hidden pr-4"
                 >
-                  Schedule Visit
+                  Schedule Site Visit
                 </motion.span>
               )}
             </AnimatePresence>
@@ -139,7 +138,6 @@ const ScheduleVisitFAB: React.FC = () => {
         </div>
       </div>
 
-      {/* Schedule Panel */}
       <AnimatePresence>
         {open && (
           <>
@@ -147,7 +145,7 @@ const ScheduleVisitFAB: React.FC = () => {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-[2px]"
+              className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-[4px]"
             />
 
             <motion.div
@@ -160,87 +158,80 @@ const ScheduleVisitFAB: React.FC = () => {
               aria-label="Schedule site visit"
             >
               <div
-                className="w-full max-w-[390px] bg-white rounded-t-[var(--radius-md)] shadow-[0_-8px_40px_var(--overlay-dark-16)] font-['Outfit',_sans-serif] flex flex-col"
+                className="w-full max-w-[390px] bg-[var(--color-bg-white)] rounded-t-[var(--radius-lg)] shadow-[0_-8px_40px_rgba(10,26,16,0.2)] font-outfit flex flex-col border-t border-[rgba(255,255,255,0.1)]"
                 style={{ maxHeight: '86vh' }}
               >
-                {/* Drag handle */}
-                <div className="flex justify-center pt-2 pb-0 flex-shrink-0">
-                  <div className="w-8 h-[3px] rounded-full bg-[var(--border-default)]" />
+                <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
+                  <div className="w-10 h-[4px] rounded-full bg-[var(--color-bg-mid)] opacity-50" />
                 </div>
 
-                <div className="overflow-y-auto flex-1 px-3 pt-2.5 pb-2 space-y-2">
+                <div className="overflow-y-auto flex-1 px-4 pt-2 pb-4 space-y-5">
                   {confirmed ? (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.96 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="flex flex-col items-center gap-3 py-5 text-center"
+                      className="flex flex-col items-center gap-4 py-8 text-center"
                     >
-                      <div className="w-11 h-11 rounded-[var(--radius-sm)] bg-[var(--accent-soft)] flex items-center justify-center shadow-[0_0_0_4px_var(--primary-alpha-8)]">
-                        <CheckIcon className="w-5 h-5 text-[var(--accent-primary)]" />
+                      <div className="w-14 h-14 rounded-full bg-[var(--color-bg-soft)] flex items-center justify-center shadow-[0_0_0_6px_rgba(34,160,80,0.1)] border border-[var(--color-border)]">
+                        <CheckIcon className="w-6 h-6 text-[var(--color-success)]" />
                       </div>
                       <div>
-                        <p className="text-[14px] font-bold text-[var(--text-primary)] mb-1">Visit Confirmed!</p>
-                        <p className="text-[12px] font-semibold text-[var(--accent-primary)] mb-1">
+                        <p className="text-[18px] font-bold text-[var(--color-text-primary)] mb-1">Visit Scheduled!</p>
+                        <div className="inline-block px-3 py-1 bg-[var(--color-bg-soft)] border border-[var(--color-border)] rounded-full text-[13px] font-bold text-[var(--color-primary)] mb-3">
                           {activeDayLabel}, Apr {activeDay.date} · {selectedSlot}
-                        </p>
-                        <p className="text-[11px] text-[var(--text-gray-light)] max-w-[220px] mx-auto leading-relaxed">
-                          Our team will contact you shortly to confirm the visit details.
+                        </div>
+                        <p className="text-[12px] text-[var(--color-text-muted)] max-w-[260px] mx-auto leading-relaxed">
+                          Our property consultant will reach out to you shortly to provide directions and confirm the site visit.
                         </p>
                       </div>
                       <button
                         onClick={() => setConfirmed(false)}
-                        className="px-4 py-1.5 rounded-[var(--radius-sm)] border border-[var(--accent-primary)] text-[var(--accent-primary)] text-[11px] font-bold hover:bg-[var(--accent-soft)] transition-colors"
+                        className="mt-2 px-6 py-2 rounded-[var(--radius-md)] border border-[var(--color-accent)] text-[var(--color-accent)] text-[12px] font-bold hover:bg-[var(--color-bg-soft)] transition-all active:scale-95"
                       >
-                        Reschedule
+                        Modify Booking
                       </button>
                     </motion.div>
                   ) : (
                     <>
-                      {/* Select Date */}
                       <div>
-                        <div className="flex items-center justify-between mb-1.5">
-                          <div className="flex items-center gap-1.5">
-                            <TodayIcon className="w-3.5 h-3.5 text-[var(--accent-primary)]" />
-                            <p className="text-[12px] font-bold text-[var(--text-primary)] leading-none">
-                              Select Date
-                            </p>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <TodayIcon className="w-4 h-4 text-[var(--color-accent)]" />
+                            <p className="text-[14px] font-bold text-[var(--color-text-primary)]">Select Date</p>
                           </div>
                           <button
                             onClick={() => setOpen(false)}
-                            aria-label="Close"
-                            className="compact-touch w-6 h-6 rounded-[var(--radius-sm)] flex items-center justify-center text-[var(--text-gray-lighter)] hover:bg-[var(--bg-section-light)] hover:text-[var(--text-primary)] transition-colors"
+                            className="compact-touch w-7 h-7 rounded-full flex items-center justify-center bg-[var(--color-bg-soft)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
                           >
-                            <CloseIcon className="w-[13px] h-[13px]" />
+                            <CloseIcon className="w-4 h-4" />
                           </button>
                         </div>
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-2">
                           <button
                             onClick={() => scrollDates('left')}
-                            aria-label="Scroll dates left"
-                            className="compact-touch w-12 h-12 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-white hover:bg-[var(--bg-section-light)] transition-colors flex-shrink-0 flex items-center justify-center"
+                            className="compact-touch w-10 h-10 rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-[var(--color-bg-white)] hover:bg-[var(--color-bg-soft)] transition-colors flex-shrink-0 flex items-center justify-center disabled:opacity-30"
                           >
-                            <ChevronLeftIcon className="w-3 h-3 text-[var(--text-gray-dark)]" />
+                            <ChevronLeftIcon className="w-4 h-4 text-[var(--color-text-primary)]" />
                           </button>
 
                           <div
                             ref={datesScrollRef}
-                            className="flex gap-1.5 overflow-x-auto flex-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                            className="flex gap-2 overflow-x-auto flex-1 scrollbar-hide py-1"
                           >
                             {DAYS.map(d => (
                               <button
                                 key={d.key}
                                 onClick={() => setSelectedDay(d.key)}
-                                className={`compact-touch w-12 h-12 flex flex-col items-center justify-center rounded-[var(--radius-sm)] border transition-all flex-shrink-0 ${
-                                  selectedDay === d.key
-                                    ? 'border-[var(--accent-primary)] bg-[var(--accent-soft)]'
-                                    : 'border-[var(--border-default)] bg-white hover:border-[var(--accent-border)]'
-                                }`}
+                                className={`compact-touch w-[52px] h-[52px] flex flex-col items-center justify-center rounded-[var(--radius-md)] border-2 transition-all flex-shrink-0 ${selectedDay === d.key
+                                    ? 'border-[var(--color-accent)] bg-[var(--color-bg-soft)] shadow-[var(--glass-shadow)]'
+                                    : 'border-[var(--color-border)] bg-[var(--color-bg-white)] hover:border-[var(--color-secondary)]'
+                                  }`}
                               >
-                                <span className={`text-[13px] font-bold leading-none mb-0.5 ${selectedDay === d.key ? 'text-[var(--accent-primary)]' : 'text-[var(--text-primary)]'}`}>
+                                <span className={`text-[15px] font-bold leading-none mb-1 ${selectedDay === d.key ? 'text-[var(--color-primary)]' : 'text-[var(--color-text-primary)]'}`}>
                                   {d.date}
                                 </span>
-                                <span className={`text-[9px] font-semibold ${d.isToday ? 'text-[var(--accent-primary)]' : 'text-[var(--text-gray)]'}`}>
-                                  {d.isToday ? 'Today' : d.day}
+                                <span className={`text-[10px] font-bold uppercase tracking-tight ${d.isToday ? 'text-[var(--color-accent)]' : 'text-[var(--color-text-muted)]'}`}>
+                                  {d.isToday ? 'Today' : d.day.slice(0, 3)}
                                 </span>
                               </button>
                             ))}
@@ -248,32 +239,29 @@ const ScheduleVisitFAB: React.FC = () => {
 
                           <button
                             onClick={() => scrollDates('right')}
-                            aria-label="Scroll dates right"
-                            className="compact-touch w-12 h-12 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-white hover:bg-[var(--bg-section-light)] transition-colors flex-shrink-0 flex items-center justify-center"
+                            className="compact-touch w-10 h-10 rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-[var(--color-bg-white)] hover:bg-[var(--color-bg-soft)] transition-colors flex-shrink-0 flex items-center justify-center"
                           >
-                            <ChevronRightIcon className="w-3 h-3 text-[var(--text-gray-dark)]" />
+                            <ChevronRightIcon className="w-4 h-4 text-[var(--color-text-primary)]" />
                           </button>
                         </div>
                       </div>
 
-                      <div className="h-px bg-[var(--border-subtle)]" />
+                      <div className="h-px bg-[var(--color-bg-mid)] opacity-50" />
 
-                      {/* Preferred Time */}
                       <div>
-                        <div className="flex items-center gap-1.5 mb-1.5">
-                          <ClockIcon className="w-3.5 h-3.5 text-[var(--accent-primary)]" />
-                          <p className="text-[12px] font-bold text-[var(--text-primary)]">Preferred Time</p>
+                        <div className="flex items-center gap-2 mb-3">
+                          <ClockIcon className="w-4 h-4 text-[var(--color-accent)]" />
+                          <p className="text-[14px] font-bold text-[var(--color-text-primary)]">Preferred Session</p>
                         </div>
-                        <div className="flex gap-1">
+                        <div className="flex gap-2">
                           {SESSIONS.map(s => (
                             <button
                               key={s.id}
                               onClick={() => handleSessionChange(s.id)}
-                              className={`compact-touch flex-1 py-1.5 rounded-[var(--radius-sm)] border text-[11px] font-semibold transition-all ${
-                                selectedSession === s.id
-                                  ? 'border-[var(--accent-primary)] bg-[var(--accent-soft)] text-[var(--accent-primary)]'
-                                  : 'border-[var(--border-default)] bg-white text-[var(--text-muted)] hover:border-[var(--accent-border)]'
-                              }`}
+                              className={`compact-touch flex-1 py-2.5 rounded-[var(--radius-md)] border-2 text-[12px] font-bold transition-all ${selectedSession === s.id
+                                  ? 'border-[var(--color-primary)] bg-[var(--color-bg-soft)] text-[var(--color-primary)]'
+                                  : 'border-[var(--color-border)] bg-[var(--color-bg-white)] text-[var(--color-text-muted)] hover:border-[var(--color-secondary)]'
+                                }`}
                             >
                               {s.label}
                             </button>
@@ -281,48 +269,43 @@ const ScheduleVisitFAB: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Time slots */}
-                      <div className="grid grid-cols-4 gap-1" role="radiogroup" aria-label="Available time slots">
-                        {currentSlots.map(slot => (
-                          <button
-                            key={slot}
-                            onClick={() => setSelectedSlot(slot)}
-                            className={`compact-touch py-1.5 px-0.5 rounded-[var(--radius-sm)] border text-center transition-all ${
-                              selectedSlot === slot
-                                ? 'border-[var(--accent-primary)] bg-[var(--accent-soft)]'
-                                : 'border-[var(--border-default)] bg-white hover:border-[var(--accent-border)]'
-                            }`}
-                          >
-                            <span className={`text-[10px] font-bold ${ selectedSlot === slot ? 'text-[var(--accent-primary)]' : 'text-[var(--text-primary)]'}`}>
-                              {slot}
-                            </span>
-                          </button>
-                        ))}
+                      <div>
+                        <div className="grid grid-cols-4 gap-2" role="radiogroup">
+                          {currentSlots.map(slot => (
+                            <button
+                              key={slot}
+                              onClick={() => setSelectedSlot(slot)}
+                              className={`compact-touch py-2.5 rounded-[var(--radius-sm)] border-2 text-center transition-all ${selectedSlot === slot
+                                  ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-white shadow-[var(--glass-shadow)]'
+                                  : 'border-[var(--color-border)] bg-[var(--color-bg-white)] text-[var(--color-text-primary)] hover:border-[var(--color-secondary)]'
+                                }`}
+                            >
+                              <span className="text-[11px] font-bold">
+                                {slot}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
                       </div>
 
-                      {/* Summary pills */}
-                      <div className="flex items-center gap-1.5">
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-[var(--radius-sm)] bg-[var(--accent-soft)] text-[var(--accent-primary)] text-[10px] font-bold">
-                          <CalendarIcon className="w-2.5 h-2.5" />
-                          {activeDayLabel}, Apr {activeDay.date}
-                        </span>
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-[var(--radius-sm)] bg-[var(--accent-soft)] text-[var(--accent-primary)] text-[10px] font-bold">
-                          <ClockIcon className="w-2.5 h-2.5" />
-                          {selectedSlot}
-                        </span>
+                      <div className="flex items-center gap-2 px-3 py-2 bg-[var(--color-bg-soft)] border border-[var(--color-border)] rounded-[var(--radius-md)]">
+                        <CalendarIcon className="w-4 h-4 text-[var(--color-primary)]" />
+                        <p className="text-[12px] font-bold text-[var(--color-text-primary)]">
+                          Booking for {activeDayLabel}, Apr {activeDay.date} at {selectedSlot}
+                        </p>
                       </div>
                     </>
                   )}
                 </div>
 
                 {!confirmed && (
-                  <div className="px-3 pt-1.5 pb-3 flex-shrink-0 border-t border-[var(--border-subtle)]">
+                  <div className="px-4 pt-2 pb-6 flex-shrink-0 border-t border-[var(--color-border)]">
                     <button
                       onClick={() => setConfirmed(true)}
-                      className="w-full py-2 rounded-[var(--radius-sm)] text-white text-[12px] font-bold tracking-wide active:scale-[0.99] transition-all shadow-[0_2px_10px_var(--primary-alpha-25)]"
-                      style={{ background: 'var(--gradient-accent)' }}
+                      className="glass-cta w-full py-3.5 rounded-[var(--radius-md)] text-white text-[14px] font-bold tracking-wide active:scale-[0.98] transition-all"
+                      style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))' }}
                     >
-                      Confirm Site Visit
+                      Schedule Free Visit
                     </button>
                   </div>
                 )}

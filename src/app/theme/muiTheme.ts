@@ -3,29 +3,29 @@ import { createTheme } from '@mui/material/styles';
 export const muiTheme = createTheme({
   palette: {
     primary: {
-      main: '#0f5c30',       // --color-primary
-      light: '#22a050',      // --color-accent
-      dark: '#1e3326',       // --color-text-secondary
-      contrastText: '#ffffff', // --color-bg-white
+      main: '#0f5c30',
+      light: '#22a050',
+      dark: '#1e3326',
+      contrastText: '#ffffff',
     },
     secondary: {
-      main: '#1a7a42',       // --color-secondary
+      main: '#1a7a42',
       contrastText: '#ffffff',
     },
     background: {
-      default: '#f2f6f4',    // --color-bg-main
-      paper: '#ffffff',      // --color-bg-white
+      default: '#ffffff',
+      paper: '#ffffff',
     },
     text: {
-      primary: '#0a1a10',    // --color-text-primary
-      secondary: '#5a7a65',  // --color-text-muted
+      primary: '#0a1a10',
+      secondary: '#5a7a65',
     },
-    divider: '#C8E8D6',      // --color-border / mid
-    success: { main: '#2dbd60' }, // --color-success
+    divider: '#c8e8d6',
+    success: { main: '#2dbd60' },
   },
   shape: { borderRadius: 8 },
   typography: {
-    fontFamily: "'Outfit', 'Inter', sans-serif",
+    fontFamily: "'Outfit', sans-serif",
     h5: { fontWeight: 700, color: 'var(--text-color)' },
     h6: { fontWeight: 700, color: 'var(--text-color)' },
     subtitle1: { fontWeight: 600 },
@@ -80,7 +80,7 @@ export const muiTheme = createTheme({
           WebkitBackdropFilter: 'blur(16px)',
           border: '1px solid rgba(255, 255, 255, 0.5)',
           boxShadow: '0 4px 24px rgba(15, 92, 48, 0.25)',
-          '&:hover': { 
+          '&:hover': {
             background: 'var(--gradient-accent)',
             boxShadow: '0 6px 28px rgba(15, 92, 48, 0.35)',
           },
@@ -90,7 +90,7 @@ export const muiTheme = createTheme({
           color: 'var(--accent-primary)',
           backgroundColor: 'rgba(255, 255, 255, 0.5)',
           backdropFilter: 'blur(8px)',
-          '&:hover': { 
+          '&:hover': {
             backgroundColor: 'var(--primary-alpha-12)',
             borderColor: 'var(--accent-secondary)'
           },

@@ -4,14 +4,14 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { SECTION_TABS } from './data';
 
 const HorizontalTabNavigation: React.FC = () => {
-  const scrollRef        = useRef<HTMLDivElement>(null);
-  const tabRefs          = useRef<Record<string, HTMLButtonElement | null>>({});
-  const clickScrolling   = useRef(false);
-  const unlockTimer      = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const clickScrolling = useRef(false);
+  const unlockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [activeTab, setActiveTab] = useState(SECTION_TABS[0].id);
-  const [visible,   setVisible]   = useState(false);
-  const [showLeft,   setShowLeft]  = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [showLeft, setShowLeft] = useState(false);
   const [showRight, setShowRight] = useState(false);
 
   const syncArrows = useCallback(() => {
@@ -36,7 +36,7 @@ const HorizontalTabNavigation: React.FC = () => {
     syncArrows();
     window.addEventListener('resize', syncArrows);
     return () => window.removeEventListener('resize', syncArrows);
-  }, [syncArrows, activeTab]); 
+  }, [syncArrows, activeTab]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -62,7 +62,7 @@ const HorizontalTabNavigation: React.FC = () => {
     setActiveTab(tabId);
     clickScrolling.current = true;
     if (unlockTimer.current) clearTimeout(unlockTimer.current);
-    
+
     const offset = 56;
     const y = el.getBoundingClientRect().top + window.scrollY - offset - 8;
     window.scrollTo({ top: y, behavior: 'smooth' });
@@ -80,16 +80,15 @@ const HorizontalTabNavigation: React.FC = () => {
   return (
     <nav
       aria-label="Page sections"
-      className={`sticky top-0 z-40 glass-sticky transition-all duration-300 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
-      }`}
+      className={`font-outfit sticky top-0 z-40 glass-sticky transition-all duration-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
+        }`}
     >
       <div className="flex items-center">
         <button
           onClick={() => manualScroll('left')}
-          className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
+          className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-[var(--color-bg-soft)] hover:text-[var(--color-primary)] disabled:opacity-0"
           disabled={!showLeft}
-          style={{ borderRight: '1px solid var(--border-subtle)', color: 'var(--text-gray)' }}
+          style={{ borderRight: '1px solid var(--color-border)', color: 'var(--color-text-muted)' }}
           aria-label="Scroll tabs left"
         >
           <ChevronLeftIcon sx={{ fontSize: 20 }} />
@@ -109,9 +108,9 @@ const HorizontalTabNavigation: React.FC = () => {
               onClick={() => handleClick(tab.id)}
               role="tab"
               aria-selected={false}
-              className="compact-touch flex-shrink-0 px-5 py-3 outline-none hover:bg-neutral-50 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/40 rounded-[var(--radius-sm)]"
+              className="compact-touch flex-shrink-0 px-5 py-3 outline-none hover:bg-[var(--color-bg-soft)] transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/40 rounded-[var(--radius-sm)] group"
             >
-              <span className="text-[0.8125rem] font-medium text-[var(--text-muted)] whitespace-nowrap underline">
+              <span className="text-[0.8125rem] font-bold text-[var(--color-text-muted)] group-hover:text-[var(--color-primary)] whitespace-nowrap underline decoration-1 underline-offset-4 transition-colors duration-200">
                 {tab.label}
               </span>
             </button>
@@ -120,9 +119,9 @@ const HorizontalTabNavigation: React.FC = () => {
 
         <button
           onClick={() => manualScroll('right')}
-          className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
+          className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-[var(--color-bg-soft)] hover:text-[var(--color-primary)] disabled:opacity-0"
           disabled={!showRight}
-          style={{ borderLeft: '1px solid var(--border-subtle)', color: 'var(--text-gray)' }}
+          style={{ borderLeft: '1px solid var(--color-border)', color: 'var(--color-text-muted)' }}
           aria-label="Scroll tabs right"
         >
           <ChevronRightIcon sx={{ fontSize: 20 }} />

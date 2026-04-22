@@ -11,36 +11,33 @@ interface StatPillProps {
 
 const StatPill: React.FC<StatPillProps> = ({ icon, svgIcon, label, value, valid }) => {
   return (
-    <div className="flex-shrink-0 flex flex-col items-center group">
+    <div className="flex-shrink-0 flex flex-col items-center group font-outfit">
       <div className="relative w-[80px] h-[80px] mb-2.5">
-        {/* Circular border with gradient effect */}
-        <div className="absolute inset-0 rounded-full border-2 border-[var(--bg-gray)] bg-gradient-to-br from-white to-gray-50 flex items-center justify-center shadow-lg shadow-black/5 group-hover:shadow-xl group-hover:shadow-black/10 transition-all duration-300 group-hover:scale-105">
+        <div className="absolute inset-0 rounded-full border border-[var(--color-border)] bg-[var(--color-bg-white)] flex items-center justify-center shadow-[var(--glass-shadow)] transition-all duration-300 group-hover:shadow-[var(--glass-shadow-hover)] group-hover:scale-105 group-hover:border-[var(--color-secondary)]">
           {svgIcon ? (
-            <img src={svgIcon} alt={label} className="w-8 h-8 object-contain drop-shadow-sm" />
+            <img src={svgIcon} alt={label} className="w-8 h-8 object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-110" />
           ) : (
-            <span className="text-2xl drop-shadow-sm">{icon}</span>
+            <span className="text-2xl drop-shadow-sm transition-transform duration-300 group-hover:scale-110">{icon}</span>
           )}
         </div>
-        
-        {/* Checkmark/X at bottom left */}
-        <div className={`absolute bottom-0 left-0 w-6 h-6 rounded-full flex items-center justify-center shadow-md transition-all duration-300 group-hover:scale-110 ${
-          valid ? 'bg-gradient-to-br from-green-500 to-green-600 shadow-green-500/30' : 'bg-gradient-to-br from-red-500 to-red-600 shadow-red-500/30'
-        }`}>
+
+        <div className={`absolute bottom-0 left-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${valid ? 'bg-[var(--color-success)] shadow-[0_4px_10px_rgba(45,189,96,0.3)]' : 'bg-[var(--color-error)] shadow-[0_4px_10px_rgba(214,48,49,0.3)]'
+          }`}>
           {valid ? (
             <Check className="w-4 h-4 text-white" strokeWidth={3} />
           ) : (
             <X className="w-4 h-4 text-white" strokeWidth={2.5} />
           )}
         </div>
-        
-        {/* X at bottom right */}
-        <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-gradient-to-br from-[var(--error-color)] to-[var(--error-color-alt3)] flex items-center justify-center shadow-md shadow-red-500/30 transition-all duration-300 group-hover:scale-110">
+
+        <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-[var(--color-error)] flex items-center justify-center shadow-[0_4px_10px_rgba(214,48,49,0.3)] transition-all duration-300 group-hover:scale-110">
           <X className="w-4 h-4 text-white" strokeWidth={2.5} />
         </div>
       </div>
-      
-      {/* Label and Value */}
-      <p className="text-[13px] font-semibold text-[var(--text-dark)] text-center drop-shadow-sm">{value}</p>
+
+      <p className="text-[13px] font-bold text-[var(--color-text-primary)] text-center drop-shadow-sm transition-colors duration-300 group-hover:text-[var(--color-primary)]">
+        {value}
+      </p>
     </div>
   );
 };

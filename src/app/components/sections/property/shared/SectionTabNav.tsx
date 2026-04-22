@@ -69,12 +69,12 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
   };
 
   return (
-    <div className="w-full relative">
-      <div className="bg-white  flex items-center">
+    <div className="w-full relative font-outfit">
+      <div className="bg-[var(--color-bg-white)] flex items-center border-b border-[var(--color-border)] shadow-sm">
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="compact-touch flex-shrink-0 flex items-center justify-center rounded-[var(--radius-sm)] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/50 overflow-hidden"
+          className="compact-touch flex-shrink-0 flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-soft)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50 overflow-hidden"
           style={{
             width: canScrollLeft ? 32 : 0,
             height: canScrollLeft ? 32 : 0,
@@ -90,7 +90,7 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
           ref={containerRef}
           onScroll={checkScroll}
           role="tablist"
-          className="flex-1 flex items-center py-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
+          className="flex-1 flex items-center py-1.5 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
         >
           <div className="flex min-w-max flex-nowrap gap-1 px-1 mx-auto">
             {tabs.map((tab, idx) => {
@@ -107,21 +107,21 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => onTabChange(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="compact-touch relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[var(--radius-md)] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/50"
-                  style={{ color: isActive ? 'var(--background-color)' : 'var(--text-muted)' }}
+                  className="compact-touch relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[var(--radius-md)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50"
+                  style={{ color: isActive ? 'var(--color-bg-white)' : 'var(--color-text-muted)' }}
                 >
                   {isActive && (
                     <motion.div
                       layoutId={layoutId}
-                      className="absolute inset-0 rounded-[2px] -z-10"
+                      className="absolute inset-0 rounded-[var(--radius-sm)] -z-10"
                       style={{
-                        background: 'var(--gradient-accent)',
-                        boxShadow: '0 0 12px var(--primary-alpha-22-alt)',
+                        background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
+                        boxShadow: 'var(--glass-shadow)',
                       }}
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <span className={`relative z-20 text-[13px] whitespace-nowrap ${isActive ? 'font-bold' : 'font-semibold'}`}>
+                  <span className={`relative z-20 text-[13px] whitespace-nowrap transition-colors duration-200 ${isActive ? 'font-bold' : 'font-semibold hover:text-[var(--color-text-primary)]'}`}>
                     {tab.label}
                   </span>
                 </button>
@@ -132,7 +132,7 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
-          className="compact-touch flex-shrink-0 flex items-center justify-center rounded-[var(--radius-sm)] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/50 overflow-hidden"
+          className="compact-touch flex-shrink-0 flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-soft)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50 overflow-hidden"
           style={{
             width: canScrollRight ? 32 : 0,
             height: canScrollRight ? 32 : 0,

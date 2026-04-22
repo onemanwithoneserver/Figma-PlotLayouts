@@ -16,11 +16,9 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Check scroll position to show/hide arrows
   const checkScroll = () => {
     if (containerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-      // Added a 2px threshold so the arrow strictly disappears when reaching the edge
       setCanScrollLeft(scrollLeft > 2);
       setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 2);
     }
@@ -32,7 +30,6 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
     return () => window.removeEventListener('resize', checkScroll);
   }, [tabs]);
 
-  // Keep active tab near the middle when possible
   useEffect(() => {
     const activeBtn = buttonRefs.current.get(activeTab);
     const container = containerRef.current;
@@ -70,13 +67,12 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
   };
 
   return (
-    <div className="w-full relative">
-      <div className="bg-white border border-neutral-200 rounded-[4px] shadow-sm flex items-center">
-        {/* Left arrow */}
+    <div className="w-full relative font-outfit">
+      <div className="bg-[var(--color-bg-white)] border border-[var(--color-border)] rounded-[4px] shadow-sm flex items-center">
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50 overflow-hidden"
+          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-soft)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50 overflow-hidden"
           style={{
             width: canScrollLeft ? 32 : 0,
             height: canScrollLeft ? 32 : 0,
@@ -89,7 +85,6 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
           <ChevronLeftIcon sx={{ fontSize: 18 }} />
         </button>
 
-        {/* Scrollable strip */}
         <div
           ref={containerRef}
           onScroll={checkScroll}
@@ -111,16 +106,16 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => onTabClick(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] focus-visible:ring-2 focus-visible:ring-green-600/50"
-                  style={{ color: isActive ? 'var(--background-color)' : 'var(--text-gray-dark)' }}
+                  className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50"
+                  style={{ color: isActive ? 'var(--color-bg-white)' : 'var(--color-text-secondary)' }}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="commute-active-pill"
                       className="absolute inset-0 rounded-[4px] -z-10"
                       style={{
-                        background: 'linear-gradient(135deg, var(--primary-color), var(--primary-color-hover))',
-                        boxShadow: '0 0 8px var(--primary-alpha-20)',
+                        background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
+                        boxShadow: '0 0 8px var(--color-glow)',
                       }}
                       transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
                     />
@@ -134,11 +129,10 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
           </div>
         </div>
 
-        {/* Right arrow */}
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
-          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/50 overflow-hidden"
+          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-soft)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50 overflow-hidden"
           style={{
             width: canScrollRight ? 32 : 0,
             height: canScrollRight ? 32 : 0,

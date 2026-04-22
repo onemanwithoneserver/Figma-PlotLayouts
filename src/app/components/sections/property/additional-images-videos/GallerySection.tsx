@@ -32,18 +32,17 @@ const GallerySection: React.FC = () => {
 
   return (
     <>
-      <div className="font-outfit border border-[var(--border-subtle)] rounded-[2px] overflow-hidden bg-white max-w-full">
-        {/* Header with filter tabs */}
-        <div className="px-3 pt-3 flex items-end justify-between border-b border-[var(--border-subtle)] gap-3">
-          <h2 className="text-[1.0625rem] font-bold text-[var(--text-primary)] leading-[1.2] mb-1.5 min-w-max">
+      <div className="font-outfit border border-[var(--color-border)] rounded-[2px] overflow-hidden bg-[var(--color-bg-white)] max-w-full">
+        <div className="px-3 pt-3 flex items-end justify-between border-b border-[var(--color-border)] gap-3">
+          <h2 className="text-[1.0625rem] font-bold text-[var(--color-text-primary)] leading-[1.2] mb-1.5 min-w-max">
             Media Gallery
           </h2>
-          
+
           <div className="flex gap-4 overflow-x-auto scrollbar-hide" role="tablist" aria-label="Media type filter">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.id;
               const Icon = tab.icon;
-              
+
               return (
                 <button
                   key={tab.id}
@@ -52,14 +51,13 @@ const GallerySection: React.FC = () => {
                     setActiveTab(isActive ? 'all' : tab.id);
                     setLightboxIdx(null);
                   }}
-                  className={`compact-touch relative flex items-center gap-1.5 pb-2 text-[0.875rem] font-semibold transition-colors whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/40 ${
-                    isActive ? 'text-[var(--accent-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--accent-primary)]'
-                  }`}
+                  className={`compact-touch relative flex items-center gap-1.5 pb-2 text-[0.875rem] font-semibold transition-colors whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/40 ${isActive ? 'text-[var(--color-accent)]' : 'text-[var(--color-text-muted)] hover:text-[var(--color-accent)]'
+                    }`}
                 >
                   <Icon sx={{ fontSize: 16 }} />
                   {tab.label}
                   {isActive && (
-                    <span className="absolute bottom-[-1px] left-0 right-0 h-[2.5px] rounded-t-[var(--radius-sm)]" style={{ background: 'var(--gradient-accent)' }} />
+                    <span className="absolute bottom-[-1px] left-0 right-0 h-[2.5px] rounded-t-[var(--radius-sm)]" style={{ background: 'linear-gradient(135deg, var(--color-secondary), var(--color-highlight))' }} />
                   )}
                 </button>
               );
@@ -67,14 +65,13 @@ const GallerySection: React.FC = () => {
           </div>
         </div>
 
-        {/* Grid */}
-        <div className="p-3 bg-[var(--bg-section-light)]" role="tabpanel">
+        <div className="p-3 bg-[var(--color-bg-main)]" role="tabpanel">
           <div className="grid grid-cols-2 gap-2.5">
             {displayedItems.map((item, idx) => (
               <button
                 key={item.id}
                 onClick={() => setLightboxIdx(idx)}
-                className="compact-touch relative rounded-[var(--radius-md)] overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] aspect-[4/3] bg-[var(--border-default)] block w-full"
+                className="compact-touch relative rounded-[var(--radius-md)] overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] aspect-[4/3] bg-[var(--color-bg-mid)] block w-full"
                 aria-label={`View ${item.label} ${item.type}`}
               >
                 <img
@@ -88,16 +85,16 @@ const GallerySection: React.FC = () => {
                 {item.type === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-10 h-10 rounded-[var(--radius-md)] bg-white/25 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-sm">
-                      <PlayCircleOutlineIcon sx={{ fontSize: 24, color: 'var(--background-color)' }} />
+                      <PlayCircleOutlineIcon sx={{ fontSize: 24, color: 'var(--color-bg-white)' }} />
                     </div>
                   </div>
                 )}
 
                 <div className="absolute bottom-2 left-2 right-2 flex items-center gap-1.5">
                   {item.type === 'image' ? (
-                    <ImageOutlinedIcon sx={{ fontSize: 14, color: 'var(--background-color)' }} />
+                    <ImageOutlinedIcon sx={{ fontSize: 14, color: 'var(--color-bg-white)' }} />
                   ) : (
-                    <VideocamOutlinedIcon sx={{ fontSize: 14, color: 'var(--background-color)' }} />
+                    <VideocamOutlinedIcon sx={{ fontSize: 14, color: 'var(--color-bg-white)' }} />
                   )}
                   <span className="text-[0.75rem] font-bold text-white truncate drop-shadow-md tracking-wide">
                     {item.label}
@@ -105,9 +102,9 @@ const GallerySection: React.FC = () => {
                 </div>
               </button>
             ))}
-            
+
             {displayedItems.length === 0 && (
-              <div className="col-span-full py-8 text-center text-[var(--text-muted)] text-sm font-medium">
+              <div className="col-span-full py-8 text-center text-[var(--color-text-muted)] text-sm font-medium">
                 No media found.
               </div>
             )}
@@ -115,7 +112,6 @@ const GallerySection: React.FC = () => {
         </div>
       </div>
 
-      {/* Lightbox Dialog */}
       <Dialog
         open={lightboxIdx !== null}
         onClose={close}
@@ -136,24 +132,24 @@ const GallerySection: React.FC = () => {
               onClick={close}
               size="small"
               aria-label="Close lightbox"
-              sx={{ position: 'absolute', top: -14, right: -14, bgcolor: 'var(--background-color)', color: 'var(--text-black)', boxShadow: '0 4px 6px -1px var(--overlay-dark-20)', '&:hover': { bgcolor: 'var(--bg-muted)' }, zIndex: 10 }}
+              sx={{ position: 'absolute', top: -14, right: -14, bgcolor: 'var(--color-bg-white)', color: 'var(--color-text-primary)', boxShadow: '0 4px 6px -1px rgba(10, 26, 16, 0.2)', '&:hover': { bgcolor: 'var(--color-bg-soft)' }, zIndex: 10 }}
             >
               <CloseIcon sx={{ fontSize: 18 }} />
             </IconButton>
 
             {displayedItems.length > 1 && (
               <>
-                <IconButton onClick={prev} size="small" aria-label="Previous" sx={{ position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'var(--background-color)', color: 'var(--text-black)', boxShadow: '0 4px 6px -1px var(--overlay-dark-20)', '&:hover': { bgcolor: 'var(--bg-muted)' } }}>
+                <IconButton onClick={prev} size="small" aria-label="Previous" sx={{ position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'var(--color-bg-white)', color: 'var(--color-text-primary)', boxShadow: '0 4px 6px -1px rgba(10, 26, 16, 0.2)', '&:hover': { bgcolor: 'var(--color-bg-soft)' } }}>
                   <NavigateBeforeIcon sx={{ fontSize: 22 }} />
                 </IconButton>
-                <IconButton onClick={next} size="small" aria-label="Next" sx={{ position: 'absolute', right: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'var(--background-color)', color: 'var(--text-black)', boxShadow: '0 4px 6px -1px var(--overlay-dark-20)', '&:hover': { bgcolor: 'var(--bg-muted)' } }}>
+                <IconButton onClick={next} size="small" aria-label="Next" sx={{ position: 'absolute', right: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'var(--color-bg-white)', color: 'var(--color-text-primary)', boxShadow: '0 4px 6px -1px rgba(10, 26, 16, 0.2)', '&:hover': { bgcolor: 'var(--color-bg-soft)' } }}>
                   <NavigateNextIcon sx={{ fontSize: 22 }} />
                 </IconButton>
               </>
             )}
 
             <div className="absolute -bottom-10 left-0 right-0 flex justify-between items-center px-2">
-              <span className="text-[var(--background-color)] text-[0.875rem] font-bold drop-shadow-md tracking-wide">
+              <span className="text-[var(--color-bg-white)] text-[0.875rem] font-bold drop-shadow-md tracking-wide">
                 {displayedItems[lightboxIdx].label}
               </span>
               <span className="text-white text-[0.75rem] font-bold bg-black/60 px-2.5 py-1 rounded-[var(--radius-sm)] backdrop-blur-md">

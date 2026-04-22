@@ -1,23 +1,32 @@
 import React from 'react';
 import Card from '@mui/material/Card';
-import Divider from '@mui/material/Divider';
 
 interface ContentSectionProps {
   title: string;
   action?: React.ReactNode;
   children: React.ReactNode;
+  className?: string;
 }
 
-const ContentSection: React.FC<ContentSectionProps> = ({ title, action, children }) => {
+const ContentSection: React.FC<ContentSectionProps> = ({ title, action, children, className = '' }) => {
   return (
-    <Card elevation={0} sx={{ borderRadius: '2px', overflow: 'hidden' }}>
-      <div className="flex items-center justify-between px-2 py-1.5 bg-white">
-        <h2 className="text-[0.9375rem] font-bold text-[var(--text-primary)] leading-tight">
+    <Card
+      elevation={0}
+      className={`font-outfit border border-[var(--color-border)] bg-[var(--color-bg-white)] shadow-sm ${className}`}
+      sx={{
+        borderRadius: 'var(--radius-md)',
+        overflow: 'hidden',
+      }}
+    >
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)] bg-transparent">
+        <h2 className="text-[16px] font-bold text-[var(--color-text-primary)] leading-tight">
           {title}
         </h2>
         {action && <div className="flex-shrink-0">{action}</div>}
       </div>
-      {children}
+      <div className="bg-[var(--color-bg-white)]">
+        {children}
+      </div>
     </Card>
   );
 };

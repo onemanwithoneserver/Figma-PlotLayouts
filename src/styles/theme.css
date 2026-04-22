@@ -1,29 +1,27 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Extracted Colors from vasavi_plots_rich.html */
-  --color-primary: #0f5c30;      /* --g1 */
-  --color-secondary: #1a7a42;    /* --g2 */
-  --color-accent: #22a050;       /* --g3 */
-  --color-success: #2dbd60;      /* --g4 */
-  --color-highlight: #4dd17a;    /* --g5 */
-  
+  --color-primary: #0f5c30;
+  --color-secondary: #1a7a42;
+  --color-accent: #22a050;
+  --color-success: #2dbd60;
+  --color-highlight: #4dd17a;
+
   --color-glow: rgba(34, 160, 80, 0.22);
-  
-  --color-bg-soft: #edf7f1;      /* --soft */
-  --color-bg-mid: #c8e8d6;       /* --mid */
-  --color-bg-white: #ffffff;     /* --white */
-  --color-bg-main: #f2f6f4;      /* --bg */
-  
-  --color-text-primary: #0a1a10;   /* --ink */
-  --color-text-secondary: #1e3326; /* --ink2 */
-  --color-text-muted: #5a7a65;     /* --muted */
-  
+
+  --color-bg-soft: #ffffff;
+  --color-bg-mid: #c8e8d6;
+  --color-bg-white: #ffffff;
+  --color-bg-main: #ffffff;
+
+  --color-text-primary: #0a1a10;
+  --color-text-secondary: #1e3326;
+  --color-text-muted: #5a7a65;
+
   --color-border: rgba(26, 122, 66, 0.1);
   --color-border-hover: rgba(26, 122, 66, 0.25);
   --color-error: #d63031;
 
-  /* Typography */
   --font-size: 16px;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
@@ -32,15 +30,10 @@
 }
 
 .dark {
-  /* Simple light/dark behavior: only text and icon colors adjust if needed.
-     Backgrounds and primary colors remain mostly the same to preserve design,
-     or we can invert them lightly, but instructions say:
-     "Only text and icon colors adjust if needed, Maintain readability and contrast" */
-  
   --color-text-primary: #edf7f1;
   --color-text-secondary: #c8e8d6;
   --color-text-muted: #8fa697;
-  
+
   --color-bg-main: #0a1a10;
   --color-bg-white: rgba(10, 26, 16, 0.85);
   --color-bg-soft: rgba(34, 160, 80, 0.15);
@@ -57,26 +50,25 @@
   --color-success: var(--color-success);
   --color-highlight: var(--color-highlight);
   --color-glow: var(--color-glow);
-  
+
   --color-bg-soft: var(--color-bg-soft);
   --color-bg-mid: var(--color-bg-mid);
   --color-bg-white: var(--color-bg-white);
   --color-bg-main: var(--color-bg-main);
-  
+
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
   --color-text-muted: var(--color-text-muted);
-  
+
   --color-border: var(--color-border);
   --color-error: var(--color-error);
-  
-  /* Fallbacks for older Tailwind utility classes mapped to our new system */
+
   --color-background: var(--color-bg-main);
   --color-foreground: var(--color-text-primary);
   --color-muted: var(--color-bg-soft);
   --color-muted-foreground: var(--color-text-muted);
   --color-destructive: var(--color-error);
-  
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -94,11 +86,16 @@
 
   html {
     font-size: var(--font-size);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Syne', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Outfit', sans-serif;
   }
 }
