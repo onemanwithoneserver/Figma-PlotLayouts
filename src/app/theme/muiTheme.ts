@@ -1,38 +1,27 @@
 import { createTheme } from '@mui/material/styles';
 
-const COLORS = {
-  emeraldDark: '#2E7D32',
-  emeraldMain: '#4CAF50',
-  emeraldDarker: '#1B5E20',
-  background: '#F4F9F5',
-  bgMuted: '#EBF2ED',
-  textPrimary: '#0A1F10',
-  textMuted: '#5C7061',
-  borderColor: '#D5E0D7',
-};
-
 export const muiTheme = createTheme({
   palette: {
     primary: {
-      main: COLORS.emeraldDark,
-      light: COLORS.emeraldMain,
-      dark: COLORS.emeraldDarker,
-      contrastText: '#FFFFFF',
+      main: '#0f5c30',       // --color-primary
+      light: '#22a050',      // --color-accent
+      dark: '#1e3326',       // --color-text-secondary
+      contrastText: '#ffffff', // --color-bg-white
     },
     secondary: {
-      main: COLORS.emeraldMain,
-      contrastText: '#FFFFFF',
+      main: '#1a7a42',       // --color-secondary
+      contrastText: '#ffffff',
     },
     background: {
-      default: COLORS.bgMuted,
-      paper: 'rgba(255, 255, 255, 0.65)',
+      default: '#f2f6f4',    // --color-bg-main
+      paper: '#ffffff',      // --color-bg-white
     },
     text: {
-      primary: COLORS.textPrimary,
-      secondary: COLORS.textMuted,
+      primary: '#0a1a10',    // --color-text-primary
+      secondary: '#5a7a65',  // --color-text-muted
     },
-    divider: COLORS.borderColor,
-    success: { main: COLORS.emeraldDark },
+    divider: '#C8E8D6',      // --color-border / mid
+    success: { main: '#2dbd60' }, // --color-success
   },
   shape: { borderRadius: 8 },
   typography: {
@@ -46,8 +35,8 @@ export const muiTheme = createTheme({
   },
   shadows: [
     'none',
-    '0 4px 12px rgba(27, 94, 32, 0.05)',
-    '0 8px 24px rgba(27, 94, 32, 0.08)',
+    '0 4px 12px rgba(15, 92, 48, 0.05)',
+    '0 8px 24px rgba(15, 92, 48, 0.08)',
     ...Array(22).fill('none'),
   ] as any,
   components: {
@@ -90,10 +79,10 @@ export const muiTheme = createTheme({
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           border: '1px solid rgba(255, 255, 255, 0.5)',
-          boxShadow: '0 4px 24px rgba(46, 125, 50, 0.25)',
+          boxShadow: '0 4px 24px rgba(15, 92, 48, 0.25)',
           '&:hover': { 
             background: 'var(--gradient-accent)',
-            boxShadow: '0 6px 28px rgba(46, 125, 50, 0.35)',
+            boxShadow: '0 6px 28px rgba(15, 92, 48, 0.35)',
           },
         },
         outlinedPrimary: {

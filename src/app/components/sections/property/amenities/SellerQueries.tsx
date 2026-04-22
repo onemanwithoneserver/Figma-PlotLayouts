@@ -24,42 +24,42 @@ const SellerQueries: React.FC = () => {
   const textFieldStyles = {
     '& .MuiOutlinedInput-root': { 
       borderRadius: '8px',
-      backgroundColor: 'var(--input-background, rgba(255, 255, 255, 0.5))',
+      backgroundColor: 'var(--color-input-background, var(--color-bg-white))',
       alignItems: 'center',
     },
     '& .MuiOutlinedInput-root.MuiInputBase-multiline': {
       alignItems: 'flex-start',
     },
     '& .MuiInputBase-input': {
-      color: 'var(--text-primary, #0A1F10)', 
+      color: 'var(--color-text-primary)', 
       paddingTop: '8.5px',
       paddingBottom: '8.5px',
     },
     '& .MuiInputBase-input::placeholder': {
-      color: 'var(--text-muted, #5C7061)', 
+      color: 'var(--color-text-muted)', 
       opacity: 0.8,
       fontWeight: 200, 
     },
     '& .MuiInputLabel-root': {
-      color: 'var(--text-muted, #5C7061)', 
+      color: 'var(--color-text-muted)', 
       fontWeight: 300, 
     },
     '& .MuiOutlinedInput-root.Mui-focused fieldset': { 
-      borderColor: 'var(--accent-primary)' 
+      borderColor: 'var(--color-accent)' 
     }, 
     '& label.Mui-focused': { 
-      color: 'var(--accent-primary)' 
+      color: 'var(--color-accent)' 
     }
   };
 
   if (submitted) {
     return (
       <div className="p-6 flex flex-col items-center gap-3 text-center">
-        <CheckCircleOutlineIcon sx={{ fontSize: 48, color: 'var(--accent-primary)' }} />
-        <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-color)' }}>
+        <CheckCircleOutlineIcon sx={{ fontSize: 48, color: 'var(--color-accent)' }} />
+        <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: 'var(--color-text-primary)' }}>
           Request Received!
         </Typography>
-        <Typography sx={{ fontSize: '0.8125rem', color: 'var(--text-color-muted)' }}>
+        <Typography sx={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)' }}>
           Our team will call you back on <strong>{phone}</strong> shortly.
         </Typography>
         <Button
@@ -67,11 +67,11 @@ const SellerQueries: React.FC = () => {
           size="small"
           sx={{ 
             mt: 1, 
-            borderColor: 'var(--accent-primary)', 
-            color: 'var(--accent-primary)', 
+            borderColor: 'var(--color-accent)', 
+            color: 'var(--color-accent)', 
             borderRadius: '8px', 
             textTransform: 'none',
-            '&:hover': { backgroundColor: 'var(--primary-alpha-12)' }
+            '&:hover': { backgroundColor: 'var(--color-bg-mid)' }
           }}
           onClick={() => { setSubmitted(false); setName(''); setPhone(''); setQuestion(''); }}
         >
@@ -145,14 +145,14 @@ const SellerQueries: React.FC = () => {
         disabled={!name.trim() || !phone.trim()}
         sx={{
           background: 'var(--gradient-primary)',
-          color: '#FFFFFF',
+          color: 'var(--color-bg-white)',
           '&:hover': { 
             background: 'var(--gradient-accent)',
-            boxShadow: '0 4px 24px rgba(46, 125, 50, 0.25)' 
+            boxShadow: '0 4px 24px var(--color-glow)' 
           },
           '&:disabled': { 
-            background: 'var(--border-color)', 
-            color: 'var(--text-gray-light)' 
+            background: 'var(--color-bg-mid)', 
+            color: 'var(--color-text-muted)' 
           },
           borderRadius: '8px',
           textTransform: 'none',
