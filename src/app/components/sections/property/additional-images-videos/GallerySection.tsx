@@ -88,16 +88,16 @@ const GallerySection: React.FC = () => {
                 {item.type === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-10 h-10 rounded-[var(--radius-md)] bg-white/25 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-sm">
-                      <PlayCircleOutlineIcon sx={{ fontSize: 24, color: '#FFFFFF' }} />
+                      <PlayCircleOutlineIcon sx={{ fontSize: 24, color: 'var(--background-color)' }} />
                     </div>
                   </div>
                 )}
 
                 <div className="absolute bottom-2 left-2 right-2 flex items-center gap-1.5">
                   {item.type === 'image' ? (
-                    <ImageOutlinedIcon sx={{ fontSize: 14, color: '#FFFFFF' }} />
+                    <ImageOutlinedIcon sx={{ fontSize: 14, color: 'var(--background-color)' }} />
                   ) : (
-                    <VideocamOutlinedIcon sx={{ fontSize: 14, color: '#FFFFFF' }} />
+                    <VideocamOutlinedIcon sx={{ fontSize: 14, color: 'var(--background-color)' }} />
                   )}
                   <span className="text-[0.75rem] font-bold text-white truncate drop-shadow-md tracking-wide">
                     {item.label}
@@ -136,24 +136,24 @@ const GallerySection: React.FC = () => {
               onClick={close}
               size="small"
               aria-label="Close lightbox"
-              sx={{ position: 'absolute', top: -14, right: -14, bgcolor: '#FFFFFF', color: '#000000', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', '&:hover': { bgcolor: '#F5F5F5' }, zIndex: 10 }}
+              sx={{ position: 'absolute', top: -14, right: -14, bgcolor: 'var(--background-color)', color: 'var(--text-black)', boxShadow: '0 4px 6px -1px var(--overlay-dark-20)', '&:hover': { bgcolor: 'var(--bg-muted)' }, zIndex: 10 }}
             >
               <CloseIcon sx={{ fontSize: 18 }} />
             </IconButton>
 
             {displayedItems.length > 1 && (
               <>
-                <IconButton onClick={prev} size="small" aria-label="Previous" sx={{ position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: '#FFFFFF', color: '#000000', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', '&:hover': { bgcolor: '#F5F5F5' } }}>
+                <IconButton onClick={prev} size="small" aria-label="Previous" sx={{ position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'var(--background-color)', color: 'var(--text-black)', boxShadow: '0 4px 6px -1px var(--overlay-dark-20)', '&:hover': { bgcolor: 'var(--bg-muted)' } }}>
                   <NavigateBeforeIcon sx={{ fontSize: 22 }} />
                 </IconButton>
-                <IconButton onClick={next} size="small" aria-label="Next" sx={{ position: 'absolute', right: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: '#FFFFFF', color: '#000000', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', '&:hover': { bgcolor: '#F5F5F5' } }}>
+                <IconButton onClick={next} size="small" aria-label="Next" sx={{ position: 'absolute', right: -16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'var(--background-color)', color: 'var(--text-black)', boxShadow: '0 4px 6px -1px var(--overlay-dark-20)', '&:hover': { bgcolor: 'var(--bg-muted)' } }}>
                   <NavigateNextIcon sx={{ fontSize: 22 }} />
                 </IconButton>
               </>
             )}
 
             <div className="absolute -bottom-10 left-0 right-0 flex justify-between items-center px-2">
-              <span className="text-[#FFFFFF] text-[0.875rem] font-bold drop-shadow-md tracking-wide">
+              <span className="text-[var(--background-color)] text-[0.875rem] font-bold drop-shadow-md tracking-wide">
                 {displayedItems[lightboxIdx].label}
               </span>
               <span className="text-white text-[0.75rem] font-bold bg-black/60 px-2.5 py-1 rounded-[var(--radius-sm)] backdrop-blur-md">

@@ -89,7 +89,7 @@ const HorizontalTabNavigation: React.FC = () => {
           onClick={() => manualScroll('left')}
           className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
           disabled={!showLeft}
-          style={{ borderRight: '1px solid var(--border-subtle)', color: '#737373' }}
+          style={{ borderRight: '1px solid var(--border-subtle)', color: 'var(--text-gray)' }}
           aria-label="Scroll tabs left"
         >
           <ChevronLeftIcon sx={{ fontSize: 20 }} />
@@ -122,7 +122,7 @@ const HorizontalTabNavigation: React.FC = () => {
           onClick={() => manualScroll('right')}
           className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-neutral-100 disabled:opacity-0"
           disabled={!showRight}
-          style={{ borderLeft: '1px solid var(--border-subtle)', color: '#737373' }}
+          style={{ borderLeft: '1px solid var(--border-subtle)', color: 'var(--text-gray)' }}
           aria-label="Scroll tabs right"
         >
           <ChevronRightIcon sx={{ fontSize: 20 }} />

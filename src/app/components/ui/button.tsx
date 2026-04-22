@@ -10,16 +10,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-[#4CAF50] hover:shadow-theme-md dark:hover:shadow-[0_0_12px_rgba(139,195,74,0.25)]",
+          "bg-primary text-primary-foreground hover:bg-[var(--success-color-alt)] hover:shadow-theme-md dark:hover:shadow-[0_0_12px_var(--primary-alpha-25-alt)]",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
         outline:
-          "border border-border bg-background text-foreground hover:bg-secondary hover:text-secondary-foreground dark:border-[rgba(46,125,50,0.3)] dark:hover:bg-[#1B3B1E] dark:hover:border-[#4CAF50]/50",
+          "border border-border bg-background text-foreground hover:bg-secondary hover:text-secondary-foreground dark:border-[var(--primary-alpha-30)] dark:hover:bg-[var(--accent-green-alt2)] dark:hover:border-[var(--success-color-alt)]/50",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[#C8E6C9] dark:bg-[#1B3B1E] dark:hover:bg-[#1B5E20] dark:text-[#E8F5E9]",
+          "bg-secondary text-secondary-foreground hover:bg-[var(--accent-green-light)] dark:bg-[var(--accent-green-alt2)] dark:hover:bg-[var(--accent-green-alt)] dark:text-[var(--border-color-subtle)]",
         ghost:
-          "hover:bg-secondary hover:text-secondary-foreground dark:hover:bg-[#1B3B1E] dark:hover:text-[#E8F5E9]",
-        link: "text-primary underline-offset-4 hover:underline dark:text-[#4CAF50]",
+          "hover:bg-secondary hover:text-secondary-foreground dark:hover:bg-[var(--accent-green-alt2)] dark:hover:text-[var(--border-color-subtle)]",
+        link: "text-primary underline-offset-4 hover:underline dark:text-[var(--success-color-alt)]",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

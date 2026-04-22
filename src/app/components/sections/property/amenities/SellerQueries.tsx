@@ -24,17 +24,17 @@ const SellerQueries: React.FC = () => {
   if (submitted) {
     return (
       <div className="p-6 flex flex-col items-center gap-3 text-center">
-        <CheckCircleOutlineIcon sx={{ fontSize: 48, color: '#1F7A63' }} />
-        <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: '#1A1A1A' }}>
+        <CheckCircleOutlineIcon sx={{ fontSize: 48, color: 'var(--accent-green-dark)' }} />
+        <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-color)' }}>
           Request Received!
         </Typography>
-        <Typography sx={{ fontSize: '0.8125rem', color: '#666666' }}>
+        <Typography sx={{ fontSize: '0.8125rem', color: 'var(--text-color-muted)' }}>
           Our team will call you back on <strong>{phone}</strong> shortly.
         </Typography>
         <Button
           variant="outlined"
           size="small"
-          sx={{ mt: 1, borderColor: '#1F7A63', color: '#1F7A63', borderRadius: '4px', textTransform: 'none' }}
+          sx={{ mt: 1, borderColor: 'var(--accent-green-dark)', color: 'var(--accent-green-dark)', borderRadius: '4px', textTransform: 'none' }}
           onClick={() => { setSubmitted(false); setName(''); setPhone(''); setQuestion(''); }}
         >
           Ask Another Question
@@ -55,11 +55,11 @@ const SellerQueries: React.FC = () => {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <PersonOutlinedIcon sx={{ fontSize: 18, color: '#1F7A63' }} />
+              <PersonOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-green-dark)' }} />
             </InputAdornment>
           ),
         }}
-        sx={{ '& .MuiOutlinedInput-root.Mui-focused fieldset': { borderColor: '#1F7A63' }, '& label.Mui-focused': { color: '#1F7A63' } }}
+        sx={{ '& .MuiOutlinedInput-root.Mui-focused fieldset': { borderColor: 'var(--accent-green-dark)' }, '& label.Mui-focused': { color: 'var(--accent-green-dark)' } }}
       />
       <TextField
         label="Phone Number"
@@ -71,11 +71,11 @@ const SellerQueries: React.FC = () => {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <PhoneOutlinedIcon sx={{ fontSize: 18, color: '#1F7A63' }} />
+              <PhoneOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-green-dark)' }} />
             </InputAdornment>
           ),
         }}
-        sx={{ '& .MuiOutlinedInput-root.Mui-focused fieldset': { borderColor: '#1F7A63' }, '& label.Mui-focused': { color: '#1F7A63' } }}
+        sx={{ '& .MuiOutlinedInput-root.Mui-focused fieldset': { borderColor: 'var(--accent-green-dark)' }, '& label.Mui-focused': { color: 'var(--accent-green-dark)' } }}
       />
       <TextField
         label="Your Question (optional)"
@@ -89,11 +89,11 @@ const SellerQueries: React.FC = () => {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start" sx={{ alignSelf: 'flex-start', mt: 1.5 }}>
-              <QuestionAnswerOutlinedIcon sx={{ fontSize: 18, color: '#1F7A63' }} />
+              <QuestionAnswerOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-green-dark)' }} />
             </InputAdornment>
           ),
         }}
-        sx={{ '& .MuiOutlinedInput-root.Mui-focused fieldset': { borderColor: '#1F7A63' }, '& label.Mui-focused': { color: '#1F7A63' } }}
+        sx={{ '& .MuiOutlinedInput-root.Mui-focused fieldset': { borderColor: 'var(--accent-green-dark)' }, '& label.Mui-focused': { color: 'var(--accent-green-dark)' } }}
       />
       <Button
         variant="contained"
@@ -103,9 +103,9 @@ const SellerQueries: React.FC = () => {
         onClick={handleSubmit}
         disabled={!name.trim() || !phone.trim()}
         sx={{
-          bgcolor: '#1F7A63',
-          '&:hover': { bgcolor: '#195f4e' },
-          '&:disabled': { bgcolor: '#E0E0E0', color: '#9E9E9E' },
+          bgcolor: 'var(--accent-green-dark)',
+          '&:hover': { bgcolor: 'var(--success-color-dark)' },
+          '&:disabled': { bgcolor: 'var(--border-color)', color: 'var(--text-gray-light)' },
           borderRadius: '4px',
           textTransform: 'none',
           fontWeight: 600,

@@ -11,7 +11,7 @@ interface CostItem {
 
 const Icons = {
   InfoCircle: () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="#E76F26" stroke="none" aria-hidden="true">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--warning-color-alt)" stroke="none" aria-hidden="true">
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
     </svg>
   )
@@ -33,47 +33,47 @@ export default function Cost() {
   return (
     <div className="w-full bg-white font-['Outfit',_sans-serif]">
       <div className="px-2 pt-2 pb-1.5">
-        <p className="text-[14px] font-medium text-[#6B5E57]">Transparent breakup of major charges</p>
+        <p className="text-[14px] font-medium text-[var(--color-brown-light)]">Transparent breakup of major charges</p>
       </div>
 
       <div className="px-2 pb-2 flex flex-col gap-1">
         {COST_BREAKDOWN.map((item) => (
           <div
             key={item.id}
-            className={`rounded-[5px] px-2 py-1.5 flex items-center justify-between gap-2 ${item.highlight ? 'bg-[#FFF4EC] border border-[#FFD4B2]' : 'bg-white border border-[#E5DFD4]'}`}
+            className={`rounded-[5px] px-2 py-1.5 flex items-center justify-between gap-2 ${item.highlight ? 'bg-[var(--warning-color-bg)] border border-[var(--warning-color-light)]' : 'bg-white border border-[var(--bg-muted-dark)]'}`}
           >
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1 flex-wrap">
-                <p className="text-[12px] font-semibold text-[#322822]">{item.component}</p>
-                {item.highlight && <span className="text-[9px] font-medium text-[#E76F26] bg-[#FFF4EC] px-1 py-0.5 rounded-[5px]">Key</span>}
+                <p className="text-[12px] font-semibold text-[var(--color-brown-dark)]">{item.component}</p>
+                {item.highlight && <span className="text-[9px] font-medium text-[var(--warning-color-alt)] bg-[var(--warning-color-bg)] px-1 py-0.5 rounded-[5px]">Key</span>}
               </div>
-              <p className="text-[10px] font-medium text-[#6B5E57] mt-0.5 flex items-center gap-1">
+              <p className="text-[10px] font-medium text-[var(--color-brown-light)] mt-0.5 flex items-center gap-1">
                 {item.info}
                 {item.hasInfoIcon && (
                   <button
                     aria-label={`More info about ${item.component}`}
-                    className="flex-shrink-0 focus-visible:ring-2 focus-visible:ring-[#322822]/20 rounded-[5px] outline-none"
+                    className="flex-shrink-0 focus-visible:ring-2 focus-visible:ring-[var(--color-brown-dark)]/20 rounded-[5px] outline-none"
                   >
                     <Icons.InfoCircle />
                   </button>
                 )}
               </p>
             </div>
-            <p className="text-[12px] font-semibold text-[#322822] flex-shrink-0 text-right">{item.amount}</p>
+            <p className="text-[12px] font-semibold text-[var(--color-brown-dark)] flex-shrink-0 text-right">{item.amount}</p>
           </div>
         ))}
       </div>
 
       <div className="px-2 pb-2">
-        <div className="rounded-[5px] p-2 bg-[#FFF4EC] border border-[#FFD4B2]">
-          <p className="text-[10px] font-medium text-[#6B5E57] mb-0.5">Estimated Total</p>
-          <p className="text-[18px] font-bold text-[#322822]">
+        <div className="rounded-[5px] p-2 bg-[var(--warning-color-bg)] border border-[var(--warning-color-light)]">
+          <p className="text-[10px] font-medium text-[var(--color-brown-light)] mb-0.5">Estimated Total</p>
+          <p className="text-[18px] font-bold text-[var(--color-brown-dark)]">
             ₹1.58 Cr
-            <span className="text-[12px] font-medium text-[#6B5E57] ml-1">to 1.62 Cr</span>
+            <span className="text-[12px] font-medium text-[var(--color-brown-light)] ml-1">to 1.62 Cr</span>
           </p>
-          <p className="text-[10px] text-[#6B5E57] mt-0.5 mb-1.5">*Varies based on unit floor, type & statutory charges</p>
+          <p className="text-[10px] text-[var(--color-brown-light)] mt-0.5 mb-1.5">*Varies based on unit floor, type & statutory charges</p>
           <button
-            className="flex items-center gap-1 bg-[#E76F26] text-white text-[11px] font-semibold px-2 py-1 rounded-[5px] transition-colors focus-visible:ring-2 focus-visible:ring-[#E76F26]/20 focus-visible:outline-none"
+            className="flex items-center gap-1 bg-[var(--warning-color-alt)] text-white text-[11px] font-semibold px-2 py-1 rounded-[5px] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--warning-color-alt)]/20 focus-visible:outline-none"
             aria-label="View seller-wise pricing breakdown"
           >
             View Seller-wise Pricing

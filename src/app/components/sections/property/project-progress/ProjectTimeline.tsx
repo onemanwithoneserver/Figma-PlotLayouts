@@ -16,7 +16,7 @@ function Dot({ status }: { status: DotStatus }) {
     );
   if (status === 'active')
     return (
-      <div className={`${base} bg-[var(--accent-primary)] shadow-[0_0_10px_rgba(31,122,92,0.35)]`}>
+      <div className={`${base} bg-[var(--accent-primary)] shadow-[0_0_10px_var(--primary-alpha-35)]`}>
         <div className="w-[7px] h-[7px] rounded-full bg-white" />
       </div>
     );
@@ -80,7 +80,7 @@ const ProjectTimeline: React.FC = () => {
     <section className="font-['Outfit',_sans-serif] w-full bg-white border-t border-[var(--border-subtle)]">
       {/* Progress Header */}
       <div className="px-1 pt-1 pb-1 border-b border-[var(--border-subtle)] bg-gradient-to-b from-[var(--bg-section-light)] to-white">
-        <div className="rounded-[2px] border border-[var(--border-subtle)] bg-white/90 shadow-[0_6px_20px_rgba(0,0,0,0.05)] px-3.5 py-3.5">
+        <div className="rounded-[2px] border border-[var(--border-subtle)] bg-white/90 shadow-[0_6px_20px_var(--overlay-dark-5)] px-3.5 py-3.5">
           <div className="flex items-start justify-between gap-2 mb-3">
             <div>
               <h3 className="text-[16px] font-extrabold text-[var(--text-primary)] tracking-tight leading-none">Project Status</h3>
@@ -102,7 +102,7 @@ const ProjectTimeline: React.FC = () => {
               initial={{ left: 0 }}
               animate={{ left: `calc(${PROGRESS_PCT}% - 10px)` }}
               transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
-              className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 border-white bg-[var(--accent-primary)] shadow-[0_2px_10px_rgba(31,122,92,0.35)]"
+              className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 border-white bg-[var(--accent-primary)] shadow-[0_2px_10px_var(--primary-alpha-35)]"
               aria-hidden="true"
             />
           </div>
@@ -143,7 +143,7 @@ const ProjectTimeline: React.FC = () => {
                       <p className="text-[11px] font-medium text-[var(--text-muted)] leading-none">{doc.date}</p>
                     </div>
                   </div>
-                  <button className="compact-touch p-1.5 text-[#AAAAAA] hover:text-[var(--accent-primary)] transition-colors" aria-label={`View ${doc.name}`}>
+                  <button className="compact-touch p-1.5 text-[var(--text-gray-lighter)] hover:text-[var(--accent-primary)] transition-colors" aria-label={`View ${doc.name}`}>
                     <svg className="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -199,12 +199,12 @@ const ProjectTimeline: React.FC = () => {
                               onClick={() => setActiveStep(idx)}
                               className="compact-touch relative min-w-[80px] flex-1 flex flex-col items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/40 rounded-[var(--radius-sm)]"
                             >
-                              <span className={`text-[11px] mb-2.5 transition-colors ${isActive ? 'font-black text-[var(--accent-primary)]' : 'font-bold text-[#888]'}`}>
+                              <span className={`text-[11px] mb-2.5 transition-colors ${isActive ? 'font-black text-[var(--accent-primary)]' : 'font-bold text-[var(--text-gray)]'}`}>
                                 {item.date}
                               </span>
                               <div className="relative w-full flex justify-center items-center h-5">
                                 <div className={`absolute w-full h-[2px] ${idx < activeStep ? 'bg-[var(--accent-primary)]' : 'bg-[var(--border-default)]'}`} />
-                                <div className={`relative z-10 rounded-full border-2 transition-all duration-300 ${idx <= activeStep ? 'w-[10px] h-[10px] bg-[var(--accent-primary)] border-[var(--accent-primary)]' : 'w-[8px] h-[8px] bg-white border-[#D0D0D0]'} ${isActive ? 'scale-125 ring-4 ring-[var(--accent-primary)]/20' : ''}`} />
+                                <div className={`relative z-10 rounded-full border-2 transition-all duration-300 ${idx <= activeStep ? 'w-[10px] h-[10px] bg-[var(--accent-primary)] border-[var(--accent-primary)]' : 'w-[8px] h-[8px] bg-white border-[var(--border-muted)]'} ${isActive ? 'scale-125 ring-4 ring-[var(--accent-primary)]/20' : ''}`} />
                               </div>
                             </button>
                           );
@@ -227,7 +227,7 @@ const ProjectTimeline: React.FC = () => {
                           </div>
                         ) : (
                           <div className="py-10 bg-[var(--bg-section-light)] rounded-[var(--radius-sm)] text-center border-2 border-dashed border-[var(--border-subtle)]">
-                            <p className="text-[12px] font-bold text-[#9CA3AF]">Images updating soon</p>
+                            <p className="text-[12px] font-bold text-[var(--text-gray-light)]">Images updating soon</p>
                           </div>
                         )}
                       </motion.div>
@@ -241,7 +241,7 @@ const ProjectTimeline: React.FC = () => {
           {/* Node 4: Ready for registration */}
           <div className="relative h-6 flex items-center">
             <div className="absolute -left-[35px] z-10"><Dot status="upcoming" /></div>
-            <p className="text-[13.5px] font-bold text-[#888888]">Ready for registration</p>
+            <p className="text-[13.5px] font-bold text-[var(--text-gray)]">Ready for registration</p>
           </div>
         </div>
       </div>

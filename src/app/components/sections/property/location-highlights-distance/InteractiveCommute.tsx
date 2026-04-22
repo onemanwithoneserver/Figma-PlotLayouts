@@ -4,7 +4,7 @@ import SectionTabNav from '../shared/SectionTabNav';
 
 function PlaceIcon({ icon }: { icon: string }) {
   return (
-    <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-[7px] bg-[#E8F5E9] text-[#1F7A63]">
+    <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-[7px] bg-[var(--border-color-subtle)] text-[var(--accent-green-dark)]">
       {icon === 'school'   ? <Icons.School /> :
        icon === 'hospital' ? <Icons.Hospital /> :
        icon === 'tree'     ? <Icons.Tree /> :
@@ -19,7 +19,7 @@ function PlaceRow({ item }: { item: PlaceItem }) {
     <div className="flex items-center gap-3 p-3 rounded-[7px] bg-white border border-neutral-200 cursor-pointer hover:bg-neutral-50 transition-colors">
       <PlaceIcon icon={item.icon} />
       <div className="flex-1 min-w-0">
-        <p className="text-[13px] font-semibold text-[#1A1A1A] truncate">{item.name}</p>
+        <p className="text-[13px] font-semibold text-[var(--text-color)] truncate">{item.name}</p>
         <p className="text-[11px] font-medium text-neutral-500 mt-0.5">
           {item.distance}
           <span className="mx-1 text-neutral-300">&middot;</span>
@@ -54,7 +54,7 @@ export default function InteractiveCommute() {
         </div>
 
         {currentData.title && (
-          <p className="text-[10px] font-medium text-[#6B5E57] mt-2 px-0.5">
+          <p className="text-[10px] font-medium text-[var(--color-brown-light)] mt-2 px-0.5">
             * {currentData.title}
           </p>
         )}

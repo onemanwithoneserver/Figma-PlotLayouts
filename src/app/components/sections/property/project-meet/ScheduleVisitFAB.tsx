@@ -116,7 +116,7 @@ const ScheduleVisitFAB: React.FC = () => {
             whileTap={{ scale: 0.92 }}
             onClick={handleOpen}
             aria-label="Schedule Site Visit"
-            className="absolute left-3 bottom-[72px] pointer-events-auto inline-flex items-center h-9 text-white rounded-[var(--radius-sm)] shadow-[0_4px_20px_rgba(31,122,92,0.40)] hover:brightness-95 transition-all overflow-hidden"
+            className="absolute left-3 bottom-[72px] pointer-events-auto inline-flex items-center h-9 text-white rounded-[var(--radius-sm)] shadow-[0_4px_20px_var(--primary-alpha-40)] hover:brightness-95 transition-all overflow-hidden"
             style={{ background: 'var(--gradient-accent)' }}
           >
             <div className="w-9 h-9 flex items-center justify-center flex-shrink-0">
@@ -160,7 +160,7 @@ const ScheduleVisitFAB: React.FC = () => {
               aria-label="Schedule site visit"
             >
               <div
-                className="w-full max-w-[390px] bg-white rounded-t-[var(--radius-md)] shadow-[0_-8px_40px_rgba(0,0,0,0.16)] font-['Outfit',_sans-serif] flex flex-col"
+                className="w-full max-w-[390px] bg-white rounded-t-[var(--radius-md)] shadow-[0_-8px_40px_var(--overlay-dark-16)] font-['Outfit',_sans-serif] flex flex-col"
                 style={{ maxHeight: '86vh' }}
               >
                 {/* Drag handle */}
@@ -175,7 +175,7 @@ const ScheduleVisitFAB: React.FC = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       className="flex flex-col items-center gap-3 py-5 text-center"
                     >
-                      <div className="w-11 h-11 rounded-[var(--radius-sm)] bg-[var(--accent-soft)] flex items-center justify-center shadow-[0_0_0_4px_rgba(31,122,92,0.08)]">
+                      <div className="w-11 h-11 rounded-[var(--radius-sm)] bg-[var(--accent-soft)] flex items-center justify-center shadow-[0_0_0_4px_var(--primary-alpha-8)]">
                         <CheckIcon className="w-5 h-5 text-[var(--accent-primary)]" />
                       </div>
                       <div>
@@ -183,7 +183,7 @@ const ScheduleVisitFAB: React.FC = () => {
                         <p className="text-[12px] font-semibold text-[var(--accent-primary)] mb-1">
                           {activeDayLabel}, Apr {activeDay.date} · {selectedSlot}
                         </p>
-                        <p className="text-[11px] text-[#999] max-w-[220px] mx-auto leading-relaxed">
+                        <p className="text-[11px] text-[var(--text-gray-light)] max-w-[220px] mx-auto leading-relaxed">
                           Our team will contact you shortly to confirm the visit details.
                         </p>
                       </div>
@@ -208,7 +208,7 @@ const ScheduleVisitFAB: React.FC = () => {
                           <button
                             onClick={() => setOpen(false)}
                             aria-label="Close"
-                            className="compact-touch w-6 h-6 rounded-[var(--radius-sm)] flex items-center justify-center text-[#AAAAAA] hover:bg-[var(--bg-section-light)] hover:text-[var(--text-primary)] transition-colors"
+                            className="compact-touch w-6 h-6 rounded-[var(--radius-sm)] flex items-center justify-center text-[var(--text-gray-lighter)] hover:bg-[var(--bg-section-light)] hover:text-[var(--text-primary)] transition-colors"
                           >
                             <CloseIcon className="w-[13px] h-[13px]" />
                           </button>
@@ -219,7 +219,7 @@ const ScheduleVisitFAB: React.FC = () => {
                             aria-label="Scroll dates left"
                             className="compact-touch w-12 h-12 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-white hover:bg-[var(--bg-section-light)] transition-colors flex-shrink-0 flex items-center justify-center"
                           >
-                            <ChevronLeftIcon className="w-3 h-3 text-[#555]" />
+                            <ChevronLeftIcon className="w-3 h-3 text-[var(--text-gray-dark)]" />
                           </button>
 
                           <div
@@ -239,7 +239,7 @@ const ScheduleVisitFAB: React.FC = () => {
                                 <span className={`text-[13px] font-bold leading-none mb-0.5 ${selectedDay === d.key ? 'text-[var(--accent-primary)]' : 'text-[var(--text-primary)]'}`}>
                                   {d.date}
                                 </span>
-                                <span className={`text-[9px] font-semibold ${d.isToday ? 'text-[var(--accent-primary)]' : 'text-[#888]'}`}>
+                                <span className={`text-[9px] font-semibold ${d.isToday ? 'text-[var(--accent-primary)]' : 'text-[var(--text-gray)]'}`}>
                                   {d.isToday ? 'Today' : d.day}
                                 </span>
                               </button>
@@ -251,7 +251,7 @@ const ScheduleVisitFAB: React.FC = () => {
                             aria-label="Scroll dates right"
                             className="compact-touch w-12 h-12 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-white hover:bg-[var(--bg-section-light)] transition-colors flex-shrink-0 flex items-center justify-center"
                           >
-                            <ChevronRightIcon className="w-3 h-3 text-[#555]" />
+                            <ChevronRightIcon className="w-3 h-3 text-[var(--text-gray-dark)]" />
                           </button>
                         </div>
                       </div>
@@ -319,7 +319,7 @@ const ScheduleVisitFAB: React.FC = () => {
                   <div className="px-3 pt-1.5 pb-3 flex-shrink-0 border-t border-[var(--border-subtle)]">
                     <button
                       onClick={() => setConfirmed(true)}
-                      className="w-full py-2 rounded-[var(--radius-sm)] text-white text-[12px] font-bold tracking-wide active:scale-[0.99] transition-all shadow-[0_2px_10px_rgba(31,122,92,0.25)]"
+                      className="w-full py-2 rounded-[var(--radius-sm)] text-white text-[12px] font-bold tracking-wide active:scale-[0.99] transition-all shadow-[0_2px_10px_var(--primary-alpha-25)]"
                       style={{ background: 'var(--gradient-accent)' }}
                     >
                       Confirm Site Visit

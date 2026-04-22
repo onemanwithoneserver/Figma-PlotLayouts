@@ -6,6 +6,109 @@
    DESIGN TOKENS — Glassmorphic Real Estate UI
    ────────────────────────────────────────────────────── */
 :root {
+
+  /* Extended Global Colors */
+  --text-black: #000000;
+  --text-dark: #111827;
+  --text-gray-dark: #525252;
+  --text-gray: #757575;
+  --text-gray-light: #9CA3AF;
+  --text-gray-lighter: #AAAAAA;
+  
+  --bg-offwhite: #F9F7F2;
+  --bg-muted: #F5F5F5;
+  --bg-muted-dark: #E5DFD4;
+  --bg-gray: #E5E7EB;
+  
+  --border-light: #E0E0E0;
+  --border-muted: #D0D0D0;
+  
+  --info-color: #1E90FF;
+  --info-color-light: #B2D8FF;
+  --info-color-bg: #E6F2FF;
+  
+  --warning-color: #F85B01;
+  --warning-color-alt: #E76F26;
+  --warning-color-alt2: #E05000;
+  --warning-color-light: #FFD4B2;
+  --warning-color-bg: #FFF4EC;
+  
+  --success-color: #22A06B;
+  --success-color-alt: #4CAF50;
+  --success-color-light: #B2FFD4;
+  --success-color-bg: #E6FFF2;
+  --success-color-dark: #195f4e;
+  --success-color-darker: #145a47;
+  
+  --error-color: #EF4444;
+  --error-color-alt: #EF1F24;
+  --error-color-alt2: #EF5350;
+  --error-color-alt3: #DC2626;
+  --error-color-alt4: #FF5A5F;
+  --error-color-light: #FFB2B2;
+
+  --accent-purple: #A259D9;
+  --accent-purple-light: #E2B2FF;
+  --accent-yellow: #F5B700;
+  --accent-yellow-light: #FFF7B2;
+  
+  --accent-green-dark: #1F7A63;
+  --accent-green-alt: #1B5E20;
+  --accent-green-alt2: #1B3B1E;
+  --accent-green-light: #C8E6C9;
+  
+  --color-brown-dark: #322822;
+  --color-brown-light: #6B5E57;
+  --color-beige: #D9D1C3;
+  --color-beige-light: #F3EDE5;
+  
+  /* RGBA variants */
+  --overlay-dark-4: rgba(0,0,0,0.04);
+  --overlay-dark-5: rgba(0,0,0,0.05);
+  --overlay-dark-6: rgba(0,0,0,0.06);
+  --overlay-dark-8: rgba(0,0,0,0.08);
+  --overlay-dark-10: rgba(0,0,0,0.10);
+  --overlay-dark-12: rgba(0,0,0,0.12);
+  --overlay-dark-15: rgba(0,0,0,0.15);
+  --overlay-dark-16: rgba(0,0,0,0.16);
+  --overlay-dark-20: rgb(0 0 0 / 0.1);
+  --overlay-dark-45: rgba(0,0,0,0.45);
+  --overlay-dark-60: rgba(0,0,0,0.6);
+  --overlay-dark-80: rgba(0,0,0,0.8);
+  
+  --overlay-white-15: rgba(255,255,255,0.15);
+  --overlay-white-85: rgba(255,255,255,0.85);
+  --overlay-white-90: rgba(255,255,255,0.9);
+  
+  --primary-alpha-6: rgba(31,122,99,0.06);
+  --primary-alpha-8: rgba(31,122,92,0.08);
+  --primary-alpha-12: rgba(31,122,92,0.12);
+  --primary-alpha-15-alt: rgba(139, 195, 74, 0.15);
+  --primary-alpha-18: rgba(31,122,92,0.18);
+  --primary-alpha-20: rgba(22, 163, 74, 0.20);
+  --primary-alpha-22: rgba(31,122,92,0.22);
+  --primary-alpha-22-alt: rgba(31, 122, 92, 0.22);
+  --primary-alpha-25: rgba(31,122,92,0.25);
+  --primary-alpha-25-alt: rgba(139,195,74,0.25);
+  --primary-alpha-25-alt2: rgba(22,163,74,0.25);
+  --primary-alpha-30: rgba(46,125,50,0.3);
+  --primary-alpha-35: rgba(31,122,92,0.35);
+  --primary-alpha-40: rgba(31,122,92,0.40);
+  
+  --error-alpha-80: rgba(239,68,68,0.8);
+
+  /* Standardized Core Variables */
+  --primary-color: #16A34A;
+  --primary-color-hover: #15803D;
+  --secondary-color: #F0F0F0;
+  --secondary-color-hover: #E0E0E0;
+  --accent-color: #1F7A5C;
+  --background-color: #FFFFFF;
+  --text-color: #1A1A1A;
+  --text-color-muted: #666666;
+  --border-color: #E0E0E0;
+  --border-color-subtle: #E8EDE6;
+
   /* Base Gradient */
   --gradient-primary: linear-gradient(135deg, #CFEA8A, #A9C46C);
   --gradient-accent:  linear-gradient(135deg, #1F7A5C, #2E8B6E);

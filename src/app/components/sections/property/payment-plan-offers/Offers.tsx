@@ -49,8 +49,8 @@ const OFFERS_DATA: (OfferItem & { color: string; bg: string })[] = [
     description: 'Pay 20% now and nothing until you get the keys. Partnered exclusively with SBI and HDFC bank.',
     validity: 'Valid till 31st Oct',
     iconSymbol: 'sparkles',
-    color: '#E76F26',
-    bg: '#FFF4EC',
+    color: 'var(--warning-color-alt)',
+    bg: 'var(--warning-color-bg)',
   },
   {
     id: '2',
@@ -59,8 +59,8 @@ const OFFERS_DATA: (OfferItem & { color: string; bg: string })[] = [
     description: 'Premium modular kitchen setup with chimney and hob included for 3 BHK configurations.',
     validity: 'First 50 bookings only',
     iconSymbol: 'gift',
-    color: '#1E90FF',
-    bg: '#E6F2FF',
+    color: 'var(--info-color)',
+    bg: 'var(--info-color-bg)',
   },
   {
     id: '3',
@@ -69,8 +69,8 @@ const OFFERS_DATA: (OfferItem & { color: string; bg: string })[] = [
     description: 'Exclusive spot booking discount applied directly to your base price.',
     validity: 'Valid for today',
     iconSymbol: 'tag',
-    color: '#22A06B',
-    bg: '#E6FFF2',
+    color: 'var(--success-color)',
+    bg: 'var(--success-color-bg)',
   }
 ];
 
@@ -86,13 +86,13 @@ export default function Offers() {
   const renderIcon = (symbol: string) => {
     switch (symbol) {
       case 'gift':
-        return <Icons.Gift color="#E76F26" />;
+        return <Icons.Gift color="var(--warning-color-alt)" />;
       case 'sparkles':
-        return <Icons.Sparkles color="#E76F26" />;
+        return <Icons.Sparkles color="var(--warning-color-alt)" />;
       case 'tag':
-        return <Icons.Tag color="#E76F26" />;
+        return <Icons.Tag color="var(--warning-color-alt)" />;
       default:
-        return <Icons.Gift color="#E76F26" />;
+        return <Icons.Gift color="var(--warning-color-alt)" />;
     }
   };
 
@@ -131,12 +131,12 @@ export default function Offers() {
                   {offer.badge}
                 </span>
 
-                <h4 className="text-[13px] font-semibold text-[#322822] leading-tight mb-0.5">{offer.title}</h4>
+                <h4 className="text-[13px] font-semibold text-[var(--color-brown-dark)] leading-tight mb-0.5">{offer.title}</h4>
 
-                <p className="text-[11px] font-medium text-[#6B5E57] leading-[1.4] mb-1.5">{offer.description}</p>
+                <p className="text-[11px] font-medium text-[var(--color-brown-light)] leading-[1.4] mb-1.5">{offer.description}</p>
 
-                <div className="flex items-center justify-between pt-1 border-t border-[#E5DFD4]/80">
-                  <div className="flex items-center gap-1 text-[10px] font-medium text-[#6B5E57]">
+                <div className="flex items-center justify-between pt-1 border-t border-[var(--bg-muted-dark)]/80">
+                  <div className="flex items-center gap-1 text-[10px] font-medium text-[var(--color-brown-light)]">
                     <Icons.Clock />
                     {offer.validity}
                   </div>
@@ -155,7 +155,7 @@ export default function Offers() {
       </div>
 
       <div className="px-2 pb-2">
-        <p className="text-[11px] font-medium text-[#322822] mb-1">How do these offers look?</p>
+        <p className="text-[11px] font-medium text-[var(--color-brown-dark)] mb-1">How do these offers look?</p>
         <div className="flex flex-wrap gap-1">
           {FEEDBACK_OPTIONS.map((opt) => {
             const isSelected = feedback === opt.id;
@@ -164,8 +164,8 @@ export default function Offers() {
                 key={opt.id}
                 onClick={() => setFeedback(opt.id)}
                 title={isSelected ? `${opt.label} (selected)` : opt.label}
-                className={`flex items-center gap-1 px-2 py-1 rounded-[5px] text-[11px] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-[#322822]/20 focus-visible:outline-none ${
-                  isSelected ? 'bg-[#E76F26] text-white' : 'bg-[#F9F7F2] text-[#6B5E57]'
+                className={`flex items-center gap-1 px-2 py-1 rounded-[5px] text-[11px] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-[var(--color-brown-dark)]/20 focus-visible:outline-none ${
+                  isSelected ? 'bg-[var(--warning-color-alt)] text-white' : 'bg-[var(--bg-offwhite)] text-[var(--color-brown-light)]'
                 }`}
               >
                 {opt.label}

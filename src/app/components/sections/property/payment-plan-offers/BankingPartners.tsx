@@ -28,40 +28,40 @@ export default function BankingPartners() {
     <div className="w-full bg-white font-['Outfit',_sans-serif] p-2">
       <div className="flex justify-between items-center mb-1.5">
         <div>
-          <p className="text-[14px] font-medium text-[#6B5E57] mt-0.5">Compare home loan rates</p>
+          <p className="text-[14px] font-medium text-[var(--color-brown-light)] mt-0.5">Compare home loan rates</p>
         </div>
       </div>
 
       <div className="flex flex-col gap-1 mb-2">
         {BANKS.map((bank) => (
-          <div key={bank.name} className="flex items-center justify-between p-2 rounded-[5px] bg-white border border-[#E5DFD4] transition-colors">
+          <div key={bank.name} className="flex items-center justify-between p-2 rounded-[5px] bg-white border border-[var(--bg-muted-dark)] transition-colors">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-[5px] flex items-center justify-center bg-white overflow-hidden shrink-0 p-1">
                 <img src={bank.logoUrl} alt={bank.name + ' logo'} className="w-full h-full object-contain" loading="lazy" />
               </div>
               <div>
                 <div className="flex items-center gap-1">
-                  <p className="text-[12px] font-semibold text-[#322822]">{bank.name}</p>
+                  <p className="text-[12px] font-semibold text-[var(--color-brown-dark)]">{bank.name}</p>
                 </div>
-                <p className="text-[10px] text-[#6B5E57] font-medium">
-                  ROI from <span className="font-semibold text-[#322822]">{bank.rate}</span>
-                  <span className="text-[#6B5E57]"> p.a.</span>
+                <p className="text-[10px] text-[var(--color-brown-light)] font-medium">
+                  ROI from <span className="font-semibold text-[var(--color-brown-dark)]">{bank.rate}</span>
+                  <span className="text-[var(--color-brown-light)]"> p.a.</span>
                 </p>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-[10px] text-[#6B5E57] font-medium">Processing</p>
-              <p className="text-[11px] font-semibold text-[#322822]">{bank.processing}</p>
+              <p className="text-[10px] text-[var(--color-brown-light)] font-medium">Processing</p>
+              <p className="text-[11px] font-semibold text-[var(--color-brown-dark)]">{bank.processing}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <p className="text-[10px] text-[#6B5E57] font-medium mb-2">*Rates are indicative and subject to individual eligibility and bank terms.</p>
+      <p className="text-[10px] text-[var(--color-brown-light)] font-medium mb-2">*Rates are indicative and subject to individual eligibility and bank terms.</p>
 
       <button
         aria-label="Check your home loan eligibility"
-        className="w-full py-1.5 rounded-[5px] text-[11px] font-semibold text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#E76F26]/20 focus-visible:outline-none bg-[#E76F26]"
+        className="w-full py-1.5 rounded-[5px] text-[11px] font-semibold text-white transition-colors focus-visible:ring-2 focus-visible:ring-[var(--warning-color-alt)]/20 focus-visible:outline-none bg-[var(--warning-color-alt)]"
       >
         Check My Eligibility
       </button>

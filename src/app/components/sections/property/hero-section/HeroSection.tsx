@@ -15,7 +15,7 @@ interface StatCardProps {
 }
 
 const StatCard: React.FC<StatCardProps> = ({ icon, label, value }) => (
-  <div className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-[var(--radius-md)] bg-white border border-[var(--border-subtle)] shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(31,122,92,0.08)] hover:border-[var(--accent-border)] transition-all duration-300 group">
+  <div className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-[var(--radius-md)] bg-white border border-[var(--border-subtle)] shadow-[0_2px_8px_var(--overlay-dark-4)] hover:shadow-[0_4px_12px_var(--primary-alpha-8)] hover:border-[var(--accent-border)] transition-all duration-300 group">
     <div className="text-[var(--accent-primary)] group-hover:scale-110 transition-transform duration-300">
       {icon}
     </div>
@@ -46,7 +46,7 @@ export const PremiumPropertyCard: React.FC<HeroCardData> = ({
   loanAvailable,
 }) => {
   return (
-    <div className="font-outfit bg-white rounded-[2px] border border-[var(--border-subtle)] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300 max-w-[390px] mx-auto group cursor-pointer">
+    <div className="font-outfit bg-white rounded-[2px] border border-[var(--border-subtle)] overflow-hidden shadow-[0_4px_20px_var(--overlay-dark-6)] hover:shadow-[0_8px_30px_var(--overlay-dark-12)] transition-shadow duration-300 max-w-[390px] mx-auto group cursor-pointer">
       <div className="relative h-[240px] overflow-hidden bg-black">
         <img
           src={imageSrc}
@@ -54,7 +54,7 @@ export const PremiumPropertyCard: React.FC<HeroCardData> = ({
           className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out"
         />
         
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 via-[#1A1A1A]/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--text-color)]/90 via-[var(--text-color)]/20 to-transparent" />
 
         {/* Approval badge */}
         <div className="absolute top-3 right-3 z-10">
@@ -102,7 +102,7 @@ export const PremiumPropertyCard: React.FC<HeroCardData> = ({
 
         {/* Developer row */}
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden flex-shrink-0 flex items-center justify-center bg-[var(--bg-section-light)] p-1 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+          <div className="w-10 h-10 rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden flex-shrink-0 flex items-center justify-center bg-[var(--bg-section-light)] p-1 shadow-[0_2px_8px_var(--overlay-dark-4)]">
             <img 
               src={developerLogo} 
               alt={developerName} 

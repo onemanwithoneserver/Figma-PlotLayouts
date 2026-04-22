@@ -31,7 +31,7 @@ export function ThemeToggle({ className, size = "md" }: ThemeToggleProps) {
         "bg-card border border-border hover:border-primary/50",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
         "text-foreground hover:text-primary",
-        "dark:shadow-[0_0_12px_rgba(139,195,74,0.25)]",
+        "dark:shadow-[0_0_12px_var(--primary-alpha-25-alt)]",
         sizeClasses[size],
         className
       )}

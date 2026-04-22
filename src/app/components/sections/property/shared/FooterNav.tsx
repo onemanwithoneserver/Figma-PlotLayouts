@@ -55,9 +55,9 @@ const FooterNav: React.FC = () => {
             >
               {saved
                 ? <BookmarkOutlinedIcon sx={{ fontSize: 20, color: 'var(--accent-primary)' }} />
-                : <BookmarkBorderOutlinedIcon sx={{ fontSize: 20, color: '#757575' }} />
+                : <BookmarkBorderOutlinedIcon sx={{ fontSize: 20, color: 'var(--text-gray)' }} />
               }
-              <span className={`text-[0.625rem] leading-none ${saved ? 'text-[var(--accent-primary)] font-bold' : 'text-[#757575]'}`}>
+              <span className={`text-[0.625rem] leading-none ${saved ? 'text-[var(--accent-primary)] font-bold' : 'text-[var(--text-gray)]'}`}>
                 Save
               </span>
             </motion.button>
@@ -71,8 +71,8 @@ const FooterNav: React.FC = () => {
               className="flex flex-col items-center gap-0.5 w-12 py-0.5"
               aria-label="Hide property"
             >
-              <VisibilityOffOutlinedIcon sx={{ fontSize: 20, color: '#757575' }} />
-              <span className="text-[0.625rem] leading-none text-[#757575]">
+              <VisibilityOffOutlinedIcon sx={{ fontSize: 20, color: 'var(--text-gray)' }} />
+              <span className="text-[0.625rem] leading-none text-[var(--text-gray)]">
                 Hide
               </span>
             </motion.button>
@@ -89,10 +89,10 @@ const FooterNav: React.FC = () => {
                   whileHover={{ y: -2, scale: 1.05 }}
                   whileTap={{ scale: 0.96 }}
                   transition={{ duration: 0.18 }}
-                  className="w-10 h-10 rounded-[2px] flex items-center justify-center mb-0.5 shadow-[0_2px_12px_rgba(31,122,92,0.25)]"
+                  className="w-10 h-10 rounded-[2px] flex items-center justify-center mb-0.5 shadow-[0_2px_12px_var(--primary-alpha-25)]"
                   style={{ background: 'var(--gradient-accent)' }}
                 >
-                  <PhoneOutlinedIcon sx={{ fontSize: 18, color: '#ffffff' }} />
+                  <PhoneOutlinedIcon sx={{ fontSize: 18, color: 'var(--background-color)' }} />
                 </motion.div>
                 <span className="text-[0.625rem] leading-none text-[var(--accent-primary)] font-bold">
                   Contact
@@ -109,8 +109,8 @@ const FooterNav: React.FC = () => {
               className="flex flex-col items-center gap-0.5 w-12 py-0.5"
               aria-label="Share property"
             >
-              <ShareOutlinedIcon sx={{ fontSize: 20, color: '#757575' }} />
-              <span className="text-[0.625rem] leading-none text-[#757575]">
+              <ShareOutlinedIcon sx={{ fontSize: 20, color: 'var(--text-gray)' }} />
+              <span className="text-[0.625rem] leading-none text-[var(--text-gray)]">
                 Share
               </span>
             </motion.button>
@@ -124,8 +124,8 @@ const FooterNav: React.FC = () => {
               className="flex flex-col items-center gap-0.5 w-12 py-0.5"
               aria-label="Close property"
             >
-              <CloseOutlinedIcon sx={{ fontSize: 20, color: '#EF5350' }} />
-              <span className="text-[0.625rem] leading-none text-[#EF5350]">
+              <CloseOutlinedIcon sx={{ fontSize: 20, color: 'var(--error-color-alt2)' }} />
+              <span className="text-[0.625rem] leading-none text-[var(--error-color-alt2)]">
                 Close
               </span>
             </motion.button>

@@ -14,7 +14,7 @@ const StatPill: React.FC<StatPillProps> = ({ icon, svgIcon, label, value, valid 
     <div className="flex-shrink-0 flex flex-col items-center group">
       <div className="relative w-[80px] h-[80px] mb-2.5">
         {/* Circular border with gradient effect */}
-        <div className="absolute inset-0 rounded-full border-2 border-[#E5E7EB] bg-gradient-to-br from-white to-gray-50 flex items-center justify-center shadow-lg shadow-black/5 group-hover:shadow-xl group-hover:shadow-black/10 transition-all duration-300 group-hover:scale-105">
+        <div className="absolute inset-0 rounded-full border-2 border-[var(--bg-gray)] bg-gradient-to-br from-white to-gray-50 flex items-center justify-center shadow-lg shadow-black/5 group-hover:shadow-xl group-hover:shadow-black/10 transition-all duration-300 group-hover:scale-105">
           {svgIcon ? (
             <img src={svgIcon} alt={label} className="w-8 h-8 object-contain drop-shadow-sm" />
           ) : (
@@ -34,13 +34,13 @@ const StatPill: React.FC<StatPillProps> = ({ icon, svgIcon, label, value, valid 
         </div>
         
         {/* X at bottom right */}
-        <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-gradient-to-br from-[#EF4444] to-[#DC2626] flex items-center justify-center shadow-md shadow-red-500/30 transition-all duration-300 group-hover:scale-110">
+        <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-gradient-to-br from-[var(--error-color)] to-[var(--error-color-alt3)] flex items-center justify-center shadow-md shadow-red-500/30 transition-all duration-300 group-hover:scale-110">
           <X className="w-4 h-4 text-white" strokeWidth={2.5} />
         </div>
       </div>
       
       {/* Label and Value */}
-      <p className="text-[13px] font-semibold text-[#1F2933] text-center drop-shadow-sm">{value}</p>
+      <p className="text-[13px] font-semibold text-[var(--text-dark)] text-center drop-shadow-sm">{value}</p>
     </div>
   );
 };

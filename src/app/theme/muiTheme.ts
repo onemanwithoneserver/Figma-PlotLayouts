@@ -3,31 +3,31 @@ import { createTheme } from '@mui/material/styles';
 export const muiTheme = createTheme({
   palette: {
     primary: {
-      main: '#1F7A63',
-      light: '#4CAF50',
-      dark: '#145a47',
-      contrastText: '#FFFFFF',
+      main: 'var(--accent-green-dark)',
+      light: 'var(--success-color-alt)',
+      dark: 'var(--success-color-darker)',
+      contrastText: 'var(--background-color)',
     },
     secondary: {
-      main: '#4CAF50',
-      contrastText: '#FFFFFF',
+      main: 'var(--success-color-alt)',
+      contrastText: 'var(--background-color)',
     },
     background: {
-      default: '#F5F5F5',
-      paper: '#FFFFFF',
+      default: 'var(--bg-muted)',
+      paper: 'var(--background-color)',
     },
     text: {
-      primary: '#1A1A1A',
-      secondary: '#666666',
+      primary: 'var(--text-color)',
+      secondary: 'var(--text-color-muted)',
     },
-    divider: '#E0E0E0',
-    success: { main: '#1F7A63' },
+    divider: 'var(--border-color)',
+    success: { main: 'var(--accent-green-dark)' },
   },
   shape: { borderRadius: 4 },
   typography: {
     fontFamily: "'Outfit', 'Inter', sans-serif",
-    h5: { fontWeight: 700, color: '#1A1A1A' },
-    h6: { fontWeight: 700, color: '#1A1A1A' },
+    h5: { fontWeight: 700, color: 'var(--text-color)' },
+    h6: { fontWeight: 700, color: 'var(--text-color)' },
     subtitle1: { fontWeight: 600 },
     subtitle2: { fontWeight: 600 },
     body2: { fontSize: '0.8125rem' },
@@ -35,8 +35,8 @@ export const muiTheme = createTheme({
   },
   shadows: [
     'none',
-    '0 1px 3px rgba(0,0,0,0.08)',
-    '0 2px 6px rgba(0,0,0,0.10)',
+    '0 1px 3px var(--overlay-dark-8)',
+    '0 2px 6px var(--overlay-dark-10)',
     ...Array(22).fill('none'),
   ] as any,
   components: {
@@ -44,9 +44,9 @@ export const muiTheme = createTheme({
       defaultProps: { elevation: 0 },
       styleOverrides: {
         root: {
-          border: '1px solid #E0E0E0',
+          border: '1px solid var(--border-color)',
           borderRadius: 8,
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--background-color)',
           overflow: 'hidden',
         },
       },
@@ -70,13 +70,13 @@ export const muiTheme = createTheme({
           '&:hover': { boxShadow: 'none' },
         },
         containedPrimary: {
-          backgroundColor: '#1F7A63',
-          '&:hover': { backgroundColor: '#145a47' },
+          backgroundColor: 'var(--accent-green-dark)',
+          '&:hover': { backgroundColor: 'var(--success-color-darker)' },
         },
         outlinedPrimary: {
-          borderColor: '#1F7A63',
-          color: '#1F7A63',
-          '&:hover': { backgroundColor: 'rgba(31,122,99,0.06)' },
+          borderColor: 'var(--accent-green-dark)',
+          color: 'var(--accent-green-dark)',
+          '&:hover': { backgroundColor: 'var(--primary-alpha-6)' },
         },
       },
     },
@@ -89,8 +89,8 @@ export const muiTheme = createTheme({
           height: 28,
         },
         colorPrimary: {
-          backgroundColor: '#E8F5E9',
-          color: '#1F7A63',
+          backgroundColor: 'var(--border-color-subtle)',
+          color: 'var(--accent-green-dark)',
         },
       },
     },
@@ -101,8 +101,8 @@ export const muiTheme = createTheme({
           fontWeight: 600,
           minHeight: 40,
           fontSize: '0.8125rem',
-          color: '#666666',
-          '&.Mui-selected': { color: '#1F7A63' },
+          color: 'var(--text-color-muted)',
+          '&.Mui-selected': { color: 'var(--accent-green-dark)' },
         },
       },
     },
@@ -111,7 +111,7 @@ export const muiTheme = createTheme({
         indicator: {
           height: 2,
           borderRadius: 1,
-          backgroundColor: '#1F7A63',
+          backgroundColor: 'var(--accent-green-dark)',
         },
       },
     },
@@ -122,11 +122,11 @@ export const muiTheme = createTheme({
           '& .MuiOutlinedInput-root': {
             borderRadius: 4,
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#1F7A63',
+              borderColor: 'var(--accent-green-dark)',
             },
           },
           '& .MuiInputLabel-root.Mui-focused': {
-            color: '#1F7A63',
+            color: 'var(--accent-green-dark)',
           },
         },
       },
@@ -136,25 +136,25 @@ export const muiTheme = createTheme({
         root: {
           borderRadius: 4,
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#1F7A63',
+            borderColor: 'var(--accent-green-dark)',
           },
         },
       },
     },
     MuiDivider: {
       styleOverrides: {
-        root: { borderColor: '#E0E0E0' },
+        root: { borderColor: 'var(--border-color)' },
       },
     },
     MuiLinearProgress: {
       styleOverrides: {
         root: {
           borderRadius: 4,
-          backgroundColor: '#E0E0E0',
+          backgroundColor: 'var(--border-color)',
         },
         bar: {
           borderRadius: 4,
-          backgroundColor: '#1F7A63',
+          backgroundColor: 'var(--accent-green-dark)',
         },
       },
     },

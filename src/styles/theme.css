@@ -132,9 +132,9 @@
   --sidebar-ring: #4CAF50;
 
   /* Shadows - subtle glow effects */
-  --shadow-sm: 0 0 8px rgba(139, 195, 74, 0.15);
-  --shadow-md: 0 0 12px rgba(139, 195, 74, 0.2);
-  --shadow-lg: 0 0 20px rgba(139, 195, 74, 0.25);
+  --shadow-sm: 0 0 8px var(--primary-alpha-15-alt);
+  --shadow-md: 0 0 12px var(--primary-alpha-25-alt2); /* Assuming 0.2 approx */
+  --shadow-lg: 0 0 20px var(--primary-alpha-25-alt);
 
   /* Grid/Map elements */
   --grid-line: rgba(46, 125, 50, 0.25);

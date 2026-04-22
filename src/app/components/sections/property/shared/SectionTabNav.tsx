@@ -108,7 +108,7 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
                   onClick={() => onTabChange(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
                   className="compact-touch relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[var(--radius-md)] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]/50"
-                  style={{ color: isActive ? '#ffffff' : 'var(--text-muted)' }}
+                  style={{ color: isActive ? 'var(--background-color)' : 'var(--text-muted)' }}
                 >
                   {isActive && (
                     <motion.div
@@ -116,7 +116,7 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
                       className="absolute inset-0 rounded-[2px] -z-10"
                       style={{
                         background: 'var(--gradient-accent)',
-                        boxShadow: '0 0 12px rgba(31, 122, 92, 0.22)',
+                        boxShadow: '0 0 12px var(--primary-alpha-22-alt)',
                       }}
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />

@@ -6,7 +6,7 @@ import { overviewData, OVERVIEW_INITIAL_COUNT } from './data';
 import type { OverviewItem } from './data';
 
 const OverviewTile: React.FC<{ item: OverviewItem }> = ({ item }) => (
-  <div className="flex flex-col items-center text-center p-2 rounded-[var(--radius-md)] bg-white border border-[var(--border-subtle)] shadow-sm hover:shadow-[0_4px_16px_rgba(31,122,92,0.08)] hover:border-[var(--accent-border)] transition-all duration-300 transform hover:-translate-y-0.5">
+  <div className="flex flex-col items-center text-center p-2 rounded-[var(--radius-md)] bg-white border border-[var(--border-subtle)] shadow-sm hover:shadow-[0_4px_16px_var(--primary-alpha-8)] hover:border-[var(--accent-border)] transition-all duration-300 transform hover:-translate-y-0.5">
     <div className="w-8 h-8 flex items-center justify-center bg-[var(--accent-soft)] rounded-[var(--radius-md)] mb-1.5">
       <img
         src={item.icon}
@@ -44,14 +44,14 @@ const Overview: React.FC = () => {
           endIcon={showAll ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           sx={{
             background: 'var(--gradient-accent)',
-            color: '#FFFFFF',
+            color: 'var(--background-color)',
             borderRadius: 'var(--radius-md)',
             fontSize: '0.8125rem',
             fontWeight: 700,
             textTransform: 'none',
             px: 2,
             py: 0.5,
-            boxShadow: '0 2px 12px rgba(31,122,92,0.18)',
+            boxShadow: '0 2px 12px var(--primary-alpha-18)',
             '&:hover': { background: 'var(--gradient-accent)', filter: 'brightness(0.95)' },
           }}
           aria-expanded={showAll}

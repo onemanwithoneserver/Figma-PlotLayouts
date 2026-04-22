@@ -39,7 +39,7 @@ const Layout: React.FC = () => {
               onClick={prev}
               size="small"
               aria-label="Previous image"
-              sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: '#FFFFFF' }, borderRadius: 'var(--radius-sm)' }}
+              sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'var(--overlay-white-90)', '&:hover': { bgcolor: 'var(--background-color)' }, borderRadius: 'var(--radius-sm)' }}
             >
               <NavigateBeforeIcon sx={{ fontSize: 18, color: 'var(--text-primary)' }} />
             </IconButton>
@@ -47,7 +47,7 @@ const Layout: React.FC = () => {
               onClick={next}
               size="small"
               aria-label="Next image"
-              sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: '#FFFFFF' }, borderRadius: 'var(--radius-sm)' }}
+              sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: 'var(--overlay-white-90)', '&:hover': { bgcolor: 'var(--background-color)' }, borderRadius: 'var(--radius-sm)' }}
             >
               <NavigateNextIcon sx={{ fontSize: 18, color: 'var(--text-primary)' }} />
             </IconButton>
@@ -55,7 +55,7 @@ const Layout: React.FC = () => {
         )}
 
         {/* Image label + fullscreen */}
-        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-3 py-2 bg-[rgba(0,0,0,0.45)]">
+        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-3 py-2 bg-[var(--overlay-dark-45)]">
           <span className="text-[12px] font-semibold text-white">
             {layoutImages[imgIdx].label}
           </span>
@@ -67,7 +67,7 @@ const Layout: React.FC = () => {
               onClick={() => setLightboxOpen(true)}
               size="small"
               aria-label="View fullscreen"
-              sx={{ color: 'rgba(255,255,255,0.85)', p: 0.25 }}
+              sx={{ color: 'var(--overlay-white-85)', p: 0.25 }}
             >
               <ZoomOutMapIcon sx={{ fontSize: 16 }} />
             </IconButton>
@@ -126,7 +126,7 @@ const Layout: React.FC = () => {
         </div>
 
         <button
-          className="mt-3 w-full py-2.5 rounded-[var(--radius-md)] text-white text-[14px] font-bold transition-all duration-300 hover:shadow-[0_4px_16px_rgba(31,122,92,0.25)] active:scale-[0.98]"
+          className="mt-3 w-full py-2.5 rounded-[var(--radius-md)] text-white text-[14px] font-bold transition-all duration-300 hover:shadow-[0_4px_16px_var(--primary-alpha-25)] active:scale-[0.98]"
           style={{ background: 'var(--gradient-accent)' }}
         >
           Check Plot Availability
@@ -139,7 +139,7 @@ const Layout: React.FC = () => {
         onClose={() => setLightboxOpen(false)}
         maxWidth="sm"
         fullWidth
-        PaperProps={{ sx: { bgcolor: '#000000', m: 1 } }}
+        PaperProps={{ sx: { bgcolor: 'var(--text-black)', m: 1 } }}
         aria-label="Layout image fullscreen view"
       >
         <div className="relative">
@@ -150,17 +150,17 @@ const Layout: React.FC = () => {
           />
           <IconButton
             onClick={() => setLightboxOpen(false)}
-            sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(0,0,0,0.6)', color: '#FFFFFF', '&:hover': { bgcolor: 'rgba(0,0,0,0.8)' } }}
+            sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'var(--overlay-dark-60)', color: 'var(--background-color)', '&:hover': { bgcolor: 'var(--overlay-dark-80)' } }}
             size="small"
             aria-label="Close fullscreen"
           >
             <CloseIcon sx={{ fontSize: 18 }} />
           </IconButton>
           <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-3">
-            <IconButton onClick={prev} sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF' }} size="small" aria-label="Previous">
+            <IconButton onClick={prev} sx={{ bgcolor: 'var(--overlay-white-15)', color: 'var(--background-color)' }} size="small" aria-label="Previous">
               <NavigateBeforeIcon />
             </IconButton>
-            <IconButton onClick={next} sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: '#FFFFFF' }} size="small" aria-label="Next">
+            <IconButton onClick={next} sx={{ bgcolor: 'var(--overlay-white-15)', color: 'var(--background-color)' }} size="small" aria-label="Next">
               <NavigateNextIcon />
             </IconButton>
           </div>

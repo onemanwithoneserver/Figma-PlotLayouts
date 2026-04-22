@@ -7,7 +7,7 @@ const Highlights: React.FC = () => {
       {highlightsData.map((item, i) => (
         <li
           key={item.id}
-          className="glass-card flex items-stretch rounded-[8px] overflow-hidden hover:shadow-[0_6px_24px_rgba(31,122,92,0.12)] transition-all duration-300 group"
+          className="glass-card flex items-stretch rounded-[8px] overflow-hidden hover:shadow-[0_6px_24px_var(--primary-alpha-12)] transition-all duration-300 group"
           role="listitem"
         >
           {/* Number indicator with accent gradient border */}

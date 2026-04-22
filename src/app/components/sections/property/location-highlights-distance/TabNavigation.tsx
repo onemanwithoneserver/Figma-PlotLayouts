@@ -112,15 +112,15 @@ export default function TabNavigation({ tabs, activeTab, onTabClick }: TabNaviga
                   onClick={() => onTabClick(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
                   className="relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[4px] focus-visible:ring-2 focus-visible:ring-green-600/50"
-                  style={{ color: isActive ? '#ffffff' : '#525252' }}
+                  style={{ color: isActive ? 'var(--background-color)' : 'var(--text-gray-dark)' }}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="commute-active-pill"
                       className="absolute inset-0 rounded-[4px] -z-10"
                       style={{
-                        background: 'linear-gradient(135deg, #16A34A, #15803D)',
-                        boxShadow: '0 0 8px rgba(22, 163, 74, 0.20)',
+                        background: 'linear-gradient(135deg, var(--primary-color), var(--primary-color-hover))',
+                        boxShadow: '0 0 8px var(--primary-alpha-20)',
                       }}
                       transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
                     />
