@@ -21,10 +21,41 @@ const SellerQueries: React.FC = () => {
     }
   };
 
+  const textFieldStyles = {
+    '& .MuiOutlinedInput-root': { 
+      borderRadius: '8px',
+      backgroundColor: 'var(--input-background, rgba(255, 255, 255, 0.5))',
+      alignItems: 'center',
+    },
+    '& .MuiOutlinedInput-root.MuiInputBase-multiline': {
+      alignItems: 'flex-start',
+    },
+    '& .MuiInputBase-input': {
+      color: 'var(--text-primary, #0A1F10)', 
+      paddingTop: '8.5px',
+      paddingBottom: '8.5px',
+    },
+    '& .MuiInputBase-input::placeholder': {
+      color: 'var(--text-muted, #5C7061)', 
+      opacity: 0.8,
+      fontWeight: 200, 
+    },
+    '& .MuiInputLabel-root': {
+      color: 'var(--text-muted, #5C7061)', 
+      fontWeight: 300, 
+    },
+    '& .MuiOutlinedInput-root.Mui-focused fieldset': { 
+      borderColor: 'var(--accent-primary)' 
+    }, 
+    '& label.Mui-focused': { 
+      color: 'var(--accent-primary)' 
+    }
+  };
+
   if (submitted) {
     return (
       <div className="p-6 flex flex-col items-center gap-3 text-center">
-        <CheckCircleOutlineIcon sx={{ fontSize: 48, color: 'var(--accent-green-dark)' }} />
+        <CheckCircleOutlineIcon sx={{ fontSize: 48, color: 'var(--accent-primary)' }} />
         <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-color)' }}>
           Request Received!
         </Typography>
@@ -34,7 +65,14 @@ const SellerQueries: React.FC = () => {
         <Button
           variant="outlined"
           size="small"
-          sx={{ mt: 1, borderColor: 'var(--accent-green-dark)', color: 'var(--accent-green-dark)', borderRadius: '4px', textTransform: 'none' }}
+          sx={{ 
+            mt: 1, 
+            borderColor: 'var(--accent-primary)', 
+            color: 'var(--accent-primary)', 
+            borderRadius: '8px', 
+            textTransform: 'none',
+            '&:hover': { backgroundColor: 'var(--primary-alpha-12)' }
+          }}
           onClick={() => { setSubmitted(false); setName(''); setPhone(''); setQuestion(''); }}
         >
           Ask Another Question
@@ -47,6 +85,7 @@ const SellerQueries: React.FC = () => {
     <div className="p-4 flex flex-col gap-3">
       <TextField
         label="Your Name"
+        placeholder="Enter your name"
         variant="outlined"
         size="small"
         fullWidth
@@ -54,15 +93,16 @@ const SellerQueries: React.FC = () => {
         onChange={(e) => setName(e.target.value)}
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start">
-              <PersonOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-green-dark)' }} />
+            <InputAdornment position="start" sx={{ mt: 0, display: 'flex', alignItems: 'center' }}>
+              <PersonOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-primary)' }} />
             </InputAdornment>
           ),
         }}
-        sx={{ '& .MuiOutlinedInput-root.Mui-focused fieldset': { borderColor: 'var(--accent-green-dark)' }, '& label.Mui-focused': { color: 'var(--accent-green-dark)' } }}
+        sx={textFieldStyles}
       />
       <TextField
         label="Phone Number"
+        placeholder="Enter your phone number"
         variant="outlined"
         size="small"
         fullWidth
@@ -70,15 +110,16 @@ const SellerQueries: React.FC = () => {
         onChange={(e) => setPhone(e.target.value)}
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start">
-              <PhoneOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-green-dark)' }} />
+            <InputAdornment position="start" sx={{ mt: 0, display: 'flex', alignItems: 'center' }}>
+              <PhoneOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-primary)' }} />
             </InputAdornment>
           ),
         }}
-        sx={{ '& .MuiOutlinedInput-root.Mui-focused fieldset': { borderColor: 'var(--accent-green-dark)' }, '& label.Mui-focused': { color: 'var(--accent-green-dark)' } }}
+        sx={textFieldStyles}
       />
       <TextField
         label="Your Question (optional)"
+        placeholder="How can we help you?"
         variant="outlined"
         size="small"
         fullWidth
@@ -88,12 +129,12 @@ const SellerQueries: React.FC = () => {
         onChange={(e) => setQuestion(e.target.value)}
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start" sx={{ alignSelf: 'flex-start', mt: 1.5 }}>
-              <QuestionAnswerOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-green-dark)' }} />
+            <InputAdornment position="start" sx={{ alignSelf: 'flex-start', mt: 1 }}>
+              <QuestionAnswerOutlinedIcon sx={{ fontSize: 18, color: 'var(--accent-primary)' }} />
             </InputAdornment>
           ),
         }}
-        sx={{ '& .MuiOutlinedInput-root.Mui-focused fieldset': { borderColor: 'var(--accent-green-dark)' }, '& label.Mui-focused': { color: 'var(--accent-green-dark)' } }}
+        sx={textFieldStyles}
       />
       <Button
         variant="contained"
@@ -103,13 +144,22 @@ const SellerQueries: React.FC = () => {
         onClick={handleSubmit}
         disabled={!name.trim() || !phone.trim()}
         sx={{
-          bgcolor: 'var(--accent-green-dark)',
-          '&:hover': { bgcolor: 'var(--success-color-dark)' },
-          '&:disabled': { bgcolor: 'var(--border-color)', color: 'var(--text-gray-light)' },
-          borderRadius: '4px',
+          background: 'var(--gradient-primary)',
+          color: '#FFFFFF',
+          '&:hover': { 
+            background: 'var(--gradient-accent)',
+            boxShadow: '0 4px 24px rgba(46, 125, 50, 0.25)' 
+          },
+          '&:disabled': { 
+            background: 'var(--border-color)', 
+            color: 'var(--text-gray-light)' 
+          },
+          borderRadius: '8px',
           textTransform: 'none',
           fontWeight: 600,
           py: 1.25,
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.5)',
         }}
       >
         Request Call Back

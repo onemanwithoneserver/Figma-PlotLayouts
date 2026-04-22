@@ -2,26 +2,21 @@
 @import './tailwind.css';
 @import './theme.css';
 
-/* ──────────────────────────────────────────────────────
-   DESIGN TOKENS — Glassmorphic Real Estate UI
-   ────────────────────────────────────────────────────── */
 :root {
-
-  /* Extended Global Colors */
   --text-black: #000000;
-  --text-dark: #111827;
-  --text-gray-dark: #525252;
-  --text-gray: #757575;
+  --text-dark: #0A1F10;
+  --text-gray-dark: #3D4A41;
+  --text-gray: #6B7B70;
   --text-gray-light: #9CA3AF;
   --text-gray-lighter: #AAAAAA;
   
-  --bg-offwhite: #F9F7F2;
-  --bg-muted: #F5F5F5;
-  --bg-muted-dark: #E5DFD4;
+  --bg-offwhite: #F4F9F5;
+  --bg-muted: #EBF2ED;
+  --bg-muted-dark: #D4E3D8;
   --bg-gray: #E5E7EB;
   
-  --border-light: #E0E0E0;
-  --border-muted: #D0D0D0;
+  --border-light: #D5E0D7;
+  --border-muted: #B8CBBF;
   
   --info-color: #1E90FF;
   --info-color-light: #B2D8FF;
@@ -33,12 +28,12 @@
   --warning-color-light: #FFD4B2;
   --warning-color-bg: #FFF4EC;
   
-  --success-color: #22A06B;
+  --success-color: #388E3C;
   --success-color-alt: #4CAF50;
-  --success-color-light: #B2FFD4;
-  --success-color-bg: #E6FFF2;
-  --success-color-dark: #195f4e;
-  --success-color-darker: #145a47;
+  --success-color-light: #A5D6A7;
+  --success-color-bg: #E8F5E9;
+  --success-color-dark: #2E7D32;
+  --success-color-darker: #1B5E20;
   
   --error-color: #EF4444;
   --error-color-alt: #EF1F24;
@@ -49,12 +44,12 @@
 
   --accent-purple: #A259D9;
   --accent-purple-light: #E2B2FF;
-  --accent-yellow: #F5B700;
-  --accent-yellow-light: #FFF7B2;
+  --accent-yellow: #FBC02D;
+  --accent-yellow-light: #FFF59D;
   
-  --accent-green-dark: #1F7A63;
-  --accent-green-alt: #1B5E20;
-  --accent-green-alt2: #1B3B1E;
+  --accent-green-dark: #1B5E20;
+  --accent-green-alt: #2E7D32;
+  --accent-green-alt2: #083316;
   --accent-green-light: #C8E6C9;
   
   --color-brown-dark: #322822;
@@ -62,7 +57,6 @@
   --color-beige: #D9D1C3;
   --color-beige-light: #F3EDE5;
   
-  /* RGBA variants */
   --overlay-dark-4: rgba(0,0,0,0.04);
   --overlay-dark-5: rgba(0,0,0,0.05);
   --overlay-dark-6: rgba(0,0,0,0.06);
@@ -80,75 +74,66 @@
   --overlay-white-85: rgba(255,255,255,0.85);
   --overlay-white-90: rgba(255,255,255,0.9);
   
-  --primary-alpha-6: rgba(31,122,99,0.06);
-  --primary-alpha-8: rgba(31,122,92,0.08);
-  --primary-alpha-12: rgba(31,122,92,0.12);
-  --primary-alpha-15-alt: rgba(139, 195, 74, 0.15);
-  --primary-alpha-18: rgba(31,122,92,0.18);
-  --primary-alpha-20: rgba(22, 163, 74, 0.20);
-  --primary-alpha-22: rgba(31,122,92,0.22);
-  --primary-alpha-22-alt: rgba(31, 122, 92, 0.22);
-  --primary-alpha-25: rgba(31,122,92,0.25);
+  --primary-alpha-6: rgba(76,175,80,0.06);
+  --primary-alpha-8: rgba(76,175,80,0.08);
+  --primary-alpha-12: rgba(76,175,80,0.12);
+  --primary-alpha-15-alt: rgba(139,195,74,0.15);
+  --primary-alpha-18: rgba(76,175,80,0.18);
+  --primary-alpha-20: rgba(76,175,80,0.20);
+  --primary-alpha-22: rgba(76,175,80,0.22);
+  --primary-alpha-22-alt: rgba(56,142,60,0.22);
+  --primary-alpha-25: rgba(76,175,80,0.25);
   --primary-alpha-25-alt: rgba(139,195,74,0.25);
-  --primary-alpha-25-alt2: rgba(22,163,74,0.25);
+  --primary-alpha-25-alt2: rgba(56,142,60,0.25);
   --primary-alpha-30: rgba(46,125,50,0.3);
-  --primary-alpha-35: rgba(31,122,92,0.35);
-  --primary-alpha-40: rgba(31,122,92,0.40);
+  --primary-alpha-35: rgba(46,125,50,0.35);
+  --primary-alpha-40: rgba(27,94,32,0.40);
   
   --error-alpha-80: rgba(239,68,68,0.8);
 
-  /* Standardized Core Variables */
-  --primary-color: #16A34A;
-  --primary-color-hover: #15803D;
-  --secondary-color: #F0F0F0;
-  --secondary-color-hover: #E0E0E0;
-  --accent-color: #1F7A5C;
+  --primary-color: #388E3C;
+  --primary-color-hover: #2E7D32;
+  --secondary-color: #F0F5F1;
+  --secondary-color-hover: #E2EBE4;
+  --accent-color: #4CAF50;
   --background-color: #FFFFFF;
-  --text-color: #1A1A1A;
-  --text-color-muted: #666666;
-  --border-color: #E0E0E0;
-  --border-color-subtle: #E8EDE6;
+  --text-color: #0A1F10;
+  --text-color-muted: #5C7061;
+  --border-color: #D5E0D7;
+  --border-color-subtle: #E8F0EA;
 
-  /* Base Gradient */
-  --gradient-primary: linear-gradient(135deg, #CFEA8A, #A9C46C);
-  --gradient-accent:  linear-gradient(135deg, #1F7A5C, #2E8B6E);
+  --gradient-primary: linear-gradient(135deg, rgba(165,214,167,0.85), rgba(76,175,80,0.95));
+  --gradient-accent:  linear-gradient(135deg, rgba(129,199,132,0.85), rgba(46,125,50,0.95));
 
-  /* Section Backgrounds */
-  --bg-section-light:   #F4F8F2;
-  --bg-section-muted:   #EAF3E6;
-  --bg-app:             #F5F5F5;
+  --bg-section-light:   #F1F8F3;
+  --bg-section-muted:   #E5EFE7;
+  --bg-app:             #F7FBF8;
 
-  /* Accent */
-  --accent-primary:     #1F7A5C;
-  --accent-secondary:   #2E8B6E;
-  --accent-soft:        rgba(31, 122, 92, 0.08);
-  --accent-border:      rgba(31, 122, 92, 0.18);
+  --accent-primary:     #4CAF50;
+  --accent-secondary:   #2E7D32;
+  --accent-soft:        rgba(76, 175, 80, 0.1);
+  --accent-border:      rgba(76, 175, 80, 0.25);
 
-  /* Text */
-  --text-primary:       #0B3D2E;
-  --text-secondary:     rgba(0, 0, 0, 0.65);
-  --text-muted:         #666666;
+  --text-primary:       #0A1F10;
+  --text-secondary:     rgba(10, 31, 16, 0.7);
+  --text-muted:         #5C7061;
   --text-on-accent:     #FFFFFF;
 
-  /* Glass */
-  --glass-bg:           rgba(255, 255, 255, 0.55);
-  --glass-bg-strong:    rgba(255, 255, 255, 0.72);
-  --glass-border:       rgba(255, 255, 255, 0.35);
-  --glass-shadow:       0 4px 24px rgba(31, 122, 92, 0.08);
-  --glass-blur:         12px;
+  --glass-bg:           rgba(255, 255, 255, 0.6);
+  --glass-bg-strong:    rgba(255, 255, 255, 0.85);
+  --glass-border:       rgba(255, 255, 255, 0.4);
+  --glass-shadow:       0 8px 32px rgba(27, 94, 32, 0.15);
+  --glass-blur:         16px;
 
-  /* Surfaces */
   --surface-card:       #FFFFFF;
-  --surface-elevated:   rgba(255, 255, 255, 0.9);
-  --border-subtle:      #E8EDE6;
-  --border-default:     #E0E0E0;
+  --surface-elevated:   rgba(255, 255, 255, 0.95);
+  --border-subtle:      #E8F0EA;
+  --border-default:     #D5E0D7;
 
-  /* Radius */
   --radius-sm:  4px;
   --radius-md:  8px;
   --radius-lg:  12px;
 
-  /* Spacing — 8px grid */
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
@@ -157,18 +142,12 @@
   --space-6:  24px;
   --space-8:  32px;
 
-  /* Transition */
   --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
   --duration-fast:   150ms;
   --duration-normal: 250ms;
   --duration-slow:   400ms;
 }
 
-/* ──────────────────────────────────────────────────────
-   GLASSMORPHISM UTILITIES
-   ────────────────────────────────────────────────────── */
-
-/* Subtle glass — for highlight cards */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -177,30 +156,25 @@
   box-shadow: var(--glass-shadow);
 }
 
-/* Stronger glass — for CTAs and important elements */
 .glass-cta {
-  background: var(--glass-bg-strong);
+  background: var(--gradient-primary);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 4px 20px rgba(31, 122, 92, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 24px rgba(46, 125, 50, 0.25);
+  color: var(--text-on-accent);
 }
 
-/* Sticky bar glass — subtle, non-intrusive */
 .glass-sticky {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(27, 94, 32, 0.08);
 }
 
-/* Section backgrounds */
 .bg-section-light { background-color: var(--bg-section-light); }
 .bg-section-muted { background-color: var(--bg-section-muted); }
 
-/* ──────────────────────────────────────────────────────
-   ANIMATIONS
-   ────────────────────────────────────────────────────── */
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -233,9 +207,6 @@
   animation: fadeInUp 0.3s var(--ease-out) forwards;
 }
 
-/* ──────────────────────────────────────────────────────
-   SCROLLBAR
-   ────────────────────────────────────────────────────── */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -244,9 +215,6 @@
 ::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-secondary); }
 
-/* ──────────────────────────────────────────────────────
-   ACCESSIBILITY — Focus & Selection
-   ────────────────────────────────────────────────────── */
 ::selection {
   background: var(--accent-primary);
   color: var(--text-on-accent);
@@ -257,21 +225,18 @@
   outline-offset: 2px;
 }
 
-/* Touch target minimum — Fitts's Law (Opt-in via utility classes to prevent global layout breakage) */
 @layer utilities {
   .min-touch-target {
     min-height: 44px;
     min-width: 44px;
   }
   
-  /* Exceptions for inline/compact elements (kept for backwards compatibility) */
   .compact-touch {
     min-height: unset;
     min-width: unset;
   }
 }
 
-/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -280,9 +245,6 @@
   }
 }
 
-/* ──────────────────────────────────────────────────────
-   THEME TRANSITIONS — Controlled, not global
-   ────────────────────────────────────────────────────── */
 .transition-theme {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: var(--ease-out);

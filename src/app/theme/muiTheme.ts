@@ -1,19 +1,14 @@
 import { createTheme } from '@mui/material/styles';
 
-/**
- * MUI Palette requires RAW color values (#hex, rgb, etc.) 
- * because it uses JavaScript to calculate contrast, hover states, and variants.
- * CSS variables (var(--...)) will cause 'decomposeColor' errors.
- */
 const COLORS = {
-  emeraldDark: '#1F7A63',    // Matches --accent-green-dark
-  emeraldMain: '#4CAF50',    // Matches --success-color-alt
-  emeraldDarker: '#145A47',  // Matches --success-color-darker
-  background: '#FFFFFF',     // Matches --background-color
-  bgMuted: '#F5F5F5',        // Matches --bg-muted
-  textPrimary: '#1A1A1A',    // Matches --text-color
-  textMuted: '#666666',      // Matches --text-color-muted
-  borderColor: '#E0E0E0',    // Matches --border-color
+  emeraldDark: '#2E7D32',
+  emeraldMain: '#4CAF50',
+  emeraldDarker: '#1B5E20',
+  background: '#F4F9F5',
+  bgMuted: '#EBF2ED',
+  textPrimary: '#0A1F10',
+  textMuted: '#5C7061',
+  borderColor: '#D5E0D7',
 };
 
 export const muiTheme = createTheme({
@@ -22,15 +17,15 @@ export const muiTheme = createTheme({
       main: COLORS.emeraldDark,
       light: COLORS.emeraldMain,
       dark: COLORS.emeraldDarker,
-      contrastText: COLORS.background,
+      contrastText: '#FFFFFF',
     },
     secondary: {
       main: COLORS.emeraldMain,
-      contrastText: COLORS.background,
+      contrastText: '#FFFFFF',
     },
     background: {
       default: COLORS.bgMuted,
-      paper: COLORS.background,
+      paper: 'rgba(255, 255, 255, 0.65)',
     },
     text: {
       primary: COLORS.textPrimary,
@@ -39,7 +34,7 @@ export const muiTheme = createTheme({
     divider: COLORS.borderColor,
     success: { main: COLORS.emeraldDark },
   },
-  shape: { borderRadius: 4 },
+  shape: { borderRadius: 8 },
   typography: {
     fontFamily: "'Outfit', 'Inter', sans-serif",
     h5: { fontWeight: 700, color: 'var(--text-color)' },
@@ -51,8 +46,8 @@ export const muiTheme = createTheme({
   },
   shadows: [
     'none',
-    '0 1px 3px rgba(0,0,0,0.08)',
-    '0 2px 6px rgba(0,0,0,0.10)',
+    '0 4px 12px rgba(27, 94, 32, 0.05)',
+    '0 8px 24px rgba(27, 94, 32, 0.08)',
     ...Array(22).fill('none'),
   ] as any,
   components: {
@@ -60,9 +55,12 @@ export const muiTheme = createTheme({
       defaultProps: { elevation: 0 },
       styleOverrides: {
         root: {
-          border: '1px solid var(--border-color)',
-          borderRadius: 8,
-          backgroundColor: 'var(--background-color)',
+          border: '1px solid var(--glass-border)',
+          borderRadius: 12,
+          backgroundColor: 'var(--glass-bg)',
+          backdropFilter: 'blur(var(--glass-blur))',
+          WebkitBackdropFilter: 'blur(var(--glass-blur))',
+          boxShadow: 'var(--glass-shadow)',
           overflow: 'hidden',
         },
       },
@@ -81,32 +79,50 @@ export const muiTheme = createTheme({
         root: {
           textTransform: 'none',
           fontWeight: 600,
-          borderRadius: 4,
+          borderRadius: 8,
           boxShadow: 'none',
+          transition: 'all 0.3s ease',
           '&:hover': { boxShadow: 'none' },
         },
         containedPrimary: {
-          backgroundColor: 'var(--accent-green-dark)',
-          '&:hover': { backgroundColor: 'var(--success-color-darker)' },
+          background: 'var(--gradient-primary)',
+          color: 'var(--text-on-accent)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.5)',
+          boxShadow: '0 4px 24px rgba(46, 125, 50, 0.25)',
+          '&:hover': { 
+            background: 'var(--gradient-accent)',
+            boxShadow: '0 6px 28px rgba(46, 125, 50, 0.35)',
+          },
         },
         outlinedPrimary: {
-          borderColor: 'var(--accent-green-dark)',
-          color: 'var(--accent-green-dark)',
-          '&:hover': { backgroundColor: 'var(--primary-alpha-6)' },
+          borderColor: 'var(--accent-primary)',
+          color: 'var(--accent-primary)',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          backdropFilter: 'blur(8px)',
+          '&:hover': { 
+            backgroundColor: 'var(--primary-alpha-12)',
+            borderColor: 'var(--accent-secondary)'
+          },
         },
       },
     },
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 4,
+          borderRadius: 6,
           fontWeight: 500,
           fontSize: '0.75rem',
           height: 28,
+          backgroundColor: 'var(--glass-bg)',
+          border: '1px solid var(--glass-border)',
+          backdropFilter: 'blur(8px)',
         },
         colorPrimary: {
-          backgroundColor: 'var(--border-color-subtle)',
-          color: 'var(--accent-green-dark)',
+          backgroundColor: 'var(--primary-alpha-12)',
+          color: 'var(--accent-secondary)',
+          border: '1px solid var(--primary-alpha-25)',
         },
       },
     },
@@ -118,16 +134,18 @@ export const muiTheme = createTheme({
           minHeight: 40,
           fontSize: '0.8125rem',
           color: 'var(--text-color-muted)',
-          '&.Mui-selected': { color: 'var(--accent-green-dark)' },
+          transition: 'color 0.3s ease',
+          '&.Mui-selected': { color: 'var(--accent-primary)' },
         },
       },
     },
     MuiTabs: {
       styleOverrides: {
         indicator: {
-          height: 2,
-          borderRadius: 1,
-          backgroundColor: 'var(--accent-green-dark)',
+          height: 3,
+          borderRadius: '3px 3px 0 0',
+          backgroundColor: 'var(--accent-primary)',
+          boxShadow: '0 -2px 8px var(--green-glow)',
         },
       },
     },
@@ -136,13 +154,17 @@ export const muiTheme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: 4,
+            borderRadius: 8,
+            backgroundColor: 'var(--input-background)',
+            backdropFilter: 'blur(8px)',
+            transition: 'all 0.3s ease',
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'var(--accent-green-dark)',
+              borderColor: 'var(--accent-primary)',
+              boxShadow: '0 0 0 2px var(--primary-alpha-12)',
             },
           },
           '& .MuiInputLabel-root.Mui-focused': {
-            color: 'var(--accent-green-dark)',
+            color: 'var(--accent-primary)',
           },
         },
       },
@@ -150,9 +172,9 @@ export const muiTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 4,
+          borderRadius: 8,
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'var(--accent-green-dark)',
+            borderColor: 'var(--accent-primary)',
           },
         },
       },
@@ -166,11 +188,12 @@ export const muiTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 4,
-          backgroundColor: 'var(--border-color)',
+          backgroundColor: 'var(--border-color-subtle)',
+          overflow: 'hidden',
         },
         bar: {
           borderRadius: 4,
-          backgroundColor: 'var(--accent-green-dark)',
+          background: 'var(--gradient-primary)',
         },
       },
     },

@@ -3,53 +3,50 @@
 :root {
   --font-size: 16px;
 
-  /* Green Color Palette */
-  --green-dark: #1B5E20;
+  --green-dark: #083316;
   --green-primary: #2E7D32;
   --green-light: #4CAF50;
-  --green-lighter: #81C784;
-  --green-accent: #8BC34A;
-  --green-glow: rgba(139, 195, 74, 0.25);
+  --green-lighter: #A5D6A7;
+  --green-accent: #81C784;
+  --green-glow: rgba(76, 175, 80, 0.35);
 
-  /* Light Theme - Clean, Minimal */
-  --background: #FFFFFF;
-  --foreground: #1A1A1A;
+  --background: #F4F9F5;
+  --foreground: #0A1F10;
 
-  --card: #FFFFFF;
-  --card-foreground: #1A1A1A;
+  --card: rgba(255, 255, 255, 0.65);
+  --card-foreground: #0A1F10;
 
-  --popover: #FFFFFF;
-  --popover-foreground: #1A1A1A;
+  --popover: rgba(255, 255, 255, 0.85);
+  --popover-foreground: #0A1F10;
 
-  --primary: #2E7D32;
+  --primary: #388E3C;
   --primary-foreground: #FFFFFF;
 
-  --secondary: #E8F5E9;
+  --secondary: #E8F0EA;
   --secondary-foreground: #1B5E20;
 
-  --muted: #F5F5F5;
-  --muted-foreground: #6B7280;
+  --muted: #EBF2ED;
+  --muted-foreground: #5C7061;
 
   --accent: #C8E6C9;
   --accent-foreground: #1B5E20;
 
-  --destructive: #DC2626;
+  --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
 
-  --border: #E8F5E9;
-  --border-subtle: #C8E6C9;
+  --border: #D5E0D7;
+  --border-subtle: #E8F0EA;
 
   --input: transparent;
-  --input-background: #F5F5F5;
+  --input-background: rgba(255, 255, 255, 0.5);
 
-  --switch-background: #CBCEd4;
+  --switch-background: #B8CBBF;
 
   --font-weight-medium: 500;
   --font-weight-normal: 400;
 
-  --ring: #2E7D32;
+  --ring: #4CAF50;
 
-  /* Chart Colors */
   --chart-1: #2E7D32;
   --chart-2: #4CAF50;
   --chart-3: #81C784;
@@ -58,45 +55,41 @@
 
   --radius: 0.625rem;
 
-  /* Sidebar */
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #1A1A1A;
-  --sidebar-primary: #2E7D32;
+  --sidebar: rgba(255, 255, 255, 0.7);
+  --sidebar-foreground: #0A1F10;
+  --sidebar-primary: #388E3C;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #E8F5E9;
+  --sidebar-accent: #E8F0EA;
   --sidebar-accent-foreground: #1B5E20;
-  --sidebar-border: #E8F5E9;
-  --sidebar-ring: #2E7D32;
+  --sidebar-border: #D5E0D7;
+  --sidebar-ring: #4CAF50;
 
-  /* Shadows - minimal and soft */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 12px rgba(27, 94, 32, 0.05);
+  --shadow-md: 0 8px 24px rgba(27, 94, 32, 0.08);
+  --shadow-lg: 0 12px 32px rgba(27, 94, 32, 0.12);
 
-  /* Grid/Map elements */
   --grid-line: rgba(46, 125, 50, 0.15);
   --grid-line-hover: rgba(46, 125, 50, 0.3);
 }
 
 .dark {
-  /* Dark Theme - Rich, Professional */
-  --background: #0B0F0C;
+  --background: #051008;
   --foreground: #E8F5E9;
 
-  --card: #111815;
+  --card: rgba(10, 31, 16, 0.55);
   --card-foreground: #E8F5E9;
 
-  --popover: #111815;
+  --popover: rgba(10, 31, 16, 0.85);
   --popover-foreground: #E8F5E9;
 
-  --primary: #2E7D32;
+  --primary: #4CAF50;
   --primary-foreground: #FFFFFF;
 
-  --secondary: #1B3B1E;
+  --secondary: #122B16;
   --secondary-foreground: #E8F5E9;
 
-  --muted: #1A231B;
-  --muted-foreground: #9CA3AF;
+  --muted: #0A1F10;
+  --muted-foreground: #8B9A8F;
 
   --accent: #1B5E20;
   --accent-foreground: #E8F5E9;
@@ -104,41 +97,37 @@
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
 
-  --border: rgba(46, 125, 50, 0.3);
-  --border-subtle: rgba(46, 125, 50, 0.2);
+  --border: rgba(76, 175, 80, 0.25);
+  --border-subtle: rgba(76, 175, 80, 0.15);
 
-  --input: rgba(46, 125, 50, 0.2);
-  --input-background: #111815;
+  --input: rgba(76, 175, 80, 0.15);
+  --input-background: rgba(10, 31, 16, 0.4);
 
   --switch-background: #2E7D32;
 
-  --ring: #4CAF50;
+  --ring: #81C784;
 
-  /* Chart Colors - more vibrant in dark mode */
   --chart-1: #4CAF50;
   --chart-2: #81C784;
-  --chart-3: #8BC34A;
-  --chart-4: #A5D6A7;
-  --chart-5: #C8E6C9;
+  --chart-3: #A5D6A7;
+  --chart-4: #C8E6C9;
+  --chart-5: #E8F5E9;
 
-  /* Sidebar */
-  --sidebar: #111815;
+  --sidebar: rgba(10, 31, 16, 0.65);
   --sidebar-foreground: #E8F5E9;
   --sidebar-primary: #4CAF50;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #1B5E20;
   --sidebar-accent-foreground: #E8F5E9;
-  --sidebar-border: rgba(46, 125, 50, 0.3);
-  --sidebar-ring: #4CAF50;
+  --sidebar-border: rgba(76, 175, 80, 0.25);
+  --sidebar-ring: #81C784;
 
-  /* Shadows - subtle glow effects */
-  --shadow-sm: 0 0 8px var(--primary-alpha-15-alt);
-  --shadow-md: 0 0 12px var(--primary-alpha-25-alt2); /* Assuming 0.2 approx */
-  --shadow-lg: 0 0 20px var(--primary-alpha-25-alt);
+  --shadow-sm: 0 0 12px rgba(76, 175, 80, 0.1);
+  --shadow-md: 0 0 20px rgba(76, 175, 80, 0.15);
+  --shadow-lg: 0 0 32px rgba(76, 175, 80, 0.25);
 
-  /* Grid/Map elements */
-  --grid-line: rgba(46, 125, 50, 0.25);
-  --grid-line-hover: rgba(139, 195, 74, 0.5);
+  --grid-line: rgba(76, 175, 80, 0.2);
+  --grid-line-hover: rgba(129, 199, 132, 0.4);
 }
 
 @theme inline {
@@ -182,7 +171,6 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Green palette tokens */
   --color-green-dark: var(--green-dark);
   --color-green-primary: var(--green-primary);
   --color-green-light: var(--green-light);
@@ -249,7 +237,6 @@
   }
 }
 
-/* Custom utility classes for theme consistency */
 @layer utilities {
   .shadow-theme-sm {
     box-shadow: var(--shadow-sm);
@@ -263,16 +250,14 @@
     box-shadow: var(--shadow-lg);
   }
 
-  /* Glow effect for dark mode icons/highlights */
   .glow-green {
-    filter: drop-shadow(0 0 4px rgba(139, 195, 74, 0.5));
+    filter: drop-shadow(0 0 6px var(--green-glow));
   }
 
   .glow-green-strong {
-    filter: drop-shadow(0 0 8px rgba(139, 195, 74, 0.6));
+    filter: drop-shadow(0 0 12px rgba(129, 199, 132, 0.65));
   }
 
-  /* Grid lines for maps/layouts */
   .grid-line {
     border-color: var(--grid-line);
   }
@@ -281,7 +266,6 @@
     border-color: var(--grid-line-hover);
   }
 
-  /* Transition utilities */
   .theme-transition {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
