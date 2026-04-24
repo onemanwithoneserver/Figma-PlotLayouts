@@ -35,7 +35,7 @@ const GallerySection: React.FC = () => {
   return (
     <div className="w-full flex flex-col bg-transparent">
       <div 
-        className="flex gap-[4px] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] border-b-[1px] border-black/5  p-[2px] mb-[4px]" 
+        className="flex gap-[4px] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] border-b-[1px] border-[#E2E8F0] p-[2px] mb-[4px]" 
         role="tablist"
       >
         {tabs.map((tab) => {
@@ -52,14 +52,14 @@ const GallerySection: React.FC = () => {
               }}
               className={`relative flex items-center justify-center gap-[4px] min-h-[44px] px-[4px] w-full text-[14px] font-bold transition-all duration-300 whitespace-nowrap outline-none rounded active:scale-[0.98] ${
                 isActive 
-                  ? 'text-[#2F6F4E] glass-elevated border-[1px] shadow-[0_1px_4px_rgba(31,65,46,0.08)]' 
-                  : 'text-[#4f5b53] bg-transparent border-[1px] border-transparent'
+                  ? 'text-[#1A6B4A] glass-elevated border-[1px] border-[#E2E8F0] shadow-[0_1px_4px_rgba(26,107,74,0.06)]' 
+                  : 'text-[#4A5568] bg-transparent border-[1px] border-transparent hover:text-[#1A1A2E]'
               }`}
             >
               <Icon sx={{ fontSize: 18 }} />
               <span className="mt-[1px]">{tab.label}</span>
               {isActive && (
-                <span className="absolute bottom-[2px] left-[4px] right-[4px] h-[2px] rounded-[4px] bg-[#2F6F4E] opacity-80" />
+                <span className="absolute bottom-[2px] left-[4px] right-[4px] h-[2px] rounded-[4px] bg-[#1A6B4A] opacity-80" />
               )}
             </button>
           );
@@ -72,33 +72,33 @@ const GallerySection: React.FC = () => {
             <button
               key={item.id}
               onClick={() => setLightboxIdx(idx)}
-              className="glass-elevated group relative rounded-lg overflow-hidden aspect-square transition-all duration-300 active:scale-[0.98] outline-none w-full animate-[fadeIn_0.3s_ease-out_forwards] opacity-0"
+              className="glass-elevated group relative rounded-lg overflow-hidden aspect-square transition-all duration-300 active:scale-[0.98] outline-none w-full animate-[fadeIn_0.3s_ease-out_forwards] opacity-0 shadow-sm"
               style={{ animationDelay: `${idx * 30}ms` }}
               aria-label={`View ${item.label}`}
             >
-              <div className="relative w-full h-full bg-[#F3F4F6] rounded-lg overflow-hidden">
+              <div className="relative w-full h-full bg-[#F5F7FA] rounded-lg overflow-hidden">
                 <img
                   src={item.src}
                   alt={item.alt}
-                  className="w-full h-full  object-cover transition-transform duration-500 ease-out group-active:scale-[1.02]"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-active:scale-[1.02]"
                   loading="lazy"
                 />
                 
                 {item.type === 'video' && (
-                  <div className="absolute inset-0 flex items-center justify-center z-10 bg-white/8 backdrop-blur-[2px]">
-                    <div className="w-[44px] h-[44px] rounded bg-white/88 backdrop-blur-[8px] border-[1px] border-white/72 flex items-center justify-center shadow-[0_1px_6px_rgba(31,65,46,0.12)]">
-                      <PlayCircleOutlineIcon sx={{ fontSize: 24, color: '#2F6F4E' }} />
+                  <div className="absolute inset-0 flex items-center justify-center z-10 bg-white/10 backdrop-blur-[2px]">
+                    <div className="w-[44px] h-[44px] rounded bg-white/85 backdrop-blur-md border-[1px] border-white/70 flex items-center justify-center shadow-[0_2px_8px_rgba(26,107,74,0.15)]">
+                      <PlayCircleOutlineIcon sx={{ fontSize: 24, color: '#1A6B4A' }} />
                     </div>
                   </div>
                 )}
 
-                <div className="absolute w-fit bottom-[0px] right-[0px] z-10 flex items-center gap-[4px] bg-white/82 backdrop-blur-[8px] border border-white/68 px-[4px] py-[4px] rounded-none rounded-tl rounded-br-none shadow-[0_1px_4px_rgba(31,65,46,0.08)]">
+                <div className="absolute w-fit bottom-[0px] right-[0px] z-10 flex items-center gap-[4px] bg-white/85 backdrop-blur-md border border-white/70 px-[4px] py-[4px] rounded-none rounded-tl rounded-br-none shadow-[0_1px_4px_rgba(26,107,74,0.08)]">
                   {item.type === 'image' ? (
-                    <ImageOutlinedIcon sx={{ fontSize: 14, color: '#2F6F4E' }} />
+                    <ImageOutlinedIcon sx={{ fontSize: 14, color: '#1A6B4A' }} />
                   ) : (
-                    <VideocamOutlinedIcon sx={{ fontSize: 14, color: '#2F6F4E' }} />
+                    <VideocamOutlinedIcon sx={{ fontSize: 14, color: '#1A6B4A' }} />
                   )}
-                  <span className="text-[12px] font-bold text-[#142218] truncate mt-[1px]">
+                  <span className="text-[12px] font-bold text-[#1A1A2E] truncate mt-[1px]">
                     {item.label}
                   </span>
                 </div>
@@ -107,17 +107,17 @@ const GallerySection: React.FC = () => {
           ))}
 
           {displayedItems.length === 0 && (
-            <div className="glass-elevated col-span-full min-h-[160px] flex flex-col items-center justify-center gap-[8px] text-[#4f5b53] text-[14px] font-semibold page-enter">
-              <div className="w-[56px] h-[56px] rounded-[8px] bg-[linear-gradient(145deg,rgba(34,197,94,0.12),rgba(134,239,172,0.16))] flex items-center justify-center animate-[fadeInUp_0.3s_ease-in-out_forwards]">
-                <svg viewBox="0 0 24 24" className="w-[28px] h-[28px] text-[#2F6F4E]" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <div className="glass-elevated col-span-full min-h-[160px] flex flex-col items-center justify-center gap-[8px] text-[#4A5568] text-[14px] font-semibold page-enter rounded-lg border border-[#E2E8F0]">
+              <div className="w-[56px] h-[56px] rounded-[8px] bg-[#D4F5E7] flex items-center justify-center animate-[fadeInUp_0.3s_ease-in-out_forwards] shadow-sm">
+                <svg viewBox="0 0 24 24" className="w-[28px] h-[28px] text-[#1A6B4A]" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <rect x="3" y="5" width="18" height="14" rx="2" />
                   <circle cx="8.5" cy="10" r="1.6" />
                   <path d="M21 15l-4.4-4.4a1 1 0 00-1.4 0L10 16l-1.7-1.7a1 1 0 00-1.4 0L3 18" />
                 </svg>
               </div>
               <div className="text-center">
-                <p className="text-[14px] font-semibold text-[#142218]">No media available</p>
-                <p className="text-[12px] font-medium text-[#5a665e]">Try another filter to explore photos and videos.</p>
+                <p className="text-[14px] font-semibold text-[#1A1A2E]">No media available</p>
+                <p className="text-[12px] font-medium text-[#4A5568]">Try another filter to explore photos and videos.</p>
               </div>
             </div>
           )}
@@ -143,14 +143,14 @@ const GallerySection: React.FC = () => {
         }}
       >
         {lightboxIdx !== null && (
-          <div className="relative flex flex-col items-center justify-center w-full bg-white/82 h-full min-h-[60vh]">
+          <div className="relative flex flex-col items-center justify-center w-full bg-white/85 h-full min-h-[60vh]">
             
             <div className="absolute top-[4px] right-[4px] z-30">
               <button
                 onClick={close}
                 aria-label="Close gallery lightbox"
                 title="Close"
-                className="w-[44px] h-[44px] flex items-center justify-center bg-white/88 backdrop-blur-[8px] border-[1px] border-white/72 rounded-[4px] shadow-[0_1px_4px_rgba(31,65,46,0.12)] text-[#142218] transition-all duration-200 active:scale-[0.95] outline-none"
+                className="w-[44px] h-[44px] flex items-center justify-center bg-white/90 backdrop-blur-md border-[1px] border-[#E2E8F0] rounded-[4px] shadow-[0_2px_8px_rgba(26,107,74,0.12)] text-[#1A1A2E] transition-all duration-200 active:scale-[0.95] outline-none hover:bg-white"
               >
                 <CloseIcon sx={{ fontSize: 20 }} />
               </button>
@@ -170,7 +170,7 @@ const GallerySection: React.FC = () => {
                   onClick={prev}
                   aria-label="Previous media"
                   title="Previous"
-                  className="pointer-events-auto w-[44px] h-[44px] flex items-center justify-center bg-white/88 backdrop-blur-[8px] border-[1px] border-white/72 rounded-[4px] shadow-[0_1px_4px_rgba(31,65,46,0.12)] text-[#142218] transition-all duration-200 active:scale-[0.95] outline-none"
+                  className="pointer-events-auto w-[44px] h-[44px] flex items-center justify-center bg-white/90 backdrop-blur-md border-[1px] border-[#E2E8F0] rounded-[4px] shadow-[0_2px_8px_rgba(26,107,74,0.12)] text-[#1A1A2E] transition-all duration-200 active:scale-[0.95] outline-none hover:bg-white"
                 >
                   <NavigateBeforeIcon sx={{ fontSize: 24 }} />
                 </button>
@@ -178,7 +178,7 @@ const GallerySection: React.FC = () => {
                   onClick={next}
                   aria-label="Next media"
                   title="Next"
-                  className="pointer-events-auto w-[44px] h-[44px] flex items-center justify-center bg-white/88 backdrop-blur-[8px] border-[1px] border-white/72 rounded-[4px] shadow-[0_1px_4px_rgba(31,65,46,0.12)] text-[#142218] transition-all duration-200 active:scale-[0.95] outline-none"
+                  className="pointer-events-auto w-[44px] h-[44px] flex items-center justify-center bg-white/90 backdrop-blur-md border-[1px] border-[#E2E8F0] rounded-[4px] shadow-[0_2px_8px_rgba(26,107,74,0.12)] text-[#1A1A2E] transition-all duration-200 active:scale-[0.95] outline-none hover:bg-white"
                 >
                   <NavigateNextIcon sx={{ fontSize: 24 }} />
                 </button>
@@ -186,10 +186,10 @@ const GallerySection: React.FC = () => {
             )}
 
             <div className="absolute bottom-[4px] left-[4px] right-[4px] flex justify-between items-center z-20">
-              <span className="text-[#142218] text-[12px] font-bold bg-white/88 backdrop-blur-[8px] border-[1px] border-white/72 px-[4px] py-[2px] min-h-[32px] flex items-center rounded-[4px] shadow-[0_1px_4px_rgba(31,65,46,0.1)] truncate max-w-[70%]">
+              <span className="text-[#1A1A2E] text-[12px] font-bold bg-white/90 backdrop-blur-md border-[1px] border-[#E2E8F0] px-[4px] py-[2px] min-h-[32px] flex items-center rounded-[4px] shadow-[0_2px_8px_rgba(26,107,74,0.1)] truncate max-w-[70%]">
                 {displayedItems[lightboxIdx].label}
               </span>
-              <span className="text-[#142218] text-[12px] font-bold bg-white/88 backdrop-blur-[8px] border-[1px] border-white/72 px-[4px] py-[2px] min-h-[32px] flex items-center rounded-[4px] shadow-[0_1px_4px_rgba(31,65,46,0.1)] shrink-0">
+              <span className="text-[#1A1A2E] text-[12px] font-bold bg-white/90 backdrop-blur-md border-[1px] border-[#E2E8F0] px-[4px] py-[2px] min-h-[32px] flex items-center rounded-[4px] shadow-[0_2px_8px_rgba(26,107,74,0.1)] shrink-0">
                 {lightboxIdx + 1} / {displayedItems.length}
               </span>
             </div>

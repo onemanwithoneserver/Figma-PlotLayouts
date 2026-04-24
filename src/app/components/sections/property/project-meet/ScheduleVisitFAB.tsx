@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const CALENDAR_DAYS = 14;
 const DEFAULT_SESSION = 'morning';
 const DEFAULT_SLOT = '09:00 AM';
@@ -20,6 +21,7 @@ const DAYS = (() => {
       key: d.toISOString().slice(0, 10),
       date: String(d.getDate()),
       day: DAY_NAMES[d.getDay()],
+      month: MONTH_NAMES[d.getMonth()],
       isToday: i === 0,
     };
   });
@@ -124,8 +126,7 @@ const ScheduleVisitFAB: React.FC = () => {
             transition={{ delay: 2, type: 'spring', stiffness: 220, damping: 18 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleOpen}
-              className="absolute left-6 bottom-[80px] pointer-events-auto inline-flex items-center h-10 text-white rounded-[8px] shadow-[0_4px_12px_rgba(31,65,46,0.26)] overflow-hidden border border-[rgba(255,255,255,0.22)] backdrop-blur-[10px]"
-            style={{ background: 'linear-gradient(135deg, #2F6F4E, #1E4D35)' }}
+            className="absolute left-6 bottom-[80px] pointer-events-auto inline-flex items-center h-10 text-white rounded-[8px] shadow-[0_4px_12px_rgba(26,107,74,0.3)] overflow-hidden border border-white/20 backdrop-blur-[10px] bg-gradient-to-br from-[#1A6B4A] to-[#124b33]"
           >
             <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
               <CalendarIcon className="w-4 h-4 text-white" />
@@ -155,7 +156,7 @@ const ScheduleVisitFAB: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-[60] bg-[rgba(26,31,36,0.25)] backdrop-blur-[2px]"
+              className="fixed inset-0 z-[60] bg-[#1A1A2E]/40 backdrop-blur-sm"
             />
 
             <motion.div
@@ -163,34 +164,34 @@ const ScheduleVisitFAB: React.FC = () => {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed bottom-0 left-0 right-0 z-[70] flex justify-center p-2"
+              className="fixed bottom-0 left-0 right-0 z-[70] flex justify-center"
             >
-                <div className="glass-float w-full max-w-[390px] flex flex-col">
+              <div className="w-full max-w-[390px] flex flex-col bg-white/95 backdrop-blur-xl border-t border-[#E2E8F0] rounded-t-[24px] shadow-[0_-8px_30px_rgba(26,107,74,0.1)] pb-safe">
                 
-                <div className="flex justify-center pt-2 pb-1.5 flex-shrink-0">
-                    <div className="w-8 h-1 rounded-[4px] bg-[rgba(0,0,0,0.08)]" />
+                <div className="flex justify-center pt-3 pb-2 flex-shrink-0">
+                  <div className="w-10 h-1.5 rounded-full bg-[#E2E8F0]" />
                 </div>
 
-                <div className="overflow-y-auto px-4 pb-4 space-y-3.5">
+                <div className="overflow-y-auto px-5 pb-5 space-y-4 mt-1">
                   {confirmed ? (
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.98 }} 
                       animate={{ opacity: 1, scale: 1 }} 
                       className="flex flex-col items-center gap-3 py-6 text-center"
                     >
-                      <div className="w-12 h-12 rounded-[8px] bg-[rgba(47,111,78,0.1)] flex items-center justify-center">
-                        <CheckIcon className="w-6 h-6 text-[#2F6F4E]" />
+                      <div className="w-12 h-12 rounded-[8px] bg-[#D4F5E7] flex items-center justify-center shadow-sm">
+                        <CheckIcon className="w-6 h-6 text-[#1A6B4A]" />
                       </div>
                       <div>
-                          <p className="text-[17px] font-bold text-[#142218] mb-1">Visit Scheduled!</p>
-                        <div className="inline-block px-3 py-1 bg-[rgba(47,111,78,0.08)] rounded-[6px] text-[12px] font-bold text-[#2F6F4E] mb-2">
-                          {activeDayLabel}, Apr {activeDay.date} · {selectedSlot}
+                        <p className="text-[18px] font-bold text-[#1A1A2E] mb-2 tracking-tight">Visit Scheduled!</p>
+                        <div className="inline-block px-3 py-1 bg-[#D4F5E7]/50 border border-[#1A6B4A]/10 rounded-[6px] text-[12px] font-bold text-[#1A6B4A] mb-3">
+                          {activeDayLabel}, {activeDay.month} {activeDay.date} · {selectedSlot}
                         </div>
-                          <p className="text-[13px] text-[#4f5b53] leading-snug max-w-[240px] mx-auto">
+                        <p className="text-[13px] text-[#4A5568] leading-relaxed max-w-[240px] mx-auto">
                           A consultant will contact you shortly with the detailed itinerary.
                         </p>
                       </div>
-                      <button onClick={() => setConfirmed(false)} className="text-[#2F6F4E] text-[12px] font-bold hover:underline">
+                      <button onClick={() => setConfirmed(false)} className="text-[#1A6B4A] mt-2 text-[12px] font-bold hover:underline">
                         Modify Booking
                       </button>
                     </motion.div>
@@ -198,57 +199,57 @@ const ScheduleVisitFAB: React.FC = () => {
                     <>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <TodayIcon className="w-3.5 h-3.5 text-[#2F6F4E]" />
-                          <p className="text-[13px] font-bold text-[#142218]">Select Date</p>
+                          <TodayIcon className="w-4 h-4 text-[#1A6B4A]" />
+                          <p className="text-[14px] font-bold text-[#1A1A2E]">Select Date</p>
                         </div>
-                        <button aria-label="Close schedule modal" title="Close" onClick={() => setOpen(false)} className="w-7 h-7 rounded-[4px] flex items-center justify-center bg-[rgba(0,0,0,0.04)] text-[#4f5b53] hover:bg-[rgba(0,0,0,0.08)]">
+                        <button aria-label="Close schedule modal" title="Close" onClick={() => setOpen(false)} className="w-7 h-7 rounded-[6px] flex items-center justify-center bg-[#F5F7FA] text-[#4A5568] hover:bg-[#E2E8F0] transition-colors">
                           <CloseIcon className="w-3.5 h-3.5" />
                         </button>
                       </div>
 
                       <div className="flex items-center gap-1.5">
-                        <button aria-label="Scroll dates left" title="Previous dates" onClick={() => scrollDates('left')} className="w-9 h-9 rounded-[6px] border border-[rgba(255,255,255,0.6)] bg-white/40 flex-shrink-0 flex items-center justify-center">
-                          <ChevronLeftIcon className="w-3.5 h-3.5 text-[#1A1F24]" />
+                        <button aria-label="Scroll dates left" title="Previous dates" onClick={() => scrollDates('left')} className="w-9 h-9 rounded-[8px] border border-[#E2E8F0] bg-white flex-shrink-0 flex items-center justify-center shadow-sm hover:bg-[#F5F7FA] transition-colors">
+                          <ChevronLeftIcon className="w-4 h-4 text-[#4A5568]" />
                         </button>
-                        <div ref={datesScrollRef} className="flex gap-1.5 overflow-x-auto flex-1 scrollbar-hide py-0.5">
+                        <div ref={datesScrollRef} className="flex gap-2 overflow-x-auto flex-1 scrollbar-hide py-1">
                           {DAYS.map(d => (
                             <button
                               key={d.key}
                               onClick={() => setSelectedDay(d.key)}
-                              className={`w-11 h-11 flex flex-col items-center justify-center rounded-[6px] border transition-all flex-shrink-0 ${
+                              className={`w-[46px] h-[48px] flex flex-col items-center justify-center rounded-[8px] border transition-all flex-shrink-0 ${
                                 selectedDay === d.key 
-                                  ? 'border-[#2F6F4E] bg-[rgba(47,111,78,0.1)] shadow-sm' 
-                                  : 'border-[rgba(0,0,0,0.06)] bg-white/30 hover:border-[rgba(47,111,78,0.2)]'
+                                  ? 'border-[#1A6B4A] bg-[#D4F5E7]/50 shadow-sm' 
+                                  : 'border-[#E2E8F0] bg-white hover:border-[#1A6B4A]/30'
                               }`}
                             >
-                              <span className={`text-[13px] font-bold leading-none ${selectedDay === d.key ? 'text-[#2F6F4E]' : 'text-[#142218]'}`}>{d.date}</span>
-                              <span className={`text-[9px] font-bold  ${d.isToday ? 'text-[#2F6F4E]' : 'text-[#6B7280]'}`}>
+                              <span className={`text-[14px] font-bold leading-none mb-0.5 ${selectedDay === d.key ? 'text-[#1A6B4A]' : 'text-[#1A1A2E]'}`}>{d.date}</span>
+                              <span className={`text-[10px] font-semibold ${selectedDay === d.key ? 'text-[#1A6B4A]' : 'text-[#4A5568]'}`}>
                                 {d.isToday ? 'Today' : d.day.slice(0, 3)}
                               </span>
                             </button>
                           ))}
                         </div>
-                        <button aria-label="Scroll dates right" title="Next dates" onClick={() => scrollDates('right')} className="w-9 h-9 rounded-[6px] border border-[rgba(255,255,255,0.6)] bg-white/40 flex-shrink-0 flex items-center justify-center">
-                          <ChevronRightIcon className="w-3.5 h-3.5 text-[#1A1F24]" />
+                        <button aria-label="Scroll dates right" title="Next dates" onClick={() => scrollDates('right')} className="w-9 h-9 rounded-[8px] border border-[#E2E8F0] bg-white flex-shrink-0 flex items-center justify-center shadow-sm hover:bg-[#F5F7FA] transition-colors">
+                          <ChevronRightIcon className="w-4 h-4 text-[#4A5568]" />
                         </button>
                       </div>
 
-                      <div className="h-[1px] bg-[rgba(0,0,0,0.05)] mx-[-4px]" />
+                      <div className="h-[1px] bg-[#E2E8F0] mx-[-4px] my-2" />
 
                       <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <ClockIcon className="w-3.5 h-3.5 text-[#2F6F4E]" />
-                          <p className="text-[13px] font-bold text-[#142218]">Session</p>
+                        <div className="flex items-center gap-2 mb-2.5">
+                          <ClockIcon className="w-4 h-4 text-[#1A6B4A]" />
+                          <p className="text-[14px] font-bold text-[#1A1A2E]">Session</p>
                         </div>
-                        <div className="flex gap-1.5">
+                        <div className="flex gap-2">
                           {SESSIONS.map(s => (
                             <button
                               key={s.id}
                               onClick={() => handleSessionChange(s.id)}
-                              className={`flex-1 py-1.5 rounded-[6px] border text-[11px] font-bold transition-all ${
+                              className={`flex-1 py-1.5 rounded-[8px] border text-[12px] font-bold transition-all shadow-sm ${
                                 selectedSession === s.id 
-                                  ? 'border-[#2F6F4E] bg-[rgba(47,111,78,0.1)] text-[#2F6F4E]' 
-                                  : 'border-[rgba(0,0,0,0.06)] bg-white/30 text-[#6B7280]'
+                                  ? 'border-[#1A6B4A] bg-[#D4F5E7]/50 text-[#1A6B4A]' 
+                                  : 'border-[#E2E8F0] bg-white text-[#4A5568] hover:border-[#1A6B4A]/30'
                               }`}
                             >
                               {s.label}
@@ -257,15 +258,15 @@ const ScheduleVisitFAB: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-4 gap-1.5">
+                      <div className="grid grid-cols-4 gap-2 pt-1">
                         {currentSlots.map(slot => (
                           <button
                             key={slot}
                             onClick={() => setSelectedSlot(slot)}
-                            className={`py-2 rounded-[6px] border text-center text-[10px] font-bold transition-all ${
+                            className={`py-2 rounded-[8px] border text-center text-[11px] font-bold transition-all shadow-sm ${
                               selectedSlot === slot 
-                                ? 'border-[#2F6F4E] bg-[#2F6F4E] text-white shadow-md' 
-                                : 'border-[rgba(0,0,0,0.06)] bg-white/40 text-[#142218]'
+                                ? 'border-[#1A6B4A] bg-[#1A6B4A] text-white' 
+                                : 'border-[#E2E8F0] bg-white text-[#1A1A2E] hover:border-[#1A6B4A]/40'
                             }`}
                           >
                             {slot}
@@ -273,17 +274,16 @@ const ScheduleVisitFAB: React.FC = () => {
                         ))}
                       </div>
 
-                      <div className="flex items-center gap-2.5 px-3 py-2 bg-white/50 border border-white rounded-[6px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
-                        <CalendarIcon className="w-3.5 h-3.5 text-[#2F6F4E]" />
-                        <p className="text-[12px] font-bold text-[#142218]">
-                          {activeDayLabel}, Apr {activeDay.date} @ {selectedSlot}
+                      <div className="flex items-center justify-center gap-2 mt-4 px-3 py-2.5 bg-[#F5F7FA] border border-[#E2E8F0] rounded-[8px]">
+                        <CalendarIcon className="w-4 h-4 text-[#1A6B4A]" />
+                        <p className="text-[13px] font-bold text-[#1A1A2E]">
+                          {activeDayLabel}, {activeDay.month} {activeDay.date} @ {selectedSlot}
                         </p>
                       </div>
 
                       <button
                         onClick={() => setConfirmed(true)}
-                        className="w-full py-2.5 rounded-[7px] text-white text-[13px] font-bold tracking-wide active:scale-[0.98] transition-all shadow-[0_4px_12px_rgba(47,111,78,0.2)]"
-                        style={{ background: 'linear-gradient(135deg, #2F6F4E, #1E4D35)' }}
+                        className="w-full mt-2 py-3 rounded-[8px] text-white text-[14px] font-bold tracking-wide active:scale-[0.98] transition-all shadow-[0_4px_12px_rgba(26,107,74,0.25)] bg-gradient-to-br from-[#1A6B4A] to-[#124b33]"
                       >
                         Confirm Schedule
                       </button>

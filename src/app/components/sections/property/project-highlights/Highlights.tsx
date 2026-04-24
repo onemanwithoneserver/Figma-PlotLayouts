@@ -1,49 +1,68 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { highlightsData } from './data';
 
 const Highlights: React.FC = () => {
+  // Framer Motion variants for clean, staggered animations
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.05 } // 50ms delay between each item
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, filter: 'blur(6px)', y: 15 },
+    show: { 
+      opacity: 1, 
+      filter: 'blur(0px)', 
+      y: 0,
+      transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+    }
+  };
+
   return (
-    <ul className="px-3 pt-3 pb-2 flex flex-col gap-2 m-0 list-none w-full" role="list">
-      {highlightsData.map((item, index) => {
-        const delay = 40 + index * 40;
-        
-        return (
-          <li
-            key={item.id}
-            className="group relative flex items-stretch gap-2 p-3 rounded-[8px] bg-[rgba(255,255,255,0.62)] backdrop-blur-[8px] border border-[rgba(255,255,255,0.68)] shadow-[0_1px_6px_rgba(31,65,46,0.08)] hover:-translate-y-[1px] hover:bg-[rgba(255,255,255,0.78)] hover:shadow-[0_2px_8px_rgba(31,65,46,0.1)] transition-all duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer overflow-hidden animate-fade-blur-in opacity-0"
-            style={{ animationDelay: `${delay}ms` }}
-            role="listitem"
-          >
-            <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#2F6F4E]/35 rounded-l-[8px]" />
+    <motion.ul 
+      className="px-3 pt-3 pb-2 flex flex-col gap-3 m-0 list-none w-full" 
+      role="list"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
+      {highlightsData.map((item) => (
+        <motion.li
+          key={item.id}
+          variants={itemVariants}
+          tabIndex={0} // Makes the item focusable for keyboard navigation
+          className="group relative flex items-stretch gap-3 p-3 rounded-xl bg-white/60 backdrop-blur-md border border-white/70 shadow-[0_2px_8px_rgba(26,107,74,0.06)] hover:-translate-y-1 hover:bg-white/80 hover:shadow-[0_6px_16px_rgba(26,107,74,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A6B4A]/50 transition-all duration-300 ease-out cursor-pointer overflow-hidden"
+          role="listitem"
+        >
+          {/* Accent Left Border */}
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#1A6B4A]/30 rounded-l-xl transition-colors duration-300 group-hover:bg-[#1A6B4A]/60" />
 
-            <div className="self-start w-9 h-9 flex-shrink-0 flex items-center justify-center rounded-[8px] bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.14)] text-[#2F6F4E] mt-0.5 relative z-10 transition-all duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:bg-[rgba(47,111,78,0.12)] group-hover:scale-[1.02]">
-              <span className="text-[13px] font-bold tracking-wider">
-                {item.id.toString().padStart(2, '0')}
-              </span>
-            </div>
+          {/* Number Badge */}
+          <div className="self-start w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-[#D4F5E7]/50 border border-[#1A6B4A]/10 text-[#1A6B4A] mt-0.5 relative z-10 transition-transform duration-300 ease-out group-hover:bg-[#D4F5E7] group-hover:scale-105">
+            <span className="text-[14px] font-bold tracking-wider">
+              {item.id.toString().padStart(2, '0')}
+            </span>
+          </div>
 
-            <div className="w-px bg-[rgba(20,34,24,0.08)] self-stretch my-1 relative z-10" />
+          {/* Vertical Divider */}
+          <div className="w-px bg-[#E2E8F0] self-stretch my-1 relative z-10 transition-colors duration-300 group-hover:bg-[#1A6B4A]/20" />
 
-            <div className="flex-1 flex flex-col gap-1 py-0.5 relative z-10">
-              <h4 className="text-[14px] font-bold text-[#142218] leading-tight tracking-tight transition-colors duration-[240ms]">
-                {item.title}
-              </h4>
-              <p className="text-[12px] text-[#5a665e] leading-[1.45] font-medium transition-colors duration-[240ms] group-hover:text-[#46524a]">
-                {item.description}
-              </p>
-            </div>
-          </li>
-        );
-      })}
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
-    </ul>
+          {/* Text Content */}
+          <div className="flex-1 flex flex-col gap-1 py-0.5 relative z-10">
+            <h4 className="text-[15px] font-bold text-[#1A1A2E] leading-tight tracking-tight transition-colors duration-300">
+              {item.title}
+            </h4>
+            <p className="text-[13px] text-[#4A5568] leading-relaxed font-medium transition-colors duration-300 group-hover:text-[#1A1A2E]">
+              {item.description}
+            </p>
+          </div>
+        </motion.li>
+      ))}
+    </motion.ul>
   );
 };
 

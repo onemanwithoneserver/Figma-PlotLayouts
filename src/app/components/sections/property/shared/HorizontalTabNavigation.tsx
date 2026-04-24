@@ -81,16 +81,16 @@ const HorizontalTabNavigation: React.FC = () => {
       aria-label="Page sections"
       className={`sticky top-0 z-40 transition-all duration-300 ease-out ${
         visible 
-        ? 'opacity-100 translate-y-0 bg-[rgba(236,236,232,0.86)] backdrop-blur-[12px] border-b border-[rgba(255,255,255,0.62)] shadow-[0_2px_10px_rgba(31,65,46,0.08)]' 
+        ? 'opacity-100 translate-y-0 bg-white/85 backdrop-blur-[12px] border-b border-[#E2E8F0] shadow-[0_2px_10px_rgba(26,107,74,0.06)]' 
         : 'opacity-0 -translate-y-[2px] pointer-events-none h-0 overflow-hidden'
       }`}
     >
       <div className="flex items-center max-w-[400px] mx-auto relative p-[2px]">
-        <div className={`absolute left-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-r from-[rgba(236,236,232,0.94)] to-transparent transition-opacity duration-200 ${showLeft ? 'opacity-100' : 'opacity-0'}`} />
+        <div className={`absolute left-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-r from-[rgba(255,255,255,0.95)] to-transparent transition-opacity duration-200 ${showLeft ? 'opacity-100' : 'opacity-0'}`} />
         
         <button
           onClick={() => manualScroll('left')}
-          className={`relative z-20 flex-shrink-0 flex items-center justify-center w-8 min-h-[48px] outline-none transition-all duration-200 text-[#718096] hover:text-[#1A6B4A] disabled:opacity-0 m-[2px] p-[2px]`}
+          className={`relative z-20 flex-shrink-0 flex items-center justify-center w-8 min-h-[48px] outline-none transition-all duration-200 text-[#4A5568] hover:text-[#1A6B4A] disabled:opacity-0 m-[2px] p-[2px]`}
           disabled={!showLeft}
           aria-label="Scroll tabs left"
         >
@@ -113,7 +113,7 @@ const HorizontalTabNavigation: React.FC = () => {
                 className="relative flex-shrink-0 flex flex-col items-center justify-center min-h-[48px] min-w-[80px] outline-none group transition-all duration-300 p-[2px] m-[2px]"
               >
                 <span className={`text-[14px] font-semibold transition-colors duration-300 whitespace-nowrap tracking-tight p-[2px] relative z-10 ${
-                  isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                  isActive ? 'text-[#1A6B4A]' : 'text-[#4A5568] group-hover:text-[#1A1A2E]'
                 }`}>
                   {tab.label}
                 </span>
@@ -121,11 +121,11 @@ const HorizontalTabNavigation: React.FC = () => {
                 {isActive && (
                   <motion.div 
                     layoutId="tab-indicator"
-                    className="absolute left-2 right-2 -bottom-0.5 h-0.5 rounded-full bg-primary"
+                    className="absolute left-2 right-2 -bottom-0.5 h-0.5 rounded-full bg-[#1A6B4A]"
                   />
                 )}
                 
-                <div className="absolute inset-[2px] bg-[#2F6F4E]/7 rounded-[4px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10" />
+                <div className="absolute inset-[2px] bg-[#1A6B4A]/10 rounded-[4px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10" />
               </button>
             );
           })}
@@ -133,14 +133,14 @@ const HorizontalTabNavigation: React.FC = () => {
 
         <button
           onClick={() => manualScroll('right')}
-          className={`relative z-20 flex-shrink-0 flex items-center justify-center w-8 min-h-[48px] outline-none transition-all duration-200 text-[#718096] hover:text-[#1A6B4A] disabled:opacity-0 m-[2px] p-[2px]`}
+          className={`relative z-20 flex-shrink-0 flex items-center justify-center w-8 min-h-[48px] outline-none transition-all duration-200 text-[#4A5568] hover:text-[#1A6B4A] disabled:opacity-0 m-[2px] p-[2px]`}
           disabled={!showRight}
           aria-label="Scroll tabs right"
         >
           <ChevronRightIcon sx={{ fontSize: 20 }} />
         </button>
         
-        <div className={`absolute right-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-l from-[rgba(236,236,232,0.94)] to-transparent transition-opacity duration-200 ${showRight ? 'opacity-100' : 'opacity-0'}`} />
+        <div className={`absolute right-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-l from-[rgba(255,255,255,0.95)] to-transparent transition-opacity duration-200 ${showRight ? 'opacity-100' : 'opacity-0'}`} />
       </div>
     </nav>
   );

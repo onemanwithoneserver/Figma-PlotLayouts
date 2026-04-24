@@ -4,22 +4,22 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     background: {
-      default: '#F5F7FA',
-      paper: 'rgba(255,255,255,0.72)',
+      default: '#F5F7FA', // Page bg
+      paper: 'rgba(255, 255, 255, 0.72)', // Glass surface
     },
     text: {
-      primary: '#1A1A2E',
-      secondary: '#4A5568',
-      disabled: '#718096',
+      primary: '#1A1A2E', // Text primary
+      secondary: '#4A5568', // Text secondary (Passes 7.3:1)
+      disabled: '#94A3B8', 
     },
     primary: {
-      main: '#1A6B4A',
+      main: '#1A6B4A', // Primary brand green
       dark: '#145A3B',
-      light: '#E8F8F1',
+      light: '#D4F5E7', // Primary tint
       contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#F5A623',
+      main: '#F5A623', // Accent/CTA
       dark: '#E09316',
       contrastText: '#1A1A2E',
     },
@@ -29,7 +29,7 @@ export const theme = createTheme({
     error: {
       main: '#C53030',
     },
-    divider: '#E2E8F0',
+    divider: '#E2E8F0', // Border/divider
   },
   shape: {
     borderRadius: 8,
@@ -43,6 +43,7 @@ export const theme = createTheme({
     body1: {
       fontSize: '0.95rem',
       color: '#4A5568',
+      lineHeight: 1.6,
     },
     button: {
       textTransform: 'none',
@@ -53,10 +54,10 @@ export const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          background: 'rgba(255,255,255,0.72)',
+          background: 'rgba(255, 255, 255, 0.72)',
           backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255,255,255,0.5)',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+          border: '1px solid #E2E8F0', // Using explicit divider color
+          boxShadow: '0 4px 24px rgba(26, 107, 74, 0.06)', // Subtle brand-tinted shadow
           borderRadius: '8px',
         },
       },
@@ -65,25 +66,25 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '8px',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '4px',
+          borderRadius: '6px',
           minHeight: '44px',
-          fontWeight: 600,
-          boxShadow: 'none',
-          '&:hover': {
-            boxShadow: 'none',
+          padding: '8px 20px',
+          transition: 'all 0.2s ease-in-out',
+          '&:active': {
+            transform: 'scale(0.98)',
           },
         },
         containedPrimary: {
-          backgroundColor: '#1A6B4A',
+          boxShadow: '0 4px 12px rgba(26, 107, 74, 0.2)',
           '&:hover': {
-            backgroundColor: '#145A3B',
+            boxShadow: '0 6px 16px rgba(26, 107, 74, 0.3)',
           },
         },
       },
@@ -92,9 +93,10 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           minHeight: '44px',
-          color: '#718096',
+          color: '#4A5568', // Using Secondary Text for unselected
+          fontSize: '14px',
           '&.Mui-selected': {
-            color: '#1A6B4A',
+            color: '#1A6B4A', // Using Primary Green for selected
             fontWeight: 700,
           },
         },
@@ -104,14 +106,15 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: '4px',
+            backgroundColor: 'rgba(255, 255, 255, 0.4)',
             '& fieldset': {
               borderColor: '#E2E8F0',
             },
             '&:hover fieldset': {
-              borderColor: '#C9D4E2',
+              borderColor: '#CBD5E1',
             },
             '&.Mui-focused fieldset': {
+              borderWidth: '1.5px',
               borderColor: '#1A6B4A',
             },
           },
@@ -122,18 +125,12 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '6px',
+          fontWeight: 600,
+          backgroundColor: '#F1F5F9',
         },
-      },
-    },
-    MuiLinearProgress: {
-      styleOverrides: {
-        root: {
-          borderRadius: '4px',
-          backgroundColor: '#E8F8F1',
-        },
-        bar: {
-          borderRadius: '4px',
-          backgroundColor: '#1A6B4A',
+        colorPrimary: {
+          backgroundColor: '#D4F5E7',
+          color: '#1A6B4A',
         },
       },
     },
