@@ -4,7 +4,7 @@ import SectionTabNav from '../shared/SectionTabNav';
 
 function PlaceIcon({ icon }: { icon: string }) {
   return (
-    <div className="flex items-center justify-center w-9 h-9 shrink-0 rounded-[8px] bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.15)] transition-all duration-[280ms] group-hover:bg-[rgba(47,111,78,0.15)] group-hover:scale-110 relative z-10 text-[#2F6F4E]">
+    <div className="flex items-center justify-center w-9 h-9 shrink-0 rounded-[4px] bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.15)] transition-all duration-[280ms] group-hover:bg-[rgba(47,111,78,0.15)] group-hover:scale-110 relative z-10 text-[#2F6F4E]">
       {icon === 'school' ? <Icons.School /> :
         icon === 'hospital' ? <Icons.Hospital /> :
           icon === 'tree' ? <Icons.Tree /> :
@@ -19,7 +19,7 @@ function PlaceRow({ item, index }: { item: PlaceItem; index: number }) {
 
   return (
     <div 
-      className="group relative flex items-center gap-3 px-3 py-2.5 rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] cursor-pointer transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[2px] hover:scale-[1.01] hover:bg-[rgba(255,255,255,0.85)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden animate-fade-blur-in opacity-0"
+      className="group relative flex items-center gap-3 px-3 py-2.5 rounded-[4px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] cursor-pointer transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[2px] hover:scale-[1.01] hover:bg-[rgba(255,255,255,0.85)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden animate-fade-blur-in opacity-0"
       style={{ animationDelay: `${delay}ms` }}
     >
       <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.5)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
@@ -57,21 +57,14 @@ export default function InteractiveCommute() {
         layoutId="commute-active-pill"
       />
 
-      <div className="px-3 py-4 flex flex-col gap-2.5">
+      <div className="px-2 py-2 flex flex-col gap-2.5">
         <div className="flex flex-col gap-2.5">
           {currentData.items.map((item, index) => (
             <PlaceRow key={item.id} item={item} index={index} />
           ))}
         </div>
 
-        {currentData.title && (
-          <p 
-            className="text-[11px] font-medium text-[#6B7280] mt-2 px-1 italic animate-fade-blur-in opacity-0"
-            style={{ animationDelay: `${40 + currentData.items.length * 40}ms` }}
-          >
-            * {currentData.title}
-          </p>
-        )}
+    
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `

@@ -23,9 +23,10 @@ const VideoTourSection: React.FC = () => {
 
       {/* Main Play Action Area */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+        {/* Reduced gap from gap-3 to gap-1.5 */}
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className="pointer-events-auto flex flex-col items-center gap-3 focus:outline-none group/play"
+          className="pointer-events-auto flex flex-col items-center gap-1.5 focus:outline-none group/play"
           aria-label={`Play video tour (${videoTourData.duration})`}
         >
           {/* Glass Play Button */}
@@ -44,14 +45,17 @@ const VideoTourSection: React.FC = () => {
       </div>
 
       {/* Modern Video Controls Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-[rgba(0,0,0,0.5)] via-[rgba(0,0,0,0.2)] to-transparent flex items-end justify-between px-4 py-3 opacity-0 group-hover:opacity-100 transition-all duration-[280ms] translate-y-2 group-hover:translate-y-0 z-30">
-        <div className="flex items-center gap-2">
-          {/* Status Indicator */}
-          <div className="w-2 h-2 rounded-full bg-[#C65A3A] animate-pulse shadow-[0_0_8px_rgba(198,90,58,0.8)]" />
+      {/* Reduced height, padding, and translate-y */}
+      <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[rgba(0,0,0,0.5)] via-[rgba(0,0,0,0.2)] to-transparent flex items-end justify-between px-2.5 py-1.5 opacity-0 group-hover:opacity-100 transition-all duration-[280ms] translate-y-1 group-hover:translate-y-0 z-30">
+        {/* Reduced gap from gap-2 to gap-1 */}
+        <div className="flex items-center gap-1">
+          {/* Status Indicator - Changed rounded-full to rounded-[8px] */}
+          <div className="w-2 h-2 rounded-[8px] bg-[#C65A3A] animate-pulse shadow-[0_0_8px_rgba(198,90,58,0.8)]" />
           <span className="text-white/95 text-[11px] font-semibold tracking-wide">0:00 / {videoTourData.duration}</span>
         </div>
 
-        <div className="flex items-center gap-4">
+        {/* Reduced gap from gap-4 to gap-2 */}
+        <div className="flex items-center gap-2">
           <button
             className="text-white/80 hover:text-white transition-all focus:outline-none hover:scale-110 active:scale-95"
             aria-label="Volume"

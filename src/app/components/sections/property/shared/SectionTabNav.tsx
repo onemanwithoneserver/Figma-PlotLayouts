@@ -70,14 +70,11 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
 
   return (
     <div className="w-full relative font-inter animate-fade-blur-in opacity-0">
-      {/* Glass Rail Container */}
-      <div className="bg-[rgba(255,255,255,0.4)] backdrop-blur-[12px] border-b border-[rgba(0,0,0,0.05)] flex items-center px-1">
-        
-        {/* Left Arrow */}
+      <div className="flex items-center px-1">
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="flex-shrink-0 flex items-center justify-center rounded-[8px] text-[#4A5560] hover:text-[#2F6F4E] hover:bg-[rgba(255,255,255,0.8)] transition-all duration-[280ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(47,111,78,0.35)] overflow-hidden"
+          className="flex-shrink-0 flex items-center justify-center rounded-[4px] text-[#4A5560] hover:text-[#2F6F4E] hover:bg-[rgba(255,255,255,0.8)] transition-all duration-[280ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(47,111,78,0.35)] overflow-hidden"
           style={{
             width: canScrollLeft ? 32 : 0,
             height: 32,
@@ -110,21 +107,22 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => onTabChange(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="relative flex-none py-1.5 px-4 transition-all duration-[280ms] z-10 outline-none flex items-center justify-center rounded-[8px] focus-visible:ring-2 focus-visible:ring-[rgba(47,111,78,0.35)] group"
+                  className={`relative flex-none py-1.5 px-4 transition-all duration-[280ms] z-10 outline-none flex items-center justify-center rounded-[4px] border ${
+                    isActive ? 'border-[#2F6F4E]' : 'border-gray-200 hover:border-gray-300'
+                  } focus-visible:ring-2 focus-visible:ring-[rgba(47,111,78,0.35)] group`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId={layoutId}
-                      className="absolute inset-0 rounded-[8px] -z-10 bg-white border border-[rgba(255,255,255,0.8)] shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
+                      className="absolute inset-0 rounded-[4px] -z-10 bg-[#2F6F4E] shadow-[0_4px_12px_rgba(47,111,78,0.25)]"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     >
-                      {/* Active Indicator Inner Glow */}
-                      <div className="absolute inset-0 rounded-[8px] bg-gradient-to-br from-[rgba(47,111,78,0.05)] to-transparent" />
+                      <div className="absolute inset-0 rounded-[4px] bg-gradient-to-br from-white/10 to-transparent" />
                     </motion.div>
                   )}
                   
                   <span className={`relative z-20 text-[13px] whitespace-nowrap transition-colors duration-[280ms] tracking-tight ${
-                    isActive ? 'font-bold text-[#2F6F4E]' : 'font-semibold text-[#6B7280] group-hover:text-[#4A5560]'
+                    isActive ? 'font-bold text-white' : 'font-semibold text-[#6B7280] group-hover:text-[#4A5560]'
                   }`}>
                     {tab.label}
                   </span>
@@ -134,7 +132,6 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
           </div>
         </div>
 
-        {/* Right Arrow */}
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"

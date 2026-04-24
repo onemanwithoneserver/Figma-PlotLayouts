@@ -99,7 +99,7 @@ const ProjectTimeline: React.FC = () => {
         <h3 className="text-[15px] font-bold text-[#1A1F24] tracking-tight">Project Progress</h3>
       </div>
 
-      <div className="px-3 py-4 animate-fade-blur-in opacity-0" style={{ animationDelay: '40ms' }}>
+      <div className="px-2 py-2 animate-fade-blur-in opacity-0" style={{ animationDelay: '40ms' }}>
         <div className="rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] px-4 py-4 overflow-hidden relative">
           <div className="flex items-center justify-between mb-4">
             <span className="text-[13px] font-semibold text-[#4A5560]">Overall Completion</span>
@@ -118,7 +118,7 @@ const ProjectTimeline: React.FC = () => {
             />
           </div>
 
-          <div className="flex items-center justify-between text-[11px] uppercase tracking-wider font-bold">
+          <div className="flex items-center justify-between text-[11px]  tracking-wider font-bold">
             <span className="text-[#4A5560]">Execution Phase</span>
             <span className="text-[#2F6F4E]">on schedule</span>
           </div>
