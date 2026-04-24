@@ -83,7 +83,7 @@ const FooterNav: React.FC = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="w-full max-w-[390px] bg-white/70 backdrop-blur-2xl border-t border-white/60 shadow-[0_-4px_16px_rgba(0,0,0,0.04)] pointer-events-auto pb-safe"
+          className="w-full max-w-[390px] bg-[rgba(236,236,232,0.85)] backdrop-blur-2xl border-t border-white/55 shadow-[0_-4px_16px_rgba(47,111,78,0.05)] pointer-events-auto pb-safe"
           role="toolbar"
         >
           <div className="flex items-end justify-between px-[8px] py-[4px]">

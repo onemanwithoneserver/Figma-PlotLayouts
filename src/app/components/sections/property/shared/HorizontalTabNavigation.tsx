@@ -81,12 +81,12 @@ const HorizontalTabNavigation: React.FC = () => {
       aria-label="Page sections"
       className={`font-inter sticky top-0 z-40 transition-all duration-300 ease-out ${
         visible 
-        ? 'opacity-100 translate-y-0 bg-white/70 backdrop-blur-md border-b border-white/60 shadow-sm' 
+        ? 'opacity-100 translate-y-0 bg-[rgba(236,236,232,0.82)] backdrop-blur-xl border-b border-white/50 shadow-[0_2px_12px_rgba(47,111,78,0.06)]' 
         : 'opacity-0 -translate-y-[2px] pointer-events-none h-0 overflow-hidden'
       }`}
     >
       <div className="flex items-center max-w-[400px] mx-auto relative p-[2px]">
-        <div className={`absolute left-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-r from-white/90 to-transparent transition-opacity duration-200 ${showLeft ? 'opacity-100' : 'opacity-0'}`} />
+        <div className={`absolute left-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-r from-[rgba(236,236,232,0.9)] to-transparent transition-opacity duration-200 ${showLeft ? 'opacity-100' : 'opacity-0'}`} />
         
         <button
           onClick={() => manualScroll('left')}
@@ -142,7 +142,7 @@ const HorizontalTabNavigation: React.FC = () => {
           <ChevronRightIcon sx={{ fontSize: 20 }} />
         </button>
         
-        <div className={`absolute right-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-l from-white/90 to-transparent transition-opacity duration-200 ${showRight ? 'opacity-100' : 'opacity-0'}`} />
+        <div className={`absolute right-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-l from-[rgba(236,236,232,0.9)] to-transparent transition-opacity duration-200 ${showRight ? 'opacity-100' : 'opacity-0'}`} />
       </div>
     </nav>
   );

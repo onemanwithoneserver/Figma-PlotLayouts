@@ -23,10 +23,10 @@ const PropertyDetails: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const glassSectionClass = "relative z-10 bg-white/60 backdrop-blur-md border border-white/50 shadow-sm overflow-hidden scroll-mt-[2px]";
+  const glassSectionClass = "relative z-10 bg-white/52 backdrop-blur-[14px] border border-white/55 shadow-[0_2px_12px_rgba(47,111,78,0.06)] overflow-hidden scroll-mt-[2px]";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 overflow-x-clip w-full max-w-[400px] mx-auto relative font-inter text-[#111827] selection:bg-[#2F6F4E]/20 selection:text-[#2F6F4E]">
+    <div className="min-h-screen bg-[#ECECE8] overflow-x-clip w-full max-w-[400px] mx-auto relative font-inter text-[#111827] selection:bg-[#2F6F4E]/20 selection:text-[#2F6F4E]">
       
       <div 
         className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none mix-blend-multiply"
@@ -34,9 +34,9 @@ const PropertyDetails: React.FC = () => {
       />
 
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden max-w-[400px] mx-auto">
-        <div className="absolute top-[-10%] right-[-20%] w-[350px] h-[350px] rounded-full bg-[#2F6F4E]/10 blur-[100px]" />
-        <div className="absolute top-[35%] left-[-25%] w-[300px] h-[300px] rounded-full bg-gray-400/15 blur-[120px]" />
-        <div className="absolute bottom-[5%] right-[-15%] w-[400px] h-[400px] rounded-full bg-[#2F6F4E]/5 blur-[110px]" />
+        <div className="absolute top-[-8%] right-[-18%] w-[320px] h-[320px] rounded-full bg-[#2F6F4E]/8 blur-[90px]" />
+        <div className="absolute top-[36%] left-[-22%] w-[280px] h-[280px] rounded-full bg-[#2F6F4E]/5 blur-[110px]" />
+        <div className="absolute bottom-[6%] right-[-14%] w-[360px] h-[360px] rounded-full bg-[#D0E8D8]/40 blur-[100px]" />
       </div>
 
       <div className="relative z-10 pt-[2px]">

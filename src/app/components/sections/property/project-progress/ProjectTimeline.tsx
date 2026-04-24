@@ -114,7 +114,7 @@ const ProjectTimeline: React.FC = () => {
               animate={{ width: `${PROGRESS_PCT}%` }}
               transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1] }}
               className="h-full rounded-full"
-              style={{ background: 'linear-gradient(90deg, #2F6F4E, #4A90E2)' }}
+              style={{ background: 'linear-gradient(90deg, #2F6F4E, #4DD17A)' }}
             />
           </div>
 
@@ -159,7 +159,7 @@ const ProjectTimeline: React.FC = () => {
               {/* Restored chevron arrow inside the View Updates button */}
               <button
                 onClick={() => setProgressOpen((v) => !v)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] border border-[#2F6F4E]/30 bg-white text-[#2F6F4E] text-[11px] font-bold shadow-sm transition-colors hover:bg-[rgba(47,111,78,0.05)]"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] border border-[#2F6F4E]/30 bg-white/70 backdrop-blur-sm text-[#2F6F4E] text-[11px] font-bold shadow-sm transition-colors hover:bg-[rgba(47,111,78,0.06)]"
               >
                 <svg 
                   className={`w-3.5 h-3.5 transition-transform duration-300 ${progressOpen ? 'rotate-180' : ''}`} 
@@ -183,7 +183,7 @@ const ProjectTimeline: React.FC = () => {
                     <div className="relative flex items-center mb-6">
                       
                       {/* Left Gradient Overlay & Restored Timeline Arrow */}
-                      <div className={`absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white via-white/80 to-transparent z-20 flex items-center transition-opacity duration-300 pointer-events-none ${canLeft ? 'opacity-100' : 'opacity-0'}`}>
+                      <div className={`absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[rgba(255,255,255,0.95)] via-[rgba(255,255,255,0.75)] to-transparent z-20 flex items-center transition-opacity duration-300 pointer-events-none ${canLeft ? 'opacity-100' : 'opacity-0'}`}>
                         <div className="pointer-events-auto ml-1">
                           <IconButton
                             size="small"
@@ -224,7 +224,7 @@ const ProjectTimeline: React.FC = () => {
                       </div>
 
                       {/* Right Gradient Overlay & Restored Timeline Arrow */}
-                      <div className={`absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white via-white/80 to-transparent z-20 flex items-center justify-end transition-opacity duration-300 pointer-events-none ${canRight ? 'opacity-100' : 'opacity-0'}`}>
+                      <div className={`absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[rgba(255,255,255,0.95)] via-[rgba(255,255,255,0.75)] to-transparent z-20 flex items-center justify-end transition-opacity duration-300 pointer-events-none ${canRight ? 'opacity-100' : 'opacity-0'}`}>
                         <div className="pointer-events-auto mr-1">
                           <IconButton
                             size="small"

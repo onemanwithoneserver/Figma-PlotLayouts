@@ -9,10 +9,10 @@
 
   --color-glow: rgba(34, 160, 80, 0.22);
 
-  --color-bg-soft: #ffffff;
-  --color-bg-mid: #c8e8d6;
+  --color-bg-soft: #F3F3EF;
+  --color-bg-mid: #D0E8D8;
   --color-bg-white: #ffffff;
-  --color-bg-main: #ffffff;
+  --color-bg-main: #ECECE8;
 
   --color-text-primary: #0a1a10;
   --color-text-secondary: #1e3326;
@@ -26,7 +26,7 @@
   --font-weight-medium: 500;
   --font-weight-normal: 400;
 
-  --radius: 0.625rem;
+  --radius: 0.5rem;
 }
 
 .dark {
