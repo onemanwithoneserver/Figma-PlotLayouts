@@ -50,42 +50,52 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
   };
 
   return (
-    <div className={`w-full px-4 pt-2 pb-3 space-y-3 font-outfit bg-[#ffffff]  ${className}`}>
-      <div className="flex items-center justify-between gap-1">
-        <div className="flex items-center gap-2">
-          <HeadingIcon name="ask-seller" className="w-4 h-4" />
-          <h3 className="text-[14px] font-bold text-[#0B1F17] leading-tight">Ask Seller</h3>
+    <div className={`w-full px-4 py-4 space-y-4 font-inter bg-transparent animate-fade-blur-in opacity-0 ${className}`}>
+      {/* Header Row */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-[8px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.2)] flex items-center justify-center">
+            <HeadingIcon name="ask-seller" className="w-4 h-4 text-[#2F6F4E]" />
+          </div>
+          <h3 className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Ask Seller</h3>
         </div>
 
         {!isAdding && (
           <button
             type="button"
             onClick={() => setIsAdding(true)}
-            className="inline-flex items-center gap-1.5 rounded-[4px] border border-[#15653A]/30 bg-[#ffffff] px-2 py-1 shadow-sm transition-all hover:border-[#15653A] hover:shadow-[0_2px_8px_rgba(34,160,80,0.12)] active:scale-[0.98]"
+            className="group relative inline-flex items-center gap-1.5 rounded-[8px] border border-[rgba(47,111,78,0.3)] bg-white px-3 py-1.5 shadow-sm transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(47,111,78,0.15)] active:scale-95 overflow-hidden"
           >
-            <span className="flex h-[18px] w-[18px] items-center justify-center rounded-[3px] bg-[#15653A] text-white">
-              <svg className="h-2.5 w-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-              </svg>
-            </span>
-            <span className="text-[11px] font-bold leading-none text-[#2F7D4E]">Custom Question</span>
+            {/* Subtle Light Sweep */}
+            <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-[rgba(47,111,78,0.05)] to-transparent skew-x-[-20deg] group-hover:left-[100%] transition-all duration-700 pointer-events-none" />
+            
+            <svg className="h-3 w-3 text-[#2F6F4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            <span className="text-[11px] font-bold text-[#2F6F4E] ">custom question</span>
           </button>
         )}
       </div>
 
-      <div className="space-y-2.5">
-        {visibleQuestions.map((q) => {
+      {/* Questions List */}
+      <div className="flex flex-col gap-2.5">
+        {visibleQuestions.map((q, idx) => {
           const checked = selected.includes(q);
           return (
             <button
               key={q}
               onClick={() => toggleQuestion(q)}
-              className="flex items-start gap-2.5 w-full text-left group transition-opacity active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A]/40 rounded-[4px]"
+              className={`flex items-center gap-3 w-full px-3.5 py-3 rounded-[8px] text-left transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] border relative overflow-hidden ${
+                checked 
+                ? "bg-[rgba(255,255,255,0.85)] border-[#2F6F4E] shadow-[0_4px_12px_rgba(47,111,78,0.12)] scale-[1.01]" 
+                : "bg-[rgba(255,255,255,0.6)] border-[rgba(0,0,0,0.08)] hover:bg-[rgba(255,255,255,0.8)]"
+              }`}
             >
+              {/* Check Indicator */}
               <div
-                className={`mt-0.5 w-4 h-4 rounded-[4px] flex items-center justify-center flex-shrink-0 shadow-sm transition-all ${checked ? "" : "bg-[#EEF4F0] border border-[#C8DBCF]"
-                  }`}
-                style={checked ? { background: `linear-gradient(135deg, #15653A, #2F7D4E)` } : {}}
+                className={`w-4 h-4 rounded-[6px] flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                  checked ? "bg-[#2F6F4E] shadow-[0_2px_6px_rgba(47,111,78,0.3)]" : "bg-[rgba(0,0,0,0.05)] border border-[rgba(0,0,0,0.1)]"
+                }`}
               >
                 {checked && (
                   <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,9 +103,10 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
                   </svg>
                 )}
               </div>
-              <span
-                className={`text-[12px] font-semibold leading-tight transition-colors ${checked ? "text-[#0B1F17]" : "text-[#64786D]"
-                  } group-hover:text-[#15653A]`}
+              
+              <span className={`text-[12.5px] font-medium leading-tight transition-colors duration-300 ${
+                  checked ? "text-[#1A1F24] font-bold" : "text-[#4A5560]"
+                }`}
               >
                 {q}
               </span>
@@ -104,23 +115,22 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
         })}
       </div>
 
-      <div className="space-y-2.5">
+      {/* Footer Controls */}
+      <div className="space-y-3">
         {isAdding && (
           <form
             onSubmit={handleAddCustom}
-            className="flex items-center gap-2 w-full px-2.5 py-2 animate-in fade-in duration-200"
+            className="flex items-center gap-3 w-full px-3.5 py-3 rounded-[8px] bg-[rgba(255,255,255,0.8)] border border-[#2F6F4E] shadow-[0_0_0_3px_rgba(47,111,78,0.1)] animate-fade-blur-in"
           >
-            <div className="w-4 h-4 rounded-[4px] flex items-center justify-center border border-[#15653A] bg-[#15653A] flex-shrink-0">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#ffffff] animate-pulse" />
-            </div>
+            <div className="w-4 h-4 rounded-full bg-[#2F6F4E] flex-shrink-0 animate-pulse" />
             <input
               ref={inputRef}
               type="text"
               value={customInput}
               onChange={(e) => setCustomInput(e.target.value)}
               onBlur={() => !customInput && setIsAdding(false)}
-              placeholder="Type your question..."
-              className="text-[12px] font-bold text-[#0B1F17] outline-none border-b border-[#15653A] w-full pb-0.5 bg-transparent placeholder:text-[#64786D]/50"
+              placeholder="Type your question here..."
+              className="text-[13px] font-semibold text-[#1A1F24] outline-none w-full bg-transparent placeholder:text-[#6B7280]/60"
             />
           </form>
         )}
@@ -128,25 +138,32 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
         {questions.length > 2 && (
           <button
             onClick={() => setShowMore(!showMore)}
-            className="flex items-center gap-2.5 w-full group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A]/40 rounded-[4px]"
+            className="flex items-center gap-2 group w-fit px-1 focus:outline-none"
           >
-            <div className="w-4 h-4 rounded-[4px] flex items-center justify-center bg-[#EEF4F0] border border-[#C8DBCF] group-hover:border-[#15653A] transition-colors flex-shrink-0">
+            <div className="w-5 h-5 rounded-[6px] flex items-center justify-center bg-[rgba(0,0,0,0.05)] text-[#4A5560] group-hover:bg-[#2F6F4E] group-hover:text-white transition-all duration-300">
               <svg
-                className={`w-2.5 h-2.5 text-[#64786D] group-hover:text-[#15653A] transition-transform ${showMore ? "" : "rotate-180"
-                  }`}
+                className={`w-3 h-3 transition-transform duration-300 ${showMore ? "" : "rotate-180"}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 15l7-7 7 7" />
               </svg>
             </div>
-            <span className="text-[12px] font-bold text-[#15653A] underline decoration-1 underline-offset-2">
-              {showMore ? "Show fewer" : "Load more"}
+            <span className="text-[12px] font-bold text-[#2F6F4E]  tracking-wide border-b border-[#2F6F4E]/20 group-hover:border-[#2F6F4E] transition-all">
+              {showMore ? "show fewer" : `load more questions`}
             </span>
           </button>
         )}
       </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeBlurIn { 
+          from { opacity: 0; filter: blur(6px); transform: translateY(8px); } 
+          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
+        }
+        .animate-fade-blur-in { animation: fadeBlurIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      `}} />
     </div>
   );
 }

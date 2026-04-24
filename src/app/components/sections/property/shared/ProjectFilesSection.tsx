@@ -22,27 +22,31 @@ const PdfIcon = ({ className = "" }: { className?: string }) => (
     fill="none"
     aria-hidden="true"
   >
+    {/* Page Fold Style */}
     <path
       d="M17 5H32L41 14V42C41 44.209 39.209 46 37 46H17C14.791 46 13 44.209 13 42V9C13 6.791 14.791 5 17 5Z"
-      stroke="#0B1F17"
-      strokeWidth="2.8"
+      stroke="#2F6F4E"
+      strokeWidth="2.5"
       strokeLinejoin="round"
+      opacity="0.8"
     />
     <path
       d="M32 5V11.8C32 13.015 32.985 14 34.2 14H41"
-      stroke="#0B1F17"
-      strokeWidth="2.8"
+      stroke="#2F6F4E"
+      strokeWidth="2.5"
       strokeLinejoin="round"
+      opacity="0.8"
     />
-    <rect x="3" y="23" width="36" height="14" rx="2.8" fill="#DC2626" />
+    {/* Modern PDF Badge */}
+    <rect x="3" y="24" width="34" height="12" rx="4" fill="#C65A3A" />
     <text
-      x="21"
-      y="32.5"
+      x="20"
+      y="33"
       textAnchor="middle"
       fill="#ffffff"
-      fontSize="8.8"
+      fontSize="8"
       fontWeight="800"
-      fontFamily="'Outfit', sans-serif"
+      fontFamily="Inter, sans-serif"
       letterSpacing="0.5"
     >
       PDF
@@ -53,8 +57,8 @@ const PdfIcon = ({ className = "" }: { className?: string }) => (
 const EyeIcon = ({ className = "" }: { className?: string }) => (
   <svg
     className={className}
-    width="13"
-    height="13"
+    width="14"
+    height="14"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -70,34 +74,49 @@ const EyeIcon = ({ className = "" }: { className?: string }) => (
 
 const ProjectFilesSection: React.FC = () => {
   return (
-    <div className="w-full rounded-[8px] bg-[#0B1F17] border border-[#64786D] px-3 py-2 font-outfit shadow-sm">
-      <div className="flex items-center justify-between px-1 pb-3 pt-1">
-        <h2 className="text-[18px] px-2 font-bold text-white drop-shadow-sm">Project Files</h2>
+    <div className="w-full rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] px-4 py-4 font-inter shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] animate-fade-blur-in opacity-0">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-[15px] font-bold text-[#1A1F24] tracking-tight">Project Files</h2>
+        
         <button
           type="button"
-          className="group flex items-center gap-1 rounded-[4px] border border-[rgba(255,255,255,0.2)] bg-gradient-to-br from-[#15653A] to-[#2F7D4E] px-2.5 py-1.5 text-[11px] font-bold text-[#ffffff] shadow-sm transition-all duration-200 hover:brightness-110 hover:shadow-[0_4px_12px_rgba(21,101,58,0.4)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1F17]"
-          title="View"
+          className="group flex items-center gap-1.5 rounded-[8px] bg-[#2F6F4E] px-3 py-1.5 text-[11px] font-bold text-[#ffffff] shadow-[0_4px_12px_rgba(47,111,78,0.2)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(47,111,78,0.3)] active:scale-95 "
         >
-          <EyeIcon className="transition-transform duration-200 group-hover:scale-110" />
-          View All
+          <EyeIcon className="transition-transform duration-[280ms] group-hover:scale-110" />
+          view all
         </button>
       </div>
-      <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex min-w-max items-start gap-1.5">
-          {PROJECT_FILES.map((file) => (
+
+      <div className="overflow-x-auto scrollbar-hide -mx-1 px-1">
+        <div className="flex min-w-max items-start gap-3">
+          {PROJECT_FILES.map((file, index) => (
             <button
               key={file.id}
               type="button"
-              className="group flex w-[64px] shrink-0 flex-col items-center justify-start gap-1.5 rounded-[4px] px-1 py-1.5 bg-[rgba(255,255,255,0.9)] transition-all duration-200 hover:bg-white hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,255,255,0.15)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A]"
+              className="group flex w-[72px] shrink-0 flex-col items-center justify-center gap-2 rounded-[8px] px-2 py-3 bg-[rgba(255,255,255,0.4)] border border-[rgba(0,0,0,0.05)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[rgba(255,255,255,0.8)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] animate-fade-blur-in opacity-0"
+              style={{ animationDelay: `${(index + 1) * 60}ms` }}
             >
-              <PdfIcon className="h-11 w-11 transition-transform duration-200 group-hover:scale-105" />
-              <span className="whitespace-nowrap text-center text-[11px] font-bold leading-tight text-[#0B1F17] transition-colors duration-200 group-hover:text-[#15653A]">
+              <div className="relative">
+                <PdfIcon className="h-10 w-10 transition-transform duration-[280ms] group-hover:scale-110" />
+                {/* Subtle Glow behind Icon */}
+                <div className="absolute inset-0 bg-[#2F6F4E]/5 blur-xl -z-10 group-hover:bg-[#2F6F4E]/10 transition-colors" />
+              </div>
+              
+              <span className="whitespace-nowrap text-center text-[11px] font-bold tracking-tight text-[#4A5560] transition-colors duration-[280ms] group-hover:text-[#2F6F4E] ">
                 {file.label}
               </span>
             </button>
           ))}
         </div>
       </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeBlurIn { 
+          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
+          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
+        }
+        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      `}} />
     </div>
   );
 };

@@ -36,8 +36,12 @@ const Layout: React.FC = () => {
   const circularThumbs = getCircularThumbs();
 
   return (
-    <div className="font-outfit">
-      <div className="relative w-full bg-[#EEF4F0] overflow-hidden" style={{ aspectRatio: '4/3' }}>
+    <div className="w-full">
+      {/* Glass Carousel Container */}
+      <div 
+        className="relative w-full rounded-[8px] overflow-hidden bg-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08)] animate-fade-blur-in opacity-0"
+        style={{ aspectRatio: '4/3', animationDelay: '40ms' }}
+      >
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.img
             key={imgIdx}
@@ -46,25 +50,33 @@ const Layout: React.FC = () => {
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
           />
         </AnimatePresence>
 
+        {/* Index Pill */}
         <div className="absolute top-3 right-3 z-20">
-          <div className="bg-black/50 backdrop-blur-md text-white text-[11px] font-bold px-2 py-1 rounded-[4px] shadow-sm">
+          <div className="bg-[rgba(255,255,255,0.85)] backdrop-blur-[12px] text-[#1A1F24] text-[11px] font-bold px-3 py-1.5 rounded-[8px] shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-[rgba(255,255,255,0.6)]">
             {imgIdx + 1} / {layoutImages.length}
           </div>
         </div>
 
+        {/* Navigation Arrows */}
         {layoutImages.length > 1 && (
           <>
             <IconButton
               onClick={prev}
               size="small"
               aria-label="Previous image"
-              sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: '#F3F4F6', color: '#0B1F17', '&:hover': { bgcolor: '#ffffff' }, borderRadius: '4px', p: 0.5, zIndex: 10, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
+              sx={{ 
+                position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', 
+                bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)', color: '#1A1F24', 
+                border: '1px solid rgba(255,255,255,0.6)', borderRadius: '8px', p: 0.5, zIndex: 10, 
+                boxShadow: '0 4px 12px rgba(0,0,0,0.08)', transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' } 
+              }}
             >
               <NavigateBeforeIcon sx={{ fontSize: 20 }} />
             </IconButton>
@@ -72,19 +84,27 @@ const Layout: React.FC = () => {
               onClick={next}
               size="small"
               aria-label="Next image"
-              sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', bgcolor: '#F3F4F6', color: '#0B1F17', '&:hover': { bgcolor: '#ffffff' }, borderRadius: '4px', p: 0.5, zIndex: 10, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
+              sx={{ 
+                position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', 
+                bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)', color: '#1A1F24', 
+                border: '1px solid rgba(255,255,255,0.6)', borderRadius: '8px', p: 0.5, zIndex: 10, 
+                boxShadow: '0 4px 12px rgba(0,0,0,0.08)', transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' } 
+              }}
             >
               <NavigateNextIcon sx={{ fontSize: 20 }} />
             </IconButton>
           </>
         )}
 
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[rgba(0,0,0,0.85)] to-transparent z-10 pointer-events-none" />
+        {/* Bottom Fade for Thumbs Visibility */}
+        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[rgba(0,0,0,0.6)] to-transparent z-10 pointer-events-none" />
 
+        {/* Thumbs & Fullscreen */}
         <div className="absolute bottom-3 left-0 right-0 flex items-end justify-between px-3 z-20 pointer-events-none">
-          <div className="w-8" />
+          <div className="w-8" /> {/* Spacer */}
 
-          <div className="pointer-events-auto flex justify-center items-center gap-1.5">
+          <div className="pointer-events-auto flex justify-center items-center gap-2">
             <AnimatePresence mode="popLayout">
               {circularThumbs.map((thumb) => (
                 <motion.button
@@ -93,23 +113,23 @@ const Layout: React.FC = () => {
                   onClick={() => setImgIdx(thumb.originalIndex)}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{
-                    opacity: thumb.isCenter ? 1 : 0.7,
-                    scale: 1,
-                    filter: thumb.isCenter ? 'brightness(1)' : 'brightness(0.8)'
+                    opacity: thumb.isCenter ? 1 : 0.6,
+                    scale: thumb.isCenter ? 1.05 : 0.9,
                   }}
                   exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.3 }}
-                  className={`relative flex-shrink-0 rounded-[4px] overflow-hidden transition-all duration-300 focus:outline-none ${thumb.isCenter
-                      ? 'w-[48px] h-[48px] border-[2px] border-[#15653A] z-10 shadow-sm bg-white p-[2px]'
-                      : 'w-[40px] h-[40px] border border-transparent hover:opacity-100'
-                    }`}
+                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                  className={`relative flex-shrink-0 rounded-[8px] overflow-hidden transition-all duration-[280ms] focus:outline-none ${
+                    thumb.isCenter
+                      ? 'w-[48px] h-[48px] border-[2px] border-[#2F6F4E] z-10 shadow-[0_4px_12px_rgba(0,0,0,0.3)] bg-white p-[2px]'
+                      : 'w-[40px] h-[40px] border border-[rgba(255,255,255,0.6)] hover:opacity-100 hover:scale-100'
+                  }`}
                   aria-label={thumb.label}
                   aria-current={thumb.isCenter ? 'true' : undefined}
                 >
                   <img
                     src={thumb.src}
                     alt={thumb.label}
-                    className="w-full h-full object-cover rounded-[2px]"
+                    className="w-full h-full object-cover rounded-[6px]"
                     loading="lazy"
                   />
                 </motion.button>
@@ -122,7 +142,12 @@ const Layout: React.FC = () => {
               onClick={() => setLightboxOpen(true)}
               size="small"
               aria-label="View fullscreen"
-              sx={{ color: '#ffffff', p: 0.5, bgcolor: 'rgba(255,255,255,0.2)', borderRadius: '4px', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }}
+              sx={{ 
+                color: '#1A1F24', p: 0.75, bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)', 
+                borderRadius: '8px', border: '1px solid rgba(255,255,255,0.6)', boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': { bgcolor: '#FFFFFF', transform: 'scale(1.05)' } 
+              }}
             >
               <ZoomOutMapIcon sx={{ fontSize: 16 }} />
             </IconButton>
@@ -130,69 +155,134 @@ const Layout: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-2 py-2">
-        <p className="text-[13px] font-extrabold text-[#0B1F17] mb-2.5  tracking-wide">
+      <div className="px-2 py-4">
+        <h3 className="text-[14px] font-bold text-[#1A1F24] mb-3 tracking-tight animate-fade-blur-in opacity-0" style={{ animationDelay: '80ms' }}>
           Plot Availability
-        </p>
-        <div className="flex flex-col bg-[#ffffff]  rounded-[8px] ">
+        </h3>
+        
+        {/* Glass List Container */}
+        <div 
+          className="flex flex-col bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] rounded-[8px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] overflow-hidden animate-fade-blur-in opacity-0"
+          style={{ animationDelay: '120ms' }}
+        >
           {plotSizes.map((plot, i, arr) => (
-            <div key={plot.size} className="hover:bg-[#EEF4F0] transition-colors rounded-[8px]">
-              <div className="flex items-center justify-between px-3 py-3 cursor-pointer">
+            <div key={plot.size} className="group transition-colors duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[rgba(255,255,255,0.85)] relative">
+              {/* Light Sweep Effect on Hover */}
+              <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.4)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
+
+              <div className="flex items-center justify-between px-4 py-3.5 cursor-pointer relative z-20">
                 <div>
-                  <p className="text-[13px] font-bold text-[#0B1F17]">{plot.size} Plot</p>
-                  <p className="text-[11px] font-semibold text-[#64786D] mt-0.5">
-                    Rs. {plot.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
+                  <p className="text-[13px] font-bold text-[#1A1F24] transition-colors duration-[280ms]">{plot.size} Plot</p>
+                  <p className="text-[11px] font-medium text-[#6B7280] mt-0.5 transition-colors duration-[280ms] group-hover:text-[#4A5560]">
+                    ₹{plot.pricePerSqYd.toLocaleString('en-IN')} / Sq.Yd
                   </p>
                 </div>
-                <p className="text-[15px] font-extrabold text-[#15653A] drop-shadow-sm">
-                  Rs. {((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
+                <p className="text-[15px] font-bold text-[#2F6F4E] tracking-tight transition-transform duration-[280ms] group-hover:scale-105">
+                  ₹{((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
                 </p>
               </div>
-              {i < arr.length - 1 && <div className="h-px bg-[#C8DBCF] mx-3" />}
+              {i < arr.length - 1 && (
+                <div className="h-[1px] bg-gradient-to-r from-transparent via-[rgba(0,0,0,0.06)] to-transparent w-full" />
+              )}
             </div>
           ))}
         </div>
 
-        <button
-          className="mt-4 w-full py-3 rounded-[8px] text-white text-[14px] font-bold transition-all duration-300 hover-lift glass-cta shadow-[0_4px_16px_rgba(21,101,58,0.4)]"
-        >
-          Check Plot Availability
-        </button>
+        {/* CTA Button using Highlight Color */}
+        <div className="animate-fade-blur-in opacity-0" style={{ animationDelay: '160ms' }}>
+        </div>
       </div>
 
+      {/* Lightbox Dialog */}
       <Dialog
         open={lightboxOpen}
         onClose={() => setLightboxOpen(false)}
-        maxWidth="sm"
+        maxWidth="md"
         fullWidth
-        PaperProps={{ sx: { bgcolor: '#000000', m: 1, borderRadius: '8px' } }}
+        PaperProps={{ 
+          sx: { 
+            bgcolor: 'transparent', 
+            boxShadow: 'none', 
+            m: 1, 
+            overflow: 'visible' 
+          } 
+        }}
         aria-label="Layout image fullscreen view"
       >
-        <div className="relative flex items-center justify-center min-h-[50vh]">
+        <div className="relative flex flex-col items-center justify-center w-full">
           <img
             src={layoutImages[imgIdx].src}
             alt={layoutImages[imgIdx].label}
-            className="w-full object-contain max-h-[85vh]"
+            className="w-full max-h-[85vh] object-contain rounded-[8px] shadow-[0_16px_40px_rgba(0,0,0,0.4)]"
           />
+          
           <IconButton
             onClick={() => setLightboxOpen(false)}
-            sx={{ position: 'absolute', top: 12, right: 12, bgcolor: 'rgba(10,26,16,0.6)', color: '#ffffff', '&:hover': { bgcolor: 'rgba(10,26,16,0.8)' }, backdropFilter: 'blur(4px)' }}
             size="small"
             aria-label="Close fullscreen"
+            sx={{ 
+              position: 'absolute', top: -14, right: -14, zIndex: 10,
+              bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
+              color: '#1A1F24', border: '1px solid rgba(255,255,255,0.6)',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              '&:hover': { bgcolor: '#FFFFFF', transform: 'scale(1.05)' },
+              transition: 'all 0.28s ease-out'
+            }}
           >
-            <CloseIcon sx={{ fontSize: 20 }} />
+            <CloseIcon sx={{ fontSize: 18 }} />
           </IconButton>
 
-          <IconButton onClick={prev} sx={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.2)', color: '#ffffff', backdropFilter: 'blur(8px)', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }} aria-label="Previous">
-            <NavigateBeforeIcon fontSize="large" />
+          <IconButton 
+            onClick={prev} 
+            sx={{ 
+              position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%)',
+              bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
+              color: '#1A1F24', border: '1px solid rgba(255,255,255,0.6)',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)' },
+              transition: 'all 0.28s ease-out'
+            }} 
+            aria-label="Previous"
+          >
+            <NavigateBeforeIcon fontSize="medium" />
           </IconButton>
-          <IconButton onClick={next} sx={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,0.2)', color: '#ffffff', backdropFilter: 'blur(8px)', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }} aria-label="Next">
-            <NavigateNextIcon fontSize="large" />
+          <IconButton 
+            onClick={next} 
+            sx={{ 
+              position: 'absolute', right: -16, top: '50%', transform: 'translateY(-50%)',
+              bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
+              color: '#1A1F24', border: '1px solid rgba(255,255,255,0.6)',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)' },
+              transition: 'all 0.28s ease-out'
+            }} 
+            aria-label="Next"
+          >
+            <NavigateNextIcon fontSize="medium" />
           </IconButton>
+
+          <div className="absolute -bottom-12 left-0 right-0 flex justify-between items-center px-2">
+            <span className="text-[#FFFFFF] text-[14px] font-semibold drop-shadow-md tracking-wide">
+              {layoutImages[imgIdx].label}
+            </span>
+            <span className="text-[#FFFFFF] text-[12px] font-bold bg-[rgba(0,0,0,0.5)] border border-[rgba(255,255,255,0.2)] px-3 py-1 rounded-[8px] backdrop-blur-[8px]">
+              {imgIdx + 1} / {layoutImages.length}
+            </span>
+          </div>
         </div>
       </Dialog>
 
-      <AskSeller initialQuestions={layoutAskSellerQuestions} className="pb-6" />
+      <div className="mt-4 pb-6">
+        <AskSeller initialQuestions={layoutAskSellerQuestions} />
+      </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeBlurIn { 
+          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
+          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
+        }
+        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      `}} />
     </div>
   );
 };

@@ -69,30 +69,33 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
   };
 
   return (
-    <div className="w-full relative font-outfit">
-      <div className="bg-[#ffffff] flex items-center ">
+    <div className="w-full relative font-inter animate-fade-blur-in opacity-0">
+      {/* Glass Rail Container */}
+      <div className="bg-[rgba(255,255,255,0.4)] backdrop-blur-[12px] border-b border-[rgba(0,0,0,0.05)] flex items-center px-1">
+        
+        {/* Left Arrow */}
         <button
           onClick={() => scroll('left')}
           aria-label="Scroll left"
-          className="compact-touch flex-shrink-0 flex items-center justify-center rounded-[4px] text-[#64786D] hover:text-[#0B1F17] hover:bg-[#EEF4F0] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A]/50 overflow-hidden"
+          className="flex-shrink-0 flex items-center justify-center rounded-[8px] text-[#4A5560] hover:text-[#2F6F4E] hover:bg-[rgba(255,255,255,0.8)] transition-all duration-[280ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(47,111,78,0.35)] overflow-hidden"
           style={{
             width: canScrollLeft ? 32 : 0,
-            height: canScrollLeft ? 32 : 0,
+            height: 32,
             margin: canScrollLeft ? '0 4px' : 0,
             opacity: canScrollLeft ? 1 : 0,
             pointerEvents: canScrollLeft ? 'auto' : 'none',
-            transition: 'width 0.2s, opacity 0.2s',
           }}
         >
-          <ChevronLeftIcon sx={{ fontSize: 18 }} />
+          <ChevronLeftIcon sx={{ fontSize: 20 }} />
         </button>
+
         <div
           ref={containerRef}
           onScroll={checkScroll}
           role="tablist"
-          className="flex-1 flex items-center py-1.5 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
+          className="flex-1 flex items-center py-2 overflow-x-auto scrollbar-hide scroll-smooth"
         >
-          <div className="flex min-w-max flex-nowrap gap-1 px-1 mx-auto">
+          <div className="flex min-w-max flex-nowrap gap-1 px-1">
             {tabs.map((tab, idx) => {
               const isActive = activeTab === tab.id;
               return (
@@ -107,21 +110,22 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => onTabChange(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="compact-touch relative flex-none py-1.5 px-3 sm:px-3.5 md:px-4 transition-all duration-200 z-10 outline-none flex items-center justify-center rounded-[8px] focus-visible:ring-2 focus-visible:ring-[#15653A]/50"
-                  style={{ color: isActive ? '#ffffff' : '#64786D' }}
+                  className="relative flex-none py-1.5 px-4 transition-all duration-[280ms] z-10 outline-none flex items-center justify-center rounded-[8px] focus-visible:ring-2 focus-visible:ring-[rgba(47,111,78,0.35)] group"
                 >
                   {isActive && (
                     <motion.div
                       layoutId={layoutId}
-                      className="absolute inset-0 rounded-[4px] -z-10"
-                      style={{
-                        background: 'linear-gradient(135deg, #15653A, #2F7D4E)',
-                        boxShadow: '0 4px 14px rgba(21,101,58,0.18)',
-                      }}
+                      className="absolute inset-0 rounded-[8px] -z-10 bg-white border border-[rgba(255,255,255,0.8)] shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    />
+                    >
+                      {/* Active Indicator Inner Glow */}
+                      <div className="absolute inset-0 rounded-[8px] bg-gradient-to-br from-[rgba(47,111,78,0.05)] to-transparent" />
+                    </motion.div>
                   )}
-                  <span className={`relative z-20 text-[13px] whitespace-nowrap transition-colors duration-200 ${isActive ? 'font-bold' : 'font-semibold hover:text-[#0B1F17]'}`}>
+                  
+                  <span className={`relative z-20 text-[13px] whitespace-nowrap transition-colors duration-[280ms] tracking-tight ${
+                    isActive ? 'font-bold text-[#2F6F4E]' : 'font-semibold text-[#6B7280] group-hover:text-[#4A5560]'
+                  }`}>
                     {tab.label}
                   </span>
                 </button>
@@ -129,22 +133,31 @@ export default function SectionTabNav({ tabs, activeTab, onTabChange, layoutId }
             })}
           </div>
         </div>
+
+        {/* Right Arrow */}
         <button
           onClick={() => scroll('right')}
           aria-label="Scroll right"
-          className="compact-touch flex-shrink-0 flex items-center justify-center rounded-[4px] text-[#64786D] hover:text-[#0B1F17] hover:bg-[#EEF4F0] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A]/50 overflow-hidden"
+          className="flex-shrink-0 flex items-center justify-center rounded-[8px] text-[#4A5560] hover:text-[#2F6F4E] hover:bg-[rgba(255,255,255,0.8)] transition-all duration-[280ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(47,111,78,0.35)] overflow-hidden"
           style={{
             width: canScrollRight ? 32 : 0,
-            height: canScrollRight ? 32 : 0,
+            height: 32,
             margin: canScrollRight ? '0 4px' : 0,
             opacity: canScrollRight ? 1 : 0,
             pointerEvents: canScrollRight ? 'auto' : 'none',
-            transition: 'width 0.2s, opacity 0.2s',
           }}
         >
-          <ChevronRightIcon sx={{ fontSize: 18 }} />
+          <ChevronRightIcon sx={{ fontSize: 20 }} />
         </button>
       </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeBlurIn { 
+          from { opacity: 0; filter: blur(6px); transform: translateY(8px); } 
+          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
+        }
+        .animate-fade-blur-in { animation: fadeBlurIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      `}} />
     </div>
   );
 }

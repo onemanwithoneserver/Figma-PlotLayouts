@@ -1,153 +1,105 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { heroCardData } from './data';
-import type { HeroCardData } from './data';
+import PersonIcon from '@mui/icons-material/Person';
+import { HeroCardData, heroCardData } from './data';
 
-interface StatCardProps {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}
-
-const StatCard: React.FC<StatCardProps> = ({ icon, label, value }) => (
-  <div className="flex flex-col items-center justify-center gap-1 p-2 rounded-[8px] bg-[#EEF4F0] border border-[#C8DBCF] shadow-sm hover:shadow-md hover:border-[#15653A] transition-all duration-300 group">
-    <div className="text-[#2F7D4E] group-hover:scale-110 transition-transform duration-300">
-      {React.cloneElement(icon as React.ReactElement, { sx: { fontSize: 20 } })}
-    </div>
-    <div className="flex flex-col items-center">
-      <span className="text-[0.75rem] font-bold text-[#0B1F17] leading-tight">
-        {value}
-      </span>
-      <span className="text-[0.6rem] font-medium text-[#64786D] leading-tight mt-0.5 uppercase tracking-wider">
-        {label}
-      </span>
-    </div>
+const StatCard = ({ icon, label, value, delay }: { icon: any, label: string, value: string, delay: string }) => (
+  <div className={`relative flex flex-col items-center justify-center rounded-[8px] bg-[rgba(255,255,255,0.65)] p-2 border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[3px] hover:bg-[rgba(255,255,255,0.9)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:scale-[1.02] animate-fade-blur-in opacity-0 ${delay} group overflow-hidden`}>
+    <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-[280ms] pointer-events-none" />
+    <div className="mb-1 text-[#4A5560] group-hover:text-[#2F6F4E] transition-colors duration-[280ms]">{icon}</div>
+    <span className="text-[12px] font-semibold text-[#1A1F24] tracking-wide relative z-10">{value}</span>
+    <span className="text-[10px] uppercase font-medium tracking-[0.05em] text-[#6B7280] group-hover:text-[#4A5560] relative z-10 transition-colors">{label}</span>
   </div>
 );
 
 export const PremiumPropertyCard: React.FC<HeroCardData> = ({
-  imageSrc,
-  approvalType,
-  price,
-  priceUnit,
-  projectName,
-  location,
-  propertyType,
-  developerName,
-  developerLogo,
-  isVerified,
-  totalLand,
-  totalPlots,
-  loanAvailable,
+  imageSrc, approvalType, price, priceUnit, projectName, location, developerName, isVerified, totalLand, totalPlots, loanAvailable
 }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+
   return (
-    <div className="font-outfit bg-[#ffffff] rounded-[4px] overflow-hidden hover:shadow-lg transition-shadow duration-300 max-w-[390px] mx-auto group cursor-pointer animate-fade-in-up">
-      <div className="relative h-[220px] overflow-hidden bg-[#0B1F17]">
-        <img
-          src={imageSrc}
-          alt={projectName}
-          className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out"
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F17]/90 via-[#0B1F17]/20 to-transparent" />
-
-        <div className="absolute top-2.5 right-2.5 z-10">
-          <div className="flex items-center gap-1 text-white px-2 py-0.5 rounded-[4px] shadow-sm bg-[#15653A] animate-fade-down">
-            <CheckCircleOutlineIcon sx={{ fontSize: 12 }} />
-            <span className="text-[0.625rem] font-bold tracking-wide">
-              {approvalType}
-            </span>
+    <div className="w-full overflow-hidden bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border-b border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] relative group/card transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] rounded-b-[16px]">
+      <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.5)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover/card:left-[200%] pointer-events-none z-20" />
+      
+      <div className="relative h-[240px] w-full overflow-hidden">
+        <img src={imageSrc} alt={projectName} className="relative z-10 h-full w-full object-cover transition-transform duration-[6s] ease-out group-hover/card:scale-105" />
+        
+        <div className="absolute right-0 top-0 z-20 animate-fade-blur-in opacity-0 [animation-delay:40ms]">
+          <div className="flex items-center gap-1.5 rounded-bl-[12px] bg-[rgba(255,255,255,0.85)] px-3 py-1.5 backdrop-blur-[20px] border-b border-l border-[rgba(255,255,255,0.6)] shadow-[-4px_4px_12px_rgba(0,0,0,0.05)]">
+            <CheckCircleOutlineIcon sx={{ fontSize: 14, color: '#2F6F4E' }} />
+            <span className="text-[11px] font-semibold tracking-[0.02em] text-[#2F6F4E]">{approvalType}</span>
           </div>
         </div>
-
-        <div className="absolute bottom-2.5 left-2.5 z-10 animate-fade-up">
-          <div className="rounded-[4px] px-2.5 py-1 flex items-baseline gap-1 bg-white/10 border border-white/20 backdrop-blur-md">
-            <span className="text-[1rem] font-extrabold text-white leading-none drop-shadow-md">
-              {price}
-            </span>
-            <span className="text-[0.65rem] font-medium text-white/90 drop-shadow-md">
-              {priceUnit}
-            </span>
+        
+        <div className="absolute right-0 bottom-0 z-20 animate-fade-blur-in opacity-0 [animation-delay:80ms]">
+          <div className="flex flex-col bg-[rgba(255,255,255,0.85)] backdrop-blur-[20px] border-t border-l border-[rgba(255,255,255,0.6)] px-4 py-2.5 rounded-tl-[16px] shadow-[-4px_-4px_16px_rgba(0,0,0,0.06)] transition-transform duration-[280ms] hover:scale-[1.02] origin-bottom-right">
+            <div className="flex items-baseline gap-1 relative z-10">
+              <span className="text-[12px] font-bold text-[#1A1F24]">₹</span>
+              <span className="text-2xl font-bold text-[#1A1F24] tracking-tight">{price}</span>
+            </div>
+            <span className="text-[10px] font-medium text-[#4A5560] tracking-[0.02em] relative z-10">{priceUnit}</span>
           </div>
         </div>
       </div>
 
-      <div className="p-3 bg-[#ffffff]">
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <div className="flex-1 min-w-0">
-            <h1 className="text-[1.125rem] font-extrabold text-[#0B1F17] leading-tight mb-0.5 truncate">
-              {projectName}
-            </h1>
-            <div className="flex items-center gap-1 text-[#64786D]">
-              <LocationOnOutlinedIcon sx={{ fontSize: 14, color: '#2F7D4E' }} />
-              <span className="text-[0.7rem] font-medium truncate">
-                {location}
-              </span>
-            </div>
-          </div>
-
-          <button className="flex-shrink-0 bg-[#EEF4F0] hover:bg-[#15653A] text-[#15653A] hover:text-white text-[0.65rem] font-bold px-2.5 py-1.5 rounded-[4px] transition-all duration-300 border border-[#C8DBCF] hover:border-[#15653A]">
-            {propertyType}
-          </button>
-        </div>
-
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-[#C8DBCF] to-transparent mb-3" />
-
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-[4px] border border-[#C8DBCF] overflow-hidden flex-shrink-0 flex items-center justify-center bg-white p-0.5">
-            <img
-              src={developerLogo}
-              alt={developerName}
-              className="w-full h-full object-contain"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = 'https://via.placeholder.com/32?text=Logo';
-              }}
-            />
-          </div>
-          <div className="flex flex-col justify-center">
-            <div className="flex items-center gap-1">
-              <span className="text-[0.75rem] font-bold text-[#0B1F17]">
-                {developerName}
-              </span>
-              {isVerified && (
-                <VerifiedIcon sx={{ fontSize: 14, color: '#15653A' }} />
-              )}
-            </div>
-            <span className="text-[0.6rem] font-medium text-[#64786D] uppercase tracking-tighter leading-none">
-              Developer
-            </span>
+      <div className="px-4 py-5 space-y-4 relative z-10">
+        <div className="animate-fade-blur-in opacity-0 [animation-delay:120ms]">
+          <h1 className="text-xl font-bold text-[#1A1F24] leading-snug mb-1 tracking-tight">{projectName}</h1>
+          <div className="flex items-center gap-1.5 text-[#4A5560]">
+            {/* Swapped Outlined for Solid Filled Icon */}
+            <LocationOnIcon sx={{ fontSize: 16, color: '#2F6F4E' }} />
+            <span className="text-[13px] font-medium">{location}</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-1.5">
-          <StatCard
-            icon={<LandscapeOutlinedIcon />}
-            value={totalLand}
-            label="Total Land"
-          />
-          <StatCard
-            icon={<HomeWorkOutlinedIcon />}
-            value={totalPlots}
-            label="Total Plots"
-          />
-          <StatCard
-            icon={<AccountBalanceOutlinedIcon />}
-            value={loanAvailable ? "Loan ✓" : "No Loan"}
-            label="Bank Fin."
-          />
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[rgba(0,0,0,0.06)] to-transparent animate-fade-blur-in opacity-0 [animation-delay:160ms]" />
+
+        <div className="flex items-center justify-between animate-fade-blur-in opacity-0 [animation-delay:200ms]">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-[8px] bg-[rgba(255,255,255,0.8)] border border-[rgba(255,255,255,0.6)] shadow-[0_2px_4px_rgba(0,0,0,0.04)]">
+              <PersonIcon sx={{ fontSize: 18, color: '#C8A97E' }} />
+            </div>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1">
+                <span className="text-[14px] font-bold text-[#1A1F24]">{developerName}</span>
+                {isVerified && <VerifiedIcon sx={{ fontSize: 16, color: '#2F6F4E' }} />}
+              </div>
+              <span className="text-[10px] font-semibold text-[#2F6F4E] tracking-[0.02em]">verified developer</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2 pt-1">
+          <StatCard icon={<LandscapeOutlinedIcon sx={{ fontSize: 18 }} />} value={totalLand} label="Land" delay="[animation-delay:240ms]" />
+          <StatCard icon={<HomeWorkOutlinedIcon sx={{ fontSize: 18 }} />} value={totalPlots} label="Plots" delay="[animation-delay:280ms]" />
+          <StatCard icon={<AccountBalanceOutlinedIcon sx={{ fontSize: 18 }} />} value={loanAvailable ? "Yes" : "No"} label="Loan" delay="[animation-delay:320ms]" />
         </div>
       </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeBlurIn { 
+          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
+          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
+        }
+        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      `}} />
     </div>
   );
 };
 
-const HeroSection: React.FC = () => {
-  return <PremiumPropertyCard {...heroCardData} />;
-};
-
-export default HeroSection;
+export default function HeroSection() {
+  return (
+    <div className="w-full flex items-start justify-center">
+      <PremiumPropertyCard {...heroCardData} />
+    </div>
+  );
+}

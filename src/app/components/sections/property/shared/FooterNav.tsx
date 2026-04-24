@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Snackbar from '@mui/material/Snackbar';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
@@ -28,7 +28,7 @@ const FooterNav: React.FC = () => {
 
   const handleSave = () => {
     setSaved((v) => !v);
-    setSnack(saved ? 'Removed from saved' : 'Saved!');
+    setSnack(saved ? 'removed from saved' : 'saved to favorites');
   };
 
   const handleShare = () => {
@@ -36,110 +36,90 @@ const FooterNav: React.FC = () => {
       navigator.share({ title: 'Vasavi Skyla — Chevella', url: window.location.href });
     } else {
       navigator.clipboard.writeText(window.location.href);
-      setSnack('Link copied!');
+      setSnack('link copied to clipboard');
     }
   };
 
-  const handleHide = () => setSnack('Property hidden');
-  const handleClose = () => setSnack('Closed');
+  const handleHide = () => setSnack('property hidden');
+  const handleClose = () => setSnack('closed');
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none font-outfit">
+      <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none font-inter">
         <motion.div
-          initial={{ y: 18, opacity: 0 }}
+          initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-[390px] bg-[rgba(255,255,255,0.96)] backdrop-blur-[16px] border-t border-[#C8DBCF] shadow-[0_-4px_24px_rgba(15,92,48,0.1)] pointer-events-auto"
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          className="w-full max-w-[390px] bg-[rgba(255,255,255,0.7)] backdrop-blur-[24px] border-t border-[rgba(255,255,255,0.6)] shadow-[0_-8px_32px_rgba(0,0,0,0.06)] pointer-events-auto pb-safe"
           role="toolbar"
-          aria-label="Property actions"
         >
-          <div className="flex items-end justify-between px-2.5 py-1.5">
+          <div className="flex items-end justify-between px-3 py-2">
 
+            {/* Save Button */}
             <motion.button
               onClick={handleSave}
-              whileHover={{ y: -1.5, scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ duration: 0.18 }}
-              className="flex flex-col items-center gap-0.5 w-12 py-0.5"
-              aria-label={saved ? 'Remove from saved' : 'Save property'}
-              aria-pressed={saved}
+              whileTap={{ scale: 0.9 }}
+              className="flex flex-col items-center gap-1 w-14 py-1 group"
             >
-              {saved
-                ? <BookmarkOutlinedIcon sx={{ fontSize: 20, color: '#15653A' }} />
-                : <BookmarkBorderOutlinedIcon sx={{ fontSize: 20, color: '#64786D' }} />
-              }
-              <span className={`text-[0.625rem] leading-none ${saved ? 'text-[#15653A] font-bold' : 'text-[#64786D] font-semibold'}`}>
-                Save
+              <div className={`transition-colors duration-200 ${saved ? 'text-[#2F6F4E]' : 'text-[#4A5560] group-hover:text-[#2F6F4E]'}`}>
+                {saved ? <BookmarkOutlinedIcon sx={{ fontSize: 22 }} /> : <BookmarkBorderOutlinedIcon sx={{ fontSize: 22 }} />}
+              </div>
+              <span className={`text-[10px] font-bold  tracking-wide transition-colors duration-200 ${saved ? 'text-[#2F6F4E]' : 'text-[#6B7280] group-hover:text-[#4A5560]'}`}>
+                save
               </span>
             </motion.button>
 
+            {/* Hide Button */}
             <motion.button
               onClick={handleHide}
-              whileHover={{ y: -1.5, scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ duration: 0.18 }}
-              className="flex flex-col items-center gap-0.5 w-12 py-0.5"
-              aria-label="Hide property"
+              whileTap={{ scale: 0.9 }}
+              className="flex flex-col items-center gap-1 w-14 py-1 group"
             >
-              <VisibilityOffOutlinedIcon sx={{ fontSize: 20, color: '#64786D' }} />
-              <span className="text-[0.625rem] leading-none text-[#64786D] font-semibold">
-                Hide
+              <VisibilityOffOutlinedIcon sx={{ fontSize: 22 }} className="text-[#4A5560] group-hover:text-[#1A1F24] transition-colors" />
+              <span className="text-[10px] font-bold text-[#6B7280] group-hover:text-[#4A5560]  tracking-wide transition-colors">
+                hide
               </span>
             </motion.button>
 
-            <motion.div
-              initial={{ scale: 0.92, y: 10 }}
-              animate={{ scale: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col items-center -mt-3.5"
-            >
-              <button
-                type="button"
+            {/* Center Contact Action */}
+            <div className="flex flex-col items-center -mt-6 relative z-10">
+              <motion.button
                 onClick={() => setAskSellerOpen(true)}
-                className="flex flex-col items-center"
-                aria-label="Open ask seller"
+                whileHover={{ y: -3, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-14 h-14 rounded-[12px] flex items-center justify-center shadow-[0_12px_24px_rgba(47,111,78,0.3)] border-[4px] border-white relative overflow-hidden group/btn"
+                style={{ background: 'linear-gradient(135deg, #2F6F4E, #1E4D35)' }}
               >
-                <motion.div
-                  whileHover={{ y: -2, scale: 1.05 }}
-                  whileTap={{ scale: 0.96 }}
-                  transition={{ duration: 0.18 }}
-                  className="w-11 h-11 rounded-[8px] flex items-center justify-center mb-0.5 shadow-[0_6px_18px_rgba(21,101,58,0.4)] border-[3px] border-white"
-                  style={{ background: 'linear-gradient(135deg, #15653A, #2F7D4E)' }}
-                >
-                  <PhoneOutlinedIcon sx={{ fontSize: 20, color: '#ffffff' }} />
-                </motion.div>
-                <span className="text-[0.625rem] leading-none text-[#15653A] font-bold mt-1">
-                  Contact
-                </span>
-              </button>
-            </motion.div>
+                {/* Light Sweep */}
+                <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover/btn:left-[100%] transition-all duration-700 pointer-events-none" />
+                <PhoneOutlinedIcon sx={{ fontSize: 24, color: '#ffffff' }} />
+              </motion.button>
+              <span className="text-[10px] font-black text-[#2F6F4E]  tracking-widest mt-1.5 drop-shadow-sm">
+                contact
+              </span>
+            </div>
 
+            {/* Share Button */}
             <motion.button
               onClick={handleShare}
-              whileHover={{ y: -1.5, scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ duration: 0.18 }}
-              className="flex flex-col items-center gap-0.5 w-12 py-0.5"
-              aria-label="Share property"
+              whileTap={{ scale: 0.9 }}
+              className="flex flex-col items-center gap-1 w-14 py-1 group"
             >
-              <ShareOutlinedIcon sx={{ fontSize: 20, color: '#64786D' }} />
-              <span className="text-[0.625rem] leading-none text-[#64786D] font-semibold">
-                Share
+              <ShareOutlinedIcon sx={{ fontSize: 22 }} className="text-[#4A5560] group-hover:text-[#4A90E2] transition-colors" />
+              <span className="text-[10px] font-bold text-[#6B7280] group-hover:text-[#4A5560]  tracking-wide transition-colors">
+                share
               </span>
             </motion.button>
 
+            {/* Close Button */}
             <motion.button
               onClick={handleClose}
-              whileHover={{ y: -1.5, scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ duration: 0.18 }}
-              className="flex flex-col items-center gap-0.5 w-12 py-0.5"
-              aria-label="Close property"
+              whileTap={{ scale: 0.9 }}
+              className="flex flex-col items-center gap-1 w-14 py-1 group"
             >
-              <CloseOutlinedIcon sx={{ fontSize: 20, color: '#DC2626' }} />
-              <span className="text-[0.625rem] leading-none text-[#DC2626] font-semibold">
-                Close
+              <CloseOutlinedIcon sx={{ fontSize: 22 }} className="text-[#C65A3A] group-hover:text-[#C65A3A] transition-colors" />
+              <span className="text-[10px] font-bold text-[#C65A3A]  tracking-wide transition-colors">
+                close
               </span>
             </motion.button>
 
@@ -147,15 +127,32 @@ const FooterNav: React.FC = () => {
         </motion.div>
       </div>
 
+      {/* Glass Snackbar */}
       <Snackbar
         open={!!snack}
         autoHideDuration={2000}
         onClose={() => setSnack('')}
         message={snack}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        sx={{ bottom: 80, '& .MuiSnackbarContent-root': { fontFamily: "'Outfit', sans-serif" } }}
+        sx={{ 
+          bottom: 100, 
+          '& .MuiSnackbarContent-root': { 
+            bgcolor: 'rgba(26, 31, 36, 0.85)',
+            backdropFilter: 'blur(12px)',
+            borderRadius: '8px',
+            fontSize: '13px',
+            fontWeight: 600,
+            textTransform: '',
+            fontFamily: 'Inter, sans-serif',
+            minWidth: 'auto',
+            textAlign: 'center',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+            border: '1px solid rgba(255,255,255,0.1)'
+          } 
+        }}
       />
 
+      {/* Modern Contact Dialog */}
       <Dialog
         open={askSellerOpen}
         onClose={() => setAskSellerOpen(false)}
@@ -165,28 +162,38 @@ const FooterNav: React.FC = () => {
         keepMounted
         PaperProps={{
           sx: {
-            borderRadius: '10px',
-            m: 1,
-            border: '1px solid #C8DBCF',
+            borderRadius: '12px',
+            m: 1.5,
+            bgcolor: 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(24px)',
+            border: '1px solid rgba(255, 255, 255, 0.6)',
             maxWidth: '390px',
             width: '100%',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.15)',
           },
         }}
       >
-        <div className="flex items-center justify-between px-4 py-3 border-b border-[#C8DBCF]">
-          <div className="flex items-center gap-2">
-            <HeadingIcon name="ask-seller" className="w-4 h-4" />
-            <h3 className="text-[14px] font-bold text-[#0B1F17] font-outfit">Ask Seller</h3>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[rgba(0,0,0,0.05)]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-[8px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.2)] flex items-center justify-center">
+              <HeadingIcon name="ask-seller" className="w-4 h-4 text-[#2F6F4E]" />
+            </div>
+            <h3 className="text-[16px] font-bold text-[#1A1F24] tracking-tight">Ask Seller</h3>
           </div>
           <IconButton
             onClick={() => setAskSellerOpen(false)}
             size="small"
-            aria-label="Close ask seller dialog"
+            sx={{ 
+              bgcolor: 'rgba(0,0,0,0.04)',
+              '&:hover': { bgcolor: 'rgba(0,0,0,0.08)' }
+            }}
           >
-            <CloseOutlinedIcon sx={{ fontSize: 18, color: '#64786D' }} />
+            <CloseOutlinedIcon sx={{ fontSize: 18, color: '#4A5560' }} />
           </IconButton>
         </div>
-        <SellerQueries />
+        <div className="p-1">
+          <SellerQueries />
+        </div>
       </Dialog>
     </>
   );

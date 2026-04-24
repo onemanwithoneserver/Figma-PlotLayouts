@@ -8,7 +8,7 @@ const ChevronDown = ({ open }: { open: boolean }) => (
   <svg
     width="14" height="14" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-    style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}
+    style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.28s cubic-bezier(0.4, 0, 0.2, 1)' }}
     aria-hidden="true"
   >
     <polyline points="6 9 12 15 18 9" />
@@ -28,23 +28,25 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
   }, []);
 
   return (
-    <div ref={ref} className="relative mb-3">
+    <div ref={ref} className="relative mb-4 z-30">
       <button
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex items-center justify-between w-full px-3 py-2.5 rounded-[4px] bg-[#ffffff] border border-[#C8DBCF] focus:outline-none focus:border-[#15653A] transition-colors shadow-sm"
+        className="group flex items-center justify-between w-full px-4 py-3 rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] focus:outline-none focus:border-[#2F6F4E] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[rgba(255,255,255,0.85)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden relative"
       >
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] font-bold text-[#64786D] tracking-wide">Plot Size</span>
-          <span className="h-3 w-px bg-[#C8DBCF]" />
-          <span className="text-[13px] font-extrabold text-[#0B1F17]">{value.size}</span>
+        <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.5)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none" />
+
+        <div className="flex items-center gap-2.5 relative z-10">
+          <span className="text-[12px] font-semibold text-[#6B7280] uppercase tracking-[0.05em] group-hover:text-[#4A5560] transition-colors">Plot Size</span>
+          <span className="h-3 w-px bg-[rgba(0,0,0,0.1)]" />
+          <span className="text-[14px] font-bold text-[#1A1F24] tracking-tight">{value.size}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] font-bold text-[#64786D]">
-            Rs. {value.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
+        <div className="flex items-center gap-2 relative z-10">
+          <span className="text-[12px] font-semibold text-[#4A5560]">
+            ₹{value.pricePerSqYd.toLocaleString('en-IN')} / Sq.Yd
           </span>
-          <span className="text-[#64786D]">
+          <span className="text-[#2F6F4E]">
             <ChevronDown open={open} />
           </span>
         </div>
@@ -54,7 +56,7 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
         <ul
           role="listbox"
           aria-label="Select plot size"
-          className="absolute z-20 top-full mt-1.5 w-full rounded-[4px] bg-[#ffffff] border border-[#C8DBCF] shadow-[0_4px_14px_rgba(21,101,58,0.18)] overflow-hidden animate-fade-in"
+          className="absolute z-40 top-full mt-2 w-full rounded-[8px] bg-[rgba(255,255,255,0.85)] backdrop-blur-[24px] border border-[rgba(255,255,255,0.8)] shadow-[0_12px_32px_rgba(0,0,0,0.12)] overflow-hidden animate-fade-blur-in opacity-0"
         >
           {PLOTS.map((plot) => {
             const isSelected = plot.size === value.size;
@@ -64,23 +66,22 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
                 role="option"
                 aria-selected={isSelected}
                 onClick={() => { onChange(plot); setOpen(false); }}
-                className={`flex items-center justify-between px-3 py-2.5 cursor-pointer transition-colors ${isSelected ? 'bg-[#EEF4F0]' : 'hover:bg-[#EEF4F0]'}`}
+                className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors duration-[280ms] ${isSelected ? 'bg-[rgba(47,111,78,0.08)]' : 'hover:bg-[rgba(255,255,255,0.9)]'}`}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   <span
-                    className="w-2 h-2 rounded-full flex-shrink-0 transition-colors"
-                    style={{ background: isSelected ? '#15653A' : '#C8DBCF' }}
+                    className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-[280ms] ${isSelected ? 'bg-[#2F6F4E] scale-110 shadow-[0_0_8px_rgba(47,111,78,0.4)]' : 'bg-[#C8A97E]'}`}
                   />
-                  <span className={`text-[13px] font-bold ${isSelected ? '#15653A' : 'text-[#0B1F17]'}`}>
+                  <span className={`text-[13px] font-bold tracking-tight ${isSelected ? 'text-[#2F6F4E]' : 'text-[#1A1F24]'}`}>
                     {plot.size}
                   </span>
                 </div>
                 <div className="text-right">
-                  <p className={`text-[12px] font-extrabold ${isSelected ? '#15653A' : 'text-[#0B1F17]'}`}>
-                    Rs. {((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
+                  <p className={`text-[13px] font-bold ${isSelected ? 'text-[#2F6F4E]' : 'text-[#1A1F24]'}`}>
+                    ₹{((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
                   </p>
-                  <p className="text-[10px] font-semibold text-[#64786D]">
-                    Rs. {plot.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
+                  <p className="text-[11px] font-medium text-[#6B7280] mt-[1px]">
+                    ₹{plot.pricePerSqYd.toLocaleString('en-IN')} / Sq.Yd
                   </p>
                 </div>
               </li>
@@ -93,26 +94,30 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
 };
 
 const PriceTab = () => (
-  <div className="flex flex-col animate-fade-in">
+  <div className="flex flex-col bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] rounded-[8px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] animate-fade-blur-in opacity-0 overflow-hidden">
     {PLOTS.map((plot, i, arr) => (
-      <div key={plot.size} className="hover:bg-[#EEF4F0] transition-colors px-2 -mx-2 rounded-[4px]">
-        <div className="flex items-center justify-between py-2.5">
+      <div key={plot.size} className="group transition-colors duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[rgba(255,255,255,0.85)] relative">
+        <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.4)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
+        
+        <div className="flex items-center justify-between px-4 py-3.5 cursor-pointer relative z-20">
           <div>
-            <p className="text-[13px] font-bold text-[#0B1F17]">{plot.size} Plot</p>
-            <p className="text-[11px] font-semibold text-[#64786D] mt-0.5">
-              Rs. {plot.pricePerSqYd.toLocaleString('en-IN')}/Sq.Yd
+            <p className="text-[13px] font-bold text-[#1A1F24] transition-colors duration-[280ms]">{plot.size} Plot</p>
+            <p className="text-[11px] font-medium text-[#6B7280] mt-0.5 transition-colors duration-[280ms] group-hover:text-[#4A5560]">
+              ₹{plot.pricePerSqYd.toLocaleString('en-IN')} / Sq.Yd
             </p>
           </div>
-          <p className="text-[15px] font-extrabold text-[#15653A]">
-            Rs. {((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
+          <p className="text-[15px] font-bold text-[#2F6F4E] tracking-tight transition-transform duration-[280ms] group-hover:scale-105">
+            ₹{((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
           </p>
         </div>
-        {i < arr.length - 1 && <div className="h-px bg-[#C8DBCF] mx-2" />}
+        {i < arr.length - 1 && <div className="h-[1px] bg-gradient-to-r from-transparent via-[rgba(0,0,0,0.06)] to-transparent w-full" />}
       </div>
     ))}
-    <p className="text-[10px] font-medium text-[#64786D] mt-2 italic px-0.5">
-      * GST, registration &amp; development charges extra
-    </p>
+    <div className="bg-[rgba(0,0,0,0.02)] px-4 py-2 border-t border-[rgba(0,0,0,0.04)]">
+      <p className="text-[11px] font-medium text-[#6B7280] italic">
+        * GST, registration &amp; development charges extra
+      </p>
+    </div>
   </div>
 );
 
@@ -131,27 +136,29 @@ const CostTab = ({ selected, onSelect }: { selected: Plot; onSelect: (p: Plot) =
   ];
 
   return (
-    <div className="flex flex-col animate-fade-in">
+    <div className="flex flex-col animate-fade-blur-in opacity-0" style={{ animationDelay: '40ms' }}>
       <SizeDropdown value={selected} onChange={onSelect} />
 
-      <div className="bg-[#ffffff] border border-[#C8DBCF] rounded-[4px] px-3 py-1 shadow-sm mb-3">
+      <div className="bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] rounded-[8px] px-4 py-2 shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] mb-4">
         {items.map((row, i) => (
           <div key={row.label}>
-            <div className="flex items-center justify-between py-2">
-              <p className="text-[12px] font-semibold text-[#64786D]">{row.label}</p>
-              <p className="text-[12.5px] font-bold text-[#0B1F17]">{row.value}</p>
+            <div className="flex items-center justify-between py-2.5">
+              <p className="text-[13px] font-semibold text-[#4A5560]">{row.label}</p>
+              <p className="text-[13px] font-bold text-[#1A1F24] tracking-tight">{row.value}</p>
             </div>
-            {i < items.length - 1 && <div className="h-px bg-[#C8DBCF] opacity-50" />}
+            {i < items.length - 1 && <div className="h-[1px] bg-gradient-to-r from-transparent via-[rgba(0,0,0,0.06)] to-transparent w-full" />}
           </div>
         ))}
       </div>
 
-      <div className="flex items-center justify-between px-4 py-3 rounded-[4px] shadow-[0_4px_16px_rgba(21,101,58,0.15)] transition-transform hover:scale-[1.01]" style={{ background: 'linear-gradient(135deg, #15653A, #2F7D4E)' }}>
-        <p className="text-[13px] font-extrabold text-[#ffffff] tracking-wide">Total (approx.)</p>
-        <p className="text-[18px] font-black text-white drop-shadow-md">{fmtINR(total)}</p>
+      {/* Grand Total - Solid Primary Accent for Financial Emphasis */}
+      <div className="relative group flex items-center justify-between px-4 py-4 rounded-[8px] bg-[#2F6F4E] shadow-[0_8px_24px_rgba(47,111,78,0.25)] transition-all duration-[280ms] hover:-translate-y-[2px] overflow-hidden">
+        <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.15)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
+        <p className="text-[14px] font-semibold text-[#FFFFFF] tracking-wide relative z-20">Total (approx.)</p>
+        <p className="text-[20px] font-bold text-[#FFFFFF] drop-shadow-md tracking-tight relative z-20">{fmtINR(total)}</p>
       </div>
 
-      <p className="text-[10px] font-medium text-[#64786D] mt-2 italic px-0.5 text-center">
+      <p className="text-[11px] font-medium text-[#6B7280] mt-3 italic px-1 text-center">
         * Varies based on unit selection &amp; statutory charges
       </p>
     </div>
@@ -159,24 +166,32 @@ const CostTab = ({ selected, onSelect }: { selected: Plot; onSelect: (p: Plot) =
 };
 
 const BookingTab = () => (
-  <div className="flex flex-col gap-2 animate-fade-in">
-    {BOOKING_STEPS.map((row) => (
-      <div
-        key={row.label}
-        className="group flex items-start gap-3 px-3 py-3 rounded-[4px] bg-[#ffffff] border border-[#C8DBCF] hover:border-[#15653A] hover:shadow-sm transition-all duration-200 cursor-pointer"
-      >
-        <span className="mt-0.5 text-[10px] font-extrabold text-white bg-[#15653A] w-[22px] h-[22px] flex-shrink-0 flex items-center justify-center rounded-[6px] shadow-sm group-hover:scale-110 transition-transform">
-          {row.step}
-        </span>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-[13px] font-bold text-[#0B1F17] group-hover:text-[#15653A] transition-colors">{row.label}</p>
-            <p className="text-[12.5px] font-extrabold text-[#15653A] flex-shrink-0">{row.value}</p>
+  <div className="flex flex-col gap-3">
+    {BOOKING_STEPS.map((row, index) => {
+      const delay = 40 + index * 40;
+      return (
+        <div
+          key={row.label}
+          className="group relative flex items-start gap-3.5 px-4 py-3.5 rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[2px] hover:scale-[1.01] hover:bg-[rgba(255,255,255,0.85)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden animate-fade-blur-in opacity-0"
+          style={{ animationDelay: `${delay}ms` }}
+        >
+          <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.5)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
+
+          {/* Step Indicator */}
+          <span className="mt-0.5 text-[12px] font-bold text-[#2F6F4E] bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.15)] w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-[8px] group-hover:bg-[rgba(47,111,78,0.15)] group-hover:scale-110 transition-all duration-[280ms] relative z-20">
+            {row.step}
+          </span>
+          
+          <div className="flex-1 min-w-0 relative z-20">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-[14px] font-bold text-[#1A1F24] transition-colors duration-[280ms] tracking-tight">{row.label}</p>
+              <p className="text-[13px] font-bold text-[#C65A3A] flex-shrink-0 tracking-tight transition-transform duration-[280ms] group-hover:scale-105">{row.value}</p>
+            </div>
+            <p className="text-[12px] font-medium text-[#6B7280] mt-1 leading-snug transition-colors duration-[280ms] group-hover:text-[#4A5560]">{row.note}</p>
           </div>
-          <p className="text-[11px] font-medium text-[#64786D] mt-1 leading-snug">{row.note}</p>
         </div>
-      </div>
-    ))}
+      );
+    })}
   </div>
 );
 
@@ -185,19 +200,29 @@ const PaymentPlan: React.FC = () => {
   const [selectedPlot, setSelectedPlot] = useState<Plot>(PLOTS[0]);
 
   return (
-    <div className="font-outfit">
+    <div className="w-full">
       <SectionTabNav
         tabs={PAYMENT_TABS}
         activeTab={activeTab}
         onTabChange={setActiveTab}
         layoutId="payment-active-pill"
       />
-      <div className="px-3 py-3 bg-[#ffffff]">
+      <div className="px-3 py-4">
         {activeTab === 'price' && <PriceTab />}
         {activeTab === 'cost' && <CostTab selected={selectedPlot} onSelect={setSelectedPlot} />}
         {activeTab === 'booking' && <BookingTab />}
       </div>
-      <AskSeller initialQuestions={paymentAskSellerQuestions} className="bg-[#ffffff]" />
+      <div className="pb-6">
+        <AskSeller initialQuestions={paymentAskSellerQuestions} />
+      </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeBlurIn { 
+          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
+          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
+        }
+        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      `}} />
     </div>
   );
 };

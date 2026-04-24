@@ -8,22 +8,23 @@ import { APPROVALS, CONSTRUCTION_STEPS, PROGRESS_PCT } from './data';
 type DotStatus = 'done' | 'active' | 'upcoming';
 
 function Dot({ status }: { status: DotStatus }) {
-  const base = 'w-[18px] h-[18px] rounded-full border-[2px] border-[#ffffff] flex items-center justify-center flex-shrink-0';
+  const base = 'w-[18px] h-[18px] rounded-full border-[2px] flex items-center justify-center flex-shrink-0 relative z-10 transition-all duration-300';
+  
   if (status === 'done')
     return (
-      <div className={`${base} bg-[#0B1F17] shadow-sm`}>
-        <div className="w-[7px] h-[7px] rounded-full bg-[#ffffff]" />
+      <div className={`${base} bg-[#2F6F4E] border-white shadow-[0_2px_8px_rgba(47,111,78,0.2)]`}>
+        <div className="w-[6px] h-[6px] rounded-full bg-white" />
       </div>
     );
   if (status === 'active')
     return (
-      <div className={`${base} bg-[#15653A] shadow-[0_0_10px_rgba(21,101,58,0.4)]`}>
-        <div className="w-[7px] h-[7px] rounded-full bg-[#ffffff]" />
+      <div className={`${base} bg-white border-[#2F6F4E] shadow-[0_0_12px_rgba(47,111,78,0.3)] animate-pulse`}>
+        <div className="w-[6px] h-[6px] rounded-full bg-[#2F6F4E]" />
       </div>
     );
   return (
-    <div className={`${base} bg-[#ffffff] border-[#C8DBCF]`}>
-      <div className="w-[7px] h-[7px] rounded-full bg-[#C8DBCF]" />
+    <div className={`${base} bg-white border-[rgba(0,0,0,0.1)]`}>
+      <div className="w-[6px] h-[6px] rounded-full bg-[rgba(0,0,0,0.1)]" />
     </div>
   );
 }
@@ -38,9 +39,7 @@ const ProjectTimeline: React.FC = () => {
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(false);
 
-  useEffect(() => {
-    setImageIndex(0);
-  }, [activeStep]);
+  useEffect(() => { setImageIndex(0); }, [activeStep]);
 
   const syncArrows = () => {
     const el = scrollRef.current;
@@ -67,191 +66,172 @@ const ProjectTimeline: React.FC = () => {
 
   const currentImages = CONSTRUCTION_STEPS[activeStep]?.images || [];
 
-  const nextImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (imageIndex < currentImages.length - 1) setImageIndex((prev) => prev + 1);
-  };
-
-  const prevImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (imageIndex > 0) setImageIndex((prev) => prev - 1);
-  };
-
   return (
-    <section className="font-outfit w-full bg-[#ffffff] border-t border-[#C8DBCF]">
-      <div className="section-heading-row">
-        <div className="section-heading-left">
-          <HeadingIcon name="project-status" />
-          <h3 className="section-heading-text">Project Status</h3>
-        </div>
-      </div>
+    <section className="w-full font-inter">
+      {/* Glass Progress Card */}
+      <div className="px-3 py-4 animate-fade-blur-in opacity-0" style={{ animationDelay: '40ms' }}>
+        <div className="rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] px-4 py-4 overflow-hidden relative">
+           {/* Subtle Light Sweep */}
+           <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent skew-x-[-20deg] transition-all duration-[800ms] ease-in-out group-hover:left-[200%] pointer-events-none" />
 
-      <div className="px-1 pt-1 pb-1 bg-[#ffffff]">
-        <div className="rounded-[4px] border border-[#C8DBCF] bg-[rgba(255,255,255,0.9)] shadow-[0_6px_20px_rgba(10,26,16,0.05)] px-3.5 py-3.5">
-          <div className="flex items-start justify-end gap-2 mb-3">
-            <span className="inline-flex items-center rounded-[4px] border border-[#15653A] bg-[#EEF4F0] px-2.5 py-1 text-[11px] font-black text-[#15653A] leading-none whitespace-nowrap">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Timeline Progress</span>
+            <span className="inline-flex items-center rounded-[8px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.15)] px-3 py-1 text-[12px] font-bold text-[#2F6F4E]">
               {PROGRESS_PCT}% Complete
             </span>
           </div>
 
-          <div className="relative h-[8px] w-full rounded-full bg-[#EEF4F0] overflow-hidden mb-2.5">
+          <div className="relative h-[10px] w-full rounded-full bg-[rgba(0,0,0,0.05)] overflow-hidden mb-3 shadow-inner">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${PROGRESS_PCT}%` }}
-              transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
-              className="h-full rounded-full"
-              style={{ background: 'linear-gradient(135deg, #15653A, #2F7D4E)' }}
-            />
-            <motion.span
-              initial={{ left: 0 }}
-              animate={{ left: `calc(${PROGRESS_PCT}% - 10px)` }}
-              transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
-              className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 border-[#ffffff] bg-[#15653A] shadow-[0_2px_10px_rgba(21,101,58,0.4)]"
-              aria-hidden="true"
-            />
+              transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1] }}
+              className="h-full rounded-full relative"
+              style={{ background: 'linear-gradient(90deg, #2F6F4E, #4A90E2)' }}
+            >
+                <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.15)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.15)_50%,rgba(255,255,255,0.15)_75%,transparent_75%,transparent)] bg-[length:20px_20px] animate-[progress-stripe_2s_linear_infinite]" />
+            </motion.div>
           </div>
 
           <div className="flex items-center justify-between">
-            <span className="text-[12px] font-bold text-[#15653A]">Execution phase</span>
-            <span className="text-[11px] font-semibold text-[#64786D]">On schedule</span>
+            <span className="text-[12px] font-semibold text-[#4A5560]">Execution Phase</span>
+            <span className="text-[12px] font-bold text-[#2F6F4E] ">on schedule</span>
           </div>
         </div>
       </div>
 
-      <div className="bg-[#ffffff] px-4 py-6">
-        <div className="relative ml-[7px] pl-6 border-l-2 border-[#C8DBCF] space-y-8 pb-1">
-
-          <div className="relative h-6 flex items-center">
-            <div className="absolute -left-[35px] z-10"><Dot status="done" /></div>
-            <p className="text-[13.5px] font-bold text-[#0B1F17]">Under development</p>
+      <div className="px-5 py-2">
+        <div className="relative ml-2 pl-7 border-l-[1.5px] border-[rgba(0,0,0,0.1)] space-y-8 pb-4">
+          
+          {/* Step 1: Done */}
+          <div className="relative animate-fade-blur-in opacity-0" style={{ animationDelay: '100ms' }}>
+            <div className="absolute -left-[37px] top-1/2 -translate-y-1/2"><Dot status="done" /></div>
+            <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Under development</p>
           </div>
 
-          <div className="relative flex flex-col gap-3">
-            <div className="absolute -left-[35px] top-3 z-10"><Dot status="done" /></div>
-            <p className="text-[13.5px] font-bold text-[#0B1F17]">Final LP received</p>
+          {/* Step 2: Approvals (Done) */}
+          <div className="relative flex flex-col gap-4 animate-fade-blur-in opacity-0" style={{ animationDelay: '150ms' }}>
+            <div className="absolute -left-[37px] top-2.5"><Dot status="done" /></div>
+            <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Final LP received</p>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2.5">
               {APPROVALS.map((doc) => (
-                <div key={doc.id} className="flex items-center justify-between bg-[#ffffff] border border-[#C8DBCF] rounded-[4px] px-3 py-2.5 hover:border-[#15653A] transition-colors">
+                <div key={doc.id} className="group flex items-center justify-between bg-[rgba(255,255,255,0.65)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.6)] rounded-[8px] px-3.5 py-3 shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:bg-[rgba(255,255,255,0.85)] transition-all duration-[280ms]">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-[4px] bg-[#ffffff] border border-[#C8DBCF] flex items-center justify-center flex-shrink-0">
-                      <svg className="w-4 h-4 text-[#15653A]" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z" />
-                      </svg>
+                    <div className="w-9 h-9 rounded-[8px] bg-white border border-[rgba(0,0,0,0.06)] flex items-center justify-center flex-shrink-0 text-[#2F6F4E] group-hover:scale-110 transition-transform">
+                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     </div>
                     <div>
-                      <p className="text-[12px] font-bold text-[#0B1F17] leading-none mb-1">{doc.name}</p>
-                      <p className="text-[11px] font-medium text-[#64786D] leading-none">{doc.date}</p>
+                      <p className="text-[13px] font-bold text-[#1A1F24] leading-none mb-1 tracking-tight">{doc.name}</p>
+                      <p className="text-[11px] font-medium text-[#6B7280]">{doc.date}</p>
                     </div>
                   </div>
-                  <button className="compact-touch p-1.5 text-[#64786D] hover:text-[#15653A] transition-colors" aria-label={`View ${doc.name}`}>
-                    <svg className="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
+                  <button className="w-8 h-8 rounded-full flex items-center justify-center text-[#6B7280] hover:bg-[rgba(47,111,78,0.1)] hover:text-[#2F6F4E] transition-all">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                   </button>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative">
-            <div className="absolute -left-[35px] top-4 -translate-y-1/2 z-10"><Dot status="active" /></div>
+          {/* Step 3: Current Phase */}
+          <div className="relative animate-fade-blur-in opacity-0" style={{ animationDelay: '200ms' }}>
+            <div className="absolute -left-[37px] top-4 -translate-y-1/2"><Dot status="active" /></div>
             <div className="flex items-center justify-between mb-4">
-              <p className="text-[13.5px] font-bold text-[#0B1F17]">Development phase</p>
+              <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Development phase</p>
               <button
                 onClick={() => setProgressOpen((v) => !v)}
-                className="compact-touch inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] border border-[#15653A] bg-[#ffffff] text-[#15653A] text-[11px] font-bold hover:bg-[#15653A] hover:text-white transition-all shadow-sm"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-[8px] border border-[rgba(47,111,78,0.3)] bg-white text-[#2F6F4E] text-[12px] font-bold hover:bg-[#2F6F4E] hover:text-white transition-all shadow-sm active:scale-95"
               >
-                <svg className={`w-3 h-3 transition-transform ${progressOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${progressOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
                 </svg>
-                {progressOpen ? 'Close' : 'View updates'}
+                {progressOpen ? 'Close' : 'View Updates'}
               </button>
             </div>
 
             <AnimatePresence>
               {progressOpen && (
                 <motion.div
-                  id="construction-updates"
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="relative mt-2">
-                    <button onClick={() => shift('left')} disabled={!canLeft} className={`compact-touch absolute left-0 top-0 z-20 h-10 w-8 flex items-center justify-start bg-gradient-to-r from-[#ffffff] to-transparent transition-opacity ${canLeft ? 'opacity-100' : 'opacity-0'}`} aria-label="Scroll left">
-                      <div className="w-6 h-6 rounded-full bg-[#ffffff] border border-[#C8DBCF] flex items-center justify-center shadow-sm"><ChevronLeftIcon sx={{ fontSize: 16 }} /></div>
-                    </button>
-                    <button onClick={() => shift('right')} disabled={!canRight} className={`compact-touch absolute right-0 top-0 z-20 h-10 w-8 flex items-center justify-end bg-gradient-to-l from-[#ffffff] to-transparent transition-opacity ${canRight ? 'opacity-100' : 'opacity-0'}`} aria-label="Scroll right">
-                      <div className="w-6 h-6 rounded-full bg-[#ffffff] border border-[#C8DBCF] flex items-center justify-center shadow-sm"><ChevronRightIcon sx={{ fontSize: 16 }} /></div>
-                    </button>
-
-                    <div ref={scrollRef} className="w-full overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                      <div className="flex min-w-max items-start" role="tablist" aria-label="Construction steps">
-                        {CONSTRUCTION_STEPS.map((item, idx) => {
-                          const isActive = idx === activeStep;
-                          return (
-                            <button
-                              key={item.id}
-                              type="button"
-                              role="tab"
-                              onClick={() => setActiveStep(idx)}
-                              className="compact-touch relative min-w-[80px] flex-1 flex flex-col items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#15653A]/40 rounded-[4px]"
-                            >
-                              <span className={`text-[11px] mb-2.5 transition-colors ${isActive ? 'font-black text-[#15653A]' : 'font-bold text-[#64786D]'}`}>
-                                {item.date}
-                              </span>
-                              <div className="relative w-full flex justify-center items-center h-5">
-                                <div className={`absolute w-full h-[2px] ${idx < activeStep ? 'bg-[#15653A]' : 'bg-[#C8DBCF]'}`} />
-                                <div className={`relative z-10 rounded-full border-2 transition-all duration-300 ${idx <= activeStep ? 'w-[10px] h-[10px] bg-[#15653A] border-[#15653A]' : 'w-[8px] h-[8px] bg-[#ffffff] border-[#C8DBCF]'} ${isActive ? 'scale-125 ring-4 ring-[#15653A]/20' : ''}`} />
-                              </div>
-                            </button>
-                          );
-                        })}
+                  <div className="relative mt-2 p-1">
+                    <div ref={scrollRef} className="w-full overflow-x-auto pb-5 pt-1 scrollbar-hide">
+                      <div className="flex min-w-max items-start gap-4">
+                        {CONSTRUCTION_STEPS.map((item, idx) => (
+                          <button
+                            key={item.id}
+                            onClick={() => setActiveStep(idx)}
+                            className={`flex flex-col items-center min-w-[70px] transition-all ${idx === activeStep ? 'scale-105' : 'opacity-60'}`}
+                          >
+                            <span className={`text-[11px] mb-3 font-bold ${idx === activeStep ? 'text-[#2F6F4E]' : 'text-[#6B7280]'}`}>
+                              {item.date}
+                            </span>
+                            <div className="relative w-full flex justify-center items-center">
+                                <div className={`absolute w-full h-[2px] ${idx <= activeStep ? 'bg-[#2F6F4E]' : 'bg-[rgba(0,0,0,0.1)]'}`} />
+                                <div className={`w-3 h-3 rounded-full border-2 transition-all ${idx <= activeStep ? 'bg-[#2F6F4E] border-[#2F6F4E]' : 'bg-white border-[rgba(0,0,0,0.2)]'} ${idx === activeStep ? 'ring-4 ring-[rgba(47,111,78,0.15)]' : ''}`} />
+                            </div>
+                          </button>
+                        ))}
                       </div>
                     </div>
 
-                    <AnimatePresence mode="wait">
-                      <motion.div key={activeStep} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="mt-2" role="tabpanel">
-                        <p className="text-[12.5px] font-bold text-[#0B1F17] mb-3">{CONSTRUCTION_STEPS[activeStep].title}</p>
-                        {currentImages.length > 0 ? (
-                          <div className="relative w-full h-48 rounded-[4px] overflow-hidden bg-[#ffffff] border border-[#C8DBCF]">
-                            <img src={currentImages[imageIndex]} alt={`${CONSTRUCTION_STEPS[activeStep].title} progress`} onClick={() => setZoomSrc(currentImages[imageIndex])} className="w-full h-full object-cover cursor-zoom-in" loading="lazy" />
-                            {currentImages.length > 1 && (
-                              <div className="absolute inset-0 flex items-center justify-between px-2">
-                                <button onClick={prevImage} className="compact-touch w-8 h-8 rounded-[4px] bg-[rgba(255,255,255,0.9)] shadow-[0_4px_14px_rgba(21,101,58,0.18)] flex items-center justify-center" aria-label="Previous image"><ChevronLeftIcon sx={{ fontSize: 18 }} /></button>
-                                <button onClick={nextImage} className="compact-touch w-8 h-8 rounded-[4px] bg-[rgba(255,255,255,0.9)] shadow-[0_4px_14px_rgba(21,101,58,0.18)] flex items-center justify-center" aria-label="Next image"><ChevronRightIcon sx={{ fontSize: 18 }} /></button>
-                              </div>
-                            )}
-                          </div>
-                        ) : (
-                          <div className="py-10 bg-[#ffffff] rounded-[4px] text-center border-2 border-dashed border-[#C8DBCF]">
-                            <p className="text-[12px] font-bold text-[#64786D]">Images updating soon</p>
-                          </div>
-                        )}
-                      </motion.div>
-                    </AnimatePresence>
+                    <motion.div key={activeStep} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-[rgba(255,255,255,0.4)] rounded-[8px] p-2 border border-[rgba(0,0,0,0.05)]">
+                      <p className="text-[13px] font-bold text-[#1A1F24] mb-3 tracking-tight">{CONSTRUCTION_STEPS[activeStep].title}</p>
+                      {currentImages.length > 0 ? (
+                        <div className="relative w-full aspect-video rounded-[8px] overflow-hidden bg-white shadow-inner">
+                          <img src={currentImages[imageIndex]} alt="Progress" onClick={() => setZoomSrc(currentImages[imageIndex])} className="w-full h-full object-cover cursor-zoom-in" loading="lazy" />
+                          {currentImages.length > 1 && (
+                            <div className="absolute bottom-3 right-3 flex gap-2">
+                                <button onClick={(e) => { e.stopPropagation(); if(imageIndex > 0) setImageIndex(i => i - 1); }} className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-md shadow-lg flex items-center justify-center text-[#1A1F24] disabled:opacity-30"><ChevronLeftIcon sx={{ fontSize: 18 }} /></button>
+                                <button onClick={(e) => { e.stopPropagation(); if(imageIndex < currentImages.length -1) setImageIndex(i => i + 1); }} className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-md shadow-lg flex items-center justify-center text-[#1A1F24] disabled:opacity-30"><ChevronRightIcon sx={{ fontSize: 18 }} /></button>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="py-12 bg-white/50 rounded-[8px] text-center border-2 border-dashed border-[rgba(0,0,0,0.1)]">
+                          <p className="text-[12px] font-bold text-[#6B7280]">Updates scheduled soon</p>
+                        </div>
+                      )}
+                    </motion.div>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          <div className="relative h-6 flex items-center">
-            <div className="absolute -left-[35px] z-10"><Dot status="upcoming" /></div>
-            <p className="text-[13.5px] font-bold text-[#64786D]">Ready for registration</p>
+          {/* Step 4: Upcoming */}
+          <div className="relative animate-fade-blur-in opacity-0" style={{ animationDelay: '250ms' }}>
+            <div className="absolute -left-[37px] top-1/2 -translate-y-1/2"><Dot status="upcoming" /></div>
+            <p className="text-[14px] font-bold text-[#6B7280] tracking-tight">Ready for registration</p>
           </div>
         </div>
       </div>
 
+      {/* Fullscreen Zoom */}
       <AnimatePresence>
         {zoomSrc && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setZoomSrc(null)} className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(0,0,0,0.95)] p-4" role="dialog" aria-label="Zoomed image">
-            <motion.img initial={{ scale: 0.9 }} animate={{ scale: 1 }} src={zoomSrc} className="max-w-full max-h-[85vh] rounded-[4px]" alt="Zoomed construction progress" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setZoomSrc(null)} className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(26,31,36,0.95)] backdrop-blur-md p-4">
+            <motion.img initial={{ scale: 0.9, rotateX: 20 }} animate={{ scale: 1, rotateX: 0 }} src={zoomSrc} className="max-w-full max-h-[85vh] rounded-[8px] shadow-2xl" />
           </motion.div>
         )}
       </AnimatePresence>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeBlurIn { 
+          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
+          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
+        }
+        @keyframes progress-stripe {
+          from { background-position: 0 0; }
+          to { background-position: 20px 0; }
+        }
+        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      `}} />
     </section>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { SECTION_TABS } from './data';
@@ -75,20 +76,23 @@ const HorizontalTabNavigation: React.FC = () => {
     }
   }, []);
 
-  const filteredTabs = SECTION_TABS.filter(tab => tab.id !== activeTab);
-
+  // Show all tabs but highlight the active one for better UX context
   return (
     <nav
       aria-label="Page sections"
-      className={`font-outfit sticky top-0 z-40 glass-sticky transition-all duration-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
-        }`}
+      className={`font-inter sticky top-0 z-40 transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        visible 
+        ? 'opacity-100 translate-y-0 bg-[rgba(255,255,255,0.75)] backdrop-blur-[20px] border-b border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.05)]' 
+        : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
+      }`}
     >
-      <div className="flex items-center">
+      <div className="flex items-center max-w-[390px] mx-auto relative">
+        {/* Left Blur/Arrow Overlay */}
+        <div className={`absolute left-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-r from-[rgba(255,255,255,0.8)] to-transparent transition-opacity duration-200 ${showLeft ? 'opacity-100' : 'opacity-0'}`} />
         <button
           onClick={() => manualScroll('left')}
-          className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-[#EEF4F0] hover:text-[#15653A] disabled:opacity-0"
+          className={`relative z-20 flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 text-[#4A5560] hover:text-[#2F6F4E] disabled:opacity-0`}
           disabled={!showLeft}
-          style={{ borderRight: '1px solid #C8DBCF', color: '#64786D' }}
           aria-label="Scroll tabs left"
         >
           <ChevronLeftIcon sx={{ fontSize: 20 }} />
@@ -97,35 +101,51 @@ const HorizontalTabNavigation: React.FC = () => {
         <div
           ref={scrollRef}
           onScroll={syncArrows}
-          className="flex-1 flex items-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="flex-1 flex items-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] py-1"
           role="tablist"
-          aria-label="Section navigation"
         >
-          {filteredTabs.map((tab) => (
-            <button
-              key={tab.id}
-              ref={(el) => { tabRefs.current[tab.id] = el; }}
-              onClick={() => handleClick(tab.id)}
-              role="tab"
-              aria-selected={false}
-              className="compact-touch flex-shrink-0 px-5 py-3 outline-none hover:bg-[#EEF4F0] transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[#15653A]/40 rounded-[var(--radius-sm)] group"
-            >
-              <span className="text-[0.8125rem] font-bold text-[#64786D] group-hover:text-[#15653A] whitespace-nowrap underline decoration-1 underline-offset-4 transition-colors duration-200">
-                {tab.label}
-              </span>
-            </button>
-          ))}
+          {SECTION_TABS.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                ref={(el) => { tabRefs.current[tab.id] = el; }}
+                onClick={() => handleClick(tab.id)}
+                role="tab"
+                aria-selected={isActive}
+                className="relative flex-shrink-0 px-4 py-3 outline-none group transition-all duration-[280ms]"
+              >
+                <span className={`text-[13px] font-semibold transition-colors duration-[280ms] whitespace-nowrap  tracking-tight ${
+                  isActive ? 'text-[#2F6F4E]' : 'text-[#6B7280] group-hover:text-[#4A5560]'
+                }`}>
+                  {tab.label}
+                </span>
+                
+                {/* Active Indicator Underline (Glass style) */}
+                {isActive && (
+                  <motion.div 
+                    layoutId="activeTabUnderline"
+                    className="absolute bottom-1.5 left-4 right-4 h-[2px] bg-[#2F6F4E] rounded-full shadow-[0_1px_4px_rgba(47,111,78,0.3)]"
+                  />
+                )}
+                
+                {/* Hover Background Pill */}
+                <div className="absolute inset-x-2 inset-y-2 bg-[rgba(47,111,78,0.05)] rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10" />
+              </button>
+            );
+          })}
         </div>
 
+        {/* Right Blur/Arrow Overlay */}
         <button
           onClick={() => manualScroll('right')}
-          className="compact-touch flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 hover:bg-[#EEF4F0] hover:text-[#15653A] disabled:opacity-0"
+          className={`relative z-20 flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 text-[#4A5560] hover:text-[#2F6F4E] disabled:opacity-0`}
           disabled={!showRight}
-          style={{ borderLeft: '1px solid #C8DBCF', color: '#64786D' }}
           aria-label="Scroll tabs right"
         >
           <ChevronRightIcon sx={{ fontSize: 20 }} />
         </button>
+        <div className={`absolute right-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-l from-[rgba(255,255,255,0.8)] to-transparent transition-opacity duration-200 ${showRight ? 'opacity-100' : 'opacity-0'}`} />
       </div>
     </nav>
   );

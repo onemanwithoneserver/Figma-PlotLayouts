@@ -9,7 +9,7 @@ const AmenitiesSection: React.FC = () => {
   const current = AMENITY_TABS.find((t) => t.id === activeTab)!;
 
   return (
-    <div>
+    <div className="w-full">
       <SectionTabNav
         tabs={AMENITY_TABS.map(({ id, label }) => ({ id, label }))}
         activeTab={activeTab}
@@ -17,37 +17,64 @@ const AmenitiesSection: React.FC = () => {
         layoutId="amenity-active-pill"
       />
 
-      <div className="px-3 py-3 flex flex-col gap-3 font-outfit">
-        <div className="relative w-full h-[130px] rounded-[var(--radius-md)] overflow-hidden group">
+      <div className="px-3 py-4 flex flex-col gap-4">
+        <div 
+          className="relative w-full h-[160px] rounded-[8px] overflow-hidden group shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-[rgba(255,255,255,0.4)] animate-fade-blur-in opacity-0"
+          style={{ animationDelay: '40ms' }}
+        >
           <img
             src={current.imageUrl}
             alt={current.label}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-105"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#15653A]/40 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.4)] via-[rgba(0,0,0,0.05)] to-transparent pointer-events-none" />
+          <div className="absolute bottom-3 left-4">
+            <span className="text-[14px] font-bold text-[#FFFFFF] tracking-wide drop-shadow-md">
+              {current.label} Highlights
+            </span>
+          </div>
         </div>
 
-        <ul className="flex flex-col gap-1.5" role="list" aria-label={`${current.label} amenities`}>
-          {current.items.map((item) => (
-            <li
-              key={item}
-              className="group flex items-center gap-2 px-2.5 py-2 bg-[#EEF4F0] border border-[#C8DBCF] rounded-lg text-[0.75rem] font-semibold text-[#64786D] cursor-pointer transition-all duration-200 hover:bg-[#15653A] hover:border-[#15653A] hover:text-white hover:translate-x-1"
-              role="listitem"
-            >
-              <CheckCircleOutlineIcon
-                sx={{ fontSize: 14 }}
-                className="text-[#15653A] group-hover:text-white transition-colors duration-200 flex-shrink-0"
-              />
-              <span className="leading-tight">
-                {item}
-              </span>
-            </li>
-          ))}
+        <ul className="flex flex-col gap-2.5" role="list" aria-label={`${current.label} amenities`}>
+          {current.items.map((item, index) => {
+            const delay = 80 + index * 40;
+            return (
+              <li
+                key={item}
+                className="group relative flex items-center gap-3 px-3 py-2.5 rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] cursor-pointer transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[2px] hover:scale-[1.01] hover:bg-[rgba(255,255,255,0.85)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden animate-fade-blur-in opacity-0"
+                style={{ animationDelay: `${delay}ms` }}
+                role="listitem"
+              >
+                <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.5)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
+
+                <div className="flex items-center justify-center w-7 h-7 shrink-0 rounded-[8px] bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.15)] transition-all duration-[280ms] group-hover:bg-[rgba(47,111,78,0.15)] group-hover:scale-110 relative z-10">
+                  <CheckCircleOutlineIcon
+                    sx={{ fontSize: 16 }}
+                    className="text-[#2F6F4E]"
+                  />
+                </div>
+
+                <span className="text-[13px] font-semibold text-[#4A5560] leading-tight transition-colors duration-[280ms] group-hover:text-[#1A1F24] relative z-10">
+                  {item}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
-      <AskSeller initialQuestions={amenitiesAskSellerQuestions} />
+      <div className="mt-2 pb-6">
+        <AskSeller initialQuestions={amenitiesAskSellerQuestions} />
+      </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeBlurIn { 
+          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
+          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
+        }
+        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      `}} />
     </div>
   );
 };
