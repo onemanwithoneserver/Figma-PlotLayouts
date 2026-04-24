@@ -50,29 +50,27 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
   };
 
   return (
-    <div className={`w-full px-4 py-4 space-y-4 font-inter bg-transparent animate-fade-blur-in opacity-0 ${className}`}>
+    <div className={`w-full px-2 py-4 space-y-4 font-inter bg-transparent animate-fade-blur-in opacity-0 ${className}`}>
       {/* Header Row */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-[8px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.2)] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-[8px] bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] flex items-center justify-center">
             <HeadingIcon name="ask-seller" className="w-4 h-4 text-[#2F6F4E]" />
           </div>
-          <h3 className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Ask Seller</h3>
+          <h3 className="text-[14px] font-bold text-[#1A2B22] tracking-tight">Ask Seller</h3>
         </div>
 
         {!isAdding && (
           <button
             type="button"
             onClick={() => setIsAdding(true)}
-            className="group relative inline-flex items-center gap-1.5 rounded-[8px] border border-[rgba(47,111,78,0.3)] bg-white px-3 py-1.5 shadow-sm transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(47,111,78,0.15)] active:scale-95 overflow-hidden"
+            className="neu-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-[#2F6F4E] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF]"
           >
-            {/* Subtle Light Sweep */}
-            <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-[rgba(47,111,78,0.05)] to-transparent skew-x-[-20deg] group-hover:left-[100%] transition-all duration-700 pointer-events-none" />
             
             <svg className="h-3 w-3 text-[#2F6F4E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
             </svg>
-            <span className="text-[11px] font-bold text-[#2F6F4E] ">custom question</span>
+            <span className="text-[11px] font-bold text-[#2F6F4E]">custom question</span>
           </button>
         )}
       </div>
@@ -85,10 +83,10 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
             <button
               key={q}
               onClick={() => toggleQuestion(q)}
-              className={`flex items-center gap-3 w-full px-3.5 py-3 rounded-[8px] text-left transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] border relative overflow-hidden ${
-                checked 
-                ? "bg-[rgba(255,255,255,0.85)] border-[#2F6F4E] shadow-[0_4px_12px_rgba(47,111,78,0.12)] scale-[1.01]" 
-                : "bg-[rgba(255,255,255,0.6)] border-[rgba(0,0,0,0.08)] hover:bg-[rgba(255,255,255,0.8)]"
+              className={`flex items-center gap-3 w-full px-3.5 py-3 rounded-[8px] text-left transition-shadow duration-200 relative ${
+                checked
+                ? 'bg-[#ECECE8] shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] border-l-2 border-[#2F6F4E]'
+                : 'bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF]'
               }`}
             >
               {/* Check Indicator */}
@@ -104,8 +102,8 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
                 )}
               </div>
               
-              <span className={`text-[12.5px] font-medium leading-tight transition-colors duration-300 ${
-                  checked ? "text-[#1A1F24] font-bold" : "text-[#4A5560]"
+              <span className={`text-[12.5px] font-medium leading-tight transition-colors duration-200 ${
+                  checked ? 'text-[#1A2B22] font-bold' : 'text-[#3D5048]'
                 }`}
               >
                 {q}
@@ -120,7 +118,7 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
         {isAdding && (
           <form
             onSubmit={handleAddCustom}
-            className="flex items-center gap-3 w-full px-3.5 py-3 rounded-[8px] bg-[rgba(255,255,255,0.8)] border border-[#2F6F4E] shadow-[0_0_0_3px_rgba(47,111,78,0.1)] animate-fade-blur-in"
+            className="flex items-center gap-3 w-full px-3.5 py-3 rounded-[8px] bg-[#ECECE8] shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] border border-[#2F6F4E] animate-fade-blur-in"
           >
             <div className="w-4 h-4 rounded-full bg-[#2F6F4E] flex-shrink-0 animate-pulse" />
             <input
@@ -130,7 +128,7 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
               onChange={(e) => setCustomInput(e.target.value)}
               onBlur={() => !customInput && setIsAdding(false)}
               placeholder="Type your question here..."
-              className="text-[13px] font-semibold text-[#1A1F24] outline-none w-full bg-transparent placeholder:text-[#6B7280]/60"
+              className="text-[13px] font-semibold text-[#1A2B22] outline-none w-full bg-transparent placeholder:text-[#5C6B63]/60"
             />
           </form>
         )}
@@ -150,20 +148,13 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 15l7-7 7 7" />
               </svg>
             </div>
-            <span className="text-[12px] font-bold text-[#2F6F4E]  tracking-wide border-b border-[#2F6F4E]/20 group-hover:border-[#2F6F4E] transition-all">
+            <span className="text-[12px] font-bold text-[#2F6F4E] tracking-wide border-b border-[#2F6F4E]/20 group-hover:border-[#2F6F4E] transition-all">
               {showMore ? "show fewer" : `load more questions`}
             </span>
           </button>
         )}
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(8px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
     </div>
   );
 }

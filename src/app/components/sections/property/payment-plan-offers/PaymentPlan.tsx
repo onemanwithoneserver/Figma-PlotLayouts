@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import SectionTabNav from '../shared/SectionTabNav';
 import AskSeller from '../shared/AskSeller';
 import { PLOTS, DEV_CHARGES, LEGAL_CHARGES, BOOKING_STEPS, PAYMENT_TABS, fmtINR, paymentAskSellerQuestions } from './data';
@@ -33,17 +34,15 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="group flex items-center justify-between w-full px-4 py-3 rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] focus:outline-none focus:border-[#2F6F4E] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[rgba(255,255,255,0.85)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden relative"
+        className="flex items-center justify-between w-full px-4 py-3 rounded-[8px] bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] focus:outline-none transition-shadow duration-200 active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF]"
       >
-        <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.5)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none" />
-
-        <div className="flex items-center gap-2.5 relative z-10">
-          <span className="text-[12px] font-semibold text-[#6B7280] uppercase tracking-[0.05em] group-hover:text-[#4A5560] transition-colors">Plot Size</span>
+        <div className="flex items-center gap-2.5">
+          <span className="text-[12px] font-semibold text-[#5C6B63] uppercase tracking-[0.05em]">Plot Size</span>
           <span className="h-3 w-px bg-[rgba(0,0,0,0.1)]" />
-          <span className="text-[14px] font-bold text-[#1A1F24] tracking-tight">{value.size}</span>
+          <span className="text-[14px] font-bold text-[#1A2B22] tracking-tight">{value.size}</span>
         </div>
         <div className="flex items-center gap-2 relative z-10">
-          <span className="text-[12px] font-semibold text-[#4A5560]">
+          <span className="text-[12px] font-semibold text-[#3D5048]">
             ₹{value.pricePerSqYd.toLocaleString('en-IN')} / Sq.Yd
           </span>
           <span className="text-[#2F6F4E]">
@@ -56,7 +55,7 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
         <ul
           role="listbox"
           aria-label="Select plot size"
-          className="absolute z-40 top-full mt-2 w-full rounded-[8px] bg-[rgba(255,255,255,0.85)] backdrop-blur-[24px] border border-[rgba(255,255,255,0.8)] shadow-[0_12px_32px_rgba(0,0,0,0.12)] overflow-hidden animate-fade-blur-in opacity-0"
+          className="absolute z-40 top-full mt-2 w-full rounded-[8px] bg-[#ECECE8] shadow-[5px_5px_10px_#CBCBC7,-5px_-5px_10px_#FFFFFF] overflow-hidden animate-fade-blur-in opacity-0"
         >
           {PLOTS.map((plot) => {
             const isSelected = plot.size === value.size;
@@ -66,21 +65,21 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
                 role="option"
                 aria-selected={isSelected}
                 onClick={() => { onChange(plot); setOpen(false); }}
-                className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors duration-[280ms] ${isSelected ? 'bg-[rgba(47,111,78,0.08)]' : 'hover:bg-[rgba(255,255,255,0.9)]'}`}
+                className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors duration-200 ${isSelected ? 'bg-[rgba(47,111,78,0.08)]' : 'hover:bg-[rgba(47,111,78,0.04)]'}`}
               >
                 <div className="flex items-center gap-2.5">
                   <span
                     className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-[280ms] ${isSelected ? 'bg-[#2F6F4E] scale-110 shadow-[0_0_8px_rgba(47,111,78,0.4)]' : 'bg-[#C8A97E]'}`}
                   />
-                  <span className={`text-[13px] font-bold tracking-tight ${isSelected ? 'text-[#2F6F4E]' : 'text-[#1A1F24]'}`}>
+                  <span className={`text-[13px] font-bold tracking-tight ${isSelected ? 'text-[#2F6F4E]' : 'text-[#1A2B22]'}`}>
                     {plot.size}
                   </span>
                 </div>
                 <div className="text-right">
-                  <p className={`text-[13px] font-bold ${isSelected ? 'text-[#2F6F4E]' : 'text-[#1A1F24]'}`}>
+                  <p className={`text-[13px] font-bold ${isSelected ? 'text-[#2F6F4E]' : 'text-[#1A2B22]'}`}>
                     ₹{((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
                   </p>
-                  <p className="text-[11px] font-medium text-[#6B7280] mt-[1px]">
+                  <p className="text-[11px] font-medium text-[#5C6B63] mt-[1px]">
                     ₹{plot.pricePerSqYd.toLocaleString('en-IN')} / Sq.Yd
                   </p>
                 </div>
@@ -94,27 +93,26 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
 };
 
 const PriceTab = () => (
-  <div className="flex flex-col bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] rounded-[8px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] animate-fade-blur-in opacity-0 overflow-hidden">
+  <div className="flex flex-col bg-[#ECECE8] shadow-[5px_5px_10px_#CBCBC7,-5px_-5px_10px_#FFFFFF] rounded-[8px] animate-fade-blur-in opacity-0 overflow-hidden neu-shimmer-surface">
     {PLOTS.map((plot, i, arr) => (
-      <div key={plot.size} className="group transition-colors duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[rgba(255,255,255,0.85)] relative">
-        <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.4)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
+      <div key={plot.size} className="relative transition-shadow duration-200 active:shadow-[inset_1px_1px_2px_#CBCBC7]">
         
-        <div className="flex items-center justify-between px-4 py-3.5 cursor-pointer relative z-20">
+          <div className="flex items-center justify-between px-4 py-3.5 cursor-pointer">
           <div>
-            <p className="text-[13px] font-bold text-[#1A1F24] transition-colors duration-[280ms]">{plot.size} Plot</p>
-            <p className="text-[11px] font-medium text-[#6B7280] mt-0.5 transition-colors duration-[280ms] group-hover:text-[#4A5560]">
+            <p className="text-[13px] font-bold text-[#1A2B22]">{plot.size} Plot</p>
+            <p className="text-[11px] font-medium text-[#5C6B63] mt-0.5">
               ₹{plot.pricePerSqYd.toLocaleString('en-IN')} / Sq.Yd
             </p>
           </div>
-          <p className="text-[15px] font-bold text-[#2F6F4E] tracking-tight transition-transform duration-[280ms] group-hover:scale-105">
+          <p className="text-[15px] font-bold text-[#2F6F4E] tracking-tight">
             ₹{((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
           </p>
         </div>
         {i < arr.length - 1 && <div className="h-[1px] bg-gradient-to-r from-transparent via-[rgba(0,0,0,0.06)] to-transparent w-full" />}
       </div>
     ))}
-    <div className="bg-[rgba(0,0,0,0.02)] px-4 py-2 border-t border-[rgba(0,0,0,0.04)]">
-      <p className="text-[11px] font-medium text-[#6B7280] italic">
+    <div className="px-4 py-2 border-t border-[rgba(0,0,0,0.06)]">
+      <p className="text-[11px] font-medium text-[#5C6B63] italic">
         * GST, registration &amp; development charges extra
       </p>
     </div>
@@ -139,26 +137,25 @@ const CostTab = ({ selected, onSelect }: { selected: Plot; onSelect: (p: Plot) =
     <div className="flex flex-col animate-fade-blur-in opacity-0" style={{ animationDelay: '40ms' }}>
       <SizeDropdown value={selected} onChange={onSelect} />
 
-      <div className="bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] rounded-[8px] px-4 py-2 shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] mb-4">
+      <div className="bg-[#ECECE8] shadow-[4px_4px_8px_#CBCBC7,-4px_-4px_8px_#FFFFFF] border border-[rgba(0,0,0,0.04)] rounded-[8px] px-4 py-2 mb-4">
         {items.map((row, i) => (
           <div key={row.label}>
             <div className="flex items-center justify-between py-2.5">
-              <p className="text-[13px] font-semibold text-[#4A5560]">{row.label}</p>
-              <p className="text-[13px] font-bold text-[#1A1F24] tracking-tight">{row.value}</p>
+              <p className="text-[13px] font-semibold text-[#3D5048]">{row.label}</p>
+              <p className="text-[13px] font-bold text-[#1A2B22] tracking-tight">{row.value}</p>
             </div>
             {i < items.length - 1 && <div className="h-[1px] bg-gradient-to-r from-transparent via-[rgba(0,0,0,0.06)] to-transparent w-full" />}
           </div>
         ))}
       </div>
 
-      {/* Grand Total - Solid Primary Accent for Financial Emphasis */}
-      <div className="relative group flex items-center justify-between px-4 py-4 rounded-[8px] bg-[#2F6F4E] shadow-[0_8px_24px_rgba(47,111,78,0.25)] transition-all duration-[280ms] hover:-translate-y-[2px] overflow-hidden">
-        <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.15)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
-        <p className="text-[14px] font-semibold text-[#FFFFFF] tracking-wide relative z-20">Total (approx.)</p>
-        <p className="text-[20px] font-bold text-[#FFFFFF] drop-shadow-md tracking-tight relative z-20">{fmtINR(total)}</p>
+      {/* Grand Total */}
+      <div className="flex items-center justify-between px-4 py-4 rounded-[8px] bg-[#2F6F4E] shadow-[4px_4px_8px_#CBCBC7,-4px_-4px_8px_#FFFFFF] active:shadow-[inset_2px_2px_4px_rgba(0,0,0,0.2)] transition-shadow duration-200">
+        <p className="text-[14px] font-semibold text-[#FFFFFF] tracking-wide">Total (approx.)</p>
+        <p className="text-[20px] font-bold text-[#FFFFFF] tracking-tight">{fmtINR(total)}</p>
       </div>
 
-      <p className="text-[11px] font-medium text-[#6B7280] mt-3 italic px-1 text-center">
+      <p className="text-[11px] font-medium text-[#5C6B63] mt-3 italic px-1 text-center">
         * Varies based on unit selection &amp; statutory charges
       </p>
     </div>
@@ -170,26 +167,26 @@ const BookingTab = () => (
     {BOOKING_STEPS.map((row, index) => {
       const delay = 40 + index * 40;
       return (
-        <div
+        <motion.div
           key={row.label}
-          className="group relative flex items-start gap-3.5 px-4 py-3.5 rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[2px] hover:scale-[1.01] hover:bg-[rgba(255,255,255,0.85)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden animate-fade-blur-in opacity-0"
-          style={{ animationDelay: `${delay}ms` }}
+          className="group relative flex items-start gap-3.5 px-4 py-3.5 rounded-[8px] bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] transition-shadow duration-200 animate-fade-blur-in opacity-0"
+          style={{ animationDelay: `${delay}ms`, transformPerspective: 600 }}
+          whileTap={{ scale: 0.97, rotateX: 5 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
         >
-          <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.5)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
-
           {/* Step Indicator */}
-          <span className="mt-0.5 text-[12px] font-bold text-[#2F6F4E] bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.15)] w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-[8px] group-hover:bg-[rgba(47,111,78,0.15)] group-hover:scale-110 transition-all duration-[280ms] relative z-20">
+          <span className="mt-0.5 text-[12px] font-bold text-[#2F6F4E] bg-[#ECECE8] shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-[8px] transition-all duration-200">
             {row.step}
           </span>
           
-          <div className="flex-1 min-w-0 relative z-20">
+          <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-[14px] font-bold text-[#1A1F24] transition-colors duration-[280ms] tracking-tight">{row.label}</p>
-              <p className="text-[13px] font-bold text-[#C65A3A] flex-shrink-0 tracking-tight transition-transform duration-[280ms] group-hover:scale-105">{row.value}</p>
+              <p className="text-[14px] font-bold text-[#1A2B22] tracking-tight">{row.label}</p>
+              <p className="text-[13px] font-bold text-[#C65A3A] flex-shrink-0 tracking-tight">{row.value}</p>
             </div>
-            <p className="text-[12px] font-medium text-[#6B7280] mt-1 leading-snug transition-colors duration-[280ms] group-hover:text-[#4A5560]">{row.note}</p>
+            <p className="text-[12px] font-medium text-[#5C6B63] mt-1 leading-snug">{row.note}</p>
           </div>
-        </div>
+        </motion.div>
       );
     })}
   </div>
@@ -215,14 +212,6 @@ const PaymentPlan: React.FC = () => {
       <div className="pb-6">
         <AskSeller initialQuestions={paymentAskSellerQuestions} />
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
     </div>
   );
 };

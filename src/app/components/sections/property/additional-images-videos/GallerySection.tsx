@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,6 +8,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
+import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import AskSeller from '../shared/AskSeller';
 import { GALLERY_ITEMS, galleryAskSellerQuestions } from './data';
 
@@ -26,14 +28,15 @@ const GallerySection: React.FC = () => {
   const vidCount = GALLERY_ITEMS.filter((m) => m.type === 'video').length;
 
   const tabs = [
-    { id: 'image', label: `Images (${imgCount})`, icon: ImageOutlinedIcon },
-    { id: 'video', label: `Videos (${vidCount})`, icon: VideocamOutlinedIcon },
+    { id: 'all',   label: `All (${GALLERY_ITEMS.length})`, icon: GridViewOutlinedIcon },
+    { id: 'image', label: `Images (${imgCount})`,          icon: ImageOutlinedIcon },
+    { id: 'video', label: `Videos (${vidCount})`,          icon: VideocamOutlinedIcon },
   ] as const;
 
   return (
     <div className="w-full flex flex-col px-4">
       {/* Tab Navigation */}
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-3 mb-4 border-b border-[rgba(255,255,255,0.4)]" role="tablist" aria-label="Media type filter">
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-3 mb-4 border-b border-[rgba(0,0,0,0.06)]" role="tablist" aria-label="Media type filter">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           const Icon = tab.icon;
@@ -43,17 +46,17 @@ const GallerySection: React.FC = () => {
               key={tab.id}
               role="tab"
               onClick={() => {
-                setActiveTab(isActive ? 'all' : tab.id);
+                setActiveTab(tab.id);
                 setLightboxIdx(null);
               }}
-              className={`relative flex items-center gap-1.5 py-1.5 px-1 text-[13px] font-semibold transition-all duration-[280ms] whitespace-nowrap focus:outline-none ${
-                isActive ? 'text-[#2F6F4E]' : 'text-[#6B7280] hover:text-[#4A5560]'
+              className={`relative flex items-center gap-1.5 py-1.5 px-1 text-[13px] font-semibold transition-all duration-200 whitespace-nowrap focus:outline-none ${
+                isActive ? 'text-[#2F6F4E]' : 'text-[#5C6B63] hover:text-[#3D5048]'
               }`}
             >
               <Icon sx={{ fontSize: 16 }} />
               {tab.label}
               {isActive && (
-                <span className="absolute bottom-0 left-0 right-0 h-[2px] rounded-t-[8px] bg-gradient-to-r from-[#2F6F4E] to-[#4A90E2]" />
+                <span className="absolute bottom-0 left-0 right-0 h-[2px] rounded-t-[8px] bg-[#2F6F4E]" />
               )}
             </button>
           );
@@ -66,11 +69,13 @@ const GallerySection: React.FC = () => {
           {displayedItems.map((item, idx) => {
             const delay = 40 + idx * 40;
             return (
-              <button
+              <motion.button
                 key={item.id}
                 onClick={() => setLightboxIdx(idx)}
-                className="group relative rounded-[8px] overflow-hidden aspect-[4/3] bg-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.6)] shadow-sm hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[3px] hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2F6F4E] block w-full animate-fade-blur-in opacity-0"
-                style={{ animationDelay: `${delay}ms` }}
+                className="group relative rounded-[8px] overflow-hidden aspect-[4/3] bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] transition-shadow duration-200 active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2F6F4E] block w-full animate-fade-blur-in opacity-0"
+                style={{ animationDelay: `${delay}ms`, transformPerspective: 600 }}
+                whileTap={{ scale: 0.96, rotateX: 4 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                 aria-label={`View ${item.label} ${item.type}`}
               >
                 <img
@@ -81,12 +86,11 @@ const GallerySection: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-80" />
 
-                {/* Light shift sweep overlay */}
-                <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
+                {/* Light shift sweep removed */}
 
                 {item.type === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <div className="w-10 h-10 rounded-[8px] bg-[rgba(255,255,255,0.25)] backdrop-blur-[8px] border border-[rgba(255,255,255,0.4)] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-transform duration-[280ms] group-hover:scale-110">
+                    <div className="w-10 h-10 rounded-[8px] bg-[#2F6F4E] flex items-center justify-center shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] transition-transform duration-[280ms] group-hover:scale-110">
                       <PlayCircleOutlineIcon sx={{ fontSize: 24, color: '#FFFFFF' }} />
                     </div>
                   </div>
@@ -102,12 +106,12 @@ const GallerySection: React.FC = () => {
                     {item.label}
                   </span>
                 </div>
-              </button>
+              </motion.button>
             );
           })}
 
           {displayedItems.length === 0 && (
-            <div className="col-span-full py-8 text-center text-[#6B7280] text-[13px] font-medium bg-[rgba(255,255,255,0.4)] rounded-[8px] border border-[rgba(255,255,255,0.6)]">
+            <div className="col-span-full py-8 text-center text-[#5C6B63] text-[13px] font-medium bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] rounded-[8px]">
               No media found.
             </div>
           )}
@@ -137,8 +141,8 @@ const GallerySection: React.FC = () => {
               aria-label="Close lightbox"
               sx={{ 
                 position: 'absolute', top: -14, right: -14, zIndex: 10,
-                bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
-                color: '#1A1F24', border: '1px solid rgba(255,255,255,0.6)',
+                bgcolor: 'rgba(255,255,255,0.92)',
+                color: '#1A1F24',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                 '&:hover': { bgcolor: '#FFFFFF', transform: 'scale(1.05)' },
                 transition: 'all 0.2s ease-out'
@@ -155,8 +159,8 @@ const GallerySection: React.FC = () => {
                   aria-label="Previous" 
                   sx={{ 
                     position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%)',
-                    bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
-                    color: '#1A1F24', border: '1px solid rgba(255,255,255,0.6)',
+                      bgcolor: 'rgba(255,255,255,0.92)',
+                      color: '#1A1F24',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                     '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)' },
                     transition: 'all 0.2s ease-out'
@@ -171,8 +175,8 @@ const GallerySection: React.FC = () => {
                   aria-label="Next" 
                   sx={{ 
                     position: 'absolute', right: -16, top: '50%', transform: 'translateY(-50%)',
-                    bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
-                    color: '#1A1F24', border: '1px solid rgba(255,255,255,0.6)',
+                      bgcolor: 'rgba(255,255,255,0.92)',
+                      color: '#1A1F24',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                     '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)' },
                     transition: 'all 0.2s ease-out'
@@ -187,7 +191,7 @@ const GallerySection: React.FC = () => {
               <span className="text-[#FFFFFF] text-[14px] font-semibold drop-shadow-md tracking-wide">
                 {displayedItems[lightboxIdx].label}
               </span>
-              <span className="text-[#FFFFFF] text-[12px] font-bold bg-[rgba(0,0,0,0.5)] border border-[rgba(255,255,255,0.2)] px-3 py-1 rounded-[8px] backdrop-blur-[8px]">
+              <span className="text-[#FFFFFF] text-[12px] font-bold bg-[rgba(0,0,0,0.55)] border border-[rgba(255,255,255,0.15)] px-3 py-1 rounded-[8px]">
                 {lightboxIdx + 1} / {displayedItems.length}
               </span>
             </div>
@@ -196,17 +200,9 @@ const GallerySection: React.FC = () => {
       </Dialog>
 
       {/* Ask Seller Component - With bottom padding for the FAB clearance */}
-      <div className="mt-6 pb-28">
+      <div className="mt-2 pb-28">
         <AskSeller initialQuestions={galleryAskSellerQuestions} />
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
     </div>
   );
 };

@@ -9,14 +9,25 @@
 
   --color-glow: rgba(34, 160, 80, 0.22);
 
-  --color-bg-soft: #ffffff;
-  --color-bg-mid: #c8e8d6;
-  --color-bg-white: #ffffff;
-  --color-bg-main: #ffffff;
+  --color-bg-soft: #ECECE8;
+  --color-bg-mid: #d6e8dd;
+  --color-bg-white: #ECECE8;
+  --color-bg-main: #ECECE8;
 
-  --color-text-primary: #0a1a10;
-  --color-text-secondary: #1e3326;
-  --color-text-muted: #5a7a65;
+  --neu-bg: #ECECE8;
+  --neu-shadow-dark: #CBCBC7;
+  --neu-shadow-light: #FFFFFF;
+  --neu-shadow-xs: 2px 2px 4px #CBCBC7, -2px -2px 4px #FFFFFF;
+  --neu-shadow-sm: 3px 3px 6px #CBCBC7, -3px -3px 6px #FFFFFF;
+  --neu-shadow-md: 5px 5px 10px #CBCBC7, -5px -5px 10px #FFFFFF;
+  --neu-shadow-lg: 8px 8px 16px #CBCBC7, -8px -8px 16px #FFFFFF;
+  --neu-inset-xs: inset 2px 2px 4px #CBCBC7, inset -2px -2px 4px #FFFFFF;
+  --neu-inset-sm: inset 3px 3px 6px #CBCBC7, inset -3px -3px 6px #FFFFFF;
+  --neu-inset-md: inset 4px 4px 8px #CBCBC7, inset -4px -4px 8px #FFFFFF;
+
+  --color-text-primary: #1A2B22;
+  --color-text-secondary: #3D5048;
+  --color-text-muted: #5C6B63;
 
   --color-border: rgba(26, 122, 66, 0.1);
   --color-border-hover: rgba(26, 122, 66, 0.25);

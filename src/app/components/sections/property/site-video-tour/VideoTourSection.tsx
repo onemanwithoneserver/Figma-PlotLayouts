@@ -8,7 +8,7 @@ const VideoTourSection: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="w-full relative group cursor-pointer overflow-hidden rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] animate-fade-blur-in opacity-0">
+    <div className="w-full relative group cursor-pointer overflow-hidden rounded-[8px] bg-[#ECECE8] shadow-[5px_5px_10px_#CBCBC7,-5px_-5px_10px_#FFFFFF] animate-fade-blur-in opacity-0">
       {/* Thumbnail with slight zoom effect on hover */}
       <div className="relative aspect-video overflow-hidden">
         <img
@@ -18,8 +18,7 @@ const VideoTourSection: React.FC = () => {
           loading="lazy"
         />
         {/* Light shift overlay */}
-        <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
-      </div>
+        </div>
 
       {/* Main Play Action Area */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
@@ -29,8 +28,8 @@ const VideoTourSection: React.FC = () => {
           aria-label={`Play video tour (${videoTourData.duration})`}
         >
           {/* Glass Play Button */}
-          <div className="w-16 h-16 rounded-[8px] bg-[rgba(255,255,255,0.8)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] flex items-center justify-center shadow-[0_12px_32px_rgba(0,0,0,0.15)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/play:scale-110 group-hover/play:-translate-y-1 group-active/play:scale-95" 
-               style={{ backgroundColor: isPlaying ? 'rgba(47,111,78,0.9)' : undefined }}>
+          <div className="w-16 h-16 rounded-[8px] flex items-center justify-center shadow-[5px_5px_10px_rgba(0,0,0,0.3),-3px_-3px_6px_rgba(255,255,255,0.15)] transition-all duration-200 group-hover/play:scale-110 group-hover/play:-translate-y-1 group-active/play:scale-95"
+               style={{ background: isPlaying ? '#2F6F4E' : 'rgba(255,255,255,0.9)' }}>
             <PlayCircleOutlineIcon 
               sx={{ fontSize: 36, color: isPlaying ? '#FFFFFF' : '#2F6F4E' }} 
               className="transition-colors duration-200"
@@ -67,13 +66,7 @@ const VideoTourSection: React.FC = () => {
         </div>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
+
     </div>
   );
 };

@@ -113,7 +113,7 @@ const ScheduleVisitFAB: React.FC = () => {
             whileTap={{ scale: 0.95 }}
             onClick={handleOpen}
             aria-label="Schedule Site Visit"
-            className="absolute left-4 bottom-[90px] pointer-events-auto inline-flex items-center h-10 text-white rounded-[8px] shadow-[0_8px_32px_rgba(47,111,78,0.3)] hover:brightness-105 transition-all overflow-hidden border border-[rgba(255,255,255,0.2)] backdrop-blur-[20px]"
+            className="absolute left-4 bottom-[90px] pointer-events-auto inline-flex items-center h-10 text-white rounded-[8px] shadow-[4px_4px_8px_#CBCBC7,-4px_-4px_8px_#FFFFFF] hover:brightness-105 transition-all overflow-hidden animate-neu-float"
             style={{ background: 'linear-gradient(135deg, #2F6F4E, #1E4D35)' }}
           >
             <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
@@ -132,7 +132,6 @@ const ScheduleVisitFAB: React.FC = () => {
                 </motion.span>
               )}
             </AnimatePresence>
-            <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover:left-[200%] transition-all duration-700 pointer-events-none" />
           </motion.button>
         </div>
       </div>
@@ -144,7 +143,7 @@ const ScheduleVisitFAB: React.FC = () => {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-[60] bg-[rgba(26,31,36,0.3)] backdrop-blur-[4px]"
+              className="fixed inset-0 z-[60] bg-[rgba(26,31,36,0.45)]"
             />
 
             <motion.div
@@ -157,7 +156,7 @@ const ScheduleVisitFAB: React.FC = () => {
               aria-label="Schedule site visit"
             >
               <div
-                className="w-full max-w-[390px] bg-[rgba(255,255,255,0.8)] backdrop-blur-[24px] rounded-[8px] shadow-[0_24px_64px_rgba(0,0,0,0.15)] font-inter flex flex-col border border-[rgba(255,255,255,0.6)]"
+                className="w-full max-w-[390px] bg-[#ECECE8] shadow-[0_-6px_20px_#CBCBC7,0_-2px_4px_#FFFFFF] rounded-[8px] font-inter flex flex-col"
                 style={{ maxHeight: '85vh' }}
               >
                 <div className="flex justify-center pt-3 pb-2 flex-shrink-0">
@@ -171,15 +170,15 @@ const ScheduleVisitFAB: React.FC = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       className="flex flex-col items-center gap-4 py-10 text-center"
                     >
-                      <div className="w-16 h-16 rounded-[8px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.2)] flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+                      <div className="w-16 h-16 rounded-[8px] bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] flex items-center justify-center">
                         <CheckIcon className="w-7 h-7 text-[#2F6F4E]" />
                       </div>
                       <div>
-                        <p className="text-[18px] font-bold text-[#1A1F24] mb-2 tracking-tight">Visit Scheduled!</p>
-                        <div className="inline-block px-4 py-1.5 bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.1)] rounded-[8px] text-[13px] font-bold text-[#2F6F4E] mb-3">
+                        <p className="text-[18px] font-bold text-[#1A2B22] mb-2 tracking-tight">Visit Scheduled!</p>
+                        <div className="inline-block px-4 py-1.5 bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] rounded-[8px] text-[13px] font-bold text-[#2F6F4E] mb-3">
                           {activeDayLabel}, Apr {activeDay.date} · {selectedSlot}
                         </div>
-                        <p className="text-[14px] text-[#4A5560] max-w-[280px] mx-auto leading-relaxed font-medium">
+                        <p className="text-[14px] text-[#3D5048] max-w-[280px] mx-auto leading-relaxed font-medium">
                           Confirmed. A consultant will reach out shortly with the detailed itinerary.
                         </p>
                       </div>
@@ -196,11 +195,11 @@ const ScheduleVisitFAB: React.FC = () => {
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-2">
                             <TodayIcon className="w-4 h-4 text-[#2F6F4E]" />
-                            <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Select Date</p>
+                            <p className="text-[14px] font-bold text-[#1A2B22] tracking-tight">Select Date</p>
                           </div>
                           <button
                             onClick={() => setOpen(false)}
-                            className="w-8 h-8 rounded-full flex items-center justify-center bg-[rgba(0,0,0,0.05)] text-[#4A5560] hover:bg-[rgba(0,0,0,0.1)] transition-colors"
+                            className="w-8 h-8 rounded-[8px] flex items-center justify-center bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] text-[#3D5048] transition-shadow"
                           >
                             <CloseIcon className="w-4 h-4" />
                           </button>
@@ -208,9 +207,9 @@ const ScheduleVisitFAB: React.FC = () => {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => scrollDates('left')}
-                            className="w-10 h-10 rounded-[8px] border border-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.4)] backdrop-blur-md hover:bg-[rgba(255,255,255,0.8)] transition-all flex-shrink-0 flex items-center justify-center disabled:opacity-30"
+                            className="w-10 h-10 rounded-[8px] bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] transition-shadow flex-shrink-0 flex items-center justify-center"
                           >
-                            <ChevronLeftIcon className="w-4 h-4 text-[#1A1F24]" />
+                            <ChevronLeftIcon className="w-4 h-4 text-[#1A2B22]" />
                           </button>
 
                           <div
@@ -218,29 +217,32 @@ const ScheduleVisitFAB: React.FC = () => {
                             className="flex gap-2 overflow-x-auto flex-1 scrollbar-hide py-1"
                           >
                             {DAYS.map(d => (
-                              <button
+                              <motion.button
                                 key={d.key}
                                 onClick={() => setSelectedDay(d.key)}
-                                className={`w-12 h-12 flex flex-col items-center justify-center rounded-[8px] border transition-all flex-shrink-0 backdrop-blur-sm ${selectedDay === d.key
-                                    ? 'border-[#2F6F4E] bg-[rgba(47,111,78,0.1)] shadow-[0_4px_12px_rgba(47,111,78,0.15)]'
-                                    : 'border-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.3)] hover:border-[rgba(47,111,78,0.3)]'
+                                whileTap={{ scale: 0.9 }}
+                                transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+                                className={`w-12 h-12 flex flex-col items-center justify-center rounded-[8px] transition-shadow flex-shrink-0 ${
+                                    selectedDay === d.key
+                                    ? 'bg-[#ECECE8] shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] border border-[#2F6F4E]'
+                                    : 'bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF]'
                                   }`}
                               >
                                 <span className={`text-[14px] font-bold leading-none mb-0.5 ${selectedDay === d.key ? 'text-[#2F6F4E]' : 'text-[#1A1F24]'}`}>
                                   {d.date}
                                 </span>
-                                <span className={`text-[10px] font-bold uppercase tracking-wide ${d.isToday ? 'text-[#2F6F4E]' : 'text-[#6B7280]'}`}>
+                                  <span className={`text-[10px] font-bold uppercase tracking-wide ${d.isToday ? 'text-[#2F6F4E]' : 'text-[#5C6B63]'}`}>
                                   {d.isToday ? 'Today' : d.day.slice(0, 3)}
                                 </span>
-                              </button>
+                              </motion.button>
                             ))}
                           </div>
 
                           <button
                             onClick={() => scrollDates('right')}
-                            className="w-10 h-10 rounded-[8px] border border-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.4)] backdrop-blur-md hover:bg-[rgba(255,255,255,0.8)] transition-all flex-shrink-0 flex items-center justify-center"
+                            className="w-10 h-10 rounded-[8px] bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] transition-shadow flex-shrink-0 flex items-center justify-center"
                           >
-                            <ChevronRightIcon className="w-4 h-4 text-[#1A1F24]" />
+                            <ChevronRightIcon className="w-4 h-4 text-[#1A2B22]" />
                           </button>
                         </div>
                       </div>
@@ -250,42 +252,48 @@ const ScheduleVisitFAB: React.FC = () => {
                       <div>
                         <div className="flex items-center gap-2 mb-3">
                           <ClockIcon className="w-4 h-4 text-[#2F6F4E]" />
-                          <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Session</p>
+                          <p className="text-[14px] font-bold text-[#1A2B22] tracking-tight">Session</p>
                         </div>
                         <div className="flex gap-2">
                           {SESSIONS.map(s => (
-                            <button
+                            <motion.button
                               key={s.id}
                               onClick={() => handleSessionChange(s.id)}
-                              className={`flex-1 py-2.5 rounded-[8px] border text-[12px] font-bold transition-all backdrop-blur-sm ${selectedSession === s.id
-                                  ? 'border-[#2F6F4E] bg-[rgba(47,111,78,0.1)] text-[#2F6F4E] shadow-[0_4px_12px_rgba(47,111,78,0.1)]'
-                                  : 'border-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.3)] text-[#6B7280] hover:border-[rgba(47,111,78,0.2)]'
+                              whileTap={{ scale: 0.94 }}
+                              transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+                              className={`flex-1 py-2.5 rounded-[8px] text-[12px] font-bold transition-shadow ${
+                                  selectedSession === s.id
+                                  ? 'bg-[#ECECE8] shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] border border-[#2F6F4E] text-[#2F6F4E]'
+                                  : 'bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] text-[#5C6B63]'
                                 }`}
                             >
                               {s.label}
-                            </button>
+                            </motion.button>
                           ))}
                         </div>
                       </div>
 
                       <div className="grid grid-cols-4 gap-2" role="radiogroup">
                         {currentSlots.map(slot => (
-                          <button
+                          <motion.button
                             key={slot}
                             onClick={() => setSelectedSlot(slot)}
-                            className={`py-2.5 rounded-[8px] border text-center transition-all backdrop-blur-sm text-[11px] font-bold ${selectedSlot === slot
-                                ? 'border-[#2F6F4E] bg-[#2F6F4E] text-white shadow-[0_8px_16px_rgba(47,111,78,0.25)]'
-                                : 'border-[rgba(255,255,255,0.6)] bg-[rgba(255,255,255,0.3)] text-[#1A1F24] hover:border-[rgba(47,111,78,0.2)]'
+                            whileTap={{ scale: 0.9 }}
+                            transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+                            className={`py-2.5 rounded-[8px] text-center transition-shadow text-[11px] font-bold ${
+                                selectedSlot === slot
+                                ? 'bg-[#2F6F4E] text-white shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF]'
+                                : 'bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] text-[#1A2B22]'
                               }`}
                           >
                             {slot}
-                          </button>
+                          </motion.button>
                         ))}
                       </div>
 
-                      <div className="flex items-center gap-3 px-4 py-3 bg-[rgba(255,255,255,0.6)] backdrop-blur-sm border border-[rgba(255,255,255,0.8)] rounded-[8px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
+                      <div className="flex items-center gap-3 px-4 py-3 bg-[#ECECE8] shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] rounded-[8px]">
                         <CalendarIcon className="w-4 h-4 text-[#2F6F4E]" />
-                        <p className="text-[13px] font-bold text-[#1A1F24] tracking-tight">
+                        <p className="text-[13px] font-bold text-[#1A2B22] tracking-tight">
                           {activeDayLabel}, Apr {activeDay.date} @ {selectedSlot}
                         </p>
                       </div>
@@ -294,14 +302,12 @@ const ScheduleVisitFAB: React.FC = () => {
                 </div>
 
                 {!confirmed && (
-                  <div className="px-5 py-4 flex-shrink-0 border-t border-[rgba(0,0,0,0.05)] bg-[rgba(255,255,255,0.3)]">
+                  <div className="px-5 py-4 flex-shrink-0 border-t border-[rgba(0,0,0,0.06)] bg-[#ECECE8]">
                     <button
                       onClick={() => setConfirmed(true)}
-                      className="group relative w-full py-3.5 rounded-[8px] text-white text-[14px] font-bold tracking-wide active:scale-[0.98] transition-all shadow-[0_8px_24px_rgba(47,111,78,0.3)] overflow-hidden"
-                      style={{ background: 'linear-gradient(135deg, #2F6F4E, #1E4D35)' }}
+                      className="neu-btn-green w-full py-3.5 text-white text-[14px] font-bold tracking-wide"
                     >
-                      <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-20deg] group-hover:left-[200%] transition-all duration-700 pointer-events-none" />
-                      <span className="relative z-10">Confirm Schedule</span>
+                      Confirm Schedule
                     </button>
                   </div>
                 )}

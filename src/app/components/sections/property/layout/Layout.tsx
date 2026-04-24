@@ -37,9 +37,9 @@ const Layout: React.FC = () => {
 
   return (
     <div className="w-full">
-      {/* Glass Carousel Container */}
+      {/* Carousel Container */}
       <div 
-        className="relative w-full rounded-[8px] overflow-hidden bg-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08)] animate-fade-blur-in opacity-0"
+        className="relative w-full rounded-[8px] overflow-hidden bg-[#ECECE8] shadow-[5px_5px_10px_#CBCBC7,-5px_-5px_10px_#FFFFFF] animate-neu-3d-in opacity-0"
         style={{ aspectRatio: '4/3', animationDelay: '40ms' }}
       >
         <AnimatePresence mode="popLayout" initial={false}>
@@ -58,7 +58,7 @@ const Layout: React.FC = () => {
 
         {/* Index Pill */}
         <div className="absolute top-3 right-3 z-20">
-          <div className="bg-[rgba(255,255,255,0.85)] backdrop-blur-[12px] text-[#1A1F24] text-[11px] font-bold px-3 py-1.5 rounded-[8px] shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-[rgba(255,255,255,0.6)]">
+          <div className="bg-[rgba(255,255,255,0.85)] text-[#1A2B22] text-[11px] font-bold px-3 py-1.5 rounded-[8px] shadow-[0_2px_8px_rgba(0,0,0,0.1)]">
             {imgIdx + 1} / {layoutImages.length}
           </div>
         </div>
@@ -72,10 +72,10 @@ const Layout: React.FC = () => {
               aria-label="Previous image"
               sx={{ 
                 position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', 
-                bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)', color: '#1A1F24', 
+                bgcolor: 'rgba(255,255,255,0.85)', color: '#1A2B22', 
                 border: '1px solid rgba(255,255,255,0.6)', borderRadius: '8px', p: 0.5, zIndex: 10, 
-                boxShadow: '0 4px 12px rgba(0,0,0,0.08)', transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
-                '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' } 
+                boxShadow: '0 4px 12px rgba(0,0,0,0.08)', transition: 'all 0.2s ease',
+                '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)' } 
               }}
             >
               <NavigateBeforeIcon sx={{ fontSize: 20 }} />
@@ -86,10 +86,10 @@ const Layout: React.FC = () => {
               aria-label="Next image"
               sx={{ 
                 position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', 
-                bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)', color: '#1A1F24', 
+                bgcolor: 'rgba(255,255,255,0.85)', color: '#1A2B22', 
                 border: '1px solid rgba(255,255,255,0.6)', borderRadius: '8px', p: 0.5, zIndex: 10, 
-                boxShadow: '0 4px 12px rgba(0,0,0,0.08)', transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
-                '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' } 
+                boxShadow: '0 4px 12px rgba(0,0,0,0.08)', transition: 'all 0.2s ease',
+                '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)' } 
               }}
             >
               <NavigateNextIcon sx={{ fontSize: 20 }} />
@@ -143,9 +143,9 @@ const Layout: React.FC = () => {
               size="small"
               aria-label="View fullscreen"
               sx={{ 
-                color: '#1A1F24', p: 0.75, bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)', 
-                borderRadius: '8px', border: '1px solid rgba(255,255,255,0.6)', boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
+                bgcolor: 'rgba(255,255,255,0.85)', color: '#1A2B22',
+                borderRadius: '8px', p: 0.75, boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                transition: 'all 0.2s ease',
                 '&:hover': { bgcolor: '#FFFFFF', transform: 'scale(1.05)' } 
               }}
             >
@@ -155,29 +155,27 @@ const Layout: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-2 py-4">
-        <h3 className="text-[14px] font-bold text-[#1A1F24] mb-3 tracking-tight animate-fade-blur-in opacity-0" style={{ animationDelay: '80ms' }}>
+      <div className="px-2 pt-2">
+        <h3 className="text-[14px] font-bold text-[#1A2B22] mb-3 tracking-tight animate-fade-blur-in opacity-0" style={{ animationDelay: '80ms' }}>
           Plot Availability
         </h3>
         
-        {/* Glass List Container */}
+        {/* Plot List Container */}
         <div 
-          className="flex flex-col bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] rounded-[8px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] overflow-hidden animate-fade-blur-in opacity-0"
+          className="flex flex-col bg-[#ECECE8] shadow-[5px_5px_10px_#CBCBC7,-5px_-5px_10px_#FFFFFF] rounded-[8px] overflow-hidden animate-fade-blur-in opacity-0 neu-shimmer-surface"
           style={{ animationDelay: '120ms' }}
         >
           {plotSizes.map((plot, i, arr) => (
-            <div key={plot.size} className="group transition-colors duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[rgba(255,255,255,0.85)] relative">
-              {/* Light Sweep Effect on Hover */}
-              <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.4)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
+            <div key={plot.size} className="relative transition-shadow duration-200 active:shadow-[inset_1px_1px_2px_#CBCBC7]">
 
-              <div className="flex items-center justify-between px-4 py-3.5 cursor-pointer relative z-20">
+              <div className="flex items-center justify-between px-4 py-3.5 cursor-pointer">
                 <div>
-                  <p className="text-[13px] font-bold text-[#1A1F24] transition-colors duration-[280ms]">{plot.size} Plot</p>
-                  <p className="text-[11px] font-medium text-[#6B7280] mt-0.5 transition-colors duration-[280ms] group-hover:text-[#4A5560]">
+                  <p className="text-[13px] font-bold text-[#1A2B22]">{plot.size} Plot</p>
+                  <p className="text-[11px] font-medium text-[#5C6B63] mt-0.5">
                     ₹{plot.pricePerSqYd.toLocaleString('en-IN')} / Sq.Yd
                   </p>
                 </div>
-                <p className="text-[15px] font-bold text-[#2F6F4E] tracking-tight transition-transform duration-[280ms] group-hover:scale-105">
+                <p className="text-[15px] font-bold text-[#2F6F4E] tracking-tight">
                   ₹{((plot.pricePerSqYd * plot.sqYd) / 100000).toFixed(1)}L
                 </p>
               </div>
@@ -222,11 +220,10 @@ const Layout: React.FC = () => {
             aria-label="Close fullscreen"
             sx={{ 
               position: 'absolute', top: -14, right: -14, zIndex: 10,
-              bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
-              color: '#1A1F24', border: '1px solid rgba(255,255,255,0.6)',
+              bgcolor: 'rgba(255,255,255,0.85)', color: '#1A2B22',
               boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
               '&:hover': { bgcolor: '#FFFFFF', transform: 'scale(1.05)' },
-              transition: 'all 0.28s ease-out'
+              transition: 'all 0.2s ease-out'
             }}
           >
             <CloseIcon sx={{ fontSize: 18 }} />
@@ -236,11 +233,11 @@ const Layout: React.FC = () => {
             onClick={prev} 
             sx={{ 
               position: 'absolute', left: -16, top: '50%', transform: 'translateY(-50%)',
-              bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
-              color: '#1A1F24', border: '1px solid rgba(255,255,255,0.6)',
+              bgcolor: 'rgba(255,255,255,0.85)',
+              color: '#1A2B22',
               boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
               '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)' },
-              transition: 'all 0.28s ease-out'
+              transition: 'all 0.2s ease-out'
             }} 
             aria-label="Previous"
           >
@@ -250,11 +247,11 @@ const Layout: React.FC = () => {
             onClick={next} 
             sx={{ 
               position: 'absolute', right: -16, top: '50%', transform: 'translateY(-50%)',
-              bgcolor: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
-              color: '#1A1F24', border: '1px solid rgba(255,255,255,0.6)',
+              bgcolor: 'rgba(255,255,255,0.85)',
+              color: '#1A2B22',
               boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
               '&:hover': { bgcolor: '#FFFFFF', transform: 'translateY(-50%) scale(1.05)' },
-              transition: 'all 0.28s ease-out'
+              transition: 'all 0.2s ease-out'
             }} 
             aria-label="Next"
           >
@@ -272,17 +269,9 @@ const Layout: React.FC = () => {
         </div>
       </Dialog>
 
-      <div className="mt-4 pb-6">
+      <div className="mt-2 pb-2">
         <AskSeller initialQuestions={layoutAskSellerQuestions} />
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
     </div>
   );
 };

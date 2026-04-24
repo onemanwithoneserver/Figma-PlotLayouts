@@ -73,17 +73,18 @@ const ProjectTimeline: React.FC = () => {
     scrollRef.current?.scrollBy({ left: dir === 'left' ? -200 : 200, behavior: 'smooth' });
   };
 
-  const arrowBtnStyles = {
+    const arrowBtnStyles = {
     color: '#2F6F4E',
-    backgroundColor: 'rgba(255,255,255,0.85)',
-    backdropFilter: 'blur(4px)',
-    boxShadow: '0 2px 8px rgba(47,111,78,0.15)',
+    backgroundColor: '#ECECE8',
+    boxShadow: '2px 2px 4px #CBCBC7, -2px -2px 4px #FFFFFF',
     transition: 'all 0.2s ease-in-out',
     padding: '6px',
     '&:hover': {
-      backgroundColor: '#ffffff',
-      boxShadow: '0 4px 12px rgba(47,111,78,0.3)',
+      boxShadow: '3px 3px 6px #CBCBC7, -3px -3px 6px #FFFFFF',
       transform: 'scale(1.05)',
+    },
+    '&:active': {
+      boxShadow: 'inset 2px 2px 4px #CBCBC7, inset -2px -2px 4px #FFFFFF',
     }
   };
 
@@ -93,17 +94,17 @@ const ProjectTimeline: React.FC = () => {
     <section className="w-full font-inter">
       {/* Dynamic Header */}
       <div className="flex items-center gap-2.5 px-4 pt-2 mb-1">
-        <div className="w-8 h-8 rounded-[8px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.2)] flex items-center justify-center">
+        <div className="w-8 h-8 rounded-[8px] bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] flex items-center justify-center">
           <HeadingIcon name="project-status" className="w-4 h-4 text-[#2F6F4E]" />
         </div>
-        <h3 className="text-[15px] font-bold text-[#1A1F24] tracking-tight">Project Progress</h3>
+        <h3 className="text-[15px] font-bold text-[#1A2B22] tracking-tight">Project Progress</h3>
       </div>
 
       <div className="px-3 py-4 animate-fade-blur-in opacity-0" style={{ animationDelay: '40ms' }}>
-        <div className="rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] px-4 py-4 overflow-hidden relative">
+        <div className="rounded-[8px] bg-[#ECECE8] shadow-[5px_5px_10px_#CBCBC7,-5px_-5px_10px_#FFFFFF] px-4 py-4 overflow-hidden relative neu-shimmer-surface animate-neu-breathe">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-[13px] font-semibold text-[#4A5560]">Overall Completion</span>
-            <span className="inline-flex items-center rounded-[8px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.15)] px-2.5 py-1 text-[11px] font-bold text-[#2F6F4E]">
+            <span className="text-[13px] font-semibold text-[#3D5048]">Overall Completion</span>
+            <span className="inline-flex items-center rounded-[8px] bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] px-2.5 py-1 text-[11px] font-bold text-[#2F6F4E]">
               {PROGRESS_PCT}%
             </span>
           </div>
@@ -114,12 +115,12 @@ const ProjectTimeline: React.FC = () => {
               animate={{ width: `${PROGRESS_PCT}%` }}
               transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1] }}
               className="h-full rounded-full"
-              style={{ background: 'linear-gradient(90deg, #2F6F4E, #4A90E2)' }}
+              style={{ background: 'linear-gradient(90deg, #2F6F4E, #22a050)' }}
             />
           </div>
 
           <div className="flex items-center justify-between text-[11px] uppercase tracking-wider font-bold">
-            <span className="text-[#4A5560]">Execution Phase</span>
+            <span className="text-[#3D5048]">Execution Phase</span>
             <span className="text-[#2F6F4E]">on schedule</span>
           </div>
         </div>
@@ -130,22 +131,22 @@ const ProjectTimeline: React.FC = () => {
           
           <div className="relative animate-fade-blur-in opacity-0" style={{ animationDelay: '100ms' }}>
             <div className="absolute -left-[37px] top-1/2 -translate-y-1/2"><Dot status="done" /></div>
-            <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Under development</p>
+            <p className="text-[14px] font-bold text-[#1A2B22] tracking-tight">Under development</p>
           </div>
 
           <div className="relative flex flex-col gap-4 animate-fade-blur-in opacity-0" style={{ animationDelay: '150ms' }}>
             <div className="absolute -left-[37px] top-2.5"><Dot status="done" /></div>
-            <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Final LP received</p>
+            <p className="text-[14px] font-bold text-[#1A2B22] tracking-tight">Final LP received</p>
             <div className="flex flex-col gap-2">
               {APPROVALS.map((doc) => (
-                <div key={doc.id} className="flex items-center justify-between bg-[rgba(255,255,255,0.6)] border border-[rgba(0,0,0,0.05)] rounded-[8px] px-3 py-2.5">
-                   <div className="flex items-center gap-3 text-[#1A1F24]">
-                      <div className="w-8 h-8 rounded-[6px] bg-white border border-[rgba(0,0,0,0.05)] flex items-center justify-center text-[#2F6F4E]">
+                <div key={doc.id} className="flex items-center justify-between bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] rounded-[8px] px-3 py-2.5">
+                   <div className="flex items-center gap-3 text-[#1A2B22]">
+                      <div className="w-8 h-8 rounded-[6px] bg-[#ECECE8] shadow-[inset_1px_1px_2px_#CBCBC7,inset_-1px_-1px_2px_#FFFFFF] flex items-center justify-center text-[#2F6F4E]">
                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                       </div>
                       <span className="text-[12px] font-bold">{doc.name}</span>
                    </div>
-                   <span className="text-[10px] font-bold text-[#6B7280]">{doc.date}</span>
+                   <span className="text-[10px] font-bold text-[#5C6B63]">{doc.date}</span>
                 </div>
               ))}
             </div>
@@ -154,12 +155,12 @@ const ProjectTimeline: React.FC = () => {
           <div className="relative animate-fade-blur-in opacity-0" style={{ animationDelay: '200ms' }}>
             <div className="absolute -left-[37px] top-4 -translate-y-1/2"><Dot status="active" /></div>
             <div className="flex items-center justify-between mb-4">
-              <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Development phase</p>
+              <p className="text-[14px] font-bold text-[#1A2B22] tracking-tight">Development phase</p>
               
               {/* Restored chevron arrow inside the View Updates button */}
               <button
                 onClick={() => setProgressOpen((v) => !v)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] border border-[#2F6F4E]/30 bg-white text-[#2F6F4E] text-[11px] font-bold shadow-sm transition-colors hover:bg-[rgba(47,111,78,0.05)]"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] text-[#2F6F4E] text-[11px] font-bold transition-shadow duration-200"
               >
                 <svg 
                   className={`w-3.5 h-3.5 transition-transform duration-300 ${progressOpen ? 'rotate-180' : ''}`} 
@@ -183,7 +184,7 @@ const ProjectTimeline: React.FC = () => {
                     <div className="relative flex items-center mb-6">
                       
                       {/* Left Gradient Overlay & Restored Timeline Arrow */}
-                      <div className={`absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white via-white/80 to-transparent z-20 flex items-center transition-opacity duration-300 pointer-events-none ${canLeft ? 'opacity-100' : 'opacity-0'}`}>
+                      <div className={`absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#ECECE8] via-[#ECECE8]/80 to-transparent z-20 flex items-center transition-opacity duration-300 pointer-events-none ${canLeft ? 'opacity-100' : 'opacity-0'}`}>
                         <div className="pointer-events-auto ml-1">
                           <IconButton
                             size="small"
@@ -214,9 +215,11 @@ const ProjectTimeline: React.FC = () => {
                               <span className={`text-[10px] font-bold mb-6 transition-colors ${idx === activeStep ? 'text-[#2F6F4E]' : 'text-[#6B7280]'}`}>
                                 {item.date}
                               </span>
-                              <button
+                              <motion.button
                                 onClick={() => setActiveStep(idx)}
                                 className={`w-3 h-3 rounded-full border-2 transition-all relative z-10 ${idx <= activeStep ? 'bg-[#2F6F4E] border-[#2F6F4E]' : 'bg-white border-[rgba(0,0,0,0.1)]'} ${idx === activeStep ? 'scale-125 ring-4 ring-[#2F6F4E]/10' : ''}`}
+                                whileTap={{ scale: 0.75 }}
+                                transition={{ type: 'spring', stiffness: 600, damping: 25 }}
                               />
                             </div>
                           ))}
@@ -224,7 +227,7 @@ const ProjectTimeline: React.FC = () => {
                       </div>
 
                       {/* Right Gradient Overlay & Restored Timeline Arrow */}
-                      <div className={`absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white via-white/80 to-transparent z-20 flex items-center justify-end transition-opacity duration-300 pointer-events-none ${canRight ? 'opacity-100' : 'opacity-0'}`}>
+                      <div className={`absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#ECECE8] via-[#ECECE8]/80 to-transparent z-20 flex items-center justify-end transition-opacity duration-300 pointer-events-none ${canRight ? 'opacity-100' : 'opacity-0'}`}>
                         <div className="pointer-events-auto mr-1">
                           <IconButton
                             size="small"
@@ -239,8 +242,8 @@ const ProjectTimeline: React.FC = () => {
                       </div>
                     </div>
 
-                    <motion.div key={activeStep} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-[rgba(0,0,0,0.02)] rounded-[8px] p-3 border border-[rgba(0,0,0,0.05)]">
-                      <p className="text-[12px] font-bold text-[#1A1F24] mb-3">{CONSTRUCTION_STEPS[activeStep].title}</p>
+                    <motion.div key={activeStep} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-[#ECECE8] shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] rounded-[8px] p-3">
+                      <p className="text-[12px] font-bold text-[#1A2B22] mb-3">{CONSTRUCTION_STEPS[activeStep].title}</p>
                       {currentImages.length > 0 ? (
                         <div className="relative aspect-video rounded-[8px] overflow-hidden bg-white shadow-inner group">
                           <img src={currentImages[imageIndex]} alt="Progress" onClick={() => setZoomSrc(currentImages[imageIndex])} className="w-full h-full object-cover cursor-zoom-in transition-transform duration-500 group-hover:scale-105" loading="lazy" />
@@ -257,7 +260,7 @@ const ProjectTimeline: React.FC = () => {
                         </div>
                       ) : (
                         <div className="py-10 text-center border border-dashed border-[rgba(0,0,0,0.1)] rounded-[8px]">
-                          <p className="text-[11px] font-bold text-[#6B7280]">Photo update soon</p>
+                          <p className="text-[11px] font-bold text-[#5C6B63]">Photo update soon</p>
                         </div>
                       )}
                     </motion.div>

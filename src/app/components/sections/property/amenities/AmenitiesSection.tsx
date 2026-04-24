@@ -42,20 +42,20 @@ const AmenitiesSection: React.FC = () => {
             return (
               <li
                 key={item}
-                className="group relative flex items-center gap-3 px-3 py-2.5 rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] cursor-pointer transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[2px] hover:scale-[1.01] hover:bg-[rgba(255,255,255,0.85)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden animate-fade-blur-in opacity-0"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-[8px] bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] active:shadow-[inset_2px_2px_4px_#CBCBC7,inset_-2px_-2px_4px_#FFFFFF] transition-shadow duration-200 animate-fade-blur-in opacity-0"
                 style={{ animationDelay: `${delay}ms` }}
                 role="listitem"
               >
                 <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.5)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
 
-                <div className="flex items-center justify-center w-7 h-7 shrink-0 rounded-[8px] bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.15)] transition-all duration-[280ms] group-hover:bg-[rgba(47,111,78,0.15)] group-hover:scale-110 relative z-10">
+                <div className="flex items-center justify-center w-7 h-7 shrink-0 rounded-[8px] bg-[#ECECE8] shadow-[2px_2px_4px_#CBCBC7,-2px_-2px_4px_#FFFFFF]">
                   <CheckCircleOutlineIcon
                     sx={{ fontSize: 16 }}
                     className="text-[#2F6F4E]"
                   />
                 </div>
 
-                <span className="text-[13px] font-semibold text-[#4A5560] leading-tight transition-colors duration-[280ms] group-hover:text-[#1A1F24] relative z-10">
+                <span className="text-[13px] font-semibold text-[#1A2B22] leading-tight">
                   {item}
                 </span>
               </li>
@@ -68,13 +68,6 @@ const AmenitiesSection: React.FC = () => {
         <AskSeller initialQuestions={amenitiesAskSellerQuestions} />
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
     </div>
   );
 };

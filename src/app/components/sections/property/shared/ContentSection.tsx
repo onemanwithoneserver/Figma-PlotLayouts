@@ -17,56 +17,35 @@ const ContentSection: React.FC<ContentSectionProps> = ({ title, action, children
     'Location & Distance': 'location',
     Amenities: 'amenities',
     'Pricing & Payment Plans': 'pricing',
+    'Gallery': 'gallery',
   };
 
   const iconName = iconByTitle[title] ?? 'default';
 
   return (
     <div
-      className={`
-        relative overflow-hidden
-        bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] 
-        border border-[rgba(255,255,255,0.6)] 
-        shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)]
-        rounded-[8px] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)]
-        hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] hover:bg-[rgba(255,255,255,0.8)]
-        animate-fade-blur-in opacity-0
-        ${className}
-      `}
+      className={`relative overflow-hidden bg-[#ECECE8] rounded-[8px] shadow-[5px_5px_10px_#CBCBC7,-5px_-5px_10px_#FFFFFF] transition-shadow duration-200 animate-fade-blur-in opacity-0 ${className}`}
     >
-      {/* Light shift sweep overlay on hover */}
-      <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.4)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
-
-      {/* Header Row */}
-      <div className="flex items-center justify-between px-4 py-3.5 border-b border-[rgba(0,0,0,0.05)] relative z-20">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-[8px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.2)] flex items-center justify-center">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(0,0,0,0.06)]">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-[8px] bg-[#ECECE8] shadow-[3px_3px_6px_#CBCBC7,-3px_-3px_6px_#FFFFFF] flex items-center justify-center">
             <HeadingIcon name={iconName} className="w-4 h-4 text-[#2F6F4E]" />
           </div>
-          <h2 className="text-[15px] font-bold text-[#1A1F24] tracking-tight leading-none">
+          <h2 className="text-[15px] font-bold text-[#1A2B22] tracking-tight leading-none">
             {title}
           </h2>
         </div>
-        
+
         {action && (
-          <div className="flex-shrink-0 animate-fade-blur-in opacity-0" style={{ animationDelay: '100ms' }}>
+          <div className="flex-shrink-0">
             {action}
           </div>
         )}
       </div>
 
-      {/* Content Area */}
-      <div className="relative z-20 bg-transparent">
+      <div className="relative">
         {children}
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
     </div>
   );
 };

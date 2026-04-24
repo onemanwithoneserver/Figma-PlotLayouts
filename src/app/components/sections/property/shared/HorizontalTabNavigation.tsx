@@ -81,14 +81,14 @@ const HorizontalTabNavigation: React.FC = () => {
     <nav
       aria-label="Page sections"
       className={`font-inter sticky top-0 z-40 transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        visible 
-        ? 'opacity-100 translate-y-0 bg-[rgba(255,255,255,0.75)] backdrop-blur-[20px] border-b border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.05)]' 
+        visible
+        ? 'opacity-100 translate-y-0 bg-[#ECECE8] shadow-[0_4px_8px_#CBCBC7,inset_0_-1px_0_#FFFFFF]'
         : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
       }`}
     >
       <div className="flex items-center max-w-[390px] mx-auto relative">
         {/* Left Blur/Arrow Overlay */}
-        <div className={`absolute left-0 top-0 bottom-0 z-10 w-12 pointer-events-none bg-gradient-to-r from-[rgba(255,255,255,0.8)] to-transparent transition-opacity duration-200 ${showLeft ? 'opacity-100' : 'opacity-0'}`} />
+        <div className={`absolute left-0 top-0 bottom-0 z-10 w-10 pointer-events-none bg-gradient-to-r from-[#ECECE8] to-transparent transition-opacity duration-200 ${showLeft ? 'opacity-100' : 'opacity-0'}`} />
         <button
           onClick={() => manualScroll('left')}
           className={`relative z-20 flex-shrink-0 flex items-center justify-center w-10 min-h-[48px] outline-none transition-all duration-200 text-[#4A5560] hover:text-[#2F6F4E] disabled:opacity-0`}
@@ -115,22 +115,18 @@ const HorizontalTabNavigation: React.FC = () => {
                 aria-selected={isActive}
                 className="relative flex-shrink-0 px-4 py-3 outline-none group transition-all duration-[280ms]"
               >
-                <span className={`text-[13px] font-semibold transition-colors duration-[280ms] whitespace-nowrap  tracking-tight ${
-                  isActive ? 'text-[#2F6F4E]' : 'text-[#6B7280] group-hover:text-[#4A5560]'
+                <span className={`text-[13px] font-semibold transition-colors duration-200 whitespace-nowrap tracking-tight ${
+                  isActive ? 'text-[#2F6F4E]' : 'text-[#5C6B63]'
                 }`}>
                   {tab.label}
                 </span>
                 
-                {/* Active Indicator Underline (Glass style) */}
                 {isActive && (
-                  <motion.div 
+                  <motion.div
                     layoutId="activeTabUnderline"
-                    className="absolute bottom-1.5 left-4 right-4 h-[2px] bg-[#2F6F4E] rounded-full shadow-[0_1px_4px_rgba(47,111,78,0.3)]"
+                    className="absolute bottom-1.5 left-4 right-4 h-[2px] bg-[#2F6F4E] rounded-full"
                   />
                 )}
-                
-                {/* Hover Background Pill */}
-                <div className="absolute inset-x-2 inset-y-2 bg-[rgba(47,111,78,0.05)] rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10" />
               </button>
             );
           })}

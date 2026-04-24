@@ -24,46 +24,27 @@ const PropertyDetails: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F7F8FA] to-[#EEF1F5] overflow-x-clip max-w-[390px] mx-auto relative font-inter text-[#1A1F24] selection:bg-[#2F6F4E]/20 selection:text-[#2F6F4E]">
-      {/* Subtle Noise Texture */}
-      <div 
-        className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none mix-blend-multiply"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}
-      />
-
-      {/* Floating Ambient Light Orbs */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden max-w-[390px] mx-auto">
-        <div className="absolute top-[-10%] right-[-20%] w-[350px] h-[350px] rounded-full bg-[#2F6F4E]/10 blur-[100px]" />
-        <div className="absolute top-[35%] left-[-25%] w-[300px] h-[300px] rounded-full bg-[#C8A97E]/15 blur-[120px]" />
-        <div className="absolute bottom-[5%] right-[-15%] w-[400px] h-[400px] rounded-full bg-[#C65A3A]/10 blur-[110px]" />
-      </div>
-
+    <div className="min-h-screen bg-[#ECECE8] overflow-x-clip max-w-[390px] mx-auto relative font-inter text-[#1A2B22] selection:bg-[#2F6F4E]/20 selection:text-[#2F6F4E]">
       <style>
         {`
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-          
-          .font-inter { 
-            font-family: 'Inter', sans-serif; 
+          .font-inter {
+            font-family: 'Inter', sans-serif;
             line-height: 1.5;
           }
-          
+
           .pd-section {
             position: relative;
             z-index: 10;
-            border-radius: 8px !important; 
-            background: rgba(255, 255, 255, 0.65) !important;
-            backdrop-filter: blur(20px) !important;
-            -webkit-backdrop-filter: blur(20px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.6) !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+            border-radius: 8px;
+            background: #ECECE8;
+            box-shadow: 5px 5px 10px #CBCBC7, -5px -5px 10px #FFFFFF;
             overflow: hidden;
           }
 
           .pd-section > div {
-             background: transparent !important;
-             border: none !important;
-             box-shadow: none !important;
-             backdrop-filter: none !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
           }
         `}
       </style>
@@ -137,7 +118,7 @@ const PropertyDetails: React.FC = () => {
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               aria-label="Back to top"
-              className="absolute right-5 bottom-[90px] pointer-events-auto w-10 h-10 rounded-[8px] bg-[rgba(255,255,255,0.65)] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.08)] flex items-center justify-center backdrop-blur-[20px]"
+              className="absolute right-4 bottom-[88px] pointer-events-auto w-11 h-11 rounded-[8px] bg-[#ECECE8] shadow-[5px_5px_10px_#CBCBC7,-5px_-5px_10px_#FFFFFF] active:shadow-[inset_3px_3px_6px_#CBCBC7,inset_-3px_-3px_6px_#FFFFFF] flex items-center justify-center transition-all duration-200"
             >
               <svg className="w-5 h-5 text-[#2F6F4E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
