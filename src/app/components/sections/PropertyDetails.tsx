@@ -76,7 +76,7 @@ const PropertyDetails: React.FC = () => {
 
       <FooterNav />
 
-      <div className="relative z-10 flex flex-col gap-4 py-6 px-2">
+      <div className="relative z-10 flex flex-col gap-4 py-2 px-2">
         
         <div className="pd-section">
           <VideoTourSection />
@@ -91,13 +91,12 @@ const PropertyDetails: React.FC = () => {
         </div>
 
         <div id="highlights" className="pd-section scroll-mt-8">
-          <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#2F6F4E] to-transparent z-20 opacity-90" />
           <ContentSection title="Highlights">
             <Highlights />
           </ContentSection>
         </div>
 
-        <div id="project-status" className="pd-section scroll-mt-8">
+        <div id="project-status" className=" scroll-mt-8">
           <ProjectTimeline />
         </div>
 

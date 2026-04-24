@@ -113,9 +113,7 @@ const ProjectTimeline: React.FC = () => {
               transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1] }}
               className="h-full rounded-full relative"
               style={{ background: 'linear-gradient(90deg, #2F6F4E, #4A90E2)' }}
-            >
-                <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.15)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.15)_50%,rgba(255,255,255,0.15)_75%,transparent_75%,transparent)] bg-[length:20px_20px] animate-[progress-stripe_2s_linear_infinite]" />
-            </motion.div>
+            />
           </div>
 
           <div className="flex items-center justify-between">
@@ -284,10 +282,6 @@ const ProjectTimeline: React.FC = () => {
         @keyframes fadeBlurIn { 
           from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
           to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        @keyframes progress-stripe {
-          from { background-position: 0 0; }
-          to { background-position: 20px 0; }
         }
         .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
