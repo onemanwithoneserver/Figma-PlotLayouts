@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { motion } from 'framer-motion';
 import { OverviewItem, overviewData, OVERVIEW_INITIAL_COUNT } from './data';
 
 const OverviewTile: React.FC<{ item: OverviewItem; index: number }> = ({ item, index }) => {
   const delay = 40 + index * 40;
 
   return (
-    <div 
-      className="group relative flex min-h-[110px] cursor-pointer flex-col items-center justify-center rounded-[8px] bg-[rgba(255,255,255,0.62)] p-3 text-center backdrop-blur-[8px] border border-[rgba(255,255,255,0.68)] shadow-[0_1px_6px_rgba(31,65,46,0.08)] transition-all duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[1px] hover:bg-[rgba(255,255,255,0.78)] hover:shadow-[0_2px_8px_rgba(31,65,46,0.1)] overflow-hidden animate-fade-blur-in opacity-0"
+    <motion.div 
+      whileHover={{ y: -4 }}
+      className="glass group relative flex min-h-[88px] cursor-pointer flex-col items-center justify-center p-2.5 text-center transition-all duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[rgba(255,255,255,0.78)] hover:shadow-[0_4px_12px_rgba(31,65,46,0.12)] overflow-hidden animate-fade-blur-in opacity-0"
       style={{ animationDelay: `${delay}ms` }}
     >
-      <div className="mb-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.14)] shadow-[0_1px_4px_rgba(31,65,46,0.08)] transition-transform duration-[240ms] group-hover:scale-[1.03] relative z-10">
+      <div className="mb-1.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] bg-[rgba(47,111,78,0.08)] border border-[rgba(47,111,78,0.14)] shadow-[0_1px_4px_rgba(31,65,46,0.08)] transition-transform duration-[240ms] group-hover:scale-[1.03] relative z-10">
         <div className="flex text-[18px] text-[#4f5b53] transition-colors duration-[240ms] group-hover:text-[#2F6F4E]">
           {item.icon}
         </div>
       </div>
 
-      <span className="mb-1 break-words text-[10px] font-medium tracking-[0.02em] text-[#5a665e] transition-colors duration-[240ms] group-hover:text-[#46524a] relative z-10">
+      <span className="mb-0.5 break-words text-[10.5px] font-medium tracking-[0.02em] text-[#4A5568] transition-colors duration-[240ms] group-hover:text-[#2f3a34] relative z-10">
         {item.label}
       </span>
       
-      <span className="break-words text-[13px] font-bold leading-tight text-[#142218] relative z-10 tracking-tight">
+      <span className="break-words text-[12px] font-bold leading-tight text-[#1A1A2E] relative z-10 tracking-tight">
         {item.value}
       </span>
-    </div>
+    </motion.div>
   );
 };
 
@@ -33,8 +35,8 @@ const Overview: React.FC = () => {
   const displayed = showAll ? overviewData : overviewData.slice(0, OVERVIEW_INITIAL_COUNT);
 
   return (
-    <div className="w-full py-2">
-      <div className="mb-6 grid grid-cols-3 gap-3">
+    <div className="w-full py-1.5">
+      <div className="mb-2.5 grid grid-cols-3 gap-2">
         {displayed.map((item, index) => (
           <OverviewTile key={item.id} item={item} index={index} />
         ))}
@@ -59,13 +61,8 @@ const Overview: React.FC = () => {
         </button>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
+
+    
     </div>
   );
 };

@@ -7,8 +7,8 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
-import AskSeller from '../shared/AskSeller';
 import { GALLERY_ITEMS, galleryAskSellerQuestions } from './data';
+import AskSeller from '../shared/AskSeller';
 
 const GallerySection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('all');
@@ -50,9 +50,9 @@ const GallerySection: React.FC = () => {
                 setActiveTab(tab.id);
                 setLightboxIdx(null);
               }}
-              className={`relative flex items-center justify-center gap-[4px] min-h-[44px] px-[4px] w-full text-[14px] font-bold transition-all duration-300 whitespace-nowrap outline-none rounded-[4px] active:scale-[0.98] ${
+              className={`relative flex items-center justify-center gap-[4px] min-h-[44px] px-[4px] w-full text-[14px] font-bold transition-all duration-300 whitespace-nowrap outline-none rounded active:scale-[0.98] ${
                 isActive 
-                  ? 'text-[#2F6F4E] bg-white/78 backdrop-blur-[8px] border-[1px] border-white/68 shadow-[0_1px_4px_rgba(31,65,46,0.08)]' 
+                  ? 'text-[#2F6F4E] glass-elevated border-[1px] shadow-[0_1px_4px_rgba(31,65,46,0.08)]' 
                   : 'text-[#4f5b53] bg-transparent border-[1px] border-transparent'
               }`}
             >
@@ -72,11 +72,11 @@ const GallerySection: React.FC = () => {
             <button
               key={item.id}
               onClick={() => setLightboxIdx(idx)}
-              className="group relative rounded-[4px] overflow-hidden aspect-square bg-white/72 backdrop-blur-[8px] border-[1px] border-white/68 shadow-[0_1px_4px_rgba(31,65,46,0.08)] transition-all duration-300 active:scale-[0.98] outline-none w-full animate-[fadeIn_0.3s_ease-out_forwards] opacity-0"
+              className="glass-elevated group relative rounded-lg overflow-hidden aspect-square transition-all duration-300 active:scale-[0.98] outline-none w-full animate-[fadeIn_0.3s_ease-out_forwards] opacity-0"
               style={{ animationDelay: `${idx * 30}ms` }}
               aria-label={`View ${item.label}`}
             >
-              <div className="relative w-full h-full bg-[#F3F4F6] rounded-[4px] overflow-hidden">
+              <div className="relative w-full h-full bg-[#F3F4F6] rounded-lg overflow-hidden">
                 <img
                   src={item.src}
                   alt={item.alt}
@@ -86,13 +86,13 @@ const GallerySection: React.FC = () => {
                 
                 {item.type === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center z-10 bg-white/8 backdrop-blur-[2px]">
-                    <div className="w-[44px] h-[44px] rounded-[4px] bg-white/88 backdrop-blur-[8px] border-[1px] border-white/72 flex items-center justify-center shadow-[0_1px_6px_rgba(31,65,46,0.12)]">
+                    <div className="w-[44px] h-[44px] rounded bg-white/88 backdrop-blur-[8px] border-[1px] border-white/72 flex items-center justify-center shadow-[0_1px_6px_rgba(31,65,46,0.12)]">
                       <PlayCircleOutlineIcon sx={{ fontSize: 24, color: '#2F6F4E' }} />
                     </div>
                   </div>
                 )}
 
-                <div className="absolute w-fit bottom-[0px] right-[0px] z-10 flex items-center gap-[4px] bg-white/82 backdrop-blur-[8px] border border-white/68 px-[4px] py-[4px] rounded-none rounded-tl-[4px] shadow-[0_1px_4px_rgba(31,65,46,0.08)]">
+                <div className="absolute w-fit bottom-[0px] right-[0px] z-10 flex items-center gap-[4px] bg-white/82 backdrop-blur-[8px] border border-white/68 px-[4px] py-[4px] rounded-none rounded-tl rounded-br-none shadow-[0_1px_4px_rgba(31,65,46,0.08)]">
                   {item.type === 'image' ? (
                     <ImageOutlinedIcon sx={{ fontSize: 14, color: '#2F6F4E' }} />
                   ) : (
@@ -107,7 +107,7 @@ const GallerySection: React.FC = () => {
           ))}
 
           {displayedItems.length === 0 && (
-            <div className="col-span-full min-h-[160px] flex flex-col items-center justify-center gap-[8px] text-[#4f5b53] text-[14px] font-semibold bg-white/72 backdrop-blur-[8px] rounded-[8px] border-[1px] border-white/68 shadow-[0_1px_4px_rgba(31,65,46,0.08)] page-enter">
+            <div className="glass-elevated col-span-full min-h-[160px] flex flex-col items-center justify-center gap-[8px] text-[#4f5b53] text-[14px] font-semibold page-enter">
               <div className="w-[56px] h-[56px] rounded-[8px] bg-[linear-gradient(145deg,rgba(34,197,94,0.12),rgba(134,239,172,0.16))] flex items-center justify-center animate-[fadeInUp_0.3s_ease-in-out_forwards]">
                 <svg viewBox="0 0 24 24" className="w-[28px] h-[28px] text-[#2F6F4E]" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <rect x="3" y="5" width="18" height="14" rx="2" />
@@ -197,8 +197,8 @@ const GallerySection: React.FC = () => {
         )}
       </Dialog>
 
-      <div className="mt-[4px] mb-[4px] p-[2px]">
-        <AskSeller initialQuestions={galleryAskSellerQuestions} headingIconName="gallery" />
+      <div className="pt-2">
+        <AskSeller initialQuestions={galleryAskSellerQuestions} headingIconName="ask-seller" />
       </div>
     </div>
   );

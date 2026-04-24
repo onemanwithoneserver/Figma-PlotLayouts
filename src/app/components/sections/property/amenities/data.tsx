@@ -1,5 +1,7 @@
+import type { AmenityCategory } from '../../../../types/plot';
+
 export interface AmenityTab {
-  id: string;
+  id: AmenityCategory;
   label: string;
   imageUrl: string;
   items: string[];

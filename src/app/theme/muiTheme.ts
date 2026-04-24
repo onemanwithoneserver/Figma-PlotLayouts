@@ -3,35 +3,40 @@ import { createTheme } from '@mui/material/styles';
 export const muiTheme = createTheme({
   palette: {
     primary: {
-      main: '#0f5c30',
-      light: '#22a050',
-      dark: '#1e3326',
+      main: '#1A6B4A',
+      light: '#D4F5E7',
+      dark: '#155A3D',
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#1a7a42',
+      main: '#F5A623',
       contrastText: '#ffffff',
     },
     background: {
-      default: '#ffffff',
+      default: '#F5F7FA',
       paper: '#ffffff',
     },
     text: {
-      primary: '#0a1a10',
-      secondary: '#5a7a65',
+      primary: '#1A1A2E',
+      secondary: '#4A5568',
     },
-    divider: '#c8e8d6',
-    success: { main: '#2dbd60' },
+    divider: '#E2E8F0',
+    success: { main: '#1A6B4A' },
   },
-  shape: { borderRadius: 8 },
+  shape: { borderRadius: 4 },
   typography: {
-    fontFamily: "'Outfit', sans-serif",
-    h5: { fontWeight: 700, color: 'var(--text-color)' },
-    h6: { fontWeight: 700, color: 'var(--text-color)' },
-    subtitle1: { fontWeight: 600 },
-    subtitle2: { fontWeight: 600 },
-    body2: { fontSize: '0.8125rem' },
-    caption: { fontSize: '0.75rem' },
+    fontFamily: '"Outfit", sans-serif',
+    h1: { fontSize: '2rem', fontWeight: 600, color: '#1A1A2E' },
+    h2: { fontSize: '1.375rem', fontWeight: 600, color: '#1A1A2E' },
+    h3: { fontSize: '1.125rem', fontWeight: 500, color: '#1A1A2E' },
+    h4: { fontSize: '0.9375rem', fontWeight: 500, color: '#1A1A2E' },
+    h5: { fontWeight: 600, color: '#1A1A2E' },
+    h6: { fontWeight: 600, color: '#1A1A2E' },
+    subtitle1: { fontWeight: 500 },
+    subtitle2: { fontWeight: 500 },
+    body1: { fontSize: '0.875rem', fontWeight: 400 },
+    body2: { fontSize: '0.75rem', fontWeight: 400 },
+    caption: { fontSize: '0.6875rem', fontWeight: 500, color: '#4A5568' },
   },
   shadows: [
     'none',
@@ -44,13 +49,39 @@ export const muiTheme = createTheme({
       defaultProps: { elevation: 0 },
       styleOverrides: {
         root: {
-          border: '1px solid var(--glass-border)',
-          borderRadius: 12,
-          backgroundColor: 'var(--glass-bg)',
-          backdropFilter: 'blur(var(--glass-blur))',
-          WebkitBackdropFilter: 'blur(var(--glass-blur))',
-          boxShadow: 'var(--glass-shadow)',
+          border: '1px solid rgba(255, 255, 255, 0.5)',
+          borderRadius: 8,
+          backgroundColor: 'rgba(255, 255, 255, 0.72)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
           overflow: 'hidden',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          background: 'rgba(255, 255, 255, 0.72)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          border: '1px solid rgba(255, 255, 255, 0.5)',
+          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
+          borderRadius: 8,
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 8,
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          borderRadius: '8px 0 0 8px',
         },
       },
     },
@@ -67,8 +98,8 @@ export const muiTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          fontWeight: 600,
-          borderRadius: 8,
+          fontWeight: 500,
+          borderRadius: 4,
           boxShadow: 'none',
           transition: 'all 0.3s ease',
           '&:hover': { boxShadow: 'none' },
@@ -100,7 +131,7 @@ export const muiTheme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 6,
+          borderRadius: 4,
           fontWeight: 500,
           fontSize: '0.75rem',
           height: 28,
@@ -120,6 +151,7 @@ export const muiTheme = createTheme({
         root: {
           textTransform: 'none',
           fontWeight: 600,
+          borderRadius: 4,
           minHeight: 40,
           fontSize: '0.8125rem',
           color: 'var(--text-color-muted)',
@@ -143,7 +175,7 @@ export const muiTheme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: 8,
+            borderRadius: 4,
             backgroundColor: 'var(--input-background)',
             backdropFilter: 'blur(8px)',
             transition: 'all 0.3s ease',
@@ -161,7 +193,7 @@ export const muiTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 4,
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
             borderColor: 'var(--accent-primary)',
           },
@@ -173,15 +205,22 @@ export const muiTheme = createTheme({
         root: { borderColor: 'var(--border-color)' },
       },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          borderRadius: 4,
+        },
+      },
+    },
     MuiLinearProgress: {
       styleOverrides: {
         root: {
-          borderRadius: 4,
+          borderRadius: 2,
           backgroundColor: 'var(--border-color-subtle)',
           overflow: 'hidden',
         },
         bar: {
-          borderRadius: 4,
+          borderRadius: 2,
           background: 'var(--gradient-primary)',
         },
       },

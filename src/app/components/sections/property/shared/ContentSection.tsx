@@ -22,28 +22,28 @@ const ContentSection: React.FC<ContentSectionProps> = ({ title, action, children
   const iconName = iconByTitle[title] ?? 'default';
 
   return (
-    <div className={`flex flex-col w-full group p-[2px] ${className}`}>
-      <div className="flex items-center justify-between min-h-[48px] p-[2px] m-[2px] relative z-20">
+    <section className={`w-full group p-2 ${className}`}>
+      <div className="mb-2 flex items-center justify-between min-h-[48px] relative z-20">
         <div className="flex items-center gap-[2px]">
           <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#2F8F7B]/10 border border-[#2F8F7B]/18 shadow-[0_1px_4px_rgba(24,66,55,0.12)] transition-transform duration-300 group-hover:scale-[1.03] m-[2px]">
             <HeadingIcon name={iconName} className="w-4 h-4 text-[#2F8F7B]" />
           </div>
-          <h2 className="text-[16px] font-bold text-[#10251e] tracking-tight leading-[1.2] p-[2px]">
+          <h2 className="text-2xl font-semibold font-outfit text-[#1A1A2E] tracking-tight leading-[1.2]">
             {title}
           </h2>
         </div>
         
         {action && (
-          <div className="flex-shrink-0 animate-[fadeIn_0.4s_ease-out_forwards] opacity-0 [animation-delay:100ms] p-[2px] m-[2px]">
+          <div className="flex-shrink-0 animate-[fadeIn_0.4s_ease-out_forwards] opacity-0 [animation-delay:100ms]">
             {action}
           </div>
         )}
       </div>
 
-      <div className="relative z-20 px-[2px] m-[2px]">
+      <div className="relative z-20 flex flex-col gap-2">
         {children}
       </div>
-    </div>
+    </section>
   );
 };
 

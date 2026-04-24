@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import HeadingIcon from './HeadingIcon';
 import type { HeadingIconName } from './HeadingIcon';
@@ -52,7 +53,7 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
   };
 
   return (
-    <div className={`w-full px-2 py-2 space-y-2 font-inter bg-transparent animate-fade-blur-in opacity-0 ${className}`}>
+    <div className={`w-full px-2 py-2 space-y-2 bg-transparent animate-fade-blur-in opacity-0 ${className}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <div className="w-8 h-8 rounded-[4px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.2)] flex items-center justify-center">
@@ -154,13 +155,8 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
         )}
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(8px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
+
+    
     </div>
   );
 }

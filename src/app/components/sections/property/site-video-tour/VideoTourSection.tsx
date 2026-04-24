@@ -33,7 +33,7 @@ const VideoTourSection: React.FC = () => {
             />
           </div>
           
-          <span className="text-white text-[11px] font-bold uppercase tracking-[0.08em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)] opacity-95 transition-opacity">
+          <span className="text-white text-[11px] font-bold  tracking-[0.08em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)] opacity-95 transition-opacity">
             {videoTourData.ctaLabel}
           </span>
         </button>
@@ -61,13 +61,8 @@ const VideoTourSection: React.FC = () => {
         </div>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
+
+    
     </div>
   );
 };

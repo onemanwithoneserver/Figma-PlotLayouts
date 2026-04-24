@@ -1,8 +1,6 @@
-export interface Plot {
-  size: string;
-  sqYd: number;
-  pricePerSqYd: number;
-}
+import type { PricingTier } from '../../../../types/plot';
+
+export type Plot = PricingTier;
 
 export interface BookingStep {
   step: string;
@@ -17,10 +15,10 @@ export interface PaymentTab {
 }
 
 export const PLOTS: Plot[] = [
-  { size: '100 Sq.Yd', sqYd: 100, pricePerSqYd: 18000 },
-  { size: '150 Sq.Yd', sqYd: 150, pricePerSqYd: 17500 },
-  { size: '200 Sq.Yd', sqYd: 200, pricePerSqYd: 16800 },
-  { size: '240 Sq.Yd', sqYd: 240, pricePerSqYd: 16000 },
+  { size: '100sqyd', label: '100 Sq.Yd Plot', dimensions: '30 x 33 Ft', pricePerSqYd: 18000, totalPrice: 1800000, available: true },
+  { size: '150sqyd', label: '150 Sq.Yd Plot', dimensions: '33 x 45 Ft', pricePerSqYd: 17500, totalPrice: 2625000, available: true },
+  { size: '200sqyd', label: '200 Sq.Yd Plot', dimensions: '40 x 45 Ft', pricePerSqYd: 16800, totalPrice: 3360000, available: true },
+  { size: '240sqyd', label: '240 Sq.Yd Plot', dimensions: '45 x 48 Ft', pricePerSqYd: 16000, totalPrice: 3840000, available: true },
 ];
 
 export const DEV_CHARGES = 150000;

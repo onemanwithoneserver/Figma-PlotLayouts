@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
@@ -6,12 +6,18 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import CloseIcon from '@mui/icons-material/Close';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
-import AskSeller from '../shared/AskSeller';
 import { layoutImages, plotSizes, layoutAskSellerQuestions } from './plotData';
+import AskSeller from '../shared/AskSeller';
 
 const Layout: React.FC = () => {
   const [imgIdx, setImgIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsLoading(false), 550);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const prev = () => setImgIdx((i) => (i - 1 + layoutImages.length) % layoutImages.length);
   const next = () => setImgIdx((i) => (i + 1) % layoutImages.length);
@@ -159,7 +165,14 @@ const Layout: React.FC = () => {
           className="flex flex-col bg-[rgba(255,255,255,0.62)] backdrop-blur-[8px] rounded-[8px] border border-[rgba(255,255,255,0.68)] shadow-[0_1px_6px_rgba(31,65,46,0.08)] overflow-hidden animate-fade-blur-in opacity-0"
           style={{ animationDelay: '120ms' }}
         >
-          {plotSizes.map((plot, i, arr) => (
+          {isLoading
+            ? Array.from({ length: 4 }).map((_, i) => (
+                <div key={`availability-skeleton-${i}`} className="px-4 py-3.5">
+                  <div className="skeleton h-[16px] w-[56%] mb-2" />
+                  <div className="skeleton h-[12px] w-[36%]" />
+                </div>
+              ))
+            : plotSizes.map((plot, i, arr) => (
             <div key={plot.size} className="group transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[rgba(255,255,255,0.74)] relative">
               <div className="flex items-center justify-between px-4 py-3.5 cursor-pointer relative z-20">
                 <div>
@@ -258,17 +271,9 @@ const Layout: React.FC = () => {
         </div>
       </Dialog>
 
-      <div className="mt-4 pb-2">
-        <AskSeller initialQuestions={layoutAskSellerQuestions} />
+      <div className="px-2 pt-2.5">
+        <AskSeller initialQuestions={layoutAskSellerQuestions} headingIconName="ask-seller" />
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
     </div>
   );
 };

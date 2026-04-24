@@ -1,19 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import HeroSection from './property/hero-section/HeroSection';
-import VideoTourSection from './property/site-video-tour/VideoTourSection';
 import ContentSection from './property/shared/ContentSection';
 import Overview from './property/overview/Overview';
-import Highlights from './property/project-highlights/Highlights';
-import ProjectTimeline from './property/project-progress/ProjectTimeline';
-import Layout from './property/layout/Layout';
-import InteractiveCommute from './property/location-highlights-distance/InteractiveCommute';
-import AmenitiesSection from './property/amenities/AmenitiesSection';
-import PaymentPlan from './property/payment-plan-offers/PaymentPlan';
-import GallerySection from './property/additional-images-videos/GallerySection';
 import ScheduleVisitFAB from './property/project-meet/ScheduleVisitFAB';
 import FooterNav from './property/shared/FooterNav';
 import HorizontalTabNavigation from './property/shared/HorizontalTabNavigation';
-import InitialLoadingState from './property/shared/InitialLoadingState';
+import InitialLoadingState, {
+  GallerySkeleton,
+  HighlightsSkeleton,
+  PricingSkeleton,
+  SectionSkeleton,
+  TimelineSkeleton,
+} from './property/shared/InitialLoadingState';
+import FadeInSection from './property/shared/FadeInSection';
+
+/* Lazy-loaded below-fold sections (audit §12 — Performance) */
+const Highlights = React.lazy(() => import('./property/project-highlights/Highlights'));
+const ProjectTimeline = React.lazy(() => import('./property/project-progress/ProjectTimeline'));
+const LayoutSection = React.lazy(() => import('./property/layout/Layout'));
+const AmenitiesSection = React.lazy(() => import('./property/amenities/AmenitiesSection'));
+const PaymentPlan = React.lazy(() => import('./property/payment-plan-offers/PaymentPlan'));
+const InteractiveCommute = React.lazy(() => import('./property/location-highlights-distance/InteractiveCommute'));
+const GallerySection = React.lazy(() => import('./property/additional-images-videos/GallerySection'));
+const VideoTourSection = React.lazy(() => import('./property/site-video-tour/VideoTourSection'));
 
 const PropertyDetails: React.FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -48,7 +57,6 @@ const PropertyDetails: React.FC = () => {
         </div>
       ) : (
         <>
-
           <div className="relative z-10 pt-[2px]">
             <HeroSection />
           </div>
@@ -56,59 +64,93 @@ const PropertyDetails: React.FC = () => {
           <FooterNav />
 
           <div className={`relative z-10 flex flex-col gap-[4px] py-[4px] transition-[padding] duration-300 ${showBackToTop ? 'pb-[100px]' : 'pb-[12px]'}`}>
-        
-            <div className={glassSectionClass}>
-              <VideoTourSection />
-            </div>
-        
+
+          <FadeInSection delay={0.72}>
+              <div className={glassSectionClass}>
+                <Suspense fallback={null}>
+                  <VideoTourSection />
+                </Suspense>
+              </div>
+            </FadeInSection>
+
+
             <HorizontalTabNavigation />
-        
+
             <div id="overview" className={glassSectionClass}>
               <ContentSection title="Overview">
                 <Overview />
               </ContentSection>
             </div>
 
-            <div id="highlights" className={glassSectionClass}>
-              <ContentSection title="Highlights">
-                <Highlights />
-              </ContentSection>
-            </div>
+            <FadeInSection delay={0.16}>
+              <div id="highlights" className={glassSectionClass}>
+                <ContentSection title="Highlights">
+                  <Suspense fallback={<HighlightsSkeleton />}>
+                    <Highlights />
+                  </Suspense>
+                </ContentSection>
+              </div>
+            </FadeInSection>
 
-            <div id="project-status" className="scroll-mt-[4px] relative z-10">
-              <ProjectTimeline />
-            </div>
+            <FadeInSection delay={0.24}>
+              <div id="project-status" className="scroll-mt-[4px] relative z-10">
+                <Suspense fallback={<TimelineSkeleton />}>
+                  <ProjectTimeline />
+                </Suspense>
+              </div>
+            </FadeInSection>
 
-            <div id="layout" className={glassSectionClass}>
-              <ContentSection title="Layout & Plot Availability">
-                <Layout />
-              </ContentSection>
-            </div>
+            <FadeInSection delay={0.32}>
+              <div id="layout" className={glassSectionClass}>
+                <ContentSection title="Layout &amp; Plot Availability">
+                  <Suspense fallback={<SectionSkeleton />}>
+                    <LayoutSection />
+                  </Suspense>
+                </ContentSection>
+              </div>
+            </FadeInSection>
 
-            <div id="location" className={glassSectionClass}>
-              <ContentSection title="Location & Distance">
-                <InteractiveCommute />
-              </ContentSection>
-            </div>
+            <FadeInSection delay={0.48}>
+              <div id="location" className={glassSectionClass}>
+                <ContentSection title="Location &amp; Distance">
+                  <Suspense fallback={<SectionSkeleton />}>
+                    <InteractiveCommute />
+                  </Suspense>
+                </ContentSection>
+              </div>
+            </FadeInSection>
 
-            <div id="amenities" className={glassSectionClass}>
-              <div className="" />
-              <ContentSection title="Amenities">
-                <AmenitiesSection />
-              </ContentSection>
-            </div>
+            <FadeInSection delay={0.40}>
+              <div id="amenities" className={glassSectionClass}>
+                <ContentSection title="Amenities">
+                  <Suspense fallback={<SectionSkeleton />}>
+                    <AmenitiesSection />
+                  </Suspense>
+                </ContentSection>
+              </div>
+            </FadeInSection>
 
-            <div id="payment" className={glassSectionClass}>
-              <ContentSection title="Pricing & Payment Plans">
-                <PaymentPlan />
-              </ContentSection>
-            </div>
+            <FadeInSection delay={0.56}>
+              <div id="payment" className={glassSectionClass}>
+                <ContentSection title="Pricing &amp; Payment Plans">
+                  <Suspense fallback={<PricingSkeleton />}>
+                    <PaymentPlan />
+                  </Suspense>
+                </ContentSection>
+              </div>
+            </FadeInSection>
 
-            <div id="gallery" className={glassSectionClass}>
-              <ContentSection title="Gallery">
-                <GallerySection />
-              </ContentSection>
-            </div>
+            <FadeInSection delay={0.64}>
+              <div id="gallery" className={glassSectionClass}>
+                <ContentSection title="Gallery">
+                  <Suspense fallback={<GallerySkeleton />}>
+                    <GallerySection />
+                  </Suspense>
+                </ContentSection>
+              </div>
+            </FadeInSection>
+
+            
           </div>
 
           {showBackToTop && (

@@ -1,3 +1,5 @@
+import type { ProjectProgressItem } from '../../../../types/plot';
+
 export interface ApprovalDoc {
   id: number;
   name: string;
@@ -12,6 +14,16 @@ export interface ConstructionStep {
 }
 
 export const PROGRESS_PCT = 65;
+
+export const PROJECT_PROGRESS: ProjectProgressItem = {
+  phase: 'Execution Phase',
+  completion: PROGRESS_PCT,
+  status: 'in-progress',
+  approvals: [
+    { label: 'HMDA Approval', date: 'May 2022', status: 'approved' },
+    { label: 'RERA Certificate', date: 'Jun 2022', status: 'approved' },
+  ],
+};
 
 export const APPROVALS: ApprovalDoc[] = [
   { id: 1, name: 'HMDA Approval',    date: 'May 2022' },

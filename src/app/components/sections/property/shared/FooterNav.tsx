@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -10,7 +10,7 @@ import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import HeadingIcon from './HeadingIcon';
 
-const formVariants = {
+const formVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -18,7 +18,7 @@ const formVariants = {
   },
 };
 
-const inputVariants = {
+const inputVariants: Variants = {
   hidden: { opacity: 0, y: 4 },
   visible: { 
     opacity: 1, y: 0,
@@ -78,30 +78,30 @@ const FooterNav: React.FC = () => {
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pointer-events-none font-inter">
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pointer-events-none">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="w-full max-w-[390px] bg-[rgba(236,236,232,0.88)] backdrop-blur-[12px] border-t border-[rgba(255,255,255,0.62)] shadow-[0_-2px_10px_rgba(31,65,46,0.08)] pointer-events-auto pb-safe"
+          className="w-full max-w-[390px] bg-[#1A1A2E] border-t border-[#283046] shadow-[0_-2px_10px_rgba(0,0,0,0.28)] pointer-events-auto pb-safe"
           role="toolbar"
         >
           <div className="flex items-end justify-between px-[8px] py-[4px]">
             <motion.button
               onClick={handleSave}
               whileTap={{ scale: 0.92 }}
-              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-[#2F6F4E]/6 transition-colors"
+              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-white/10 transition-colors"
             >
-              <motion.div whileHover={{ scale: 1.08 }} className={`transition-colors duration-200 ${saved ? 'text-[#1f4f36]' : 'text-[#4f5b53]'}`}>
+              <motion.div whileHover={{ scale: 1.08 }} className={`transition-colors duration-200 ${saved ? 'text-[#F5A623]' : 'text-[#CBD5E0]'}`}>
                 {saved ? <BookmarkOutlinedIcon sx={{ fontSize: 20 }} /> : <BookmarkBorderOutlinedIcon sx={{ fontSize: 20 }} />}
               </motion.div>
-              <span className={`text-[11px] font-semibold tracking-wide transition-colors duration-200 ${saved ? 'text-[#1f4f36]' : 'text-[#4f5b53]'}`}>Save</span>
+              <span className={`text-[11px] font-semibold tracking-wide transition-colors duration-200 ${saved ? 'text-[#F5A623]' : 'text-[#CBD5E0]'}`}>Save</span>
             </motion.button>
 
             <motion.button
               onClick={handleHide}
               whileTap={{ scale: 0.92 }}
-              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-[#2F6F4E]/6 transition-colors text-[#4f5b53]"
+              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-white/10 transition-colors text-[#CBD5E0]"
             >
               <motion.div whileHover={{ scale: 1.08 }}><VisibilityOffOutlinedIcon sx={{ fontSize: 20 }} /></motion.div>
               <span className="text-[11px] font-semibold tracking-wide">Hide</span>
@@ -122,13 +122,13 @@ const FooterNav: React.FC = () => {
                 />
                 <PhoneOutlinedIcon sx={{ fontSize: 22, color: '#ffffff' }} />
               </motion.button>
-              <span className="text-[11px] font-bold text-[#1f4f36] tracking-wide mt-[4px]">Contact</span>
+              <span className="text-[11px] font-bold text-white tracking-wide mt-[4px]">Contact</span>
             </div>
 
             <motion.button
               onClick={handleShare}
               whileTap={{ scale: 0.92 }}
-              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-[#2F6F4E]/6 transition-colors text-[#4f5b53]"
+              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-white/10 transition-colors text-[#CBD5E0]"
             >
               <motion.div whileHover={{ scale: 1.08 }}><ShareOutlinedIcon sx={{ fontSize: 20 }} /></motion.div>
               <span className="text-[11px] font-semibold tracking-wide">Share</span>
@@ -164,7 +164,7 @@ const FooterNav: React.FC = () => {
 
       <AnimatePresence>
         {askSellerOpen && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center p-[8px] font-inter">
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-[8px]">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -179,7 +179,7 @@ const FooterNav: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 15, scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-              className="relative w-full max-w-[390px] bg-[rgba(255,255,255,0.86)] backdrop-blur-[12px] border-[1px] border-[rgba(255,255,255,0.7)] shadow-[0_12px_24px_rgba(31,65,46,0.14)] rounded-[8px] overflow-hidden flex flex-col"
+              className="glass-float relative w-full max-w-[390px] overflow-hidden flex flex-col"
             >
               <div className="flex items-center justify-between px-[12px] py-[8px] border-b-[1px] border-black/5 bg-gradient-to-b from-white/60 to-transparent">
                 <div className="flex items-center gap-[6px]">

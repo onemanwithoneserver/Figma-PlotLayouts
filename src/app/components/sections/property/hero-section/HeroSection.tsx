@@ -13,7 +13,7 @@ const StatCard = ({ icon, label, value, delay }: { icon: any, label: string, val
     <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-[280ms] pointer-events-none" />
     <div className="mb-[2px] text-[#4F5B53] group-hover:text-[#2F6F4E] transition-colors duration-[260ms]">{icon}</div>
     <span className="text-[12px] font-semibold text-[#142218] tracking-[0.01em] relative z-10">{value}</span>
-    <span className="text-[10px] uppercase font-medium tracking-[0.05em] text-[#4F5B53] group-hover:text-[#33543f] relative z-10 transition-colors">{label}</span>
+    <span className="text-[10px]  font-medium tracking-[0.05em] text-[#4F5B53] group-hover:text-[#33543f] relative z-10 transition-colors">{label}</span>
   </div>
 );
 
@@ -30,24 +30,23 @@ export const PremiumPropertyCard: React.FC<HeroCardData> = ({
     <div className="w-full overflow-hidden bg-[rgba(255,255,255,0.62)] backdrop-blur-[12px] border-b border-[rgba(255,255,255,0.66)] shadow-[0_4px_14px_rgba(31,65,46,0.1)] relative group/card transition-all duration-[260ms] ease-[cubic-bezier(0.4,0,0.2,1)] rounded-b-[8px]">
       <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.5)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover/card:left-[200%] pointer-events-none z-20" />
       
-      <div className="relative h-[240px] w-full overflow-hidden">
-        <img src={imageSrc} alt={projectName} className="relative z-10 h-full w-full object-cover transition-transform duration-[6s] ease-out group-hover/card:scale-105" />
+      <div className="relative h-[380px] w-full overflow-hidden rounded-lg">
+        <img src={imageSrc} alt="Vasavi Plots aerial view" loading="eager" className="relative z-10 h-full w-full object-cover transition-transform duration-[6s] ease-out group-hover/card:scale-105" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/65 via-black/20 to-transparent" />
         
-        <div className="absolute right-0 top-0 z-20 animate-fade-blur-in opacity-0 [animation-delay:40ms]">
-          <div className="flex items-center gap-[2px] rounded-bl-[8px] bg-[rgba(255,255,255,0.82)] px-2 py-1 backdrop-blur-[12px] border-b border-l border-[rgba(255,255,255,0.66)] shadow-[-2px_2px_8px_rgba(31,65,46,0.08)]">
-            <CheckCircleOutlineIcon sx={{ fontSize: 14, color: '#2F6F4E' }} />
-            <span className="text-[11px] font-semibold tracking-[0.02em] text-[#1f4f36]">{approvalType}</span>
+        <div className="absolute top-3 right-3 z-20 animate-fade-blur-in opacity-0 [animation-delay:40ms]">
+          <div className="flex items-center gap-[2px] rounded bg-[#1A6B4A]/90 px-2 py-1 shadow-[-2px_2px_8px_rgba(26,107,74,0.22)]">
+            <CheckCircleOutlineIcon sx={{ fontSize: 14, color: '#FFFFFF' }} />
+            <span className="text-[11px] font-semibold tracking-[0.02em] text-[#FFFFFF]">{approvalType}</span>
           </div>
         </div>
         
-        <div className="absolute right-0 bottom-0 z-20 animate-fade-blur-in opacity-0 [animation-delay:80ms]">
-          <div className="flex flex-col bg-[rgba(255,255,255,0.82)] backdrop-blur-[12px] border-t border-l border-[rgba(255,255,255,0.66)] px-3 py-2 rounded-tl-[8px] shadow-[-2px_-2px_10px_rgba(31,65,46,0.1)] transition-transform duration-[260ms] hover:scale-[1.01] origin-bottom-right">
-            <div className="flex items-baseline gap-0.5 relative z-10">
-              <span className="text-[12px] font-bold text-[#142218]">₹</span>
-              <span className="text-2xl font-bold text-[#142218] tracking-tight">{price}</span>
-            </div>
-            <span className="text-[10px] font-medium text-[#4f5b53] tracking-[0.02em] relative z-10">{priceUnit}</span>
-          </div>
+        <div className="absolute bottom-6 left-6 right-6 z-20 animate-fade-blur-in opacity-0 [animation-delay:80ms]">
+          <p className="text-white/70 text-[11px] font-medium  tracking-widest mb-1">Starting from</p>
+          <p className="text-white text-3xl font-semibold leading-tight">
+            ₹{price}
+            <span className="text-base font-normal text-white/70 ml-1">{priceUnit}</span>
+          </p>
         </div>
       </div>
 
@@ -84,13 +83,8 @@ export const PremiumPropertyCard: React.FC<HeroCardData> = ({
         </div>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
+
+    
     </div>
   );
 };

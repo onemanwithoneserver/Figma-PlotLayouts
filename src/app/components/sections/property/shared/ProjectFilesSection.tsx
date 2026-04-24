@@ -46,7 +46,7 @@ const PdfIcon = ({ className = "" }: { className?: string }) => (
       fill="#ffffff"
       fontSize="8"
       fontWeight="800"
-      fontFamily="Inter, sans-serif"
+      fontFamily="Outfit, sans-serif"
       letterSpacing="0.5"
     >
       PDF
@@ -74,7 +74,7 @@ const EyeIcon = ({ className = "" }: { className?: string }) => (
 
 const ProjectFilesSection: React.FC = () => {
   return (
-    <div className="w-full rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] px-4 py-4 font-inter shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] animate-fade-blur-in opacity-0">
+    <div className="w-full rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] px-4 py-4 shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] animate-fade-blur-in opacity-0">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-[15px] font-bold text-[#1A1F24] tracking-tight">Project Files</h2>
         
@@ -110,13 +110,8 @@ const ProjectFilesSection: React.FC = () => {
         </div>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeBlurIn { 
-          from { opacity: 0; filter: blur(6px); transform: translateY(12px); } 
-          to { opacity: 1; filter: blur(0px); transform: translateY(0); } 
-        }
-        .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-      `}} />
+
+    
     </div>
   );
 };

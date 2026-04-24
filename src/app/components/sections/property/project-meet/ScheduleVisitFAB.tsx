@@ -115,13 +115,16 @@ const ScheduleVisitFAB: React.FC = () => {
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 z-[55] flex justify-center pointer-events-none font-inter">
+      <div className="fixed bottom-0 left-0 right-0 z-[55] flex justify-center pointer-events-none">
         <div className="relative w-full max-w-[390px]">
           <motion.button
             layout
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 2, type: 'spring', stiffness: 220, damping: 18 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleOpen}
-              className="absolute left-4 bottom-[80px] pointer-events-auto inline-flex items-center h-10 text-white rounded-[8px] shadow-[0_4px_12px_rgba(31,65,46,0.26)] overflow-hidden border border-[rgba(255,255,255,0.22)] backdrop-blur-[10px]"
+              className="absolute left-6 bottom-[80px] pointer-events-auto inline-flex items-center h-10 text-white rounded-[8px] shadow-[0_4px_12px_rgba(31,65,46,0.26)] overflow-hidden border border-[rgba(255,255,255,0.22)] backdrop-blur-[10px]"
             style={{ background: 'linear-gradient(135deg, #2F6F4E, #1E4D35)' }}
           >
             <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
@@ -162,7 +165,7 @@ const ScheduleVisitFAB: React.FC = () => {
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
               className="fixed bottom-0 left-0 right-0 z-[70] flex justify-center p-2"
             >
-                <div className="w-full max-w-[390px] bg-[rgba(255,255,255,0.86)] backdrop-blur-[12px] rounded-[8px] shadow-[0_10px_24px_rgba(31,65,46,0.16)] border border-[rgba(255,255,255,0.7)] flex flex-col">
+                <div className="glass-float w-full max-w-[390px] flex flex-col">
                 
                 <div className="flex justify-center pt-2 pb-1.5 flex-shrink-0">
                     <div className="w-8 h-1 rounded-[4px] bg-[rgba(0,0,0,0.08)]" />
@@ -219,7 +222,7 @@ const ScheduleVisitFAB: React.FC = () => {
                               }`}
                             >
                               <span className={`text-[13px] font-bold leading-none ${selectedDay === d.key ? 'text-[#2F6F4E]' : 'text-[#142218]'}`}>{d.date}</span>
-                              <span className={`text-[9px] font-bold uppercase ${d.isToday ? 'text-[#2F6F4E]' : 'text-[#6B7280]'}`}>
+                              <span className={`text-[9px] font-bold  ${d.isToday ? 'text-[#2F6F4E]' : 'text-[#6B7280]'}`}>
                                 {d.isToday ? 'Today' : d.day.slice(0, 3)}
                               </span>
                             </button>
