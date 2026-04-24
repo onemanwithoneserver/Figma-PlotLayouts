@@ -198,7 +198,7 @@ const GallerySection: React.FC = () => {
       </Dialog>
 
       <div className="mt-[4px] mb-[4px] p-[2px]">
-        <AskSeller initialQuestions={galleryAskSellerQuestions} />
+        <AskSeller initialQuestions={galleryAskSellerQuestions} headingIconName="gallery" />
       </div>
     </div>
   );

@@ -30,16 +30,16 @@ const PropertyDetails: React.FC = () => {
     return () => window.clearTimeout(timer);
   }, []);
 
-  const glassSectionClass = "relative z-10 bg-[rgba(255,255,255,0.62)] backdrop-blur-[8px] border border-[rgba(255,255,255,0.68)] shadow-[0_1px_6px_rgba(31,65,46,0.08)] overflow-hidden scroll-mt-[4px] rounded-[8px]";
+  const glassSectionClass = "relative z-10 bg-[rgba(255,255,255,0.62)] backdrop-blur-[8px] border border-[rgba(255,255,255,0.68)] shadow-[0_1px_6px_rgba(24,66,55,0.08)] overflow-hidden scroll-mt-[4px] ";
 
   return (
-    <div className="min-h-screen app-gradient-bg overflow-x-clip w-full max-w-[400px] mx-auto relative text-[#132117] selection:bg-[#2F6F4E]/20 selection:text-[#173625] page-enter">
+    <div className="min-h-screen app-gradient-bg overflow-x-clip w-full max-w-[400px] mx-auto relative text-[#10251e] selection:bg-[#2F8F7B]/20 selection:text-[#1f6b5b] page-enter">
       <div className="noise-overlay" />
 
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden max-w-[400px] mx-auto">
-        <div className="absolute top-[-8%] right-[-18%] w-[320px] h-[320px] rounded-full bg-[#2F6F4E]/6 blur-[90px]" />
-        <div className="absolute top-[36%] left-[-22%] w-[280px] h-[280px] rounded-full bg-[#2F6F4E]/4 blur-[110px]" />
-        <div className="absolute bottom-[6%] right-[-14%] w-[360px] h-[360px] rounded-full bg-[#D3E6D9]/36 blur-[100px]" />
+        <div className="absolute top-[-8%] right-[-18%] w-[320px] h-[320px] rounded-full bg-[#2F8F7B]/6 blur-[90px]" />
+        <div className="absolute top-[36%] left-[-22%] w-[280px] h-[280px] rounded-full bg-[#2F8F7B]/4 blur-[110px]" />
+        <div className="absolute bottom-[6%] right-[-14%] w-[360px] h-[360px] rounded-full bg-[#D4EBE3]/38 blur-[100px]" />
       </div>
 
       {isBooting ? (
@@ -117,9 +117,9 @@ const PropertyDetails: React.FC = () => {
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   aria-label="Back to top"
-                  className="absolute right-[2px] bottom-[90px] pointer-events-auto w-10 h-10 rounded-[8px] bg-[rgba(255,255,255,0.76)] border border-[rgba(255,255,255,0.7)] shadow-[0_2px_10px_rgba(31,65,46,0.08)] flex items-center justify-center backdrop-blur-[10px] transition-all duration-300 hover:bg-[rgba(255,255,255,0.9)] hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(31,65,46,0.12)] active:scale-[0.98] soft-focus"
+                  className="absolute right-[2px] bottom-[90px] pointer-events-auto w-10 h-10 rounded-[8px] bg-[rgba(255,255,255,0.76)] border border-[rgba(255,255,255,0.7)] shadow-[0_2px_10px_rgba(24,66,55,0.08)] flex items-center justify-center backdrop-blur-[10px] transition-all duration-300 hover:bg-[rgba(255,255,255,0.9)] hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(24,66,55,0.12)] active:scale-[0.98] soft-focus"
                 >
-                  <svg className="w-5 h-5 text-[#2F6F4E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-[#2F8F7B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
                   </svg>
                 </button>

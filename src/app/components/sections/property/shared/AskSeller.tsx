@@ -1,9 +1,11 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import HeadingIcon from './HeadingIcon';
+import type { HeadingIconName } from './HeadingIcon';
 
 interface AskSellerProps {
   initialQuestions?: string[];
   className?: string;
+  headingIconName?: HeadingIconName;
 }
 
 const DEFAULT_QUESTIONS = [
@@ -11,7 +13,7 @@ const DEFAULT_QUESTIONS = [
   "Are there any pending legal approvals?",
 ];
 
-export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, className = '' }: AskSellerProps) {
+export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, className = '', headingIconName = 'ask-seller' }: AskSellerProps) {
   const [questions, setQuestions] = useState(initialQuestions);
   const [selected, setSelected] = useState<string[]>(initialQuestions);
   const [showMore, setShowMore] = useState(false);
@@ -54,7 +56,7 @@ export default function AskSeller({ initialQuestions = DEFAULT_QUESTIONS, classN
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <div className="w-8 h-8 rounded-[4px] bg-[rgba(47,111,78,0.1)] border border-[rgba(47,111,78,0.2)] flex items-center justify-center">
-            <HeadingIcon name="ask-seller" className="w-4 h-4 text-[#2F6F4E]" />
+            <HeadingIcon name={headingIconName} className="w-4 h-4 text-[#2F6F4E]" />
           </div>
           <h3 className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Ask Seller</h3>
         </div>

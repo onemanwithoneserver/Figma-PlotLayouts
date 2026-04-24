@@ -10,8 +10,8 @@
   --text-gray-light: var(--color-text-muted);
   --text-gray-lighter: var(--color-bg-mid);
 
-  --bg-offwhite: #F3F3EF;
-  --bg-muted: #ECECE8;
+  --bg-offwhite: #f5f8f5;
+  --bg-muted: #eceee9;
   --bg-muted-dark: var(--color-bg-mid);
   --bg-gray: #ECECE8;
 
@@ -74,20 +74,20 @@
   --overlay-white-85: rgba(255, 255, 255, 0.85);
   --overlay-white-90: rgba(255, 255, 255, 0.9);
 
-  --primary-alpha-6: rgba(34, 160, 80, 0.06);
-  --primary-alpha-8: rgba(34, 160, 80, 0.08);
-  --primary-alpha-12: rgba(34, 160, 80, 0.12);
-  --primary-alpha-15-alt: rgba(45, 189, 96, 0.15);
-  --primary-alpha-18: rgba(34, 160, 80, 0.18);
-  --primary-alpha-20: rgba(34, 160, 80, 0.20);
+  --primary-alpha-6: rgba(65, 179, 154, 0.06);
+  --primary-alpha-8: rgba(65, 179, 154, 0.08);
+  --primary-alpha-12: rgba(65, 179, 154, 0.12);
+  --primary-alpha-15-alt: rgba(103, 201, 178, 0.15);
+  --primary-alpha-18: rgba(65, 179, 154, 0.18);
+  --primary-alpha-20: rgba(65, 179, 154, 0.20);
   --primary-alpha-22: var(--color-glow);
-  --primary-alpha-22-alt: rgba(26, 122, 66, 0.22);
-  --primary-alpha-25: rgba(34, 160, 80, 0.25);
-  --primary-alpha-25-alt: rgba(45, 189, 96, 0.25);
-  --primary-alpha-25-alt2: rgba(26, 122, 66, 0.25);
-  --primary-alpha-30: rgba(15, 92, 48, 0.3);
-  --primary-alpha-35: rgba(15, 92, 48, 0.35);
-  --primary-alpha-40: rgba(15, 92, 48, 0.40);
+  --primary-alpha-22-alt: rgba(47, 143, 123, 0.22);
+  --primary-alpha-25: rgba(65, 179, 154, 0.25);
+  --primary-alpha-25-alt: rgba(103, 201, 178, 0.25);
+  --primary-alpha-25-alt2: rgba(47, 143, 123, 0.25);
+  --primary-alpha-30: rgba(31, 107, 91, 0.3);
+  --primary-alpha-35: rgba(31, 107, 91, 0.35);
+  --primary-alpha-40: rgba(31, 107, 91, 0.40);
 
   --error-alpha-80: rgba(214, 48, 49, 0.8);
 
@@ -96,7 +96,7 @@
   --secondary-color: #ffffff;
   --secondary-color-hover: var(--color-bg-mid);
   --accent-color: var(--color-success);
-  --background-color: #ECECE8;
+  --background-color: #eceee9;
   --text-color: var(--color-text-primary);
   --text-color-muted: var(--color-text-muted);
   --border-color: var(--color-bg-mid);
@@ -104,9 +104,9 @@
 
   --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   --gradient-accent: linear-gradient(135deg, var(--color-secondary), var(--color-highlight));
-  --gradient-brand: linear-gradient(135deg, #22c55e, #4ade80, #86efac);
-  --gradient-surface: linear-gradient(160deg, #f7faf7 0%, #eef5ef 48%, #e8efe8 100%);
-  --gradient-soft: linear-gradient(145deg, rgba(34, 197, 94, 0.12), rgba(74, 222, 128, 0.08), rgba(134, 239, 172, 0.1));
+  --gradient-brand: linear-gradient(135deg, #2f8f7b, #41b39a, #9bdfcf);
+  --gradient-surface: linear-gradient(160deg, #f8fbf8 0%, #edf4f1 50%, #e4ece8 100%);
+  --gradient-soft: linear-gradient(145deg, rgba(47, 143, 123, 0.12), rgba(65, 179, 154, 0.08), rgba(155, 223, 207, 0.12));
 
   --bg-section-light: #ECECE8;
   --bg-section-muted: #E4E4E0;
@@ -320,7 +320,7 @@
 
 .soft-focus:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.22);
+  box-shadow: 0 0 0 3px rgba(65, 179, 154, 0.22);
 }
 
 .input-shell {
