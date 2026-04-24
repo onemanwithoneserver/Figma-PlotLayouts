@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import HeadingIcon from '../shared/HeadingIcon';
 import { APPROVALS, CONSTRUCTION_STEPS, PROGRESS_PCT } from './data';
 
 type DotStatus = 'done' | 'active' | 'upcoming';
@@ -45,33 +47,56 @@ const ProjectTimeline: React.FC = () => {
     const el = scrollRef.current;
     if (!el) return;
     setCanLeft(el.scrollLeft > 2);
-    setCanRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 2);
+    setCanRight(Math.ceil(el.scrollLeft) < el.scrollWidth - el.clientWidth - 2);
   };
 
   useEffect(() => {
     if (!progressOpen) return;
     const el = scrollRef.current;
     if (!el) return;
+    
     syncArrows();
+    
+    const timeout = setTimeout(syncArrows, 50); 
+
     el.addEventListener('scroll', syncArrows, { passive: true });
     window.addEventListener('resize', syncArrows);
+    
     return () => {
+      clearTimeout(timeout);
       el.removeEventListener('scroll', syncArrows);
       window.removeEventListener('resize', syncArrows);
     };
   }, [progressOpen]);
 
-  const shift = (dir: 'left' | 'right') =>
-    scrollRef.current?.scrollBy({ left: dir === 'left' ? -150 : 150, behavior: 'smooth' });
+  const shift = (dir: 'left' | 'right') => {
+    scrollRef.current?.scrollBy({ left: dir === 'left' ? -200 : 200, behavior: 'smooth' });
+  };
 
   const currentImages = CONSTRUCTION_STEPS[activeStep]?.images || [];
 
+  const arrowBtnStyles = {
+    color: '#2F6F4E',
+    backgroundColor: 'rgba(255,255,255,0.85)',
+    backdropFilter: 'blur(4px)',
+    boxShadow: '0 2px 8px rgba(47,111,78,0.15)',
+    transition: 'all 0.2s ease-in-out',
+    padding: '6px',
+    '&:hover': {
+      backgroundColor: '#ffffff',
+      boxShadow: '0 4px 12px rgba(47,111,78,0.3)',
+      transform: 'scale(1.05)',
+    },
+    '&:focus-visible': {
+      outline: '2px solid #2F6F4E',
+      outlineOffset: '2px',
+    }
+  };
+
   return (
     <section className="w-full font-inter">
-      {/* Glass Progress Card */}
       <div className="px-3 py-4 animate-fade-blur-in opacity-0" style={{ animationDelay: '40ms' }}>
         <div className="rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] px-4 py-4 overflow-hidden relative">
-           {/* Subtle Light Sweep */}
            <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent skew-x-[-20deg] transition-all duration-[800ms] ease-in-out group-hover:left-[200%] pointer-events-none" />
 
           <div className="flex items-center justify-between mb-4">
@@ -103,13 +128,11 @@ const ProjectTimeline: React.FC = () => {
       <div className="px-5 py-2">
         <div className="relative ml-2 pl-7 border-l-[1.5px] border-[rgba(0,0,0,0.1)] space-y-8 pb-4">
           
-          {/* Step 1: Done */}
           <div className="relative animate-fade-blur-in opacity-0" style={{ animationDelay: '100ms' }}>
             <div className="absolute -left-[37px] top-1/2 -translate-y-1/2"><Dot status="done" /></div>
             <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Under development</p>
           </div>
 
-          {/* Step 2: Approvals (Done) */}
           <div className="relative flex flex-col gap-4 animate-fade-blur-in opacity-0" style={{ animationDelay: '150ms' }}>
             <div className="absolute -left-[37px] top-2.5"><Dot status="done" /></div>
             <p className="text-[14px] font-bold text-[#1A1F24] tracking-tight">Final LP received</p>
@@ -134,7 +157,6 @@ const ProjectTimeline: React.FC = () => {
             </div>
           </div>
 
-          {/* Step 3: Current Phase */}
           <div className="relative animate-fade-blur-in opacity-0" style={{ animationDelay: '200ms' }}>
             <div className="absolute -left-[37px] top-4 -translate-y-1/2"><Dot status="active" /></div>
             <div className="flex items-center justify-between mb-4">
@@ -159,36 +181,75 @@ const ProjectTimeline: React.FC = () => {
                   transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="relative mt-2 p-1">
-                    <div ref={scrollRef} className="w-full overflow-x-auto pb-5 pt-1 scrollbar-hide">
-                      <div className="flex min-w-max items-start gap-4">
-                        {CONSTRUCTION_STEPS.map((item, idx) => (
-                          <button
-                            key={item.id}
-                            onClick={() => setActiveStep(idx)}
-                            className={`flex flex-col items-center min-w-[70px] transition-all ${idx === activeStep ? 'scale-105' : 'opacity-60'}`}
+                  <div className="relative mt-2">
+                    
+                    <div className="relative flex items-center group mb-4">
+                      
+                      <div className={`absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white via-white/80 to-transparent z-20 flex items-center transition-all duration-300 pointer-events-none ${canLeft ? 'opacity-100' : 'opacity-0'}`}>
+                        <div className="pointer-events-auto ml-1">
+                          <IconButton
+                            size="small"
+                            onClick={() => shift('left')}
+                            tabIndex={canLeft ? 0 : -1}
+                            aria-label="Scroll timeline left"
+                            sx={arrowBtnStyles}
                           >
-                            <span className={`text-[11px] mb-3 font-bold ${idx === activeStep ? 'text-[#2F6F4E]' : 'text-[#6B7280]'}`}>
-                              {item.date}
-                            </span>
-                            <div className="relative w-full flex justify-center items-center">
-                                <div className={`absolute w-full h-[2px] ${idx <= activeStep ? 'bg-[#2F6F4E]' : 'bg-[rgba(0,0,0,0.1)]'}`} />
-                                <div className={`w-3 h-3 rounded-full border-2 transition-all ${idx <= activeStep ? 'bg-[#2F6F4E] border-[#2F6F4E]' : 'bg-white border-[rgba(0,0,0,0.2)]'} ${idx === activeStep ? 'ring-4 ring-[rgba(47,111,78,0.15)]' : ''}`} />
+                            <ArrowBackIosIcon sx={{ fontSize: 13, ml: '4px' }} />
+                          </IconButton>
+                        </div>
+                      </div>
+
+                      <div ref={scrollRef} className="flex-1 overflow-x-auto pb-2 scrollbar-hide px-4 relative z-10">
+                        <div className="flex min-w-max items-center relative px-4 h-6">
+                          
+                          <div className="absolute top-1/2 -translate-y-1/2 left-4 right-4 h-[2px] bg-[rgba(0,0,0,0.1)] z-0 rounded-full" />
+                          
+                          <div 
+                            className="absolute top-1/2 -translate-y-1/2 left-4 h-[2px] bg-[#2F6F4E] z-0 transition-all duration-500 ease-out rounded-full shadow-[0_0_8px_rgba(47,111,78,0.4)]"
+                            style={{ 
+                                width: `calc(${CONSTRUCTION_STEPS.length > 1 ? (activeStep / (CONSTRUCTION_STEPS.length - 1)) * 100 : 0}% - 32px)`
+                            }} 
+                          />
+
+                          {CONSTRUCTION_STEPS.map((item, idx) => (
+                            <div key={item.id} className="relative flex justify-center items-center min-w-[80px] h-full">
+                              <span className={`absolute bottom-full mb-2 text-[11px] font-bold transition-colors whitespace-nowrap ${idx === activeStep ? 'text-[#2F6F4E] scale-105' : 'text-[#6B7280] opacity-60'}`}>
+                                {item.date}
+                              </span>
+                              <button
+                                onClick={() => setActiveStep(idx)}
+                                aria-label={`View step ${idx + 1}`}
+                                className={`relative z-10 w-3 h-3 rounded-full border-2 outline-none focus-visible:ring-2 focus-visible:ring-[#2F6F4E] focus-visible:ring-offset-2 transition-all duration-300 ${idx === activeStep ? 'scale-105' : 'opacity-60 hover:opacity-100'} ${idx <= activeStep ? 'bg-[#2F6F4E] border-[#2F6F4E]' : 'bg-white border-[rgba(0,0,0,0.25)]'} ${idx === activeStep ? 'ring-4 ring-[rgba(47,111,78,0.2)] bg-white border-[3px]' : ''}`}
+                              />
                             </div>
-                          </button>
-                        ))}
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className={`absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white via-white/80 to-transparent z-20 flex items-center justify-end transition-all duration-300 pointer-events-none ${canRight ? 'opacity-100' : 'opacity-0'}`}>
+                        <div className="pointer-events-auto mr-1">
+                          <IconButton
+                            size="small"
+                            onClick={() => shift('right')}
+                            tabIndex={canRight ? 0 : -1}
+                            aria-label="Scroll timeline right"
+                            sx={arrowBtnStyles}
+                          >
+                            <ArrowForwardIosIcon sx={{ fontSize: 13 }} />
+                          </IconButton>
+                        </div>
                       </div>
                     </div>
 
                     <motion.div key={activeStep} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-[rgba(255,255,255,0.4)] rounded-[8px] p-2 border border-[rgba(0,0,0,0.05)]">
-                      <p className="text-[13px] font-bold text-[#1A1F24] mb-3 tracking-tight">{CONSTRUCTION_STEPS[activeStep].title}</p>
+                      <p className="text-[13px] font-bold text-[#1A1F24] mb-3 tracking-tight px-1">{CONSTRUCTION_STEPS[activeStep].title}</p>
                       {currentImages.length > 0 ? (
-                        <div className="relative w-full aspect-video rounded-[8px] overflow-hidden bg-white shadow-inner">
-                          <img src={currentImages[imageIndex]} alt="Progress" onClick={() => setZoomSrc(currentImages[imageIndex])} className="w-full h-full object-cover cursor-zoom-in" loading="lazy" />
+                        <div className="relative w-full aspect-video rounded-[8px] overflow-hidden bg-white shadow-inner group">
+                          <img src={currentImages[imageIndex]} alt="Progress" onClick={() => setZoomSrc(currentImages[imageIndex])} className="w-full h-full object-cover cursor-zoom-in transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                           {currentImages.length > 1 && (
                             <div className="absolute bottom-3 right-3 flex gap-2">
-                                <button onClick={(e) => { e.stopPropagation(); if(imageIndex > 0) setImageIndex(i => i - 1); }} className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-md shadow-lg flex items-center justify-center text-[#1A1F24] disabled:opacity-30"><ChevronLeftIcon sx={{ fontSize: 18 }} /></button>
-                                <button onClick={(e) => { e.stopPropagation(); if(imageIndex < currentImages.length -1) setImageIndex(i => i + 1); }} className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-md shadow-lg flex items-center justify-center text-[#1A1F24] disabled:opacity-30"><ChevronRightIcon sx={{ fontSize: 18 }} /></button>
+                                <button onClick={(e) => { e.stopPropagation(); if(imageIndex > 0) setImageIndex(i => i - 1); }} disabled={imageIndex === 0} className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-md shadow-lg flex items-center justify-center text-[#1A1F24] transition-opacity hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed"><ChevronLeftIcon sx={{ fontSize: 18 }} /></button>
+                                <button onClick={(e) => { e.stopPropagation(); if(imageIndex < currentImages.length -1) setImageIndex(i => i + 1); }} disabled={imageIndex === currentImages.length - 1} className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-md shadow-lg flex items-center justify-center text-[#1A1F24] transition-opacity hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed"><ChevronRightIcon sx={{ fontSize: 18 }} /></button>
                             </div>
                           )}
                         </div>
@@ -204,7 +265,6 @@ const ProjectTimeline: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          {/* Step 4: Upcoming */}
           <div className="relative animate-fade-blur-in opacity-0" style={{ animationDelay: '250ms' }}>
             <div className="absolute -left-[37px] top-1/2 -translate-y-1/2"><Dot status="upcoming" /></div>
             <p className="text-[14px] font-bold text-[#6B7280] tracking-tight">Ready for registration</p>
@@ -212,7 +272,6 @@ const ProjectTimeline: React.FC = () => {
         </div>
       </div>
 
-      {/* Fullscreen Zoom */}
       <AnimatePresence>
         {zoomSrc && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setZoomSrc(null)} className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(26,31,36,0.95)] backdrop-blur-md p-4">
@@ -231,6 +290,8 @@ const ProjectTimeline: React.FC = () => {
           to { background-position: 20px 0; }
         }
         .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}} />
     </section>
   );
