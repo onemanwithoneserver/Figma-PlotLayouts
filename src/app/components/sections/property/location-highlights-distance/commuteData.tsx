@@ -10,7 +10,6 @@ export interface PlaceItem {
 }
 
 export interface TabData {
-  title: string;
   color: string;
   footer: string;
   items: PlaceItem[];
@@ -41,7 +40,6 @@ export const INITIAL_TABS: TabInfo[] = [
 
 export const INITIAL_DATA: Record<string, TabData> = {
   education: {
-    title: 'Distances via fastest driving routes.',
     color: 'var(--color-brown-dark)',
     footer: '',
     items: [
@@ -58,7 +56,6 @@ export const INITIAL_DATA: Record<string, TabData> = {
     ]
   },
   emergency: {
-    title: 'Emergency locations are auto-detected.',
     color: 'var(--color-brown-dark)',
     footer: '',
     items: [
@@ -75,7 +72,6 @@ export const INITIAL_DATA: Record<string, TabData> = {
     ]
   },
   shopping: {
-    title: 'Retail centers and grocery hubs.',
     color: 'var(--color-brown-dark)',
     footer: '',
     items: [
@@ -92,7 +88,6 @@ export const INITIAL_DATA: Record<string, TabData> = {
     ]
   },
   nearby: {
-    title: 'Green spaces and recreational areas.',
     color: 'var(--color-brown-dark)',
     footer: '',
     items: [

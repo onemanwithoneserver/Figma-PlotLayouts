@@ -155,7 +155,7 @@ const Layout: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-2 py-4">
+      <div className="px-2 pt-2">
         <h3 className="text-[14px] font-bold text-[#1A1F24] mb-3 tracking-tight animate-fade-blur-in opacity-0" style={{ animationDelay: '80ms' }}>
           Plot Availability
         </h3>
@@ -272,7 +272,7 @@ const Layout: React.FC = () => {
         </div>
       </Dialog>
 
-      <div className="mt-4 pb-6">
+      <div className="mt-4 pb-2">
         <AskSeller initialQuestions={layoutAskSellerQuestions} />
       </div>
 
