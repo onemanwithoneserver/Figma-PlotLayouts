@@ -47,7 +47,6 @@ const PropertyDetails: React.FC = () => {
             line-height: 1.5;
           }
           
-          /* Refactored Section Styles: Background merged into parent */
           .pd-section {
             position: relative;
             z-index: 10;
@@ -60,7 +59,6 @@ const PropertyDetails: React.FC = () => {
             overflow: hidden;
           }
 
-          /* Ensure children components don't bring their own backgrounds */
           .pd-section > div {
              background: transparent !important;
              border: none !important;
@@ -126,7 +124,9 @@ const PropertyDetails: React.FC = () => {
         </div>
 
         <div id="gallery" className="pd-section scroll-mt-8">
-          <GallerySection />
+            <ContentSection title="Gallery">
+              <GallerySection />
+            </ContentSection>
         </div>
       </div>
 

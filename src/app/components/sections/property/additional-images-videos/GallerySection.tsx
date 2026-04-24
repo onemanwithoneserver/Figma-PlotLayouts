@@ -8,7 +8,6 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import AskSeller from '../shared/AskSeller';
-import HeadingIcon from '../shared/HeadingIcon';
 import { GALLERY_ITEMS, galleryAskSellerQuestions } from './data';
 
 const GallerySection: React.FC = () => {
@@ -32,98 +31,90 @@ const GallerySection: React.FC = () => {
   ] as const;
 
   return (
-    <>
-      <div className="w-full rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_4px_12px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] overflow-hidden">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 border-b border-[rgba(255,255,255,0.4)]">
-          <div className="flex items-center gap-2 min-w-max">
-            <HeadingIcon name="gallery" />
-            <h2 className="text-[16px] font-bold text-[#1A1F24] tracking-tight min-w-max">
-              Media Gallery
-            </h2>
-          </div>
+    <div className="w-full flex flex-col px-4">
+      {/* Tab Navigation */}
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-3 mb-4 border-b border-[rgba(255,255,255,0.4)]" role="tablist" aria-label="Media type filter">
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          const Icon = tab.icon;
 
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide" role="tablist" aria-label="Media type filter">
-            {tabs.map((tab) => {
-              const isActive = activeTab === tab.id;
-              const Icon = tab.icon;
+          return (
+            <button
+              key={tab.id}
+              role="tab"
+              onClick={() => {
+                setActiveTab(isActive ? 'all' : tab.id);
+                setLightboxIdx(null);
+              }}
+              className={`relative flex items-center gap-1.5 py-1.5 px-1 text-[13px] font-semibold transition-all duration-[280ms] whitespace-nowrap focus:outline-none ${
+                isActive ? 'text-[#2F6F4E]' : 'text-[#6B7280] hover:text-[#4A5560]'
+              }`}
+            >
+              <Icon sx={{ fontSize: 16 }} />
+              {tab.label}
+              {isActive && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2px] rounded-t-[8px] bg-gradient-to-r from-[#2F6F4E] to-[#4A90E2]" />
+              )}
+            </button>
+          );
+        })}
+      </div>
 
-              return (
-                <button
-                  key={tab.id}
-                  role="tab"
-                  onClick={() => {
-                    setActiveTab(isActive ? 'all' : tab.id);
-                    setLightboxIdx(null);
-                  }}
-                  className={`relative flex items-center gap-1.5 py-1.5 px-1 text-[13px] font-semibold transition-all duration-[280ms] whitespace-nowrap focus:outline-none ${
-                    isActive ? 'text-[#2F6F4E]' : 'text-[#6B7280] hover:text-[#4A5560]'
-                  }`}
-                >
-                  <Icon sx={{ fontSize: 16 }} />
-                  {tab.label}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[2px] rounded-t-[8px] bg-gradient-to-r from-[#2F6F4E] to-[#4A90E2]" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+      {/* Media Grid */}
+      <div role="tabpanel">
+        <div className="grid grid-cols-2 gap-3">
+          {displayedItems.map((item, idx) => {
+            const delay = 40 + idx * 40;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setLightboxIdx(idx)}
+                className="group relative rounded-[8px] overflow-hidden aspect-[4/3] bg-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.6)] shadow-sm hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[3px] hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2F6F4E] block w-full animate-fade-blur-in opacity-0"
+                style={{ animationDelay: `${delay}ms` }}
+                aria-label={`View ${item.label} ${item.type}`}
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="w-full h-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-80" />
 
-        <div className="p-3" role="tabpanel">
-          <div className="grid grid-cols-2 gap-3">
-            {displayedItems.map((item, idx) => {
-              const delay = 40 + idx * 40;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setLightboxIdx(idx)}
-                  className="group relative rounded-[8px] overflow-hidden aspect-[4/3] bg-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.6)] shadow-sm hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[3px] hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2F6F4E] block w-full animate-fade-blur-in opacity-0"
-                  style={{ animationDelay: `${delay}ms` }}
-                  aria-label={`View ${item.label} ${item.type}`}
-                >
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    className="w-full h-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-110"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-80" />
+                {/* Light shift sweep overlay */}
+                <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
 
-                  {/* Light shift sweep overlay */}
-                  <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
-
-                  {item.type === 'video' && (
-                    <div className="absolute inset-0 flex items-center justify-center z-10">
-                      <div className="w-10 h-10 rounded-[8px] bg-[rgba(255,255,255,0.25)] backdrop-blur-[8px] border border-[rgba(255,255,255,0.4)] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-transform duration-[280ms] group-hover:scale-110">
-                        <PlayCircleOutlineIcon sx={{ fontSize: 24, color: '#FFFFFF' }} />
-                      </div>
+                {item.type === 'video' && (
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="w-10 h-10 rounded-[8px] bg-[rgba(255,255,255,0.25)] backdrop-blur-[8px] border border-[rgba(255,255,255,0.4)] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-transform duration-[280ms] group-hover:scale-110">
+                      <PlayCircleOutlineIcon sx={{ fontSize: 24, color: '#FFFFFF' }} />
                     </div>
-                  )}
-
-                  <div className="absolute bottom-2 left-2 right-2 flex items-center gap-1.5 z-10">
-                    {item.type === 'image' ? (
-                      <ImageOutlinedIcon sx={{ fontSize: 14, color: '#FFFFFF' }} />
-                    ) : (
-                      <VideocamOutlinedIcon sx={{ fontSize: 14, color: '#FFFFFF' }} />
-                    )}
-                    <span className="text-[11px] font-semibold text-[#FFFFFF] truncate drop-shadow-md tracking-wide">
-                      {item.label}
-                    </span>
                   </div>
-                </button>
-              );
-            })}
+                )}
 
-            {displayedItems.length === 0 && (
-              <div className="col-span-full py-8 text-center text-[#6B7280] text-[13px] font-medium bg-[rgba(255,255,255,0.4)] rounded-[8px] border border-[rgba(255,255,255,0.6)]">
-                No media found.
-              </div>
-            )}
-          </div>
+                <div className="absolute bottom-2 left-2 right-2 flex items-center gap-1.5 z-10">
+                  {item.type === 'image' ? (
+                    <ImageOutlinedIcon sx={{ fontSize: 14, color: '#FFFFFF' }} />
+                  ) : (
+                    <VideocamOutlinedIcon sx={{ fontSize: 14, color: '#FFFFFF' }} />
+                  )}
+                  <span className="text-[11px] font-semibold text-[#FFFFFF] truncate drop-shadow-md tracking-wide">
+                    {item.label}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+
+          {displayedItems.length === 0 && (
+            <div className="col-span-full py-8 text-center text-[#6B7280] text-[13px] font-medium bg-[rgba(255,255,255,0.4)] rounded-[8px] border border-[rgba(255,255,255,0.6)]">
+              No media found.
+            </div>
+          )}
         </div>
       </div>
 
+      {/* Lightbox */}
       <Dialog
         open={lightboxIdx !== null}
         onClose={close}
@@ -204,7 +195,8 @@ const GallerySection: React.FC = () => {
         )}
       </Dialog>
 
-      <div className="mt-4 pb-28">
+      {/* Ask Seller Component - With bottom padding for the FAB clearance */}
+      <div className="mt-6 pb-28">
         <AskSeller initialQuestions={galleryAskSellerQuestions} />
       </div>
 
@@ -215,7 +207,7 @@ const GallerySection: React.FC = () => {
         }
         .animate-fade-blur-in { animation: fadeBlurIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
       `}} />
-    </>
+    </div>
   );
 };
 
