@@ -83,27 +83,27 @@ const FooterNav: React.FC = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="w-full max-w-[390px] bg-[rgba(236,236,232,0.85)] backdrop-blur-2xl border-t border-white/55 shadow-[0_-4px_16px_rgba(47,111,78,0.05)] pointer-events-auto pb-safe"
+          className="w-full max-w-[390px] bg-[rgba(236,236,232,0.88)] backdrop-blur-[12px] border-t border-[rgba(255,255,255,0.62)] shadow-[0_-2px_10px_rgba(31,65,46,0.08)] pointer-events-auto pb-safe"
           role="toolbar"
         >
           <div className="flex items-end justify-between px-[8px] py-[4px]">
             <motion.button
               onClick={handleSave}
               whileTap={{ scale: 0.92 }}
-              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-black/5 transition-colors"
+              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-[#2F6F4E]/6 transition-colors"
             >
-              <motion.div whileHover={{ scale: 1.1 }} className={`transition-colors duration-200 ${saved ? 'text-[#2F6F4E]' : 'text-[#4A5560]'}`}>
+              <motion.div whileHover={{ scale: 1.08 }} className={`transition-colors duration-200 ${saved ? 'text-[#1f4f36]' : 'text-[#4f5b53]'}`}>
                 {saved ? <BookmarkOutlinedIcon sx={{ fontSize: 20 }} /> : <BookmarkBorderOutlinedIcon sx={{ fontSize: 20 }} />}
               </motion.div>
-              <span className={`text-[11px] font-semibold tracking-wide transition-colors duration-200 ${saved ? 'text-[#2F6F4E]' : 'text-[#4A5560]'}`}>Save</span>
+              <span className={`text-[11px] font-semibold tracking-wide transition-colors duration-200 ${saved ? 'text-[#1f4f36]' : 'text-[#4f5b53]'}`}>Save</span>
             </motion.button>
 
             <motion.button
               onClick={handleHide}
               whileTap={{ scale: 0.92 }}
-              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-black/5 transition-colors text-[#4A5560]"
+              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-[#2F6F4E]/6 transition-colors text-[#4f5b53]"
             >
-              <motion.div whileHover={{ scale: 1.1 }}><VisibilityOffOutlinedIcon sx={{ fontSize: 20 }} /></motion.div>
+              <motion.div whileHover={{ scale: 1.08 }}><VisibilityOffOutlinedIcon sx={{ fontSize: 20 }} /></motion.div>
               <span className="text-[11px] font-semibold tracking-wide">Hide</span>
             </motion.button>
 
@@ -112,7 +112,7 @@ const FooterNav: React.FC = () => {
                 onClick={() => setAskSellerOpen(true)}
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.94 }}
-                className="w-[48px] h-[48px] rounded-[8px] flex items-center justify-center shadow-[0_6px_16px_rgba(47,111,78,0.3)] border-[1px] border-white/90 relative overflow-hidden group"
+                className="w-[48px] h-[48px] rounded-[8px] flex items-center justify-center shadow-[0_4px_12px_rgba(31,65,46,0.24)] border-[1px] border-white/90 relative overflow-hidden group"
                 style={{ background: 'linear-gradient(135deg, #2F6F4E, #1E4D35)' }}
               >
                 <motion.div 
@@ -122,24 +122,24 @@ const FooterNav: React.FC = () => {
                 />
                 <PhoneOutlinedIcon sx={{ fontSize: 22, color: '#ffffff' }} />
               </motion.button>
-              <span className="text-[11px] font-bold text-[#2F6F4E] tracking-wide mt-[4px]">Contact</span>
+              <span className="text-[11px] font-bold text-[#1f4f36] tracking-wide mt-[4px]">Contact</span>
             </div>
 
             <motion.button
               onClick={handleShare}
               whileTap={{ scale: 0.92 }}
-              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-black/5 transition-colors text-[#4A5560]"
+              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-[#2F6F4E]/6 transition-colors text-[#4f5b53]"
             >
-              <motion.div whileHover={{ scale: 1.1 }}><ShareOutlinedIcon sx={{ fontSize: 20 }} /></motion.div>
+              <motion.div whileHover={{ scale: 1.08 }}><ShareOutlinedIcon sx={{ fontSize: 20 }} /></motion.div>
               <span className="text-[11px] font-semibold tracking-wide">Share</span>
             </motion.button>
 
             <motion.button
               onClick={handleClose}
               whileTap={{ scale: 0.92 }}
-              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-black/5 transition-colors text-[#C65A3A]"
+              className="flex flex-col items-center gap-[2px] w-[52px] py-[4px] rounded-[4px] hover:bg-[#B84B2C]/8 transition-colors text-[#B84B2C]"
             >
-              <motion.div whileHover={{ scale: 1.1 }}><CloseOutlinedIcon sx={{ fontSize: 20 }} /></motion.div>
+              <motion.div whileHover={{ scale: 1.08 }}><CloseOutlinedIcon sx={{ fontSize: 20 }} /></motion.div>
               <span className="text-[11px] font-semibold tracking-wide">Close</span>
             </motion.button>
           </div>
@@ -155,7 +155,7 @@ const FooterNav: React.FC = () => {
             transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             className="fixed bottom-[80px] left-1/2 -translate-x-1/2 z-50 pointer-events-none"
           >
-            <div className="bg-[#1A1F24]/85 backdrop-blur-md text-white border-[1px] border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.15)] px-[16px] py-[8px] rounded-[4px] text-[12px] font-semibold font-inter tracking-wide text-center whitespace-nowrap">
+            <div className="bg-[#173625]/88 backdrop-blur-[10px] text-white border-[1px] border-white/12 shadow-[0_4px_12px_rgba(31,65,46,0.2)] px-[16px] py-[8px] rounded-[4px] text-[12px] font-semibold tracking-wide text-center whitespace-nowrap">
               {snack}
             </div>
           </motion.div>
@@ -179,14 +179,14 @@ const FooterNav: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 15, scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-              className="relative w-full max-w-[390px] bg-white/90 backdrop-blur-[40px] border-[1px] border-white/80 shadow-[0_24px_48px_rgba(0,0,0,0.12)] rounded-[8px] overflow-hidden flex flex-col"
+              className="relative w-full max-w-[390px] bg-[rgba(255,255,255,0.86)] backdrop-blur-[12px] border-[1px] border-[rgba(255,255,255,0.7)] shadow-[0_12px_24px_rgba(31,65,46,0.14)] rounded-[8px] overflow-hidden flex flex-col"
             >
               <div className="flex items-center justify-between px-[12px] py-[8px] border-b-[1px] border-black/5 bg-gradient-to-b from-white/60 to-transparent">
                 <div className="flex items-center gap-[6px]">
                   <div className="w-[26px] h-[26px] rounded-[4px] bg-[#2F6F4E]/10 border-[1px] border-[#2F6F4E]/20 flex items-center justify-center shadow-sm">
                     <HeadingIcon name="ask-seller" className="w-[14px] h-[14px] text-[#2F6F4E]" />
                   </div>
-                  <h3 className="text-[15px] font-extrabold text-[#1A1F24] tracking-tight">Contact Seller</h3>
+                  <h3 className="text-[15px] font-extrabold text-[#142218] tracking-tight">Contact Seller</h3>
                 </div>
                 <motion.button
                   whileHover={!isSubmitting ? { backgroundColor: 'rgba(0,0,0,0.06)' } : {}}
@@ -207,43 +207,49 @@ const FooterNav: React.FC = () => {
                 exit="hidden"
                 className="flex flex-col gap-[12px] p-[12px]"
               >
-                <motion.div variants={inputVariants} className="flex flex-col gap-[4px]">
-                  <label className="text-[12px] font-bold text-[#475569] px-[2px]">Full Name</label>
+                <motion.div variants={inputVariants} className="input-shell">
                   <input 
                     type="text" 
                     required
+                    aria-label="Full Name"
+                    title="Full Name"
                     disabled={isSubmitting}
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    placeholder="John Doe"
-                    className="w-full bg-white/50 border-[1px] border-black/10 rounded-[4px] px-[12px] py-[8px] text-[14px] font-medium text-[#1E293B] placeholder:text-[#94A3B8] focus:bg-white focus:outline-none focus:border-[#2F6F4E]/40 focus:ring-[2px] focus:ring-[#2F6F4E]/20 disabled:opacity-60 disabled:bg-black/5 disabled:cursor-not-allowed transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
+                    placeholder="Full Name"
+                    className="w-full bg-white/58 border-[1px] border-black/10 rounded-[8px] px-[12px] py-[10px] text-[14px] font-medium text-[#142218] placeholder:text-transparent focus:bg-white focus:outline-none focus:border-[#2F6F4E]/45 focus:shadow-[0_0_0_3px_rgba(34,197,94,0.18)] disabled:opacity-60 disabled:bg-black/5 disabled:cursor-not-allowed shadow-[inset_0_1px_2px_rgba(31,65,46,0.04)]"
                   />
+                  <label>Full Name</label>
                 </motion.div>
 
-                <motion.div variants={inputVariants} className="flex flex-col gap-[4px]">
-                  <label className="text-[12px] font-bold text-[#475569] px-[2px]">Phone Number</label>
+                <motion.div variants={inputVariants} className="input-shell">
                   <input 
                     type="tel" 
                     required
+                    aria-label="Phone Number"
+                    title="Phone Number"
                     disabled={isSubmitting}
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    placeholder="+91 00000 00000"
-                    className="w-full bg-white/50 border-[1px] border-black/10 rounded-[4px] px-[12px] py-[8px] text-[14px] font-medium text-[#1E293B] placeholder:text-[#94A3B8] focus:bg-white focus:outline-none focus:border-[#2F6F4E]/40 focus:ring-[2px] focus:ring-[#2F6F4E]/20 disabled:opacity-60 disabled:bg-black/5 disabled:cursor-not-allowed transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
+                    placeholder="Phone Number"
+                    className="w-full bg-white/58 border-[1px] border-black/10 rounded-[8px] px-[12px] py-[10px] text-[14px] font-medium text-[#142218] placeholder:text-transparent focus:bg-white focus:outline-none focus:border-[#2F6F4E]/45 focus:shadow-[0_0_0_3px_rgba(34,197,94,0.18)] disabled:opacity-60 disabled:bg-black/5 disabled:cursor-not-allowed shadow-[inset_0_1px_2px_rgba(31,65,46,0.04)]"
                   />
+                  <label>Phone Number</label>
                 </motion.div>
 
-                <motion.div variants={inputVariants} className="flex flex-col gap-[4px]">
-                  <label className="text-[12px] font-bold text-[#475569] px-[2px]">Message</label>
+                <motion.div variants={inputVariants} className="input-shell">
                   <textarea 
                     required
                     rows={3}
+                    aria-label="Message"
+                    title="Message"
                     disabled={isSubmitting}
                     value={formData.description}
                     onChange={(e) => setFormData({...formData, description: e.target.value})}
-                    placeholder="I am interested in this property..."
-                    className="w-full bg-white/50 border-[1px] border-black/10 rounded-[4px] px-[12px] py-[8px] text-[14px] font-medium text-[#1E293B] placeholder:text-[#94A3B8] focus:bg-white focus:outline-none focus:border-[#2F6F4E]/40 focus:ring-[2px] focus:ring-[#2F6F4E]/20 disabled:opacity-60 disabled:bg-black/5 disabled:cursor-not-allowed transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)] resize-none"
+                    placeholder="Message"
+                    className="w-full bg-white/58 border-[1px] border-black/10 rounded-[8px] px-[12px] py-[10px] text-[14px] font-medium text-[#142218] placeholder:text-transparent focus:bg-white focus:outline-none focus:border-[#2F6F4E]/45 focus:shadow-[0_0_0_3px_rgba(34,197,94,0.18)] disabled:opacity-60 disabled:bg-black/5 disabled:cursor-not-allowed shadow-[inset_0_1px_2px_rgba(31,65,46,0.04)] resize-none"
                   />
+                  <label>Message</label>
                 </motion.div>
 
                 <motion.div variants={inputVariants} className="mt-[4px]">
@@ -252,7 +258,7 @@ const FooterNav: React.FC = () => {
                     whileTap={!isSubmitting ? { scale: 0.98, y: 0 } : {}}
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full relative overflow-hidden rounded-[4px] py-[10px] flex items-center justify-center shadow-[0_6px_16px_rgba(47,111,78,0.25)] border-[1px] border-white/20 group disabled:opacity-70 disabled:cursor-not-allowed transition-all"
+                    className="w-full relative overflow-hidden rounded-[4px] py-[10px] flex items-center justify-center shadow-[0_4px_12px_rgba(31,65,46,0.22)] border-[1px] border-white/20 group disabled:opacity-70 disabled:cursor-not-allowed transition-all"
                     style={{ background: 'linear-gradient(135deg, #2F6F4E, #1E4D35)' }}
                   >
                     {!isSubmitting && (

@@ -104,6 +104,9 @@
 
   --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   --gradient-accent: linear-gradient(135deg, var(--color-secondary), var(--color-highlight));
+  --gradient-brand: linear-gradient(135deg, #22c55e, #4ade80, #86efac);
+  --gradient-surface: linear-gradient(160deg, #f7faf7 0%, #eef5ef 48%, #e8efe8 100%);
+  --gradient-soft: linear-gradient(145deg, rgba(34, 197, 94, 0.12), rgba(74, 222, 128, 0.08), rgba(134, 239, 172, 0.1));
 
   --bg-section-light: #ECECE8;
   --bg-section-muted: #E4E4E0;
@@ -152,11 +155,11 @@
 }
 
 .glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 10px rgba(31, 65, 46, 0.09);
   transition: transform var(--duration-normal) var(--ease-out),
     box-shadow var(--duration-normal) var(--ease-out),
     border-color var(--duration-normal) var(--ease-out);
@@ -164,14 +167,14 @@
 
 .glass-card:hover {
   transform: translateY(-2px);
-  border-color: var(--glass-border-hover);
-  box-shadow: var(--glass-shadow-hover);
+  border-color: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 4px 14px rgba(31, 65, 46, 0.12);
 }
 
 .glass-cta {
-  background: var(--gradient-primary);
-  backdrop-filter: blur(16px);
+  background: var(--gradient-brand);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 4px 20px var(--primary-alpha-25);
   color: var(--text-on-accent);
@@ -202,13 +205,164 @@
 }
 
 .glass-cta:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
+}
+
+.app-gradient-bg {
+  background: var(--gradient-surface);
+}
+
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  padding: 1px;
+  background: var(--gradient-soft);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.page-enter {
+  animation: pageEnter 260ms ease-in-out;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.985) translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 22%, rgba(255, 255, 255, 0.7) 50%, transparent 78%);
+  transform: translateX(-100%);
+  animation: skeletonShimmer 1.3s ease-in-out infinite;
+}
+
+@keyframes skeletonShimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.gradient-loader {
+  height: 8px;
+  width: 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.2), rgba(74, 222, 128, 0.55), rgba(134, 239, 172, 0.2));
+  background-size: 220% 100%;
+  animation: gradientShift 1.1s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.circular-loader {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 2px solid rgba(34, 197, 94, 0.2);
+  border-top-color: #22c55e;
+  animation: spinEase 900ms ease-in-out infinite;
+}
+
+@keyframes spinEase {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.soft-focus:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.22);
+}
+
+.input-shell {
+  position: relative;
+}
+
+.input-shell input,
+.input-shell textarea {
+  border-radius: 8px;
+  transition: border-color 240ms ease-in-out, box-shadow 240ms ease-in-out, background-color 240ms ease-in-out;
+}
+
+.input-shell label {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #55645b;
+  pointer-events: none;
+  transition: transform 240ms ease-in-out, top 240ms ease-in-out, font-size 240ms ease-in-out, color 240ms ease-in-out;
+  background: rgba(255, 255, 255, 0.84);
+  padding: 0 4px;
+  border-radius: 8px;
+}
+
+.input-shell textarea+label,
+.input-shell input:focus+label,
+.input-shell input:not(:placeholder-shown)+label,
+.input-shell textarea:focus+label,
+.input-shell textarea:not(:placeholder-shown)+label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: #1f4f36;
 }
 
 .glass-sticky {
   background: rgba(236, 236, 232, 0.82);
-  backdrop-filter: blur(var(--glass-blur-heavy)) saturate(1.3);
   -webkit-backdrop-filter: blur(var(--glass-blur-heavy)) saturate(1.3);
+  backdrop-filter: blur(var(--glass-blur-heavy)) saturate(1.3);
   border-bottom: 1px solid rgba(47, 111, 78, 0.08);
   box-shadow: 0 2px 12px rgba(0, 0, 0, .03);
   transition: background-color var(--duration-normal) var(--ease-out);
@@ -229,8 +383,8 @@
   gap: 12px;
   padding: 12px 16px;
   background: rgba(255, 255, 255, 0.52);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(47, 111, 78, 0.08);
 }
 
@@ -374,7 +528,6 @@
 
 .scrollbar-hide {
   -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {

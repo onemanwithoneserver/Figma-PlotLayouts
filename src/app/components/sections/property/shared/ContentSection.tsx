@@ -23,12 +23,12 @@ const ContentSection: React.FC<ContentSectionProps> = ({ title, action, children
 
   return (
     <div className={`flex flex-col w-full group p-[2px] ${className}`}>
-      <div className="flex items-center justify-between min-h-[48px] p-[2px] m-[2px]  relative z-20">
+      <div className="flex items-center justify-between min-h-[48px] p-[2px] m-[2px] relative z-20">
         <div className="flex items-center gap-[2px]">
-          <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#2F6F4E]/10 border border-[#2F6F4E]/20 shadow-sm transition-transform duration-300 group-hover:scale-105 m-[2px]">
+          <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#2F6F4E]/10 border border-[#2F6F4E]/18 shadow-[0_1px_4px_rgba(31,65,46,0.12)] transition-transform duration-300 group-hover:scale-[1.03] m-[2px]">
             <HeadingIcon name={iconName} className="w-4 h-4 text-[#2F6F4E]" />
           </div>
-          <h2 className="text-[16px] font-bold text-[#111827] tracking-tight leading-tight p-[2px]">
+          <h2 className="text-[16px] font-bold text-[#142218] tracking-tight leading-[1.2] p-[2px]">
             {title}
           </h2>
         </div>

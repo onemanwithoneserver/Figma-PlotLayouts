@@ -8,29 +8,24 @@ const VideoTourSection: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="w-full relative group cursor-pointer overflow-hidden rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] animate-fade-blur-in opacity-0">
-      {/* Thumbnail with slight zoom effect on hover */}
+    <div className="w-full relative group cursor-pointer overflow-hidden rounded-[8px] bg-[rgba(255,255,255,0.62)] backdrop-blur-[8px] border border-[rgba(255,255,255,0.68)] shadow-[0_1px_6px_rgba(31,65,46,0.08)] animate-fade-blur-in opacity-0">
       <div className="relative aspect-video overflow-hidden">
         <img
           src={videoTourData.thumbnailUrl}
           alt={videoTourData.thumbnailAlt}
-          className="w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.02]"
           loading="lazy"
         />
-        {/* Light shift overlay */}
-        <div className="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent skew-x-[-20deg] transition-all duration-[600ms] ease-in-out group-hover:left-[200%] pointer-events-none z-10" />
+        <div className="absolute inset-0 bg-[rgba(20,34,24,0.08)]" />
       </div>
 
-      {/* Main Play Action Area */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-        {/* Reduced gap from gap-3 to gap-1.5 */}
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className="pointer-events-auto flex flex-col items-center gap-1.5 focus:outline-none group/play"
+          className="pointer-events-auto flex flex-col items-center gap-1.5 focus:outline-none"
           aria-label={`Play video tour (${videoTourData.duration})`}
         >
-          {/* Glass Play Button */}
-          <div className="w-16 h-16 rounded-[8px] bg-[rgba(255,255,255,0.8)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] flex items-center justify-center shadow-[0_12px_32px_rgba(0,0,0,0.15)] transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/play:scale-110 group-hover/play:-translate-y-1 group-active/play:scale-95" 
+          <div className="w-16 h-16 rounded-[8px] bg-[rgba(255,255,255,0.82)] backdrop-blur-[8px] border border-[rgba(255,255,255,0.7)] flex items-center justify-center shadow-[0_2px_10px_rgba(31,65,46,0.12)] transition-all duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.04] group-active:scale-[0.98]" 
                style={{ backgroundColor: isPlaying ? 'rgba(47,111,78,0.9)' : undefined }}>
             <PlayCircleOutlineIcon 
               sx={{ fontSize: 36, color: isPlaying ? '#FFFFFF' : '#2F6F4E' }} 
@@ -38,32 +33,27 @@ const VideoTourSection: React.FC = () => {
             />
           </div>
           
-          <span className="text-white text-[11px] font-bold uppercase tracking-[0.1em] drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] opacity-90 group-hover/play:opacity-100 transition-opacity">
+          <span className="text-white text-[11px] font-bold uppercase tracking-[0.08em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)] opacity-95 transition-opacity">
             {videoTourData.ctaLabel}
           </span>
         </button>
       </div>
 
-      {/* Modern Video Controls Overlay */}
-      {/* Reduced height, padding, and translate-y */}
-      <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[rgba(0,0,0,0.5)] via-[rgba(0,0,0,0.2)] to-transparent flex items-end justify-between px-2.5 py-1.5 opacity-0 group-hover:opacity-100 transition-all duration-[280ms] translate-y-1 group-hover:translate-y-0 z-30">
-        {/* Reduced gap from gap-2 to gap-1 */}
+      <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[rgba(20,34,24,0.55)] via-[rgba(20,34,24,0.2)] to-transparent flex items-end justify-between px-2.5 py-1.5 opacity-0 group-hover:opacity-100 transition-all duration-[240ms] translate-y-[2px] group-hover:translate-y-0 z-30">
         <div className="flex items-center gap-1">
-          {/* Status Indicator - Changed rounded-full to rounded-[8px] */}
-          <div className="w-2 h-2 rounded-[8px] bg-[#C65A3A] animate-pulse shadow-[0_0_8px_rgba(198,90,58,0.8)]" />
+          <div className="w-2 h-2 rounded-[4px] bg-[#2F6F4E] animate-pulse shadow-[0_0_6px_rgba(47,111,78,0.7)]" />
           <span className="text-white/95 text-[11px] font-semibold tracking-wide">0:00 / {videoTourData.duration}</span>
         </div>
 
-        {/* Reduced gap from gap-4 to gap-2 */}
         <div className="flex items-center gap-2">
           <button
-            className="text-white/80 hover:text-white transition-all focus:outline-none hover:scale-110 active:scale-95"
+            className="text-white/80 hover:text-white transition-all duration-[240ms] focus:outline-none hover:scale-[1.04] active:scale-[0.98]"
             aria-label="Volume"
           >
             <VolumeUpOutlinedIcon sx={{ fontSize: 22 }} />
           </button>
           <button
-            className="text-white/80 hover:text-white transition-all focus:outline-none hover:scale-110 active:scale-95"
+            className="text-white/80 hover:text-white transition-all duration-[240ms] focus:outline-none hover:scale-[1.04] active:scale-[0.98]"
             aria-label="Fullscreen"
           >
             <FullscreenOutlinedIcon sx={{ fontSize: 22 }} />
