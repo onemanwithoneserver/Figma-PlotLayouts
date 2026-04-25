@@ -62,7 +62,6 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
           <span className="text-[14px] font-bold text-[#1A1A2E] tracking-tight">{value.label}</span>
         </div>
         <div className="flex items-center gap-2 relative z-10">
-          {/* Changed price color to distinct blue */}
           <span className="text-[12px] font-semibold text-[#2563EB]">
             ₹{value.pricePerSqYd.toLocaleString('en-IN')} / Sq.Yd
           </span>
@@ -100,7 +99,6 @@ const SizeDropdown = ({ value, onChange }: { value: Plot; onChange: (p: Plot) =>
                     </span>
                   </div>
                   <div className="text-right">
-                    {/* Changed price color to distinct blue */}
                     <p className={`text-[13px] font-bold ${plot.available ? 'text-[#2563EB]' : 'text-[#F5A623]'}`}>
                       ₹{(plot.totalPrice / 100000).toFixed(1)}L
                     </p>
@@ -129,7 +127,6 @@ const PricingRow = ({ tier }: { tier: PricingTier }) => (
         <p className="text-sm font-semibold text-[#1A1A2E]">{tier.label}</p>
         <p className="text-xs text-[#4A5568]">{tier.dimensions}</p>
       </div>
-      {/* Changed price color to distinct blue */}
       <p className="text-sm font-bold text-[#1A1A2E]">₹{tier.pricePerSqYd.toLocaleString('en-IN')}/sq yd</p>
     </div>
   </motion.div>
@@ -182,13 +179,13 @@ const CostTab = ({ selected, onSelect }: { selected: Plot; onSelect: (p: Plot) =
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="flex flex-col"
+      className="flex flex-col relative z-[100]"
     >
-      <motion.div variants={itemVariants}>
+      <motion.div variants={itemVariants} className="relative z-[100]">
         <SizeDropdown value={selected} onChange={onSelect} />
       </motion.div>
 
-      <motion.div variants={itemVariants} className="bg-white/60 backdrop-blur-md rounded-lg border border-[#E2E8F0] shadow-sm px-3 py-1.5 mb-3">
+      <motion.div variants={itemVariants} className="relative z-10 bg-white/60 backdrop-blur-md rounded-lg border border-[#E2E8F0] shadow-sm px-3 py-1.5 mb-3">
         {items.map((row, i) => (
           <div key={row.label}>
             <div className="flex items-center justify-between py-2">
@@ -202,13 +199,13 @@ const CostTab = ({ selected, onSelect }: { selected: Plot; onSelect: (p: Plot) =
 
       <motion.div 
         variants={itemVariants}
-        className="relative flex items-center justify-between px-3 py-3 rounded-[8px] bg-[#1A6B4A] shadow-[0_4px_12px_rgba(26,107,74,0.25)] transition-all duration-300 hover:-translate-y-[1px]"
+        className="relative z-10 flex items-center justify-between px-3 py-3 rounded-[8px] bg-[#1A6B4A] shadow-[0_4px_12px_rgba(26,107,74,0.25)] transition-all duration-300 hover:-translate-y-[1px]"
       >
         <p className="text-[14px] font-semibold text-[#FFFFFF] tracking-wide relative z-20">Total (approx.)</p>
         <p className="text-[20px] font-bold text-[#FFFFFF] tracking-tight relative z-20">{fmtINR(total)}</p>
       </motion.div>
 
-      <motion.p variants={itemVariants} className="text-[11px] font-medium text-[#4A5568] mt-2 italic text-center">
+      <motion.p variants={itemVariants} className="text-[11px] font-medium text-[#4A5568] mt-2 italic text-center relative z-10">
         * Varies based on unit selection &amp; statutory charges
       </motion.p>
     </motion.div>
@@ -264,7 +261,7 @@ const PaymentPlan: React.FC = () => {
         onTabChange={setActiveTab}
         layoutId="payment-active-pill"
       />
-      <div className="px-2 py-3 relative z-10">
+      <div className="px-2 py-3 relative z-[50]">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -280,7 +277,7 @@ const PaymentPlan: React.FC = () => {
         </AnimatePresence>
       </div>
 
-      <div className="px-0 pb-1">
+      <div className="px-0 pb-1 relative z-10">
         <AskSeller initialQuestions={paymentAskSellerQuestions} headingIconName="ask-seller" />
       </div>
     </div>
