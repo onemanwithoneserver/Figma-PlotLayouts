@@ -25,7 +25,7 @@ export const muiTheme = createTheme({
   },
   shape: { borderRadius: 4 },
   typography: {
-    fontFamily: '"Outfit", sans-serif',
+    fontFamily: '"Outfit"',
     h1: { fontSize: '2rem', fontWeight: 600, color: '#1A1A2E' },
     h2: { fontSize: '1.375rem', fontWeight: 600, color: '#1A1A2E' },
     h3: { fontSize: '1.125rem', fontWeight: 500, color: '#1A1A2E' },

@@ -4,6 +4,6 @@
 @import 'tw-animate-css';
 
 @theme {
-	--font-sans: 'Outfit', sans-serif;
-	--font-outfit: 'Outfit', sans-serif;
+	--font-sans: 'Outfit';
+	--font-outfit: 'Outfit';
 }

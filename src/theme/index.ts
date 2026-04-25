@@ -35,7 +35,7 @@ export const theme = createTheme({
     borderRadius: 8,
   },
   typography: {
-    fontFamily: 'Outfit, sans-serif',
+    fontFamily: 'Outfit',
     h6: {
       fontWeight: 700,
       color: '#1A1A2E',

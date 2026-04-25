@@ -66,7 +66,7 @@ const PdfIcon = ({ className = "" }: { className?: string }) => (
       fill="#1A1A2E"
       fontSize="8"
       fontWeight="800"
-      fontFamily="Outfit, sans-serif"
+      fontFamily="Outfit"
       letterSpacing="0.5"
     >
       PDF
