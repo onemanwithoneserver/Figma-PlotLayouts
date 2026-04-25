@@ -5,7 +5,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import HeadingIcon from '../shared/HeadingIcon';
 import { APPROVALS, CONSTRUCTION_STEPS, PROGRESS_PCT } from './data';
 
 type DotStatus = 'done' | 'active' | 'upcoming';
@@ -91,13 +90,6 @@ const ProjectTimeline: React.FC = () => {
 
   return (
     <section className="w-full font-inter bg-[#F5F7FA] p-4">
-      {/* Dynamic Header */}
-      <div className="flex items-center gap-2.5 px-4 pt-2 mb-1">
-        <div className="w-8 h-8 rounded-[8px] bg-[#D4F5E7] border border-[#1A6B4A]/20 flex items-center justify-center">
-          <HeadingIcon name="project-status" className="w-4 h-4 text-[#1A6B4A]" />
-        </div>
-        <h3 className="text-[15px] font-bold text-[#1A1A2E] tracking-tight">Project Progress</h3>
-      </div>
 
       <div className="px-2 py-2 animate-fade-blur-in opacity-0" style={{ animationDelay: '40ms' }}>
         <div className="rounded-[8px] bg-[rgba(255,255,255,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.6)] shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] px-4 py-4 overflow-hidden relative">

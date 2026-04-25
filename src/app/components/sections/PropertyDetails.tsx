@@ -96,10 +96,12 @@ const PropertyDetails: React.FC = () => {
             </FadeInSection>
 
             <FadeInSection delay={0.24}>
-              <div id="project-status" className="scroll-mt-[4px] relative z-10">
-                <Suspense fallback={<TimelineSkeleton />}>
-                  <ProjectTimeline />
-                </Suspense>
+              <div id="project-status" className={glassSectionClass}>
+                <ContentSection title="Project Progress">
+                  <Suspense fallback={<TimelineSkeleton />}>
+                    <ProjectTimeline />
+                  </Suspense>
+                </ContentSection>
               </div>
             </FadeInSection>
 

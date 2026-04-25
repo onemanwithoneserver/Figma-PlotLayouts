@@ -18,6 +18,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({ title, action, children
     'Location & Distance': 'location',
     Amenities: 'amenities',
     'Pricing & Payment Plans': 'pricing',
+    'Project Progress': 'project-status',
   };
 
   const iconName = iconByTitle[title] ?? 'default';
